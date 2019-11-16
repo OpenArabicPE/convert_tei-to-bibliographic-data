@@ -9,13 +9,9 @@
     exclude-result-prefixes="#all"
     version="3.0">
     <xsl:output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no" version="1.0"/>
-<!--    <xsl:strip-space elements="*"/>-->
-<!--    <xsl:preserve-space elements="tei:head tei:bibl"/>-->
-
-
-    <!-- this stylesheet generates a MODS XML file with bibliographic metadata for each <div> in the body of the TEI source file. File names are based on the source's @xml:id and the @xml:id of the <div>. -->
-    <!-- to do:
-        + add information on collaborators on the digital edition -->
+<!-- this stylesheet translates <tei:biblStruct>s to  <mods:mods> -->
+    
+    <!-- date conversion functions -->
 <!--    <xsl:include href="https://tillgrallert.github.io/xslt-calendar-conversion/functions/date-functions.xsl"/>-->
     <xsl:include href="../../../xslt-calendar-conversion/date-functions.xsl"/>
 

@@ -9,7 +9,7 @@
     <!-- this stylesheet generates a MODS XML file with bibliographic metadata for each <div> in the body of the TEI source file. File names are based on the source's @xml:id and the @xml:id of the <div>. -->
     <xsl:include href="convert_tei-to-biblstruct_functions.xsl"/>
     <xsl:include href="convert_tei-to-mods_functions.xsl"/>
-    <!-- all parameters and variables are set in Tei2Mods-functions.xsl -->
+    <!-- all parameters and variables are set in convert_tei-to-mods_functions.xsl -->
     <xsl:template match="/">
         <xsl:apply-templates select="descendant::tei:text/tei:body/descendant::tei:div"/>
     </xsl:template>
