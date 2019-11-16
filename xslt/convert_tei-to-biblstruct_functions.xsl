@@ -14,11 +14,12 @@
                 <!-- article title -->
                 <xsl:element name="title">
                     <xsl:attribute name="level" select="'a'"/>
+                    <xsl:attribute name="xml:lang" select="$p_input/@xml:lang"/>
                     <xsl:value-of select="oape:get-title-from-div($p_input)"/>
                 </xsl:element>
                 <!-- authorship  information -->
                 <xsl:element name="author">
-                    <xsl:copy-of select="oape:get-author-from-div($p_input)"/>
+                    <xsl:apply-templates select="oape:get-author-from-div($p_input)" mode="m_replicate"/>
                 </xsl:element>
                 <!-- IDs: URL -->
                 <xsl:for-each select="$p_input/ancestor::tei:TEI/tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type='url']">
@@ -113,7 +114,12 @@
     
     <xsl:template match="node() | @*" mode="m_replicate">
         <xsl:copy>
-            <xsl:apply-templates select="@* | node()" mode="m_replicate"/>
+            <xsl:apply-templates select="@*" mode="m_replicate"/>
+            <!-- add missing language information -->
+            <xsl:if test="not(@xml:lang)">
+                <xsl:attribute name="xml:lang" select="ancestor::node()[@xml:lang != ''][1]/@xml:lang"/>
+            </xsl:if>
+            <xsl:apply-templates select="node()" mode="m_replicate"/>
         </xsl:copy>
     </xsl:template>
     <xsl:template match="@xml:id | @change" mode="m_replicate"/>
