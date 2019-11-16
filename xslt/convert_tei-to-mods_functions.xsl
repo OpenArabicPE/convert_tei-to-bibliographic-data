@@ -44,8 +44,8 @@
                     </xsl:variable>
                     <xsl:value-of select="normalize-space($v_plain)"/>
                 </edition>-->
-                <xsl:apply-templates select="$p_input/descendant::tei:pubPlace" mode="m_tei2mods"/>
-                <xsl:apply-templates select="$p_input/descendant::tei:publisher" mode="m_tei2mods"/>
+                <xsl:apply-templates select="$p_input/descendant::tei:pubPlace" mode="m_tei-to-mods"/>
+                <xsl:apply-templates select="$p_input/descendant::tei:publisher" mode="m_tei-to-mods"/>
                 <dateIssued>
                     <xsl:if test="$p_input/descendant::tei:date/@when!=''">
                         <xsl:attribute name="encoding" select="'w3cdtf'"/>
@@ -172,28 +172,28 @@
         </xsl:variable>
         <xsl:variable name="v_part">
             <part>
-                <xsl:apply-templates select="$p_input/descendant::tei:biblScope"/>
+                <xsl:apply-templates select="$p_input/descendant::tei:biblScope" mode="m_tei-to-mods"/>
             </part>
         </xsl:variable>
         <xsl:variable name="v_editor">
             <!-- pull in information on editor -->
-            <xsl:apply-templates select="$p_input/descendant::tei:editor/tei:persName[@xml:lang = $p_lang]" mode="m_tei2mods"/>
+            <xsl:apply-templates select="$p_input/descendant::tei:editor/tei:persName[@xml:lang = $p_lang]" mode="m_tei-to-mods"/>
         </xsl:variable>
         <!-- construct output -->
         <mods>
             <!-- what is this ID? -->
-                <xsl:if test="$vgFileId !='' and @xml:id !=''">
+                <xsl:if test="$vgFileId !='' and $p_input/@xml:id !=''">
                     <xsl:attribute name="ID">
-                        <xsl:value-of select="concat($vgFileId,'-',@xml:id,'-mods')"/>
+                        <xsl:value-of select="concat($vgFileId,'-',$p_input/@xml:id,'-mods')"/>
                     </xsl:attribute>
                 </xsl:if>
             <titleInfo>
                     <xsl:choose>
                         <xsl:when test="$p_input/descendant::tei:title[@level='a']">
-                            <xsl:apply-templates select="$p_input/descendant::tei:title[@level='a']" mode="m_tei2mods"/>
+                            <xsl:apply-templates select="$p_input/descendant::tei:title[@level='a']" mode="m_tei-to-mods"/>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:apply-templates select="$p_input/descendant::tei:title[not(@level='a')]" mode="m_tei2mods"/>
+                            <xsl:apply-templates select="$p_input/descendant::tei:title[not(@level='a')]" mode="m_tei-to-mods"/>
                         </xsl:otherwise>
                     </xsl:choose>
             </titleInfo>
@@ -220,19 +220,19 @@
                 </xsl:when>
             </xsl:choose>
             <!-- for each author -->
-            <xsl:apply-templates select="$p_input/descendant::tei:author/tei:persName" mode="m_tei2mods"/>
+            <xsl:apply-templates select="$p_input/descendant::tei:author/tei:persName" mode="m_tei-to-mods"/>
            
             <xsl:choose>
                 <xsl:when test="$p_input/descendant::tei:title[@level='a']">
             <relatedItem type="host">
                 <titleInfo>
-                   <xsl:apply-templates select="$p_input/descendant::tei:title[@xml:lang=$p_lang][not(@level='a')]" mode="m_tei2mods"/>
+                   <xsl:apply-templates select="$p_input/descendant::tei:title[@xml:lang=$p_lang][not(@level='a')]" mode="m_tei-to-mods"/>
                 </titleInfo>
                 <genre authority="marcgt">journal</genre>
                 <xsl:copy-of select="$v_editor"/>
                 <xsl:copy-of select="$v_originInfo"/>
                 <xsl:copy-of select="$v_part"/>
-                <xsl:apply-templates select="$p_input/descendant::tei:idno" mode="m_tei2mods"/>
+                <xsl:apply-templates select="$p_input/descendant::tei:idno" mode="m_tei-to-mods"/>
             </relatedItem>
                 </xsl:when>
                 <xsl:otherwise>
@@ -258,13 +258,13 @@
             <!-- language information -->
             <xsl:choose>
                 <xsl:when test="$p_input/descendant::tei:textLang">
-                    <xsl:apply-templates select="$p_input/descendant::tei:textLang" mode="m_tei2mods"/>
+                    <xsl:apply-templates select="$p_input/descendant::tei:textLang" mode="m_tei-to-mods"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:variable name="v_lang">
                         <tei:textLang><xsl:value-of select="$p_lang"/></tei:textLang>
                     </xsl:variable>
-                    <xsl:apply-templates select="$v_lang/tei:textLang" mode="m_tei2mods"/>
+                    <xsl:apply-templates select="$v_lang/tei:textLang" mode="m_tei-to-mods"/>
                 </xsl:otherwise>
             </xsl:choose>
         </mods>
@@ -289,7 +289,7 @@
     <xsl:template match="tei:head/tei:note" mode="m_plain-text" priority="100"/>
 
     <!-- transform TEI names to MODS -->
-    <xsl:template match="tei:surname | tei:persName" mode="m_tei2mods">
+    <xsl:template match="tei:surname | tei:persName" mode="m_tei-to-mods">
         <namePart type="family" xml:lang="{@xml:lang}">
             <xsl:variable name="v_plain">
                 <xsl:apply-templates select="." mode="m_plain-text"/>
@@ -297,7 +297,7 @@
             <xsl:value-of select="normalize-space($v_plain)"/>
         </namePart>
     </xsl:template>
-    <xsl:template match="tei:forename" mode="m_tei2mods">
+    <xsl:template match="tei:forename" mode="m_tei-to-mods">
         <namePart type="given" xml:lang="{@xml:lang}">
             <xsl:variable name="v_plain">
                 <xsl:apply-templates select="." mode="m_plain-text"/>
@@ -305,7 +305,7 @@
             <xsl:value-of select="normalize-space($v_plain)"/>
         </namePart>
     </xsl:template>
-<!--    <xsl:template match="tei:persName" mode="m_tei2mods">
+<!--    <xsl:template match="tei:persName" mode="m_tei-to-mods">
         <xsl:param name="p_lang"/>
         <namePart type="family" xml:lang="{$p_lang}">
             <xsl:value-of select="."/>
@@ -313,7 +313,7 @@
     </xsl:template>-->
     
     
-    <xsl:template match="tei:publisher/tei:orgName | tei:publisher/tei:persName" mode="m_tei2mods">
+    <xsl:template match="tei:publisher/tei:orgName | tei:publisher/tei:persName" mode="m_tei-to-mods">
         <!-- tei:publisher can have a variety of child nodes, which are completely ignored by this template -->
             <publisher xml:lang="{@xml:lang}">
                 <xsl:variable name="v_plain">
@@ -323,13 +323,13 @@
             </publisher>
     </xsl:template>
     
-    <xsl:template match="tei:pubPlace" mode="m_tei2mods">
+    <xsl:template match="tei:pubPlace" mode="m_tei-to-mods">
         <place>
-            <xsl:apply-templates mode="m_tei2mods"/>
+            <xsl:apply-templates mode="m_tei-to-mods"/>
         </place>
     </xsl:template>
     
-    <xsl:template match="tei:placeName" mode="m_tei2mods">
+    <xsl:template match="tei:placeName" mode="m_tei-to-mods">
         <placeTerm type="text" xml:lang="{@xml:lang}">
             <xsl:variable name="v_plain">
                 <xsl:apply-templates select="." mode="m_plain-text"/>
@@ -357,7 +357,7 @@
     </xsl:template>
     
     <!-- IDs -->
-    <xsl:template match="tei:idno" mode="m_tei2mods">
+    <xsl:template match="tei:idno" mode="m_tei-to-mods">
         <identifier type="{@type}">
             <xsl:variable name="v_plain">
                 <xsl:apply-templates select="." mode="m_plain-text"/>
@@ -367,7 +367,7 @@
     </xsl:template>
     
     <!-- source languages -->
-    <xsl:template match="tei:textLang" mode="m_tei2mods">
+    <xsl:template match="tei:textLang" mode="m_tei-to-mods">
         <language>
             <languageTerm type="code" authorityURI="http://www.iana.org/assignments/language-subtag-registry/language-subtag-registry">
                 <xsl:value-of select="."/>
@@ -376,7 +376,7 @@
     </xsl:template>
     
     <!-- titles -->
-    <xsl:template match="tei:title" mode="m_tei2mods">
+    <xsl:template match="tei:title" mode="m_tei-to-mods">
         <xsl:choose>
             <xsl:when test="@type='sub'">
                 <subTitle lang="{@xml:lang}">
@@ -398,7 +398,7 @@
     </xsl:template>
     
     <!-- volume, issue, pages -->
-    <xsl:template match="tei:biblScope[@unit=('volume','issue')]" mode="m_tei2mods">
+    <xsl:template match="tei:biblScope[@unit=('volume' , 'issue')]" mode="m_tei-to-mods">
         <detail type="{@unit}">
             <number>
                 <xsl:choose>
@@ -421,7 +421,7 @@
             </number>
         </detail>
     </xsl:template>
-    <xsl:template match="tei:biblScope[@unit=('page')]" mode="m_tei2mods">
+    <xsl:template match="tei:biblScope[@unit=('page')]" mode="m_tei-to-mods">
         <extent unit="pages">
                         <start>
                             <xsl:value-of select="@from"/>
@@ -433,7 +433,7 @@
     </xsl:template>
     
     <!-- editors -->
-    <xsl:template match="tei:editor/tei:persName" mode="m_tei2mods">
+    <xsl:template match="tei:editor/tei:persName" mode="m_tei-to-mods">
                     <name type="personal" xml:lang="{@xml:lang}">
                         <!-- check if the <tei:editor> or its children contain references to authority files -->
                         <xsl:choose>
@@ -446,12 +446,12 @@
                         </xsl:choose>
                         <xsl:choose>
                             <xsl:when test="tei:surname">
-                                <xsl:apply-templates select="tei:surname" mode="m_tei2mods"/>
-                                <xsl:apply-templates select="tei:forename" mode="m_tei2mods"/>
+                                <xsl:apply-templates select="tei:surname" mode="m_tei-to-mods"/>
+                                <xsl:apply-templates select="tei:forename" mode="m_tei-to-mods"/>
                             </xsl:when>
                             <xsl:otherwise>
                                 <!-- what should happen if there is neither surname nor forename? -->
-                                <xsl:apply-templates select="self::tei:persName" mode="m_tei2mods"/>
+                                <xsl:apply-templates select="self::tei:persName" mode="m_tei-to-mods"/>
                             </xsl:otherwise>
                         </xsl:choose>
                         <role>
@@ -460,18 +460,18 @@
                     </name>
     </xsl:template>
     
-    <xsl:template match="tei:author/tei:persName" mode="m_tei2mods">
+    <xsl:template match="tei:author/tei:persName" mode="m_tei-to-mods">
                     <name type="personal" xml:lang="{@xml:lang}">
                         <!-- add references to authority files -->
                         <xsl:apply-templates select="." mode="m_authority"/>
                         <xsl:choose>
                             <xsl:when test="tei:surname">
-                                <xsl:apply-templates select="tei:surname" mode="m_tei2mods"/>
-                                <xsl:apply-templates select="tei:forename" mode="m_tei2mods"/>
+                                <xsl:apply-templates select="tei:surname" mode="m_tei-to-mods"/>
+                                <xsl:apply-templates select="tei:forename" mode="m_tei-to-mods"/>
                             </xsl:when>
                             <xsl:otherwise>
                                 <!-- what should happen if there is neither surname nor forename? -->
-                                <xsl:apply-templates select="self::tei:persName" mode="m_tei2mods"/>
+                                <xsl:apply-templates select="self::tei:persName" mode="m_tei-to-mods"/>
                             </xsl:otherwise>
                         </xsl:choose>
                         <role>
