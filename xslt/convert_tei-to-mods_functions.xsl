@@ -228,7 +228,8 @@
                 <xsl:copy-of select="$v_editor"/>
                 <xsl:copy-of select="$v_originInfo"/>
                 <xsl:copy-of select="$v_part"/>
-                <xsl:apply-templates select="$p_input/descendant::tei:idno" mode="m_tei-to-mods"/>
+                <!-- IDs: but not URL -->
+                <xsl:apply-templates select="$p_input/descendant::tei:idno[not(@type='url')]" mode="m_tei-to-mods"/>
             </relatedItem>
                 </xsl:when>
                 <xsl:otherwise>
