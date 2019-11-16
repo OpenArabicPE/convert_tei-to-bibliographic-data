@@ -12,3 +12,4 @@ This repository contains code to generate a variety of bibliographic metadata fo
     1. MODS XML
     2. BibTeX
     3. CSV: **to do**
+    4. TSS XML: **to do**
