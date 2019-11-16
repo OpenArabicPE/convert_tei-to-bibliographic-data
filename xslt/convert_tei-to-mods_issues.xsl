@@ -10,6 +10,9 @@
     <!-- this stylesheet generates a MODS XML file with bibliographic metadata for each <div> in the body of the TEI source file. File names are based on the source's @xml:id and the @xml:id of the <div>. -->
     <xsl:include href="convert_tei-to-biblstruct_functions.xsl"/>
     <xsl:include href="convert_tei-to-mods_functions.xsl"/>
+    
+    <xsl:param name="p_target-language" select="'ar'"/>
+    
     <xsl:template match="/">
         <xsl:result-document href="../metadata/issues/{$vgFileId}.MODS.xml">
             <modsCollection xsi:schemaLocation="http://www.loc.gov/mods/v3 {$v_schema}">
@@ -26,7 +29,7 @@
             <!-- prevent output for sections of articles -->
             <xsl:when test="parent::tei:div[@type = 'item']"/>
             <xsl:when test="@type = ('section', 'item')">
-                <xsl:copy-of select="oape:bibliography-tei-to-mods(oape:bibliography-tei-div-to-biblstruct(.),'ar')"/>
+                <xsl:copy-of select="oape:bibliography-tei-to-mods(oape:bibliography-tei-div-to-biblstruct(.), $p_target-language)"/>
             </xsl:when>
         </xsl:choose>
     </xsl:template>

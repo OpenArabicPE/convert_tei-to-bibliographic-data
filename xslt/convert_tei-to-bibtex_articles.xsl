@@ -10,6 +10,9 @@
     <!-- this stylesheet generates a Bibtex file with bibliographic metadata for each <div> in the body of the TEI source file. File names are based on the source's @xml:id and the @xml:id of the <div>. -->
     <xsl:include href="convert_tei-to-biblstruct_functions.xsl"/>
     <xsl:include href="convert_tei-to-bibtex_functions.xsl"/>
+    
+    <xsl:param name="p_target-language" select="'ar'"/>
+    
     <!-- all parameters and variables are set in Tei2BibTex-functions.xsl -->
     <xsl:template match="/">
         <xsl:apply-templates select="descendant::tei:text/tei:body/descendant::tei:div"/>
@@ -29,7 +32,7 @@
                 <xsl:result-document href="../metadata/{concat($vgFileId,'-',@xml:id)}.bib"
                     method="text">
                     <xsl:call-template name="t_file-head"/>
-                   <xsl:copy-of select="oape:bibliography-tei-to-bibtex(oape:bibliography-tei-div-to-biblstruct(.),'ar')"/>
+                   <xsl:copy-of select="oape:bibliography-tei-to-bibtex(oape:bibliography-tei-div-to-biblstruct(.), $p_target-language)"/>
                 </xsl:result-document>
             </xsl:when>
             <xsl:otherwise/>
