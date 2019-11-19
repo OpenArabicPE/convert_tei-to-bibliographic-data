@@ -429,38 +429,21 @@
                     </extent>
     </xsl:template>
     
-    <!-- editors -->
-    <xsl:template match="tei:editor/tei:persName" mode="m_tei-to-mods">
-                    <name type="personal" xml:lang="{@xml:lang}">
-                        <!-- check if the <tei:editor> or its children contain references to authority files -->
-                        <xsl:choose>
-                            <xsl:when test="matches(ancestor::tei:editor/@ref, 'viaf:\d+')">
-                                <xsl:apply-templates select="ancestor::tei:editor" mode="m_authority"/>
-                            </xsl:when>
-                            <xsl:when test="matches(@ref, 'viaf:\d+')">
-                                <xsl:apply-templates select="." mode="m_authority"/>
-                            </xsl:when>
-                        </xsl:choose>
-                        <xsl:choose>
-                            <xsl:when test="tei:surname">
-                                <xsl:apply-templates select="tei:surname" mode="m_tei-to-mods"/>
-                                <xsl:apply-templates select="tei:forename" mode="m_tei-to-mods"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <!-- what should happen if there is neither surname nor forename? -->
-                                <xsl:apply-templates select="self::tei:persName" mode="m_tei-to-mods"/>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                        <role>
-                            <roleTerm authority="marcrelator" type="code">edt</roleTerm>
-                        </role>
-                    </name>
-    </xsl:template>
-    
-    <xsl:template match="tei:author/tei:persName" mode="m_tei-to-mods">
+    <!-- contributors -->
+    <xsl:template match="tei:editor/tei:persName | tei:author/tei:persName" mode="m_tei-to-mods" priority="10">
                     <name type="personal" xml:lang="{@xml:lang}">
                         <!-- add references to authority files -->
-                        <xsl:apply-templates select="." mode="m_authority"/>
+                        <xsl:choose>
+                            <xsl:when test="matches(parent::tei:editor/@ref, 'viaf:\d+')">
+                                <xsl:apply-templates select="parent::tei:editor" mode="m_authority"/>
+                            </xsl:when>
+                            <!--<xsl:when test="matches(@ref, 'viaf:\d+')">
+                                <xsl:apply-templates select="." mode="m_authority"/>
+                            </xsl:when>-->
+                            <xsl:otherwise>
+                                <xsl:apply-templates select="." mode="m_authority"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
                         <xsl:choose>
                             <xsl:when test="tei:surname">
                                 <xsl:apply-templates select="tei:surname" mode="m_tei-to-mods"/>
@@ -468,11 +451,20 @@
                             </xsl:when>
                             <xsl:otherwise>
                                 <!-- what should happen if there is neither surname nor forename? -->
-                                <xsl:apply-templates select="self::tei:persName" mode="m_tei-to-mods"/>
+                                <xsl:apply-templates select="self::tei:persName" mode="m_plain-text"/>
                             </xsl:otherwise>
                         </xsl:choose>
                         <role>
-                            <roleTerm authority="marcrelator" type="code">aut</roleTerm>
+                            <roleTerm authority="marcrelator" type="code">
+                                <xsl:choose>
+                                    <xsl:when test="parent::tei:editor">
+                                        <xsl:text>edt</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="parent::tei:author">
+                                        <xsl:text>aut</xsl:text>
+                                    </xsl:when>
+                                </xsl:choose>
+                            </roleTerm>
                         </role>
                     </name>
                 </xsl:template>

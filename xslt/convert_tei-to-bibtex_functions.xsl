@@ -94,7 +94,7 @@
                 <xsl:apply-templates select="tei:forename" mode="m_tei-to-bibtex"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="." mode="m_tei-to-bibtex"/>
+                <xsl:apply-templates select="." mode="m_plain-text"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -137,6 +137,14 @@
             <xsl:value-of select="@mainLang"/>
             <xsl:text>}, </xsl:text><xsl:value-of select="$v_new-line"/>
     </xsl:template> 
+    
+    <!-- plain text output: beware that heavily marked up nodes will have most whitespace omitted -->
+    <xsl:template match="text()" mode="m_plain-text">
+<!--        <xsl:value-of select="normalize-space(replace(.,'(\w)[\s|\n]+','$1 '))"/>-->
+        <xsl:text> </xsl:text>
+        <xsl:value-of select="normalize-space(.)"/>
+        <xsl:text> </xsl:text>
+    </xsl:template>
 
     <!-- construct the head of the BibTeX file -->
     <xsl:template name="t_file-head">
