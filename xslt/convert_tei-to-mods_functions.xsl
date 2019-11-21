@@ -40,7 +40,9 @@
                     </xsl:variable>
                     <xsl:value-of select="normalize-space($v_plain)"/>
                 </edition>-->
-                <xsl:apply-templates select="$p_input/descendant::tei:pubPlace" mode="m_tei-to-mods"/>
+                <place>
+                    <xsl:apply-templates select="$p_input/descendant::tei:pubPlace[@xml:lang = $p_lang]" mode="m_tei-to-mods"/>
+                </place>
                 <xsl:apply-templates select="$p_input/descendant::tei:publisher" mode="m_tei-to-mods"/>
                 <dateIssued>
                     <xsl:if test="$p_input/descendant::tei:date/@when!=''">
@@ -320,14 +322,16 @@
             </publisher>
     </xsl:template>
     
-    <xsl:template match="tei:pubPlace" mode="m_tei-to-mods">
+    <!--<xsl:template match="tei:pubPlace" mode="m_tei-to-mods">
         <place>
             <xsl:apply-templates mode="m_tei-to-mods"/>
         </place>
-    </xsl:template>
+    </xsl:template>-->
     
     <xsl:template match="tei:placeName" mode="m_tei-to-mods">
         <placeTerm type="text" xml:lang="{@xml:lang}">
+            <!-- add references to authority files  -->
+            <xsl:apply-templates select="." mode="m_authority"/>
             <xsl:variable name="v_plain">
                 <xsl:apply-templates select="." mode="m_plain-text"/>
             </xsl:variable>
@@ -351,6 +355,24 @@
                     </xsl:when>
                 </xsl:choose>
             </xsl:if>
+    </xsl:template>
+    
+    <xsl:template match="tei:placeName" mode="m_authority">
+        <xsl:if test="@ref!=''">
+             <xsl:choose>
+                    <!-- note that MODS seemingly supports only one authority file -->
+                    <xsl:when test="matches(@ref, 'geon:\d+')">
+                        <xsl:attribute name="authority" select="'geonames'"/>
+                        <!-- it is arguably better to directly dereference VIAF IDs -->
+                        <xsl:attribute name="valueURI" select="replace(@ref,'.*geon:(\d+).*','https://www.geonames.org/$1')"/>
+                    </xsl:when>
+                    <xsl:when test="matches(@ref, 'oape:place:\d+')">
+                        <xsl:attribute name="authority" select="'oape'"/>
+                        <!-- OpenArabicPE IDs do not resolve -->
+                        <xsl:attribute name="valueURI" select="replace(@ref,'.*(oape:place:\d+).*','$1')"/>
+                    </xsl:when>
+                </xsl:choose>
+        </xsl:if>
     </xsl:template>
     
     <!-- IDs -->
@@ -451,7 +473,10 @@
                             </xsl:when>
                             <xsl:otherwise>
                                 <!-- what should happen if there is neither surname nor forename? -->
-                                <xsl:apply-templates select="self::tei:persName" mode="m_plain-text"/>
+                                <!-- there should still be a wrapper node -->
+                                <namePart>
+                                    <xsl:apply-templates select="self::tei:persName" mode="m_plain-text"/>
+                                </namePart>
                             </xsl:otherwise>
                         </xsl:choose>
                         <role>
