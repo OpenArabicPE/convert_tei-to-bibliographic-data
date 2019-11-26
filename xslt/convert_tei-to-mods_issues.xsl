@@ -28,6 +28,8 @@
                 test="ancestor::tei:div[@type = 'bill'] or ancestor::tei:div[@subtype = 'bill']"/>
             <!-- prevent output for sections of articles -->
             <xsl:when test="parent::tei:div[@type = 'item']"/>
+            <!-- prevent output for mastheads -->
+            <xsl:when test="@type = 'item' and @subtype = 'masthead'"/>
             <xsl:when test="@type = ('section', 'item')">
                 <xsl:copy-of select="oape:bibliography-tei-to-mods(oape:bibliography-tei-div-to-biblstruct(.), $p_target-language)"/>
             </xsl:when>

@@ -26,6 +26,8 @@
             <xsl:when test="@type='masthead' or @subtype='masthead'"/>
             <!-- prevent output for sections of articles -->
             <xsl:when test="ancestor::tei:div[@type='item']"/>
+            <!-- prevent output for mastheads -->
+            <xsl:when test="@type = 'item' and @subtype = 'masthead'"/>
             <xsl:when test="@type = ('section', 'item')">
                 <xsl:result-document href="../metadata/{concat($vgFileId,'-',@xml:id)}.MODS.xml">
                     <xsl:element name="modsCollection">

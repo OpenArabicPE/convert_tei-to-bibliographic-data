@@ -4,7 +4,7 @@
     xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xpath-default-namespace="http://www.tei-c.org/ns/1.0">
-    <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no" version="1.0"/>
+    <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no" version="1.0" name="xml"/>
     <!-- this stylesheets takes a <tei:div> as input and generates a <biblStruct> -->
     <xsl:function name="oape:bibliography-tei-div-to-biblstruct">
         <xsl:param name="p_input"/>
@@ -35,6 +35,11 @@
                 <xsl:apply-templates select="$v_source-monogr/tei:title" mode="m_replicate"/>
                 <!-- IDs -->
                 <xsl:apply-templates select="$v_source-monogr/tei:idno" mode="m_replicate"/>
+                <!-- add file name as ID -->
+                <xsl:element name="tei:idno">
+                    <xsl:attribute name="type" select="'URI'"/>
+                    <xsl:value-of select="$p_input/ancestor::tei:TEI/@xml:id"/>
+                </xsl:element>
                 <!-- text languages -->
                 <xsl:apply-templates select="$v_source-monogr/tei:textLang" mode="m_replicate"/>
                 <!-- editor -->
