@@ -14,6 +14,7 @@
     <xsl:template match="/">
         <xsl:result-document href="../metadata/issues/{$vgFileId}.csv" method="text">
             <xsl:value-of select="$v_csv-head"/>
+            <xsl:value-of select="$v_new-line"/>
                 <!-- construct CSV -->
                 <xsl:apply-templates select="descendant::tei:text/tei:body/descendant::tei:div"/>
         </xsl:result-document>

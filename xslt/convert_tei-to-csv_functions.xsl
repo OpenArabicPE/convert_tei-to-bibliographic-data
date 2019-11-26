@@ -16,7 +16,9 @@
     <xsl:include href="../../tools/xslt/openarabicpe_functions.xsl"/>
     
     <xsl:variable name="v_new-line" select="'&#x0A;'"/>
-    <xsl:variable name="v_seperator" select="'&quot;,&quot;'"/>
+    <xsl:variable name="v_quot" select="'&quot;'"/>
+    <xsl:variable name="v_comma" select="','"/>
+    <xsl:variable name="v_seperator" select="concat($v_quot,$v_comma,$v_quot)"/>
     <xsl:variable name="v_separator-attribute-key" select="'_'"/>
     <xsl:variable name="v_separator-attribute-value" select="'.'"/>
     
@@ -42,7 +44,7 @@
     
     <xsl:variable name="v_csv-head">
         <!-- csv head -->
-            <xsl:text>"</xsl:text>
+            <xsl:value-of select="$v_quot"/>
             <xsl:text>article.id</xsl:text><xsl:value-of select="$v_seperator"/>
             <xsl:text>stylo.file.id</xsl:text><xsl:value-of select="$v_seperator"/>
             <!-- information of journal issue -->
@@ -64,8 +66,8 @@
             <xsl:text>author.birth</xsl:text><xsl:value-of select="$v_seperator"/>
             <xsl:text>author.death</xsl:text><xsl:value-of select="$v_seperator"/>
             <xsl:text>works.viaf.count</xsl:text><xsl:value-of select="$v_seperator"/>
-            <xsl:text>page.count</xsl:text>
-            <xsl:value-of select="$v_new-line"/>
+            <xsl:text>page.count</xsl:text><xsl:value-of select="$v_quot"/>
+<!--            <xsl:value-of select="$v_new-line"/>-->
     </xsl:variable>
     
     <!--<xsl:template match="tei:biblStruct">
@@ -139,7 +141,7 @@
                     <xsl:value-of select="concat($v_separator-attribute-key, 'oclc',$v_separator-attribute-value,$v_id-publication, $v_separator-attribute-key,'v',$v_separator-attribute-value,translate($v_volume,'/','-'),$v_separator-attribute-key,'i',$v_separator-attribute-value, $v_issue,$v_separator-attribute-key,$v_id-div,'.txt')"/>
         </xsl:variable>
                 <!-- article ID -->
-                <xsl:text>"</xsl:text>
+                <xsl:value-of select="$v_quot"/>
                 <xsl:value-of select="concat($v_id-file, '-', $v_id-div)"/>
                 <xsl:value-of select="$v_seperator"/>
                 <!-- stylo file name / ID -->
@@ -214,7 +216,8 @@
                 <!-- number of pages -->
                 <xsl:value-of select="$v_page-count"/>
                 <!-- end of line -->
-                <xsl:value-of select="$v_new-line"/>
+        <xsl:value-of select="$v_quot"/>
+<!--                <xsl:value-of select="$v_new-line"/>-->
     </xsl:function>
     
      <xsl:template match="tei:lb | tei:cb | tei:pb" mode="m_tei-to-csv">
