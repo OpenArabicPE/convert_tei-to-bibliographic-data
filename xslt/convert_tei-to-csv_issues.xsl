@@ -30,6 +30,7 @@
             <xsl:when test="@type = 'item' and @subtype = 'masthead'"/>
             <xsl:when test="@type = ('section', 'item')">
                 <xsl:copy-of select="oape:bibliography-tei-to-csv(oape:bibliography-tei-div-to-biblstruct(.))"/>
+                <xsl:value-of select="$v_new-line"/>
             </xsl:when>
         </xsl:choose>
     </xsl:template>

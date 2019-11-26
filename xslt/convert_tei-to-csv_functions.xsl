@@ -85,7 +85,7 @@
             - edition
         -->
         <xsl:variable name="v_id-file" select="$p_input/tei:monogr/tei:idno[@type = 'URI'][matches(.,'^oclc_')][1]"/>
-        <xsl:variable name="v_id-div"/>
+        <xsl:variable name="v_id-div" select="substring-after($p_input/descendant::tei:idno[@type = 'url'][ contains(.,'xml#')][1], '#')"/>
         <xsl:variable name="v_id-publication" select="$p_input/descendant::tei:idno[@type='OCLC'][1]"/>
         <xsl:variable name="v_title-publication"  select="oape:query-bibliography($p_input/tei:monogr/tei:title[1],$v_bibliography,$v_gazetteer,'name',$p_output-language-titles)"/>
         <xsl:variable name="v_publication-place" select="$p_input/tei:monogr/tei:imprint/tei:pubPlace[1]/tei:placeName[1]"/>
@@ -100,6 +100,7 @@
                 </xsl:when>
             </xsl:choose>
         </xsl:variable>
+        <xsl:variable name="v_id-author-oape" select="oape:query-personography($v_author/descendant-or-self::tei:persName[1],$v_personography,'oape','')"/>
         <!--<xsl:message>
             <xsl:copy-of select="$v_author"/>
         </xsl:message>-->
@@ -124,15 +125,15 @@
             select="$p_input/tei:monogr/tei:imprint/tei:date[@when][1]/@when"/>
         <xsl:variable name="v_id-stylo">
                     <xsl:choose>
-                        <xsl:when test="$v_author/tei:persName/@ref">
+                        <xsl:when test="$v_author/descendant-or-self::tei:persName/@ref">
                             <xsl:value-of select="concat('oape', $v_separator-attribute-value)"/>
-                            <xsl:value-of select="oape:query-personography($v_author/tei:persName[1],$v_personography,'oape','')"/>
+                            <xsl:value-of select="oape:query-personography($v_author/descendant-or-self::tei:persName[1],$v_personography,'oape','')"/>
                         </xsl:when>
-                        <xsl:when test="$v_author/tei:surname">
-                            <xsl:value-of select="$v_author/tei:surname"/>
+                        <xsl:when test="$v_author/descendant::tei:surname">
+                            <xsl:value-of select="$v_author/descendant::tei:surname"/>
                         </xsl:when>
-                        <xsl:when test="$v_author/tei:persName">
-                            <xsl:value-of select="$v_author/tei:persName"/>
+                        <xsl:when test="$v_author/descendant::tei:persName">
+                            <xsl:value-of select="$v_author/descendant::tei:persName"/>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:text>NN</xsl:text>
@@ -202,7 +203,7 @@
         <xsl:value-of select="oape:query-personography($v_author/descendant-or-self::tei:persName[1],$v_personography,'viaf','')"/>
                 <xsl:value-of select="$v_seperator"/>
                 <!-- author id: OpenArabicPE (local authority file) -->
-                <xsl:value-of select="oape:query-personography($v_author/descendant-or-self::tei:persName[1],$v_personography,'oape','')"/>
+                <xsl:value-of select="$v_id-author-oape"/>
                 <xsl:value-of select="$v_seperator"/>
                 <!-- birth -->
         <xsl:value-of select="oape:query-personography($v_author/descendant-or-self::tei:persName[1],$v_personography,'birth','')"/>
@@ -260,31 +261,12 @@
         </xsl:choose>
     </xsl:template>
     
-    <xsl:template match="tei:publisher" mode="m_tei-to-csv">
-     <xsl:text>publisher = {</xsl:text>
-            <xsl:value-of select="."/>
-            <xsl:text>}, </xsl:text><xsl:value-of select="$v_new-line"/>   
-    </xsl:template>
-    <xsl:template match="tei:textLang" mode="m_tei-to-csv">
-        <xsl:text>language = {</xsl:text>
-            <xsl:value-of select="@mainLang"/>
-            <xsl:text>}, </xsl:text><xsl:value-of select="$v_new-line"/>
-    </xsl:template> 
-    
     <!-- plain text output: beware that heavily marked up nodes will have most whitespace omitted -->
     <xsl:template match="text()" mode="m_plain-text">
 <!--        <xsl:value-of select="normalize-space(replace(.,'(\w)[\s|\n]+','$1 '))"/>-->
         <xsl:text> </xsl:text>
         <xsl:value-of select="normalize-space(.)"/>
         <xsl:text> </xsl:text>
-    </xsl:template>
-
-    <!-- construct the head of the BibTeX file -->
-    <xsl:template name="t_file-head">
-        <!-- some metadata on the file itself -->
-        <xsl:text>%% This BibTeX bibliography file was created by automatic conversion from TEI XML</xsl:text><xsl:value-of select="$v_new-line"/>
-        <!--<xsl:text>%% Created at </xsl:text><xsl:value-of select="current-dateTime()"/><xsl:value-of select="$v_new-line"/>-->
-        <xsl:text>%% Saved with string encoding Unicode (UTF-8) </xsl:text><xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_new-line"/>
     </xsl:template>
     
 </xsl:stylesheet>
