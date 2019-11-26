@@ -12,8 +12,8 @@
 <!-- this stylesheet translates <tei:biblStruct>s to  <mods:mods> -->
     
     <!-- date conversion functions -->
-<!--    <xsl:include href="https://tillgrallert.github.io/xslt-calendar-conversion/functions/date-functions.xsl"/>-->
-    <xsl:include href="../../../xslt-calendar-conversion/date-functions.xsl"/>
+    <xsl:include href="https://tillgrallert.github.io/xslt-calendar-conversion/functions/date-functions.xsl"/>
+    <!-- <xsl:include href="../../../xslt-calendar-conversion/date-functions.xsl"/> -->
 
     <xsl:variable name="vgFileId" select="substring-before(tokenize(base-uri(),'/')[last()],'.TEIP5')"/>
     <!-- this needs to be adopted to work with any periodical and not just al-Muqtabas -->
