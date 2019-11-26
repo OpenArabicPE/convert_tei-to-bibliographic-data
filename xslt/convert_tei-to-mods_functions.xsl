@@ -41,7 +41,7 @@
                     <xsl:value-of select="normalize-space($v_plain)"/>
                 </edition>-->
                 <place>
-                    <xsl:apply-templates select="$p_input/descendant::tei:pubPlace[@xml:lang = $p_lang]" mode="m_tei-to-mods"/>
+                    <xsl:apply-templates select="$p_input/descendant::tei:pubPlace/tei:placeName[@xml:lang = $p_lang]" mode="m_tei-to-mods"/>
                 </place>
                 <xsl:apply-templates select="$p_input/descendant::tei:publisher" mode="m_tei-to-mods"/>
                 <dateIssued>

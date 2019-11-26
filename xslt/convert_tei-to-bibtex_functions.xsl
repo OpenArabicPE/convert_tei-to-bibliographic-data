@@ -52,17 +52,29 @@
             <xsl:text>}, </xsl:text><xsl:value-of select="$v_new-line"/>
         <xsl:apply-templates select="$p_input/descendant::tei:textLang" mode="m_tei-to-bibtex"/>
             <!-- publication dates -->
-            <xsl:if test="string-length($p_input/descendant::tei:date/@when)=10">
+        <xsl:variable name="v_publication-date">
+            <xsl:choose>
+                <xsl:when test="$p_input/descendant::tei:date[string-length(@when) = 10]">
+                    <xsl:value-of select="$p_input/descendant::tei:date[string-length(@when) = 10][1]"/>
+                </xsl:when>
+                <xsl:when test="$p_input/descendant::tei:date[@when]">
+                    <xsl:value-of select="$p_input/descendant::tei:date[@when][1]"/>
+                </xsl:when>
+                <!-- some fallback -->
+                <xsl:otherwise/>
+            </xsl:choose>
+        </xsl:variable>
+            <xsl:if test="string-length($v_publication-date/tei:date/@when)=10">
                 <xsl:text>day = {</xsl:text>
-                <xsl:value-of select="day-from-date($p_input/descendant::tei:date/@when)"/>
+                <xsl:value-of select="day-from-date($v_publication-date/tei:date/@when)"/>
                 <xsl:text>}, </xsl:text><xsl:value-of select="$v_new-line"/>
                 <xsl:text>month = {</xsl:text>
-                <xsl:value-of select="month-from-date($p_input/descendant::tei:date/@when)"/>
+                <xsl:value-of select="month-from-date($v_publication-date/tei:date/@when)"/>
                 <xsl:text>}, </xsl:text><xsl:value-of select="$v_new-line"/>
             </xsl:if>
             <!-- year-from-date works only with xs:date, which requires YYYY-MM-DD -->
             <xsl:text>year = {</xsl:text>
-            <xsl:value-of select="substring($p_input/descendant::tei:date/@when,1,4)"/>
+            <xsl:value-of select="substring($v_publication-date/tei:date/@when,1,4)"/>
             <xsl:text>}, </xsl:text><xsl:value-of select="$v_new-line"/>
             <!-- URL -->
             <xsl:text>url = {</xsl:text>
