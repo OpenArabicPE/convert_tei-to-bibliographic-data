@@ -85,7 +85,7 @@
             - edition
         -->
         <xsl:variable name="v_id-file" select="$p_input/tei:monogr/tei:idno[@type = 'URI'][matches(.,'^oclc_')][1]"/>
-        <xsl:variable name="v_id-div" select="substring-after($p_input/descendant::tei:idno[@type = 'url'][ contains(.,'xml#')][1], '#')"/>
+        <xsl:variable name="v_id-div" select="substring-after($p_input/tei:analytic/tei:idno[@type = 'url'][ contains(.,'xml#')][1], '#')"/>
         <xsl:variable name="v_id-publication" select="$p_input/descendant::tei:idno[@type='OCLC'][1]"/>
         <xsl:variable name="v_title-publication"  select="oape:query-bibliography($p_input/tei:monogr/tei:title[1],$v_bibliography,$v_gazetteer,'name',$p_output-language-titles)"/>
         <xsl:variable name="v_publication-place" select="$p_input/tei:monogr/tei:imprint/tei:pubPlace[1]/tei:placeName[1]"/>
@@ -139,7 +139,7 @@
                             <xsl:text>NN</xsl:text>
                         </xsl:otherwise>
                     </xsl:choose>
-                    <xsl:value-of select="concat($v_separator-attribute-key, 'oclc',$v_separator-attribute-value,$v_id-publication, $v_separator-attribute-key,'v',$v_separator-attribute-value,translate($v_volume,'/','-'),$v_separator-attribute-key,'i',$v_separator-attribute-value, $v_issue,$v_separator-attribute-key,$v_id-div,'.txt')"/>
+                    <xsl:value-of select="concat($v_separator-attribute-key, 'oclc',$v_separator-attribute-value,$v_id-publication, $v_separator-attribute-key,'v',$v_separator-attribute-value,translate($v_volume,'/','-'),$v_separator-attribute-key,'i',$v_separator-attribute-value, $v_issue,$v_separator-attribute-key,$v_id-div)"/>
         </xsl:variable>
                 <!-- article ID -->
                 <xsl:value-of select="$v_quot"/>
