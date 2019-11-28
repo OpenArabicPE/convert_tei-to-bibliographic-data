@@ -9,6 +9,9 @@
     <xsl:function name="oape:bibliography-tei-div-to-biblstruct">
         <xsl:param name="p_input"/>
         <xsl:variable name="v_source-monogr" select="$p_input/ancestor::tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:biblStruct/tei:monogr"/>
+        <xsl:variable name="v_id-file" select="$p_input/ancestor::tei:TEI/@xml:id"/>
+        <xsl:variable name="v_id-div" select="$p_input/@xml:id"/>
+        <xsl:variable name="v_bibtex-key" select="concat($v_id-file,'-',$v_id-div)"/>
         <xsl:element name="biblStruct">
             <xsl:element name="analytic">
                 <!-- article title -->
@@ -25,9 +28,14 @@
                 <xsl:for-each select="$p_input/ancestor::tei:TEI/tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type='url']">
                     <xsl:element name="idno">
                     <xsl:attribute name="type" select="'url'"/>
-                    <xsl:value-of select="concat(.,'#',$p_input/@xml:id)"/>
+                    <xsl:value-of select="concat(.,'#',$v_id-div)"/>
                 </xsl:element>
                 </xsl:for-each>
+                <!-- BibTeX key -->
+                <xsl:element name="idno">
+                    <xsl:attribute name="type" select="'BibTeX'"/>
+                    <xsl:value-of select="$v_bibtex-key"/>
+                </xsl:element>
             </xsl:element>
             <!-- copy information from the file's sourceDesc -->
             <xsl:element name="monogr">
@@ -38,10 +46,19 @@
                 <!-- add file name as ID -->
                 <xsl:element name="tei:idno">
                     <xsl:attribute name="type" select="'URI'"/>
-                    <xsl:value-of select="$p_input/ancestor::tei:TEI/@xml:id"/>
+                    <xsl:value-of select="$v_id-file"/>
                 </xsl:element>
                 <!-- text languages -->
-                <xsl:apply-templates select="$v_source-monogr/tei:textLang" mode="m_replicate"/>
+                <xsl:choose>
+                    <xsl:when test="$v_source-monogr/tei:textLang">
+                        <xsl:apply-templates select="$v_source-monogr/tei:textLang" mode="m_replicate"/>
+                    </xsl:when>
+                    <xsl:when test="$p_input/@xml:lang">
+                        <xsl:element name="tei:textLang">
+                            <xsl:attribute name="mainLang" select="$p_input/@xml:lang"/>
+                        </xsl:element>
+                    </xsl:when>
+                </xsl:choose>
                 <!-- editor -->
                 <xsl:apply-templates select="$v_source-monogr/tei:editor" mode="m_replicate"/>
                 <!-- imprint -->

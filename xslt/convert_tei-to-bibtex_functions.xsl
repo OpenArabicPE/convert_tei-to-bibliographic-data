@@ -23,10 +23,23 @@
             - date last accessed
             - edition
         -->
+        <xsl:variable name="v_bibtex-key" select="$p_input/tei:analytic/tei:idno[@type='BibTeX']"/>
+        <xsl:variable name="v_publication-date">
+            <xsl:choose>
+                <xsl:when test="$p_input/descendant::tei:date[string-length(@when) = 10]">
+                    <xsl:copy-of select="$p_input/descendant::tei:date[string-length(@when) = 10][1]"/>
+                </xsl:when>
+                <xsl:when test="$p_input/descendant::tei:date[@when]">
+                    <xsl:copy-of select="$p_input/descendant::tei:date[@when][1]"/>
+                </xsl:when>
+                <!-- some fallback -->
+                <xsl:otherwise/>
+            </xsl:choose>
+        </xsl:variable>
          <!-- construct BibText -->
             <xsl:text>@ARTICLE{</xsl:text>
             <!-- BibTextKey -->
-            <xsl:value-of select="concat($vgFileId,'-',$p_input/@xml:id)"/><xsl:text>, </xsl:text><xsl:value-of select="$v_new-line"/>
+            <xsl:value-of select="$v_bibtex-key"/><xsl:text>, </xsl:text><xsl:value-of select="$v_new-line"/>
             <!-- author information -->
             <xsl:if test="$p_input/descendant::tei:author">
                 <xsl:text>author = {</xsl:text>
@@ -46,36 +59,13 @@
             <xsl:text>}, </xsl:text><xsl:value-of select="$v_new-line"/>
             <!-- imprint -->
             <xsl:apply-templates select="$p_input/descendant::tei:biblScope" mode="m_tei-to-bibtex"/>
-        <xsl:apply-templates select="$p_input/descendant::tei:publisher" mode="m_tei-to-bibtex"/>
+        <xsl:apply-templates select="$p_input/descendant::tei:publisher/node()[@xml:lang = $p_lang]" mode="m_tei-to-bibtex"/>
         <xsl:text>address = {</xsl:text>
             <xsl:apply-templates select="$p_input/descendant::tei:pubPlace/tei:placeName[@xml:lang = $p_lang]" mode="m_tei-to-bibtex"/>
             <xsl:text>}, </xsl:text><xsl:value-of select="$v_new-line"/>
         <xsl:apply-templates select="$p_input/descendant::tei:textLang" mode="m_tei-to-bibtex"/>
             <!-- publication dates -->
-        <xsl:variable name="v_publication-date">
-            <xsl:choose>
-                <xsl:when test="$p_input/descendant::tei:date[string-length(@when) = 10]">
-                    <xsl:value-of select="$p_input/descendant::tei:date[string-length(@when) = 10][1]"/>
-                </xsl:when>
-                <xsl:when test="$p_input/descendant::tei:date[@when]">
-                    <xsl:value-of select="$p_input/descendant::tei:date[@when][1]"/>
-                </xsl:when>
-                <!-- some fallback -->
-                <xsl:otherwise/>
-            </xsl:choose>
-        </xsl:variable>
-            <xsl:if test="string-length($v_publication-date/tei:date/@when)=10">
-                <xsl:text>day = {</xsl:text>
-                <xsl:value-of select="day-from-date($v_publication-date/tei:date/@when)"/>
-                <xsl:text>}, </xsl:text><xsl:value-of select="$v_new-line"/>
-                <xsl:text>month = {</xsl:text>
-                <xsl:value-of select="month-from-date($v_publication-date/tei:date/@when)"/>
-                <xsl:text>}, </xsl:text><xsl:value-of select="$v_new-line"/>
-            </xsl:if>
-            <!-- year-from-date works only with xs:date, which requires YYYY-MM-DD -->
-            <xsl:text>year = {</xsl:text>
-            <xsl:value-of select="substring($v_publication-date/tei:date/@when,1,4)"/>
-            <xsl:text>}, </xsl:text><xsl:value-of select="$v_new-line"/>
+            <xsl:apply-templates select="$v_publication-date/tei:date" mode="m_tei-to-bibtex"/>
             <!-- URL -->
             <xsl:text>url = {</xsl:text>
             <xsl:value-of select="$p_input/descendant::tei:idno[@type = 'url'][1]"/>
@@ -139,7 +129,7 @@
         <xsl:text>}, </xsl:text><xsl:value-of select="$v_new-line"/>
     </xsl:template>
     
-    <xsl:template match="tei:publisher" mode="m_tei-to-bibtex">
+    <xsl:template match="tei:publisher/node()" mode="m_tei-to-bibtex">
      <xsl:text>publisher = {</xsl:text>
             <xsl:value-of select="."/>
             <xsl:text>}, </xsl:text><xsl:value-of select="$v_new-line"/>   
@@ -149,6 +139,21 @@
             <xsl:value-of select="@mainLang"/>
             <xsl:text>}, </xsl:text><xsl:value-of select="$v_new-line"/>
     </xsl:template> 
+    
+    <xsl:template match="tei:date" mode="m_tei-to-bibtex">
+        <xsl:if test="string-length(@when)=10">
+                <xsl:text>day = {</xsl:text>
+                <xsl:value-of select="day-from-date(@when)"/>
+                <xsl:text>}, </xsl:text><xsl:value-of select="$v_new-line"/>
+                <xsl:text>month = {</xsl:text>
+                <xsl:value-of select="month-from-date(@when)"/>
+                <xsl:text>}, </xsl:text><xsl:value-of select="$v_new-line"/>
+            </xsl:if>
+            <!-- year-from-date works only with xs:date, which requires YYYY-MM-DD -->
+            <xsl:text>year = {</xsl:text>
+            <xsl:value-of select="substring(@when,1,4)"/>
+            <xsl:text>}, </xsl:text><xsl:value-of select="$v_new-line"/>
+    </xsl:template>
     
     <!-- plain text output: beware that heavily marked up nodes will have most whitespace omitted -->
     <xsl:template match="text()" mode="m_plain-text">
