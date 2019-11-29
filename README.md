@@ -35,8 +35,18 @@ MODS also serves as the intermediary format for the free [bibutils suite](https:
 
 Zotero has solid support for MODS import and export. However, there are a number of caveats one should be aware of:
 
-1. Zotero has a limited number of "Item Types" and does not currently support periodical issues or volumes. Bibliographic data of `<genre authority="local">journal</genre><genre authority="marcgt">journal</genre>` is mapped to "Journal Article" and the journal title will end up as article title with the journal title empty.
+1. Zotero has a limited number of "Item Types" with different fields ([documentation](https://www.zotero.org/support/kb/item_types_and_fields))
+
+    |     Item Type     | Volume | Issue | Place |
+    |-------------------|--------|-------|-------|
+    | Journal Article   | y      | y     | n     |
+    | Magazine Article  | y      | y     | n     |
+    | Newspaper Article | n      | n     | y     |
+
+    - Changing the "Item Type" **deletes** fields and their contents
+    - Bibliographic data of `<genre authority="local">journal</genre><genre authority="marcgt">journal</genre>` is mapped to "Journal Article" and the journal title will end up as article title with the journal title empty.
 2. Zotero does not support multi-language MODS. If information is present in more than one language, i.e. `<title xml:lang="ar">الجنان</title><title xml:lang="ar-Latn-x-ijmes">al-Jinān</title>`, Zotero will always pick the first entry.
+3. Zotero does not support non-Gregorian calendars or date ranges.
 
 # BibTeX
 
