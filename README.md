@@ -18,6 +18,7 @@ This repository contains code to generate a variety of bibliographic metadata fo
         - [convert_tei-to-mods_issues.xsl](xslt/convert_tei-to-mods_issues.xsl): chains the functions `oape:bibliography-tei-div-to-biblstruct()` and `oape:bibliography-tei-to-mods()` to generate one MODS XML file per TEI XML file as input with `<mods:mods>` children for each `<tei:div>`.
     2. BibTeX
     3. CSV
+    4. Zotero JSON: **to do**
     4. TSS XML: **to do**
 
 # MODS
@@ -44,6 +45,7 @@ Zotero has solid support for MODS import and export. However, there are a number
     | Newspaper Article | n      | n     | y     |
 
     - Changing the "Item Type" **deletes** fields and their contents
+        + there is the option to [use the "extra" field](https://www.zotero.org/support/kb/item_types_and_fields#citing_fields_from_extra) for piping missing information to CSL output but this seems to be a very inellegant work-around to me.
     - Bibliographic data of `<genre authority="local">journal</genre><genre authority="marcgt">journal</genre>` is mapped to "Journal Article" and the journal title will end up as article title with the journal title empty.
 2. Zotero does not support multi-language MODS. If information is present in more than one language, i.e. `<title xml:lang="ar">الجنان</title><title xml:lang="ar-Latn-x-ijmes">al-Jinān</title>`, Zotero will always pick the first entry.
 3. Zotero does not support non-Gregorian calendars or date ranges.
@@ -64,3 +66,10 @@ There are, however, a number of problems with the format:
 
 [^1]:[Wikipedia](https://en.wikipedia.org/wiki/BibTeX) has a better description than the official website.
 [^2]: Preferably validating against the [OpenArabicPE schema](https://github.com/OpenArabicPE/OpenArabicPE_ODD). All conversion functions work with any `<tei:div>` as input but concrete implementation of conversions is dependent on `@type` attribute values.
+
+# Zotero JSON
+
+The proprietary JSON to directly communicate with the Zotero database / servers through an API has a number of advantages:
+
+- direct writing access to all fields
+- full text can be written to notes to provide a simple full-text search
