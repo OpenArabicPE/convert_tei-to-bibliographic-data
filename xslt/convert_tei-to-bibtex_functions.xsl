@@ -36,7 +36,17 @@
                 <xsl:otherwise/>
             </xsl:choose>
         </xsl:variable>
-         <!-- construct BibText -->
+        <xsl:variable name="v_title-article">
+            <xsl:choose>
+                <xsl:when test="$p_input/descendant::tei:title[@level = 'a'][@xml:lang = $p_lang]">
+                    <xsl:value-of select="$p_input/descendant::tei:title[@level = 'a'][@xml:lang = $p_lang][1]"/>
+                </xsl:when>
+                <xsl:when test="$p_input/descendant::tei:title[@level = 'a']">
+                    <xsl:value-of select="$p_input/descendant::tei:title[@level = 'a'][1]"/>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:variable> 
+        <!-- construct BibText -->
             <xsl:text>@ARTICLE{</xsl:text>
             <!-- BibTextKey -->
             <xsl:value-of select="$v_bibtex-key"/><xsl:text>, </xsl:text><xsl:value-of select="$v_new-line"/>
@@ -52,7 +62,7 @@
             <xsl:text>}, </xsl:text><xsl:value-of select="$v_new-line"/>
             <!-- titles -->
             <xsl:text>title = {</xsl:text>
-            <xsl:value-of select="$p_input/descendant::tei:title[@level = 'a'][@xml:lang = $p_lang]"/>
+            <xsl:value-of select="$v_title-article"/>
             <xsl:text>}, </xsl:text><xsl:value-of select="$v_new-line"/>
             <xsl:text>journal = {</xsl:text>
             <xsl:value-of select="$p_input/descendant::tei:title[@level = 'j'][@xml:lang = $p_lang]"/>
