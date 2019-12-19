@@ -18,6 +18,7 @@
     <xsl:variable name="vgFileId" select="substring-before(tokenize(base-uri(),'/')[last()],'.TEIP5')"/>
     <!-- this needs to be adopted to work with any periodical and not just al-Muqtabas -->
     <xsl:variable name="v_schema" select="'http://www.loc.gov/standards/mods/mods-3-7.xsd'"/>
+    <xsl:variable name="v_license" select="'http://creativecommons.org/licenses/by-sa/4.0/'"/>
 
     <!-- the MODS output -->
     <xsl:function name="oape:bibliography-tei-to-mods">
@@ -242,6 +243,8 @@
             </xsl:choose>
             <accessCondition>
 <!--                <xsl:value-of select="$p_url-licence"/>-->
+                <!-- for the time being I use a fixed variable -->
+                <xsl:value-of select="$v_license"/>
             </accessCondition>
             <xsl:if test="$p_input/descendant::tei:idno[@type='url']">
                 <!-- MODS allows for more than one URL! -->
@@ -261,7 +264,10 @@
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:variable name="v_lang">
-                        <tei:textLang><xsl:value-of select="$p_lang"/></tei:textLang>
+                        <tei:textLang>
+                            <xsl:attribute name="mainLang" select="$p_lang"/>
+                            <xsl:value-of select="$p_lang"/>
+                        </tei:textLang>
                     </xsl:variable>
                     <xsl:apply-templates select="$v_lang/tei:textLang" mode="m_tei-to-mods"/>
                 </xsl:otherwise>
@@ -389,7 +395,7 @@
     <xsl:template match="tei:textLang" mode="m_tei-to-mods">
         <language>
             <languageTerm type="code" authorityURI="http://www.iana.org/assignments/language-subtag-registry/language-subtag-registry">
-                <xsl:value-of select="."/>
+                <xsl:value-of select="@mainLang"/>
             </languageTerm>
         </language>
     </xsl:template>
