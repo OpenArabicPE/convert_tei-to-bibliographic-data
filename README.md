@@ -38,11 +38,11 @@ Zotero has solid support for MODS import and export. However, there are a number
 
 1. Zotero has a limited number of "Item Types" with different fields ([documentation](https://www.zotero.org/support/kb/item_types_and_fields))
 
-    |     Item Type     | Volume | Issue | Place |
-    |-------------------|--------|-------|-------|
-    | Journal Article   | y      | y     | n     |
-    | Magazine Article  | y      | y     | n     |
-    | Newspaper Article | n      | n     | y     |
+    |     Item Type     | Volume | Issue | Place | contributorType: editor |
+    |-------------------|--------|-------|-------|-------------------------|
+    | Journal Article   | y      | y     | n     | y                       |
+    | Magazine Article  | y      | y     | n     | n                       |
+    | Newspaper Article | n      | n     | y     | n                       |
 
     - Changing the "Item Type" **deletes** fields and their contents
         + there is the option to [use the "extra" field](https://www.zotero.org/support/kb/item_types_and_fields#citing_fields_from_extra) for piping missing information to CSL output but this seems to be a very inellegant work-around to me.
@@ -73,3 +73,189 @@ The proprietary JSON to directly communicate with the Zotero database / servers 
 
 - direct writing access to all fields
 - full text can be written to notes to provide a simple full-text search
+
+- procedure
+    + It seems the easiest to query Zotero through the API
+    + translate the resulting JSON with `json-to-xml()` and
+    + reverse engineer the resulting XML,
+    + which will then be translated to JSON using `xml-to-json()`
+
+- oXygen has a built-in toolchain: JSON to XML and XML to JSON
+
+## sample data
+### JSON
+
+```json
+{
+"data": {
+    "DOI": "",
+    "ISSN": "",
+    "abstractNote": "",
+    "accessDate": "",
+    "archive": "",
+    "archiveLocation": "",
+    "callNumber": "",
+    "collections": "9FLQJQ88",
+    "creators": [
+        {
+            "creatorType": "editor",
+            "firstName": "أنستاس ماري",
+            "lastName": "الكرملي"
+        },
+        {
+            "creatorType": "editor",
+            "firstName": "كاظم",
+            "lastName": "الدجيلي"
+        }
+    ],
+    "date": "1913-11-01",
+    "dateAdded": "2019-11-28T10:26:57Z",
+    "dateModified": "2019-11-28T10:26:57Z",
+    "extra": "",
+    "issue": 4,
+    "itemType": "journalArticle",
+    "journalAbbreviation": "",
+    "key": "ABTFWQ5G",
+    "language": "",
+    "libraryCatalog": "",
+    "pages": "216-219",
+    "publicationTitle": "لغة العرب: مجلة شهرية ادبية علمية تاريخية",
+    "relations": "",
+    "rights": "",
+    "series": "",
+    "seriesText": "",
+    "seriesTitle": "",
+    "shortTitle": "",
+    "title": "باب المشارفة والانتقاد: ٧ - تاريخ الصحافة العربية",
+    "url": "https://openarabicpe.github.io/journal_lughat-al-arab/tei/oclc_472450345-i_28.TEIP5.xml#div_11.d2e3751",
+    "version": 3238,
+    "volume": 3
+},
+"key": "ABTFWQ5G",
+"library": {
+    "id": 904125,
+    "links": {
+        "alternate": {
+            "href": "https://www.zotero.org/groups/openarabicpe",
+            "type": "text/html"
+        }
+    },
+    "name": "OpenArabicPE",
+    "type": "group"
+},
+"links": {
+    "alternate": {
+        "href": "https://www.zotero.org/groups/openarabicpe/items/ABTFWQ5G",
+        "type": "text/html"
+    },
+    "self": {
+        "href": "https://api.zotero.org/groups/904125/items/ABTFWQ5G",
+        "type": "application/json"
+    }
+},
+"meta": {
+    "createdByUser": {
+        "id": 2028652,
+        "links": {
+            "alternate": {
+                "href": "https://www.zotero.org/till.grallert",
+                "type": "text/html"
+            }
+        },
+        "name": "Till Grallert",
+        "username": "till.grallert"
+    },
+    "creatorSummary": "الكرملي and الدجيلي",
+    "numChildren": 0,
+    "parsedDate": "1913-11-01"
+},
+"version": 3238
+}
+```
+### XML (conversion: oXygen)
+
+```xml
+<array>
+    <key>ABTFWQ5G</key>
+    <version>3238</version>
+    <library>
+        <type>group</type>
+        <id>904125</id>
+        <name>OpenArabicPE</name>
+        <links>
+            <alternate>
+                <href>https://www.zotero.org/groups/openarabicpe</href>
+                <type>text/html</type>
+            </alternate>
+        </links>
+    </library>
+    <links>
+        <self>
+            <href>https://api.zotero.org/groups/904125/items/ABTFWQ5G</href>
+            <type>application/json</type>
+        </self>
+        <alternate>
+            <href>https://www.zotero.org/groups/openarabicpe/items/ABTFWQ5G</href>
+            <type>text/html</type>
+        </alternate>
+    </links>
+    <meta>
+        <createdByUser>
+            <id>2028652</id>
+            <username>till.grallert</username>
+            <name>Till Grallert</name>
+            <links>
+                <alternate>
+                    <href>https://www.zotero.org/till.grallert</href>
+                    <type>text/html</type>
+                </alternate>
+            </links>
+        </createdByUser>
+        <creatorSummary>الكرملي and الدجيلي</creatorSummary>
+        <parsedDate>1913-11-01</parsedDate>
+        <numChildren>0</numChildren>
+    </meta>
+    <data>
+        <key>ABTFWQ5G</key>
+        <version>3238</version>
+        <itemType>journalArticle</itemType>
+        <title>باب المشارفة والانتقاد: ٧ - تاريخ الصحافة العربية</title>
+        <creators>
+            <creatorType>editor</creatorType>
+            <firstName>أنستاس ماري</firstName>
+            <lastName>الكرملي</lastName>
+        </creators>
+        <creators>
+            <creatorType>editor</creatorType>
+            <firstName>كاظم</firstName>
+            <lastName>الدجيلي</lastName>
+        </creators>
+        <abstractNote></abstractNote>
+        <publicationTitle>لغة العرب: مجلة شهرية ادبية علمية تاريخية</publicationTitle>
+        <volume>3</volume>
+        <issue>4</issue>
+        <pages>216-219</pages>
+        <date>1913-11-01</date>
+        <series></series>
+        <seriesTitle></seriesTitle>
+        <seriesText></seriesText>
+        <journalAbbreviation></journalAbbreviation>
+        <language></language>
+        <DOI></DOI>
+        <ISSN></ISSN>
+        <shortTitle></shortTitle>
+        <url>https://openarabicpe.github.io/journal_lughat-al-arab/tei/oclc_472450345-i_28.TEIP5.xml#div_11.d2e3751</url>
+        <accessDate></accessDate>
+        <archive></archive>
+        <archiveLocation></archiveLocation>
+        <libraryCatalog></libraryCatalog>
+        <callNumber></callNumber>
+        <rights></rights>
+        <extra></extra>
+        <collections>9FLQJQ88</collections>
+        <relations></relations>
+        <dateAdded>2019-11-28T10:26:57Z</dateAdded>
+        <dateModified>2019-11-28T10:26:57Z</dateModified>
+    </data>
+</array>
+```
