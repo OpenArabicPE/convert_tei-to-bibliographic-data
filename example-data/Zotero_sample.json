@@ -1,0 +1,2595 @@
+[
+    {
+        "key": "ABTFWQ5G",
+        "version": 3238,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/ABTFWQ5G",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/ABTFWQ5G",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "الكرملي and الدجيلي",
+            "parsedDate": "1913-11-01",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "ABTFWQ5G",
+            "version": 3238,
+            "itemType": "journalArticle",
+            "title": "باب المشارفة والانتقاد: ٧ - تاريخ الصحافة العربية",
+            "creators": [
+                {
+                    "creatorType": "editor",
+                    "firstName": "أنستاس ماري",
+                    "lastName": "الكرملي"
+                },
+                {
+                    "creatorType": "editor",
+                    "firstName": "كاظم",
+                    "lastName": "الدجيلي"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "لغة العرب: مجلة شهرية ادبية علمية تاريخية",
+            "volume": "3",
+            "issue": "4",
+            "pages": "216-219",
+            "date": "1913-11-01",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "",
+            "DOI": "",
+            "ISSN": "",
+            "shortTitle": "",
+            "url": "https://openarabicpe.github.io/journal_lughat-al-arab/tei/oclc_472450345-i_28.TEIP5.xml#div_11.d2e3751",
+            "accessDate": "",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "9FLQJQ88"
+            ],
+            "relations": {},
+            "dateAdded": "2019-11-28T10:26:57Z",
+            "dateModified": "2019-11-28T10:26:57Z"
+        }
+    },
+    {
+        "key": "NS2I46HS",
+        "version": 2431,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/NS2I46HS",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/NS2I46HS",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "رضا",
+            "parsedDate": "1917",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "NS2I46HS",
+            "version": 2431,
+            "itemType": "journalArticle",
+            "title": "تأثير الصحافة في أخلاق الأمة",
+            "creators": [
+                {
+                    "creatorType": "author",
+                    "firstName": "محمد رشيد",
+                    "lastName": "رضا"
+                },
+                {
+                    "creatorType": "editor",
+                    "firstName": "محمد رشيد",
+                    "lastName": "رضا"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "المنار",
+            "volume": "19",
+            "issue": "8",
+            "pages": "507",
+            "date": "1917",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "",
+            "DOI": "",
+            "ISSN": "",
+            "shortTitle": "",
+            "url": "https://openarabicpe.github.io/journal_al-manar/tei/oclc_1588981-v_19-i_8.TEIP5.xml#div_6.d2e2581",
+            "accessDate": "",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "VADDYYTZ"
+            ],
+            "relations": {},
+            "dateAdded": "2019-11-22T19:32:05Z",
+            "dateModified": "2019-11-22T19:32:05Z"
+        }
+    },
+    {
+        "key": "C5UC5JB2",
+        "version": 2403,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/C5UC5JB2",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/C5UC5JB2",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "رضا",
+            "parsedDate": "1913",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "C5UC5JB2",
+            "version": 2403,
+            "itemType": "journalArticle",
+            "title": "مصاب مصر والصحافة العربية الإسلاميةبالشيخ علي يوسف رحمه الله تعالى",
+            "creators": [
+                {
+                    "creatorType": "author",
+                    "firstName": "محمد رشيد",
+                    "lastName": "رضا"
+                },
+                {
+                    "creatorType": "editor",
+                    "firstName": "محمد رشيد",
+                    "lastName": "رضا"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "المنار",
+            "volume": "16",
+            "issue": "11",
+            "pages": "873",
+            "date": "1913",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "",
+            "DOI": "",
+            "ISSN": "",
+            "shortTitle": "",
+            "url": "https://openarabicpe.github.io/journal_al-manar/tei/oclc_1588981-v_16-i_11.TEIP5.xml#div_6.d2e2880",
+            "accessDate": "",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "VADDYYTZ"
+            ],
+            "relations": {},
+            "dateAdded": "2019-11-22T19:32:05Z",
+            "dateModified": "2019-11-22T19:32:05Z"
+        }
+    },
+    {
+        "key": "RAKCA58T",
+        "version": 2362,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/RAKCA58T",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/RAKCA58T",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "رضا",
+            "parsedDate": "1909",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "RAKCA58T",
+            "version": 2362,
+            "itemType": "journalArticle",
+            "title": "قانون المطبوعات وتقييد الصحافة بمصر",
+            "creators": [
+                {
+                    "creatorType": "author",
+                    "firstName": "محمد رشيد",
+                    "lastName": "رضا"
+                },
+                {
+                    "creatorType": "editor",
+                    "firstName": "محمد رشيد",
+                    "lastName": "رضا"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "المنار",
+            "volume": "12",
+            "issue": "2",
+            "pages": "160",
+            "date": "1909",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "",
+            "DOI": "",
+            "ISSN": "",
+            "shortTitle": "",
+            "url": "https://openarabicpe.github.io/journal_al-manar/tei/oclc_1588981-v_12-i_2.TEIP5.xml#div_15.d2e4867",
+            "accessDate": "",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "VADDYYTZ"
+            ],
+            "relations": {},
+            "dateAdded": "2019-11-22T19:32:05Z",
+            "dateModified": "2019-11-22T19:32:05Z"
+        }
+    },
+    {
+        "key": "EPCLW6UV",
+        "version": 2346,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/EPCLW6UV",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/EPCLW6UV",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "رضا",
+            "parsedDate": "1908",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "EPCLW6UV",
+            "version": 2346,
+            "itemType": "journalArticle",
+            "title": "فقيد الصحافة والوطنيةمصطفى باشا كامل",
+            "creators": [
+                {
+                    "creatorType": "author",
+                    "firstName": "محمد رشيد",
+                    "lastName": "رضا"
+                },
+                {
+                    "creatorType": "editor",
+                    "firstName": "محمد رشيد",
+                    "lastName": "رضا"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "المنار",
+            "volume": "11",
+            "issue": "1",
+            "pages": "60",
+            "date": "1908",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "",
+            "DOI": "",
+            "ISSN": "",
+            "shortTitle": "",
+            "url": "https://openarabicpe.github.io/journal_al-manar/tei/oclc_1588981-v_11-i_1.TEIP5.xml#div_9.d2e3229",
+            "accessDate": "",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "VADDYYTZ"
+            ],
+            "relations": {},
+            "dateAdded": "2019-11-22T19:32:05Z",
+            "dateModified": "2019-11-22T19:32:05Z"
+        }
+    },
+    {
+        "key": "AUZK7XKK",
+        "version": 1530,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/AUZK7XKK",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/AUZK7XKK",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "كرد علي",
+            "parsedDate": "1906-10-19",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "AUZK7XKK",
+            "version": 1530,
+            "itemType": "journalArticle",
+            "title": "سير العلم: صحافة مصر",
+            "creators": [
+                {
+                    "creatorType": "editor",
+                    "firstName": "محمد",
+                    "lastName": "كرد علي"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "المقتبس",
+            "volume": "1",
+            "issue": "9",
+            "pages": "482",
+            "date": "1906-10-19",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "ar",
+            "DOI": "",
+            "ISSN": "",
+            "shortTitle": "",
+            "url": "https://tillgrallert.github.io/digital-muqtabas/xml/oclc_4770057679-i_9.TEIP5.xml#div_26.d1e4762",
+            "accessDate": "2019-08-20",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "http://creativecommons.org/licenses/by-sa/4.0/",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "8SINFUW9"
+            ],
+            "relations": {},
+            "dateAdded": "2019-11-04T23:14:31Z",
+            "dateModified": "2019-11-04T23:14:31Z"
+        }
+    },
+    {
+        "key": "XU4ML8Y8",
+        "version": 1472,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/XU4ML8Y8",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/XU4ML8Y8",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "كرد علي",
+            "parsedDate": "1912-02-19",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "XU4ML8Y8",
+            "version": 1472,
+            "itemType": "journalArticle",
+            "title": "أخبار وأفكار: الصحافة الصفراء",
+            "creators": [
+                {
+                    "creatorType": "editor",
+                    "firstName": "محمد",
+                    "lastName": "كرد علي"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "المقتبس",
+            "volume": "7",
+            "issue": "3",
+            "pages": "238-239",
+            "date": "1912-02-19",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "ar",
+            "DOI": "",
+            "ISSN": "",
+            "shortTitle": "",
+            "url": "https://tillgrallert.github.io/digital-muqtabas/xml/oclc_4770057679-i_74.TEIP5.xml#div_7.d1e3446",
+            "accessDate": "2019-08-20",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "http://creativecommons.org/licenses/by-sa/4.0/",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "8SINFUW9"
+            ],
+            "relations": {},
+            "dateAdded": "2019-11-04T23:14:31Z",
+            "dateModified": "2019-11-04T23:14:31Z"
+        }
+    },
+    {
+        "key": "6N7VJH7Y",
+        "version": 1468,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/6N7VJH7Y",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/6N7VJH7Y",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "كرد علي",
+            "parsedDate": "1911-12-22",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "6N7VJH7Y",
+            "version": 1468,
+            "itemType": "journalArticle",
+            "title": "أخبار وأفكار: الصحافة الألمانية",
+            "creators": [
+                {
+                    "creatorType": "editor",
+                    "firstName": "محمد",
+                    "lastName": "كرد علي"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "المقتبس",
+            "volume": "7",
+            "issue": "1",
+            "pages": "79",
+            "date": "1911-12-22",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "ar",
+            "DOI": "",
+            "ISSN": "",
+            "shortTitle": "",
+            "url": "https://tillgrallert.github.io/digital-muqtabas/xml/oclc_4770057679-i_72.TEIP5.xml#div_71.d1e6677",
+            "accessDate": "2019-08-20",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "http://creativecommons.org/licenses/by-sa/4.0/",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "8SINFUW9"
+            ],
+            "relations": {},
+            "dateAdded": "2019-11-04T23:14:31Z",
+            "dateModified": "2019-11-04T23:14:31Z"
+        }
+    },
+    {
+        "key": "92QC38QP",
+        "version": 1441,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/92QC38QP",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/92QC38QP",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "العظم",
+            "parsedDate": "1911-06-28",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "92QC38QP",
+            "version": 1441,
+            "itemType": "journalArticle",
+            "title": "مختصر تاريخ الطباعة والصحافة التركية العثمانية",
+            "creators": [
+                {
+                    "creatorType": "author",
+                    "firstName": "حقي",
+                    "lastName": "العظم"
+                },
+                {
+                    "creatorType": "editor",
+                    "firstName": "محمد",
+                    "lastName": "كرد علي"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "المقتبس",
+            "volume": "6",
+            "issue": "7",
+            "pages": "470-484",
+            "date": "1911-06-28",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "ar",
+            "DOI": "",
+            "ISSN": "",
+            "shortTitle": "",
+            "url": "https://tillgrallert.github.io/digital-muqtabas/xml/oclc_4770057679-i_66.TEIP5.xml#div_42.d1e2508",
+            "accessDate": "2019-08-22",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "http://creativecommons.org/licenses/by-sa/4.0/",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "8SINFUW9"
+            ],
+            "relations": {},
+            "dateAdded": "2019-11-04T23:14:31Z",
+            "dateModified": "2019-11-04T23:14:31Z"
+        }
+    },
+    {
+        "key": "M9TUL289",
+        "version": 1440,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/M9TUL289",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/M9TUL289",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "كرد علي",
+            "parsedDate": "1911-05-30",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "M9TUL289",
+            "version": 1440,
+            "itemType": "journalArticle",
+            "title": "أخبار وأفكار: الصحافة الإنكليزية",
+            "creators": [
+                {
+                    "creatorType": "editor",
+                    "firstName": "محمد",
+                    "lastName": "كرد علي"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "المقتبس",
+            "volume": "6",
+            "issue": "6",
+            "pages": "432-438",
+            "date": "1911-05-30",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "ar",
+            "DOI": "",
+            "ISSN": "",
+            "shortTitle": "",
+            "url": "https://tillgrallert.github.io/digital-muqtabas/xml/oclc_4770057679-i_65.TEIP5.xml#div_18.d1e3220",
+            "accessDate": "2019-08-20",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "http://creativecommons.org/licenses/by-sa/4.0/",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "8SINFUW9"
+            ],
+            "relations": {},
+            "dateAdded": "2019-11-04T23:14:31Z",
+            "dateModified": "2019-11-04T23:14:31Z"
+        }
+    },
+    {
+        "key": "8YHRHS5I",
+        "version": 1410,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/8YHRHS5I",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/8YHRHS5I",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "كرد علي",
+            "parsedDate": "1910-06-10",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "8YHRHS5I",
+            "version": 1410,
+            "itemType": "journalArticle",
+            "title": "سير العلم والاجتماع: مدارس الصحافة",
+            "creators": [
+                {
+                    "creatorType": "editor",
+                    "firstName": "محمد",
+                    "lastName": "كرد علي"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "المقتبس",
+            "volume": "5",
+            "issue": "6",
+            "pages": "426-427",
+            "date": "1910-06-10",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "ar",
+            "DOI": "",
+            "ISSN": "",
+            "shortTitle": "",
+            "url": "https://tillgrallert.github.io/digital-muqtabas/xml/oclc_4770057679-i_53.TEIP5.xml#div_27.d1e6564",
+            "accessDate": "2019-08-20",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "http://creativecommons.org/licenses/by-sa/4.0/",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "8SINFUW9"
+            ],
+            "relations": {},
+            "dateAdded": "2019-11-04T23:14:31Z",
+            "dateModified": "2019-11-04T23:14:31Z"
+        }
+    },
+    {
+        "key": "TH6KIUL4",
+        "version": 1394,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/TH6KIUL4",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/TH6KIUL4",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "كرد علي",
+            "parsedDate": "1910-01-13",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "TH6KIUL4",
+            "version": 1394,
+            "itemType": "journalArticle",
+            "title": "سيرة العلم والاجتماع: الصحافة في سويسرا",
+            "creators": [
+                {
+                    "creatorType": "editor",
+                    "firstName": "محمد",
+                    "lastName": "كرد علي"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "المقتبس",
+            "volume": "5",
+            "issue": "1",
+            "pages": "84-85",
+            "date": "1910-01-13",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "ar",
+            "DOI": "",
+            "ISSN": "",
+            "shortTitle": "",
+            "url": "https://tillgrallert.github.io/digital-muqtabas/xml/oclc_4770057679-i_48.TEIP5.xml#div_51.d1e4860",
+            "accessDate": "2019-10-31",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "http://creativecommons.org/licenses/by-sa/4.0/",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "8SINFUW9"
+            ],
+            "relations": {},
+            "dateAdded": "2019-11-04T23:14:31Z",
+            "dateModified": "2019-11-04T23:14:31Z"
+        }
+    },
+    {
+        "key": "XEHWLITD",
+        "version": 1386,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/XEHWLITD",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/XEHWLITD",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "كرد علي",
+            "parsedDate": "1909-12-14",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "XEHWLITD",
+            "version": 1386,
+            "itemType": "journalArticle",
+            "title": "غرائب الغرب: الصحافة الباريزية ٢٥",
+            "creators": [
+                {
+                    "creatorType": "author",
+                    "firstName": "محمد",
+                    "lastName": "كرد علي"
+                },
+                {
+                    "creatorType": "editor",
+                    "firstName": "",
+                    "lastName": "محمد كرد علي"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "المقتبس",
+            "volume": "4",
+            "issue": "12",
+            "pages": "781-787",
+            "date": "1909-12-14",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "ar",
+            "DOI": "",
+            "ISSN": "",
+            "shortTitle": "",
+            "url": "https://tillgrallert.github.io/digital-muqtabas/xml/oclc_4770057679-i_47.TEIP5.xml#div_14.d1e3561",
+            "accessDate": "2019-10-31",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "http://creativecommons.org/licenses/by-sa/4.0/",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "8SINFUW9"
+            ],
+            "relations": {},
+            "dateAdded": "2019-11-04T23:14:31Z",
+            "dateModified": "2019-11-04T23:14:31Z"
+        }
+    },
+    {
+        "key": "XAX2UBEN",
+        "version": 1379,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/XAX2UBEN",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/XAX2UBEN",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "كرد علي",
+            "parsedDate": "1909-10-16",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "XAX2UBEN",
+            "version": 1379,
+            "itemType": "journalArticle",
+            "title": "سير العلم والاجتماع: الصحافة",
+            "creators": [
+                {
+                    "creatorType": "editor",
+                    "firstName": "محمد",
+                    "lastName": "كرد علي"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "المقتبس",
+            "volume": "4",
+            "issue": "10",
+            "pages": "644-646",
+            "date": "1909-10-16",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "ar",
+            "DOI": "",
+            "ISSN": "",
+            "shortTitle": "",
+            "url": "https://tillgrallert.github.io/digital-muqtabas/xml/oclc_4770057679-i_45.TEIP5.xml#div_27.d1e3813",
+            "accessDate": "2019-10-31",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "http://creativecommons.org/licenses/by-sa/4.0/",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "8SINFUW9"
+            ],
+            "relations": {},
+            "dateAdded": "2019-11-04T23:14:31Z",
+            "dateModified": "2019-11-04T23:14:31Z"
+        }
+    },
+    {
+        "key": "PHNLYGWU",
+        "version": 1369,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/PHNLYGWU",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/PHNLYGWU",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "كرد علي",
+            "parsedDate": "1909-07-19",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "PHNLYGWU",
+            "version": 1369,
+            "itemType": "journalArticle",
+            "title": "الصحافة العثمانية",
+            "creators": [
+                {
+                    "creatorType": "editor",
+                    "firstName": "محمد",
+                    "lastName": "كرد علي"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "المقتبس",
+            "volume": "4",
+            "issue": "7",
+            "pages": "410-413",
+            "date": "1909-07-19",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "ar",
+            "DOI": "",
+            "ISSN": "",
+            "shortTitle": "",
+            "url": "https://tillgrallert.github.io/digital-muqtabas/xml/oclc_4770057679-i_42.TEIP5.xml#div_7.d1e1133",
+            "accessDate": "2019-08-20",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "http://creativecommons.org/licenses/by-sa/4.0/",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "8SINFUW9"
+            ],
+            "relations": {},
+            "dateAdded": "2019-11-04T23:14:31Z",
+            "dateModified": "2019-11-04T23:14:31Z"
+        }
+    },
+    {
+        "key": "G95K7R85",
+        "version": 1287,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/G95K7R85",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/G95K7R85",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "كرد علي",
+            "parsedDate": "1906-03-27",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "G95K7R85",
+            "version": 1287,
+            "itemType": "journalArticle",
+            "title": "الصحافة العربية",
+            "creators": [
+                {
+                    "creatorType": "editor",
+                    "firstName": "محمد",
+                    "lastName": "كرد علي"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "المقتبس",
+            "volume": "1",
+            "issue": "2",
+            "pages": "59-64",
+            "date": "1906-03-27",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "ar",
+            "DOI": "",
+            "ISSN": "",
+            "shortTitle": "",
+            "url": "https://tillgrallert.github.io/digital-muqtabas/xml/oclc_4770057679-i_2.TEIP5.xml#div_4.d1e737",
+            "accessDate": "2019-08-20",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "http://creativecommons.org/licenses/by-sa/4.0/",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "8SINFUW9"
+            ],
+            "relations": {},
+            "dateAdded": "2019-11-04T23:14:31Z",
+            "dateModified": "2019-11-04T23:14:31Z"
+        }
+    },
+    {
+        "key": "ZF3HKWV4",
+        "version": 27,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/ZF3HKWV4",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/ZF3HKWV4",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "زيدان and زيدان",
+            "parsedDate": "1941-12-01",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "ZF3HKWV4",
+            "version": 27,
+            "itemType": "journalArticle",
+            "title": "حرية الصحافة روح الديمقراطية",
+            "creators": [
+                {
+                    "creatorType": "editor",
+                    "firstName": "اميل",
+                    "lastName": "زيدان"
+                },
+                {
+                    "creatorType": "editor",
+                    "firstName": "شكري",
+                    "lastName": "زيدان"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "الهلال: مجلة شهرية مطورة",
+            "volume": "50",
+            "issue": "1",
+            "pages": "162-167",
+            "date": "1941-12-01",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "ar",
+            "DOI": "",
+            "ISSN": "1110-8908",
+            "shortTitle": "",
+            "url": "",
+            "accessDate": "2016-10-29",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "S4H222UZ"
+            ],
+            "relations": {
+                "owl:sameAs": "http://zotero.org/groups/786971/items/CJX3Z8R9"
+            },
+            "dateAdded": "2017-03-04T16:38:47Z",
+            "dateModified": "2017-03-04T16:38:47Z"
+        }
+    },
+    {
+        "key": "GANT3C3Q",
+        "version": 27,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/GANT3C3Q",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/GANT3C3Q",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "زيدان and زيدان",
+            "parsedDate": "1941-06-01",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "GANT3C3Q",
+            "version": 27,
+            "itemType": "journalArticle",
+            "title": "الصحافة المصرية في عهد جديد",
+            "creators": [
+                {
+                    "creatorType": "editor",
+                    "firstName": "اميل",
+                    "lastName": "زيدان"
+                },
+                {
+                    "creatorType": "editor",
+                    "firstName": "شكري",
+                    "lastName": "زيدان"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "الهلال: مجلة شهرية مطورة",
+            "volume": "49",
+            "issue": "4",
+            "pages": "545",
+            "date": "1941-06-01",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "ar",
+            "DOI": "",
+            "ISSN": "1110-8908",
+            "shortTitle": "",
+            "url": "",
+            "accessDate": "2016-10-29",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "S4H222UZ"
+            ],
+            "relations": {
+                "owl:sameAs": "http://zotero.org/groups/786971/items/7WZGNFXK"
+            },
+            "dateAdded": "2017-03-04T16:38:47Z",
+            "dateModified": "2017-03-04T16:38:47Z"
+        }
+    },
+    {
+        "key": "NZI9K2V9",
+        "version": 27,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/NZI9K2V9",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/NZI9K2V9",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "زيدان and زيدان",
+            "parsedDate": "1940-12-01",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "NZI9K2V9",
+            "version": 27,
+            "itemType": "journalArticle",
+            "title": "الصحافة العربية",
+            "creators": [
+                {
+                    "creatorType": "editor",
+                    "firstName": "اميل",
+                    "lastName": "زيدان"
+                },
+                {
+                    "creatorType": "editor",
+                    "firstName": "شكري",
+                    "lastName": "زيدان"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "الهلال: مجلة شهرية مطورة",
+            "volume": "49",
+            "issue": "1",
+            "pages": "149-152",
+            "date": "1940-12-01",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "ar",
+            "DOI": "",
+            "ISSN": "1110-8908",
+            "shortTitle": "",
+            "url": "",
+            "accessDate": "2016-10-29",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "S4H222UZ"
+            ],
+            "relations": {
+                "owl:sameAs": "http://zotero.org/groups/786971/items/UF6GAA4Z"
+            },
+            "dateAdded": "2017-03-04T16:38:47Z",
+            "dateModified": "2017-03-04T16:38:47Z"
+        }
+    },
+    {
+        "key": "5KQBFU92",
+        "version": 27,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/5KQBFU92",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/5KQBFU92",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "زيدان and زيدان",
+            "parsedDate": "1938-02-01",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "5KQBFU92",
+            "version": 27,
+            "itemType": "journalArticle",
+            "title": "الصحافة والثقافة",
+            "creators": [
+                {
+                    "creatorType": "editor",
+                    "firstName": "اميل",
+                    "lastName": "زيدان"
+                },
+                {
+                    "creatorType": "editor",
+                    "firstName": "شكري",
+                    "lastName": "زيدان"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "الهلال: مجلة شهرية مطورة",
+            "volume": "46",
+            "issue": "4",
+            "pages": "380-383",
+            "date": "1938-02-01",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "ar",
+            "DOI": "",
+            "ISSN": "1110-8908",
+            "shortTitle": "",
+            "url": "",
+            "accessDate": "2016-10-29",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "S4H222UZ"
+            ],
+            "relations": {
+                "owl:sameAs": "http://zotero.org/groups/786971/items/5RRMCJC8"
+            },
+            "dateAdded": "2017-03-04T16:38:47Z",
+            "dateModified": "2017-03-04T16:38:47Z"
+        }
+    },
+    {
+        "key": "DUEU5EGP",
+        "version": 27,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/DUEU5EGP",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/DUEU5EGP",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "زيدان and زيدان",
+            "parsedDate": "1928-07-01",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "DUEU5EGP",
+            "version": 27,
+            "itemType": "journalArticle",
+            "title": "معرض الصحافة الدولى فى كولونيا",
+            "creators": [
+                {
+                    "creatorType": "editor",
+                    "firstName": "اميل",
+                    "lastName": "زيدان"
+                },
+                {
+                    "creatorType": "editor",
+                    "firstName": "شكري",
+                    "lastName": "زيدان"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "الهلال: مجلة شهرية مطورة",
+            "volume": "36",
+            "issue": "9",
+            "pages": "1054",
+            "date": "1928-07-01",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "ar",
+            "DOI": "",
+            "ISSN": "1110-8908",
+            "shortTitle": "",
+            "url": "",
+            "accessDate": "2016-10-29",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "S4H222UZ"
+            ],
+            "relations": {
+                "owl:sameAs": "http://zotero.org/groups/786971/items/SWSW2ZQM"
+            },
+            "dateAdded": "2017-03-04T16:38:47Z",
+            "dateModified": "2017-03-04T16:38:47Z"
+        }
+    },
+    {
+        "key": "WG8APGAZ",
+        "version": 27,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/WG8APGAZ",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/WG8APGAZ",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "زيدان and زيدان",
+            "parsedDate": "1928-01-01",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "WG8APGAZ",
+            "version": 27,
+            "itemType": "journalArticle",
+            "title": "ساعة مع شيخ الصحافة",
+            "creators": [
+                {
+                    "creatorType": "editor",
+                    "firstName": "اميل",
+                    "lastName": "زيدان"
+                },
+                {
+                    "creatorType": "editor",
+                    "firstName": "شكري",
+                    "lastName": "زيدان"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "الهلال: مجلة شهرية مطورة",
+            "volume": "36",
+            "issue": "3",
+            "pages": "272-276",
+            "date": "1928-01-01",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "ar",
+            "DOI": "",
+            "ISSN": "1110-8908",
+            "shortTitle": "",
+            "url": "",
+            "accessDate": "2016-10-29",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "S4H222UZ"
+            ],
+            "relations": {
+                "owl:sameAs": "http://zotero.org/groups/786971/items/SNXZ8H42"
+            },
+            "dateAdded": "2017-03-04T16:38:47Z",
+            "dateModified": "2017-03-04T16:38:47Z"
+        }
+    },
+    {
+        "key": "X24KZZHT",
+        "version": 27,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/X24KZZHT",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/X24KZZHT",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "زيدان and زيدان",
+            "parsedDate": "1926-11-01",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "X24KZZHT",
+            "version": 27,
+            "itemType": "journalArticle",
+            "title": "الصحافة والادب",
+            "creators": [
+                {
+                    "creatorType": "editor",
+                    "firstName": "اميل",
+                    "lastName": "زيدان"
+                },
+                {
+                    "creatorType": "editor",
+                    "firstName": "شكري",
+                    "lastName": "زيدان"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "الهلال: مجلة شهرية مطورة",
+            "volume": "35",
+            "issue": "1",
+            "pages": "20-21",
+            "date": "1926-11-01",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "ar",
+            "DOI": "",
+            "ISSN": "1110-8908",
+            "shortTitle": "",
+            "url": "",
+            "accessDate": "2016-10-29",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "S4H222UZ"
+            ],
+            "relations": {
+                "owl:sameAs": "http://zotero.org/groups/786971/items/8GJ9QCF7"
+            },
+            "dateAdded": "2017-03-04T16:38:47Z",
+            "dateModified": "2017-03-04T16:38:47Z"
+        }
+    },
+    {
+        "key": "Q8QEG4D2",
+        "version": 27,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/Q8QEG4D2",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/Q8QEG4D2",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "زيدان and زيدان",
+            "parsedDate": "1922-10-01",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "Q8QEG4D2",
+            "version": 27,
+            "itemType": "journalArticle",
+            "title": "لورد نورثكليف، ملك الصحافة الانكليزية",
+            "creators": [
+                {
+                    "creatorType": "editor",
+                    "firstName": "اميل",
+                    "lastName": "زيدان"
+                },
+                {
+                    "creatorType": "editor",
+                    "firstName": "شكري",
+                    "lastName": "زيدان"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "الهلال: مجلة شهرية مطورة",
+            "volume": "31",
+            "issue": "1",
+            "pages": "62-64",
+            "date": "1922-10-01",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "ar",
+            "DOI": "",
+            "ISSN": "1110-8908",
+            "shortTitle": "",
+            "url": "",
+            "accessDate": "2016-10-29",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "S4H222UZ"
+            ],
+            "relations": {
+                "owl:sameAs": "http://zotero.org/groups/786971/items/5KJU6IXN"
+            },
+            "dateAdded": "2017-03-04T16:38:47Z",
+            "dateModified": "2017-03-04T16:38:47Z"
+        }
+    },
+    {
+        "key": "MVJR5D4V",
+        "version": 27,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/MVJR5D4V",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/MVJR5D4V",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "زيدان",
+            "parsedDate": "1918-07-01",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "MVJR5D4V",
+            "version": 27,
+            "itemType": "journalArticle",
+            "title": "الصحافة المصرية اليومية وتأثير الحرب فيها",
+            "creators": [
+                {
+                    "creatorType": "editor",
+                    "firstName": "اميل",
+                    "lastName": "زيدان"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "الهلال: مجلة تاريخية اجتماعية علمية أدبية صحية",
+            "volume": "26",
+            "issue": "8",
+            "pages": "767-771",
+            "date": "1918-07-01",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "ar",
+            "DOI": "",
+            "ISSN": "1110-8908",
+            "shortTitle": "",
+            "url": "",
+            "accessDate": "2016-10-29",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "S4H222UZ"
+            ],
+            "relations": {
+                "owl:sameAs": "http://zotero.org/groups/786971/items/DZ7DARC6"
+            },
+            "dateAdded": "2017-03-04T16:38:47Z",
+            "dateModified": "2017-03-04T16:38:47Z"
+        }
+    },
+    {
+        "key": "EFZ55UFE",
+        "version": 27,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/EFZ55UFE",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/EFZ55UFE",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "زيدان",
+            "parsedDate": "1917-07-01",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "EFZ55UFE",
+            "version": 27,
+            "itemType": "journalArticle",
+            "title": "الصحافة السياسية في انكلترا واهم الصحف الانكليزية",
+            "creators": [
+                {
+                    "creatorType": "editor",
+                    "firstName": "اميل",
+                    "lastName": "زيدان"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "الهلال: مجلة تاريخية اجتماعية علمية أدبية صحية",
+            "volume": "25",
+            "issue": "9",
+            "pages": "831-837",
+            "date": "1917-07-01",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "ar",
+            "DOI": "",
+            "ISSN": "1110-8908",
+            "shortTitle": "",
+            "url": "",
+            "accessDate": "2016-10-29",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "S4H222UZ"
+            ],
+            "relations": {
+                "owl:sameAs": "http://zotero.org/groups/786971/items/W5R49IHF"
+            },
+            "dateAdded": "2017-03-04T16:38:47Z",
+            "dateModified": "2017-03-04T16:38:47Z"
+        }
+    },
+    {
+        "key": "HBIZBUBS",
+        "version": 27,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/HBIZBUBS",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/HBIZBUBS",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "زيدان",
+            "parsedDate": "1909-04-01",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "HBIZBUBS",
+            "version": 27,
+            "itemType": "journalArticle",
+            "title": "قانون المطبوعات وحرية الصحافة",
+            "creators": [
+                {
+                    "creatorType": "editor",
+                    "firstName": "جرجي",
+                    "lastName": "زيدان"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "الهلال: مجلة تاريخية اجتماعية علمية أدبية صحية",
+            "volume": "17",
+            "issue": "7",
+            "pages": "417-422",
+            "date": "1909-04-01",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "ar",
+            "DOI": "",
+            "ISSN": "1110-8908",
+            "shortTitle": "",
+            "url": "",
+            "accessDate": "2016-10-29",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "S4H222UZ"
+            ],
+            "relations": {
+                "owl:sameAs": "http://zotero.org/groups/786971/items/RKISH4RD"
+            },
+            "dateAdded": "2017-03-04T16:38:47Z",
+            "dateModified": "2017-03-04T16:38:47Z"
+        }
+    },
+    {
+        "key": "HDW72KD8",
+        "version": 27,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/HDW72KD8",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/HDW72KD8",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "زيدان",
+            "parsedDate": "1907-10-01",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "HDW72KD8",
+            "version": 27,
+            "itemType": "journalArticle",
+            "title": "حرية الصحافة في انكلترا و مصر",
+            "creators": [
+                {
+                    "creatorType": "editor",
+                    "firstName": "جرجي",
+                    "lastName": "زيدان"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "الهلال: مجلة تاريخية اجتماعية علمية أدبية صحية",
+            "volume": "16",
+            "issue": "1",
+            "pages": "26-34",
+            "date": "1907-10-01",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "ar",
+            "DOI": "",
+            "ISSN": "1110-8908",
+            "shortTitle": "",
+            "url": "",
+            "accessDate": "2016-10-29",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "S4H222UZ"
+            ],
+            "relations": {
+                "owl:sameAs": "http://zotero.org/groups/786971/items/ZIBVZSXB"
+            },
+            "dateAdded": "2017-03-04T16:38:47Z",
+            "dateModified": "2017-03-04T16:38:47Z"
+        }
+    },
+    {
+        "key": "BWIXN6DP",
+        "version": 27,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/BWIXN6DP",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/BWIXN6DP",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "زيدان",
+            "parsedDate": "1906-10-01",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "BWIXN6DP",
+            "version": 27,
+            "itemType": "journalArticle",
+            "title": "الصحافة الهندية والصحافة العربية",
+            "creators": [
+                {
+                    "creatorType": "editor",
+                    "firstName": "جرجي",
+                    "lastName": "زيدان"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "الهلال: مجلة علمية تاريخية صحية أدبية",
+            "volume": "15",
+            "issue": "1",
+            "pages": "55-56",
+            "date": "1906-10-01",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "ar",
+            "DOI": "",
+            "ISSN": "1110-8908",
+            "shortTitle": "",
+            "url": "",
+            "accessDate": "2016-10-29",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "S4H222UZ"
+            ],
+            "relations": {
+                "owl:sameAs": "http://zotero.org/groups/786971/items/UHAHF54V"
+            },
+            "dateAdded": "2017-03-04T16:38:47Z",
+            "dateModified": "2017-03-04T16:38:47Z"
+        }
+    },
+    {
+        "key": "VZWCBMR7",
+        "version": 27,
+        "library": {
+            "type": "group",
+            "id": 904125,
+            "name": "OpenArabicPE",
+            "links": {
+                "alternate": {
+                    "href": "https://www.zotero.org/groups/openarabicpe",
+                    "type": "text/html"
+                }
+            }
+        },
+        "links": {
+            "self": {
+                "href": "https://api.zotero.org/groups/904125/items/VZWCBMR7",
+                "type": "application/json"
+            },
+            "alternate": {
+                "href": "https://www.zotero.org/groups/openarabicpe/items/VZWCBMR7",
+                "type": "text/html"
+            }
+        },
+        "meta": {
+            "createdByUser": {
+                "id": 2028652,
+                "username": "till.grallert",
+                "name": "Till Grallert",
+                "links": {
+                    "alternate": {
+                        "href": "https://www.zotero.org/till.grallert",
+                        "type": "text/html"
+                    }
+                }
+            },
+            "creatorSummary": "زيدان",
+            "parsedDate": "1905-06-01",
+            "numChildren": 0
+        },
+        "data": {
+            "key": "VZWCBMR7",
+            "version": 27,
+            "itemType": "journalArticle",
+            "title": "الصحافة في مصر",
+            "creators": [
+                {
+                    "creatorType": "editor",
+                    "firstName": "جرجي",
+                    "lastName": "زيدان"
+                }
+            ],
+            "abstractNote": "",
+            "publicationTitle": "الهلال: مجلة علمية تاريخية صحية أدبية",
+            "volume": "13",
+            "issue": "9",
+            "pages": "541-544",
+            "date": "1905-06-01",
+            "series": "",
+            "seriesTitle": "",
+            "seriesText": "",
+            "journalAbbreviation": "",
+            "language": "ar",
+            "DOI": "",
+            "ISSN": "1110-8908",
+            "shortTitle": "",
+            "url": "",
+            "accessDate": "2016-10-29",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "",
+            "callNumber": "",
+            "rights": "",
+            "extra": "",
+            "tags": [],
+            "collections": [
+                "S4H222UZ"
+            ],
+            "relations": {
+                "owl:sameAs": "http://zotero.org/groups/786971/items/NSNK5KR3"
+            },
+            "dateAdded": "2017-03-04T16:38:47Z",
+            "dateModified": "2017-03-04T16:38:47Z"
+        }
+    }
+]
