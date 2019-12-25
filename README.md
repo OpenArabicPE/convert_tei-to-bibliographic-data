@@ -23,6 +23,12 @@ This repository contains code to generate a variety of bibliographic metadata fo
     4. Zotero JSON: **to do**, first draft done
     4. TSS XML: **to do**
 
+# `<tei:biblStruct>`: intermediary / exchange format
+
+- To do:
+    + make sure to use only one `<tei:biblStruct>` from the `<tei:sourceDesc>`
+    + dereference private URI's pointing to authority files instead of relegating this to later conversions
+
 # MODS
 
 The [MODS (Metadata Object Description Schema) standard](http://www.loc.gov/standards/mods/) is expressed in XML and maintained by the [Network Development and MARC Standards Office](http://www.loc.gov/marc/ndmso.html) of the Library of Congress with input from users. Compared to BibTeX MODS has he advantage of being properly standardised, human and machine readable, and much better suited to include all the needed bibliographic information.
