@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+  schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Title</title>
+            </titleStmt>
+            <publicationStmt>
+                <p>Publication Information</p>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Information about the source</p>
+            </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>
+                <listBibl>
+                    <biblStruct>
+                        <analytic>
+                            <title level="a" xml:lang="ar">الى الامام الى العلى</title>
+                            <author>
+                                <persName ref="oape:pers:2838" xml:lang="ota">
+                                    <forename xml:lang="ota">فريدة</forename>
+                                    <roleName type="honorific" xml:lang="ota">هانم</roleName>
+                                </persName>
+                            </author>
+                            <idno type="url">https://github.com/openarabicpe/journal_al-hasna/blob/master/tei/oclc_792756327-v_1-i_1.TEIP5.xml#div_5.d2e436</idno>
+                            <idno type="url">https://openarabicpe.github.io/journal_al-hasna/tei/oclc_792756327-v_1-i_1.TEIP5.xml#div_5.d2e436</idno>
+                            <idno type="BibTeX">oclc_792756327-v_1-i_1-div_5.d2e436</idno>
+                        </analytic>
+                        <monogr>
+                            <title level="j" xml:lang="ar-Latn-x-ijmes">al-Ḥasnāʾ</title>
+                            <title level="j" type="sub" xml:lang="ar-Latn-x-ijmes">Majallat Nisāʾiyya Adabiyya Akhlāqiyya Ijtimāʿiyya</title>
+                            <title level="j" xml:lang="ar">الحسناء</title>
+                            <title level="j" type="sub" xml:lang="ar">مجلة نسائية ادبية اخلاقية اجتماعية</title>
+                            <title level="a" xml:lang="ar-Latn-x-ijmes">1</title>
+                            <idno type="callNumber" xml:lang="ar-Latn-x-ijmes">EAP119/1/8/1</idno>
+                            <idno type="CitationID" xml:lang="ar-Latn-x-ijmes">hasna 1</idno>
+                            <idno type="url" xml:lang="ar-Latn-x-ijmes">http://eap.bl.uk/database/overview_item.a4d?catId=890;r=30191</idno>
+                            <idno type="OCLC" xml:lang="ar-Latn-x-ijmes">792756327</idno>
+                            <idno type="OCLC" xml:lang="ar-Latn-x-ijmes">792755433</idno>
+                            <idno type="OCLC" xml:lang="ar-Latn-x-ijmes">1034555587</idno>
+                            <idno type="OCLC" xml:lang="ar-Latn-x-ijmes">1034550210</idno>
+                            <idno type="OCLC" xml:lang="ar-Latn-x-ijmes">672047031</idno>
+                            <tei:idno type="URI">oclc_792756327-v_1-i_1</tei:idno>
+                            <tei:textLang mainLang="ar"/>
+                            <editor xml:lang="ar-Latn-x-ijmes">
+                                <persName xml:lang="ar-Lang-x-ijmes">Jirjī Niqūlā Bāz</persName>
+                                <persName ref="oape:pers:579 viaf:311789687" xml:lang="ar">
+                                    <forename xml:lang="ar">جرجي</forename>
+                                    <forename xml:lang="ar">نقولا</forename>
+                                    <surname xml:lang="ar">باز</surname>
+                                </persName>
+                            </editor>
+                            <imprint xml:lang="ar-Latn-x-ijmes">
+                                <publisher xml:lang="ar-Latn-x-ijmes">
+                                    <orgName xml:lang="ar-Latn-x-ijmes">Maṭbaʿat Jarīdat Ḥadīqat al-Akhbār</orgName>
+                                    <orgName xml:lang="ar">مطبعة جريدة حديقة الاخبار</orgName>
+                                </publisher>
+                                <pubPlace xml:lang="ar-Latn-x-ijmes">
+                                    <placeName ref="oape:place:26 geon:276781" xml:lang="ar-Latn-x-ijmes">Bayrūt</placeName>
+                                    <placeName ref="oape:place:26 geon:276781" xml:lang="ar">بيروت</placeName>
+                                </pubPlace>
+                                <date when="1909-06-20" xml:lang="ar-Latn-x-ijmes">20 Jun 1909</date>
+                                <date calendar="#cal_julian" datingMethod="#cal_julian" when="1909-06-20" when-custom="1909-06-07" xml:lang="ar-Latn-x-ijmes">7 Ḥazīrān 1909, Sunday</date>
+                            </imprint>
+                            <biblScope from="1" to="1" unit="issue" xml:lang="ar-Latn-x-ijmes">1</biblScope>
+                            <biblScope from="1" to="1" unit="volume" xml:lang="ar-Latn-x-ijmes">1</biblScope>
+                            <biblScope from="15" to="18" unit="page">15-18</biblScope>
+                        </monogr>
+                    </biblStruct>
+                    <biblStruct>
+                        <analytic>
+                            <title level="a" xml:lang="ar">الأخلاق الفاضلة</title>
+                            <author>
+                                <persName ref="oape:pers:245 viaf:32410755" xml:lang="ar">
+                                    <forename xml:lang="ar">حافظ</forename>
+                                    <surname xml:lang="ar">إبراهيم</surname>
+                                </persName>
+                            </author>
+                            <idno type="url">https://github.com/tillgrallert/digital-muqtabas/blob/master/xml/oclc_4770057679-i_1.TEIP5.xml#div_7.d1e1661</idno>
+                            <idno type="BibTeX">oclc_4770057679-i_1-div_7.d1e1661</idno>
+                        </analytic>
+                        <monogr>
+                            <title level="j" xml:lang="ar">المقتبس</title>
+                            <title level="j" type="sub" xml:lang="ar">مجلة أدبية علمية اجتماعية تصدر ب
+                
+                                
+                                <placeName xml:lang="ar">القاهرة</placeName>
+                                في غرة كل شهر عربي</title>
+                            <title level="j" xml:lang="ar-Latn-x-ijmes">al-Muqtabas</title>
+                            <title level="j" type="sub" xml:lang="ar-Latn-x-ijmes">Majalla adabiyya ʿilmiyya ijtimāʿiyya tuṣadir bi-l-Qāhira fī gharrat kull shahr ʿarabī</title>
+                            <title level="j" xml:lang="fr">Al-Moktabas</title>
+                            <title level="j" type="sub" xml:lang="fr">Revue mensuelle, littéraire, scientifique &amp; Sociologique</title>
+                            <title level="j" xml:lang="ar">المقتبس</title>
+                            <title level="j" type="sub" xml:lang="ar">مجلة أدبية علمية اجتماعية تصدر ب
+                
+                                
+                                <placeName xml:lang="ar">القاهرة</placeName>
+                                في غرة كل شهر عربي</title>
+                            <title level="j" type="sub" xml:lang="ar">اعيد طبعها بالتصوير باشراف                             
+                            
+                
+                                
+                                <persName ref="oape:pers:2859 viaf:22295803" xml:lang="ar">
+                                    <roleName type="title" xml:lang="ar">الدكتور</roleName>
+                                    <forename xml:lang="ar">محمد</forename>
+                                    <forename xml:lang="ar">يوسف</forename>
+                                    <surname xml:lang="ar">نجم</surname></persName>
+                            </title>
+                            <title level="j" xml:lang="ar-Latn-x-ijmes">al-Muqtabas</title>
+                            <title level="j" type="sub" xml:lang="ar-Latn-x-ijmes">Majalla adabiyya ʿilmiyya ijtimāʿiyya tuṣadir bi-l-Qāhira fī gharrat kull shahr ʿarabī</title>
+                            <title level="j" xml:lang="fr">Al-Moktabas</title>
+                            <title level="j" type="sub" xml:lang="fr">Revue mensuelle, littéraire, scientifique &amp; Sociologique</title>
+                            <idno type="OCLC" xml:lang="en">4770057679</idno>
+                            <idno type="OCLC" xml:lang="en">79440195</idno>
+                            <idno type="aucr" xml:lang="en">07201136864</idno>
+                            <idno type="shamela" xml:lang="en">26523</idno>
+                            <idno type="zenodo" xml:lang="en">45922152</idno>
+                            <idno type="OCLC" xml:lang="en">4770057679</idno>
+                            <idno type="OCLC" xml:lang="en">79440195</idno>
+                            <tei:idno type="URI">oclc_4770057679-i_1</tei:idno>
+                            <tei:textLang mainLang="ar"/>
+                            <editor ref="https://viaf.org/viaf/32272677" xml:lang="en">
+                                <persName ref="oape:pers:878 viaf:32272677" xml:lang="ar">
+                                    <forename xml:lang="ar">محمد</forename>
+                                    <surname xml:lang="ar">كرد علي</surname>
+                                </persName>
+                                <persName ref="oape:pers:878 viaf:32272677" xml:lang="ar-Latn-x-ijmes">
+                                    <forename xml:lang="ar-Latn-x-ijmes">Muḥammad</forename>
+                                    <surname xml:lang="ar-Latn-x-ijmes">Kurd ʿAlī</surname>
+                                </persName>
+                            </editor>
+                            <editor ref="https://viaf.org/viaf/32272677" xml:lang="en">
+                                <persName ref="oape:pers:878 viaf:32272677" xml:lang="ar">
+                                    <forename xml:lang="ar">محمد</forename>
+                                    <surname xml:lang="ar">كرد علي</surname>
+                                </persName>
+                                <persName ref="oape:pers:878 viaf:32272677" xml:lang="ar-Latn-x-ijmes">
+                                    <forename xml:lang="ar-Latn-x-ijmes">Muḥammad</forename>
+                                    <surname xml:lang="ar-Latn-x-ijmes">Kurd ʿAlī</surname>
+                                </persName>
+                            </editor>
+                            <editor ref="https://viaf.org/viaf/22295803" xml:lang="en">
+                                <persName ref="oape:pers:2859 viaf:22295803" xml:lang="ar">
+                                    <forename xml:lang="ar">محمد</forename>
+                                    <forename xml:lang="ar">يوسف</forename>
+                                    <surname xml:lang="ar">نجم</surname>
+                                </persName>
+                                <persName ref="oape:pers:2859 viaf:22295803" xml:lang="ar-Latn-x-ijmes">
+                                    <forename xml:lang="ar-Latn-x-ijmes">Muḥammad</forename>
+                                    <forename xml:lang="ar-Latn-x-ijmes">Yūsuf</forename>
+                                    <surname xml:lang="ar-Latn-x-ijmes">Najm</surname>
+                                </persName>
+                            </editor>
+                            <imprint xml:lang="en">
+                                <publisher xml:lang="en">
+                                    <orgName xml:lang="ar">مطبعة الظاهر</orgName>
+                                    <orgName xml:lang="ar-Latn-x-ijmes">Maṭbaʿa al-Ẓāhir</orgName>
+                                </publisher>
+                                <publisher xml:lang="en">
+                                    <orgName xml:lang="ar">المطبعة العمومية</orgName>
+                                    <orgName xml:lang="ar-Latn-x-ijmes">al-Maṭbaʿa al-ʿUmūmiyya</orgName>
+                                </publisher>
+                                <pubPlace xml:lang="en">
+                                    <placeName ref="oape:place:226 geon:360630" xml:lang="ar">القاهرة</placeName>
+                                    <placeName ref="oape:place:226 geon:360630" xml:lang="ar-Latn-x-ijmes">al-Qāhira</placeName>
+                                    <placeName ref="oape:place:226 geon:360630" xml:lang="fr">Caire</placeName>
+                                    <placeName ref="oape:place:226 geon:360630" xml:lang="en">Cairo</placeName>
+                                </pubPlace>
+                                <date calendar="#cal_islamic" datingMethod="#cal_islamic" when="1906-02-25" when-custom="1324-01-01" xml:lang="ar-Latn-x-ijmes">1 Muḥ 1324</date>
+                            </imprint>
+                            <imprint xml:lang="en">
+                                <publisher xml:lang="en">
+                                    <orgName xml:lang="ar">دار صادر</orgName>
+                                    <orgName xml:lang="ar-Latn-x-ijmes">Dār Ṣādir</orgName>
+                                </publisher>
+                                <pubPlace xml:lang="en">
+                                    <placeName ref="oape:place:26 geon:276781" xml:lang="ar">بيروت</placeName>
+                                    <placeName ref="oape:place:26 geon:276781" xml:lang="ar-Latn-x-ijmes">Bayrūt</placeName>
+                                    <placeName ref="oape:place:26 geon:276781" xml:lang="fr">Beyrouth</placeName>
+                                    <placeName ref="oape:place:26 geon:276781" xml:lang="en">Beirut</placeName>
+                                </pubPlace>
+                                <date when="1992" xml:lang="en">1992</date>
+                            </imprint>
+                            <biblScope from="1" to="1" unit="volume" xml:lang="en"/>
+                            <biblScope from="1" to="1" unit="issue" xml:lang="en"/>
+                            <biblScope from="1" to="1" unit="volume" xml:lang="en"/>
+                            <biblScope from="1" to="1" unit="issue" xml:lang="en"/>
+                            <biblScope from="19" to="19" unit="page">19-19</biblScope>
+                        </monogr>
+                    </biblStruct>
+                    <biblStruct>
+                        <analytic>
+                            <title level="a" xml:lang="ar">ماهية الحياة</title>
+                            <author>
+                                <persName ref="oape:pers:766 viaf:65658340" xml:lang="ar">
+                                    <forename xml:lang="ar">عبد الرحمن</forename>
+                                    <surname xml:lang="ar">شهبندر</surname>
+                                </persName>
+                            </author>
+                            <idno type="url">https://github.com/tillgrallert/digital-muqtabas/blob/master/xml/oclc_4770057679-i_1.TEIP5.xml#div_8.d1e1769</idno>
+                            <idno type="BibTeX">oclc_4770057679-i_1-div_8.d1e1769</idno>
+                        </analytic>
+                        <monogr>
+                            <title level="j" xml:lang="ar">المقتبس</title>
+                            <title level="j" type="sub" xml:lang="ar">مجلة أدبية علمية اجتماعية تصدر ب
+                
+                                
+                                <placeName xml:lang="ar">القاهرة</placeName>
+                                في غرة كل شهر عربي</title>
+                            <title level="j" xml:lang="ar-Latn-x-ijmes">al-Muqtabas</title>
+                            <title level="j" type="sub" xml:lang="ar-Latn-x-ijmes">Majalla adabiyya ʿilmiyya ijtimāʿiyya tuṣadir bi-l-Qāhira fī gharrat kull shahr ʿarabī</title>
+                            <title level="j" xml:lang="fr">Al-Moktabas</title>
+                            <title level="j" type="sub" xml:lang="fr">Revue mensuelle, littéraire, scientifique &amp; Sociologique</title>
+                            <title level="j" xml:lang="ar">المقتبس</title>
+                            <title level="j" type="sub" xml:lang="ar">مجلة أدبية علمية اجتماعية تصدر ب
+                
+                                
+                                <placeName xml:lang="ar">القاهرة</placeName>
+                                في غرة كل شهر عربي</title>
+                            <title level="j" type="sub" xml:lang="ar">اعيد طبعها بالتصوير باشراف                             
+                            
+                
+                                
+                                <persName ref="oape:pers:2859 viaf:22295803" xml:lang="ar">
+                                    <roleName type="title" xml:lang="ar">الدكتور</roleName>
+                                    <forename xml:lang="ar">محمد</forename>
+                                    <forename xml:lang="ar">يوسف</forename>
+                                    <surname xml:lang="ar">نجم</surname></persName>
+                            </title>
+                            <title level="j" xml:lang="ar-Latn-x-ijmes">al-Muqtabas</title>
+                            <title level="j" type="sub" xml:lang="ar-Latn-x-ijmes">Majalla adabiyya ʿilmiyya ijtimāʿiyya tuṣadir bi-l-Qāhira fī gharrat kull shahr ʿarabī</title>
+                            <title level="j" xml:lang="fr">Al-Moktabas</title>
+                            <title level="j" type="sub" xml:lang="fr">Revue mensuelle, littéraire, scientifique &amp; Sociologique</title>
+                            <idno type="OCLC" xml:lang="en">4770057679</idno>
+                            <idno type="OCLC" xml:lang="en">79440195</idno>
+                            <idno type="aucr" xml:lang="en">07201136864</idno>
+                            <idno type="shamela" xml:lang="en">26523</idno>
+                            <idno type="zenodo" xml:lang="en">45922152</idno>
+                            <idno type="OCLC" xml:lang="en">4770057679</idno>
+                            <idno type="OCLC" xml:lang="en">79440195</idno>
+                            <tei:idno type="URI">oclc_4770057679-i_1</tei:idno>
+                            <tei:textLang mainLang="ar"/>
+                            <editor ref="https://viaf.org/viaf/32272677" xml:lang="en">
+                                <persName ref="oape:pers:878 viaf:32272677" xml:lang="ar">
+                                    <forename xml:lang="ar">محمد</forename>
+                                    <surname xml:lang="ar">كرد علي</surname>
+                                </persName>
+                                <persName ref="oape:pers:878 viaf:32272677" xml:lang="ar-Latn-x-ijmes">
+                                    <forename xml:lang="ar-Latn-x-ijmes">Muḥammad</forename>
+                                    <surname xml:lang="ar-Latn-x-ijmes">Kurd ʿAlī</surname>
+                                </persName>
+                            </editor>
+                            <editor ref="https://viaf.org/viaf/32272677" xml:lang="en">
+                                <persName ref="oape:pers:878 viaf:32272677" xml:lang="ar">
+                                    <forename xml:lang="ar">محمد</forename>
+                                    <surname xml:lang="ar">كرد علي</surname>
+                                </persName>
+                                <persName ref="oape:pers:878 viaf:32272677" xml:lang="ar-Latn-x-ijmes">
+                                    <forename xml:lang="ar-Latn-x-ijmes">Muḥammad</forename>
+                                    <surname xml:lang="ar-Latn-x-ijmes">Kurd ʿAlī</surname>
+                                </persName>
+                            </editor>
+                            <editor ref="https://viaf.org/viaf/22295803" xml:lang="en">
+                                <persName ref="oape:pers:2859 viaf:22295803" xml:lang="ar">
+                                    <forename xml:lang="ar">محمد</forename>
+                                    <forename xml:lang="ar">يوسف</forename>
+                                    <surname xml:lang="ar">نجم</surname>
+                                </persName>
+                                <persName ref="oape:pers:2859 viaf:22295803" xml:lang="ar-Latn-x-ijmes">
+                                    <forename xml:lang="ar-Latn-x-ijmes">Muḥammad</forename>
+                                    <forename xml:lang="ar-Latn-x-ijmes">Yūsuf</forename>
+                                    <surname xml:lang="ar-Latn-x-ijmes">Najm</surname>
+                                </persName>
+                            </editor>
+                            <imprint xml:lang="en">
+                                <publisher xml:lang="en">
+                                    <orgName xml:lang="ar">مطبعة الظاهر</orgName>
+                                    <orgName xml:lang="ar-Latn-x-ijmes">Maṭbaʿa al-Ẓāhir</orgName>
+                                </publisher>
+                                <publisher xml:lang="en">
+                                    <orgName xml:lang="ar">المطبعة العمومية</orgName>
+                                    <orgName xml:lang="ar-Latn-x-ijmes">al-Maṭbaʿa al-ʿUmūmiyya</orgName>
+                                </publisher>
+                                <pubPlace xml:lang="en">
+                                    <placeName ref="oape:place:226 geon:360630" xml:lang="ar">القاهرة</placeName>
+                                    <placeName ref="oape:place:226 geon:360630" xml:lang="ar-Latn-x-ijmes">al-Qāhira</placeName>
+                                    <placeName ref="oape:place:226 geon:360630" xml:lang="fr">Caire</placeName>
+                                    <placeName ref="oape:place:226 geon:360630" xml:lang="en">Cairo</placeName>
+                                </pubPlace>
+                                <date calendar="#cal_islamic" datingMethod="#cal_islamic" when="1906-02-25" when-custom="1324-01-01" xml:lang="ar-Latn-x-ijmes">1 Muḥ 1324</date>
+                            </imprint>
+                            <imprint xml:lang="en">
+                                <publisher xml:lang="en">
+                                    <orgName xml:lang="ar">دار صادر</orgName>
+                                    <orgName xml:lang="ar-Latn-x-ijmes">Dār Ṣādir</orgName>
+                                </publisher>
+                                <pubPlace xml:lang="en">
+                                    <placeName ref="oape:place:26 geon:276781" xml:lang="ar">بيروت</placeName>
+                                    <placeName ref="oape:place:26 geon:276781" xml:lang="ar-Latn-x-ijmes">Bayrūt</placeName>
+                                    <placeName ref="oape:place:26 geon:276781" xml:lang="fr">Beyrouth</placeName>
+                                    <placeName ref="oape:place:26 geon:276781" xml:lang="en">Beirut</placeName>
+                                </pubPlace>
+                                <date when="1992" xml:lang="en">1992</date>
+                            </imprint>
+                            <biblScope from="1" to="1" unit="volume" xml:lang="en"/>
+                            <biblScope from="1" to="1" unit="issue" xml:lang="en"/>
+                            <biblScope from="1" to="1" unit="volume" xml:lang="en"/>
+                            <biblScope from="1" to="1" unit="issue" xml:lang="en"/>
+                            <biblScope from="19" to="19" unit="page">19-19</biblScope>
+                        </monogr>
+                    </biblStruct>
+                </listBibl>
+            </p>
+        </body>
+    </text>
+</TEI>
