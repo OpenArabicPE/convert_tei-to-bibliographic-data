@@ -1,0 +1,76 @@
+- id: 'oclc_792756327-v_1-i_1-div_5.d2e436'
+  title: 'الى الامام الى العلى'
+  container-title: 'الحسناء: مجلة نسائية ادبية اخلاقية اجتماعية'
+  issue: '1'
+  volume: '1'
+  page: '15-18'
+  URL: 
+  - 'https://github.com/openarabicpe/journal_al-hasna/blob/master/tei/oclc_792756327-v_1-i_1.TEIP5.xml#div_5.d2e436'
+  - 'https://openarabicpe.github.io/journal_al-hasna/tei/oclc_792756327-v_1-i_1.TEIP5.xml#div_5.d2e436'
+  author: 
+  - 'فريدةهانم'
+  editor: 
+  - family: 'باز'
+    given: 'جرجي'
+    given: 'نقولا'
+
+  type: 
+  issued: '1909-06-20'
+- id: 'oclc_4770057679-i_1-div_7.d1e1661'
+  title: 'الأخلاق الفاضلة'
+  container-title: 'المقتبس: مجلة أدبية علمية اجتماعية تصدر بالقاهرةفي غرة كل شهر عربي'
+  volume: '1'
+  issue: '1'
+  volume: '1'
+  issue: '1'
+  page: '19'
+  URL: 
+  - 'https://github.com/tillgrallert/digital-muqtabas/blob/master/xml/oclc_4770057679-i_1.TEIP5.xml#div_7.d1e1661'
+  author: 
+  - family: 'إبراهيم'
+    given: 'حافظ'
+
+  editor: 
+  - family: 'كرد علي'
+    given: 'محمد'
+
+
+  - family: 'كرد علي'
+    given: 'محمد'
+
+
+  - family: 'نجم'
+    given: 'محمد'
+    given: 'يوسف'
+
+  type: 
+  issued: '1906-02-25''1992'
+- id: 'oclc_4770057679-i_1-div_8.d1e1769'
+  title: 'ماهية الحياة'
+  container-title: 'المقتبس: مجلة أدبية علمية اجتماعية تصدر بالقاهرةفي غرة كل شهر عربي'
+  volume: '1'
+  issue: '1'
+  volume: '1'
+  issue: '1'
+  page: '19'
+  URL: 
+  - 'https://github.com/tillgrallert/digital-muqtabas/blob/master/xml/oclc_4770057679-i_1.TEIP5.xml#div_8.d1e1769'
+  author: 
+  - family: 'شهبندر'
+    given: 'عبد الرحمن'
+
+  editor: 
+  - family: 'كرد علي'
+    given: 'محمد'
+
+
+  - family: 'كرد علي'
+    given: 'محمد'
+
+
+  - family: 'نجم'
+    given: 'محمد'
+    given: 'يوسف'
+
+  type: 
+  issued: '1906-02-25''1992'
