@@ -18,7 +18,9 @@ This repository contains code to generate a variety of bibliographic metadata fo
         - [convert_tei-to-mods_issues.xsl](xslt/convert_tei-to-mods_issues.xsl): chains the functions `oape:bibliography-tei-div-to-biblstruct()` and `oape:bibliography-tei-to-mods()` to generate one MODS XML file per TEI XML file as input with `<mods:mods>` children for each `<tei:div>`.
     2. BibTeX
     3. CSV
-    4. Zotero JSON: **to do**
+    4. YAML: **to do**
+        - YAML would be of use for generating a static website from periodical editions, where each article is transformed to markdown with its own metadata block written in YAML in order to keep data and metadata together.
+    4. Zotero JSON: **to do**, first draft done
     4. TSS XML: **to do**
 
 # MODS
@@ -66,6 +68,10 @@ There are, however, a number of problems with the format:
 
 [^1]:[Wikipedia](https://en.wikipedia.org/wiki/BibTeX) has a better description than the official website.
 [^2]: Preferably validating against the [OpenArabicPE schema](https://github.com/OpenArabicPE/OpenArabicPE_ODD). All conversion functions work with any `<tei:div>` as input but concrete implementation of conversions is dependent on `@type` attribute values.
+
+# YAML
+
+
 
 # Zotero JSON
 
