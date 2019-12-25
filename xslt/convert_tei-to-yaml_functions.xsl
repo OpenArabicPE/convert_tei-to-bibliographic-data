@@ -8,12 +8,10 @@
     <xsl:output method="text" encoding="UTF-8" indent="yes" omit-xml-declaration="yes" name="text"/>
     <xsl:strip-space elements="*"/>
     
-    <!-- this stylesheet translates <tei:biblStruct>s to  csv -->
+    <!-- this stylesheet translates <tei:biblStruct>s to  YAML -->
     
     <!-- toggle debugging messages -->
 <!--    <xsl:include href="../../oxygen-project/OpenArabicPE_parameters.xsl"/>-->
-    <!-- import functions -->
-<!--    <xsl:include href="../../tools/xslt/openarabicpe_functions.xsl"/>-->
     
     <xsl:variable name="v_new-line" select="'&#x0A;'"/>
     <xsl:variable name="v_quot" select="'&apos;''"/>
