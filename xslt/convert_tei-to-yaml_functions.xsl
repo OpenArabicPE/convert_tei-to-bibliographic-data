@@ -24,7 +24,7 @@
         <xsl:apply-templates select="descendant::tei:biblStruct" mode="m_tei-to-yaml"/>
     </xsl:template>  
     <xsl:template match="tei:biblStruct" mode="m_tei-to-yaml">
-        <xsl:copy-of select="oape:bibliography-biblstruct-to-yaml(.,'ar')"/>
+        <xsl:copy-of select="oape:bibliography-tei-to-yaml(.,'ar')"/>
     </xsl:template>-->
     
     <xsl:function name="oape:bibliography-tei-to-yaml">
@@ -77,8 +77,8 @@
         <!-- IDs -->
         <xsl:value-of select="$v_tab"/><xsl:text>URL: </xsl:text><xsl:value-of select="$v_new-line"/>
         <xsl:apply-templates select="$p_input/tei:analytic/tei:idno[@type='url']" mode="m_tei-to-yaml"/>
- <!-- URL: http://dx.doi.org/10.1038/nmat3283
-  DOI: 10.1038/nmat3283-->
+        <xsl:value-of select="$v_tab"/><xsl:text>OCLC: </xsl:text><xsl:value-of select="$v_new-line"/>
+        <xsl:apply-templates select="$p_input/tei:monogr/tei:idno[@type='OCLC']" mode="m_tei-to-yaml"/>
         <!-- author, editor -->
         <xsl:value-of select="$v_tab"/><xsl:text>author: </xsl:text>
         <xsl:apply-templates select="$p_input/tei:analytic/tei:author" mode="m_tei-to-yaml">

@@ -7,6 +7,12 @@
   URL: 
   - 'https://github.com/openarabicpe/journal_al-hasna/blob/master/tei/oclc_792756327-v_1-i_1.TEIP5.xml#div_5.d2e436'
   - 'https://openarabicpe.github.io/journal_al-hasna/tei/oclc_792756327-v_1-i_1.TEIP5.xml#div_5.d2e436'
+  oclc: 
+  - '792756327'
+  - '792755433'
+  - '1034555587'
+  - '1034550210'
+  - '672047031'
   author: 
   - 'فريدةهانم'
   editor: 
@@ -26,6 +32,11 @@
   page: '19'
   URL: 
   - 'https://github.com/tillgrallert/digital-muqtabas/blob/master/xml/oclc_4770057679-i_1.TEIP5.xml#div_7.d1e1661'
+  oclc: 
+  - '4770057679'
+  - '79440195'
+  - '4770057679'
+  - '79440195'
   author: 
   - family: 'إبراهيم'
     given: 'حافظ'
@@ -55,6 +66,11 @@
   page: '19'
   URL: 
   - 'https://github.com/tillgrallert/digital-muqtabas/blob/master/xml/oclc_4770057679-i_1.TEIP5.xml#div_8.d1e1769'
+  oclc: 
+  - '4770057679'
+  - '79440195'
+  - '4770057679'
+  - '79440195'
   author: 
   - family: 'شهبندر'
     given: 'عبد الرحمن'
