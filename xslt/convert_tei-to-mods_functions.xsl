@@ -46,10 +46,16 @@
                 </place>
                 <xsl:apply-templates select="$p_input/descendant::tei:publisher" mode="m_tei-to-mods"/>
                 <dateIssued>
-                    <xsl:if test="$p_input/descendant::tei:date/@when!=''">
-                        <xsl:attribute name="encoding" select="'w3cdtf'"/>
-                        <xsl:value-of select="$p_input/descendant::tei:date[@when][1]/@when"/>
-                    </xsl:if>
+                    <xsl:choose>
+                        <xsl:when test="$p_input/descendant::tei:date/@when!=''">
+                            <xsl:attribute name="encoding" select="'w3cdtf'"/>
+                            <xsl:value-of select="$p_input/descendant::tei:date[@when][1]/@when"/>
+                        </xsl:when>
+                        <xsl:when test="$p_input/descendant::tei:date[@from]">
+                             <xsl:attribute name="encoding" select="'w3cdtf'"/>
+                            <xsl:value-of select="$p_input/descendant::tei:date[@from][1]/@from"/>
+                        </xsl:when>
+                    </xsl:choose>
                 </dateIssued>
                 <!-- add hijri dates -->
                 <xsl:if test="$p_input/descendant::tei:date/@calendar='#cal_islamic'">
@@ -67,7 +73,7 @@
                                 <xsl:value-of select="$p_input/descendant::tei:date[@calendar = '#cal_islamic'][@when-custom]/@when"/>
                             </xsl:when>
                             <xsl:when test="$p_input/descendant::tei:date[@calendar = '#cal_islamic'][@when-custom]">
-                                <xsl:analyze-string select="$p_input/descendant::tei:date[@calendar = '#cal_islamic'][@when-custom]/@when-custom" regex="(\d{{4}})$|(\d{{4}}-\d{{2}}-\d{{2}})$">
+                                <xsl:analyze-string select="$p_input/descendant::tei:date[@calendar = '#cal_islamic'][@when-custom][1]/@when-custom" regex="(\d{{4}})$|(\d{{4}}-\d{{2}}-\d{{2}})$">
                                     <xsl:matching-substring>
                                         <xsl:if test="regex-group(1)">
                                              <xsl:value-of select="oape:date-convert-islamic-year-to-gregorian(regex-group(1))"/>
@@ -188,9 +194,19 @@
                 </xsl:if>
             <titleInfo>
                     <xsl:choose>
+                        <!-- test for analytical titles in target language -->
+                        <xsl:when test="$p_input/descendant::tei:title[@level='a'][@xml:lang=$p_lang]">
+                            <xsl:apply-templates select="$p_input/descendant::tei:title[@level='a'][@xml:lang=$p_lang]" mode="m_tei-to-mods"/>
+                        </xsl:when>
+                        <!-- test for analytical titles in any language -->
                         <xsl:when test="$p_input/descendant::tei:title[@level='a']">
                             <xsl:apply-templates select="$p_input/descendant::tei:title[@level='a']" mode="m_tei-to-mods"/>
                         </xsl:when>
+                        <!-- test for other titles in target language -->
+                        <xsl:when test="$p_input/descendant::tei:title[not(@level='a')][@xml:lang=$p_lang]">
+                            <xsl:apply-templates select="$p_input/descendant::tei:title[@xml:lang=$p_lang][not(@level='a')]" mode="m_tei-to-mods"/>
+                        </xsl:when>
+                        <!-- fall back: other title in any language -->
                         <xsl:otherwise>
                             <xsl:apply-templates select="$p_input/descendant::tei:title[not(@level='a')]" mode="m_tei-to-mods"/>
                         </xsl:otherwise>
@@ -225,7 +241,16 @@
                 <xsl:when test="$p_input/descendant::tei:title[@level='a']">
             <relatedItem type="host">
                 <titleInfo>
-                   <xsl:apply-templates select="$p_input/descendant::tei:title[@xml:lang=$p_lang][not(@level='a')]" mode="m_tei-to-mods"/>
+                     <xsl:choose>
+                        <!-- test for monogr titles in target language -->
+                        <xsl:when test="$p_input/descendant::tei:title[not(@level='a')][@xml:lang=$p_lang]">
+                            <xsl:apply-templates select="$p_input/descendant::tei:title[not(@level='a')][@xml:lang=$p_lang]" mode="m_tei-to-mods"/>
+                        </xsl:when>
+                         <!-- fallback: monogr titles in any language -->
+                         <xsl:otherwise>
+                             <xsl:apply-templates select="$p_input/descendant::tei:title[not(@level='a')]" mode="m_tei-to-mods"/>
+                         </xsl:otherwise>
+                     </xsl:choose>
                 </titleInfo>
                 <genre authority="marcgt">journal</genre>
                 <xsl:copy-of select="$v_editor"/>
@@ -272,6 +297,8 @@
                     <xsl:apply-templates select="$v_lang/tei:textLang" mode="m_tei-to-mods"/>
                 </xsl:otherwise>
             </xsl:choose>
+            <!-- notes, tags etc. -->
+            <xsl:apply-templates select="$p_input/descendant::tei:note" mode="m_tei-to-mods"/>
         </mods>
     </xsl:function>
 
@@ -404,7 +431,7 @@
     <xsl:template match="tei:title" mode="m_tei-to-mods">
         <xsl:choose>
             <xsl:when test="@type='sub'">
-                <subTitle lang="{@xml:lang}">
+                <subTitle xml:lang="{@xml:lang}">
                     <xsl:variable name="v_plain">
                         <xsl:apply-templates select="." mode="m_plain-text"/>
                     </xsl:variable>
@@ -499,5 +526,12 @@
                         </role>
                     </name>
                 </xsl:template>
-
+    <!-- notes -->
+    <xsl:template match="tei:note[@type='tagList']" mode="m_tei-to-mods">
+        <xsl:for-each select="tei:list/tei:item">
+            <subject>
+                <topic><xsl:value-of select="."/></topic>
+            </subject>
+        </xsl:for-each>
+    </xsl:template>
 </xsl:stylesheet>

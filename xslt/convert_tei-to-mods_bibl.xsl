@@ -22,26 +22,6 @@
     
     <!-- it doesn't matter if one applies the transformation to bibl or biblStruct -->
     <xsl:template match="tei:bibl | tei:biblStruct">
-        <!--<xsl:variable name="v_type">
-            <xsl:choose>
-                <xsl:when test="descendant::tei:title/@level = 'm'">
-                    <xsl:text>m</xsl:text>
-                </xsl:when>
-                <xsl:when test="descendant::tei:title/@level = 'a'">
-                    <xsl:text>a</xsl:text>
-                </xsl:when>
-                <xsl:when test="descendant::tei:title/@level = 'j'">
-                    <xsl:text>j</xsl:text>
-                </xsl:when>
-                <xsl:when test="descendant::tei:title/@level = 's'">
-                    <xsl:text>m</xsl:text>
-                </xsl:when>
-                <!-\- fallback option -\->
-                <!-\-<xsl:otherwise>
-                    <xsl:text>m</xsl:text>
-                </xsl:otherwise>-\->
-            </xsl:choose>
-        </xsl:variable>-->
         <xsl:copy-of select="oape:bibliography-tei-to-mods(., $p_target-language)"/>
     </xsl:template>
 
