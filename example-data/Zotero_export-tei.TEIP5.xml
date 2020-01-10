@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listBibl xmlns="http://www.tei-c.org/ns/1.0">
+    <biblStruct corresp="http://zotero.org/groups/904125/items/KQ96GLUB" type="journalArticle" xml:id="كرد_علي1912">
+        <analytic>
+            <title level="a">رحلة إلى المدينة المنورة</title>
+        </analytic>
+        <monogr>
+            <title level="j">المقتبس</title>
+            <editor><forename>محمد</forename><surname>كرد علي</surname></editor>
+            <imprint>
+                <biblScope unit="volume">7</biblScope>
+                <biblScope unit="issue">10</biblScope>
+                <biblScope unit="page">757-765</biblScope>
+                <date>1912</date>
+                <note type="accessed">2019-08-20</note>
+                <note type="url">https://tillgrallert.github.io/digital-muqtabas/xml/oclc_4770057679-i_81.TEIP5.xml#div_6.d1e1490</note>
+            </imprint>
+        </monogr>
+    </biblStruct>
+</listBibl>
