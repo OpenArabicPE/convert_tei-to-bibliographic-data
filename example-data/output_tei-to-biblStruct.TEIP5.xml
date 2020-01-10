@@ -73,6 +73,13 @@
                             <biblScope from="1" to="1" unit="volume" xml:lang="ar-Latn-x-ijmes">1</biblScope>
                             <biblScope from="15" to="18" unit="page">15-18</biblScope>
                         </monogr>
+                        <!-- the following was manually added for testing further transformations -->
+                        <note type="tagList">
+                            <list>
+                                <item>frequency_monthly</item>
+                                <item>days_monday</item>
+                            </list>
+                        </note>
                     </biblStruct>
                     <biblStruct>
                         <analytic>
