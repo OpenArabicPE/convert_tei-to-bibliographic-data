@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="../xslt-boilerplate/modsbp_parameters.xsl"?>
+<modsCollection xmlns="http://www.loc.gov/mods/v3"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://www.loc.gov/standards/mods/mods-3-7.xsd">
+   <mods>
+      <titleInfo>
+         <title xml:lang="ar">الى الامام الى العلى</title>
+         <title xml:lang="ar-Latn-x-ijmes">1</title>
+      </titleInfo>
+      <typeOfResource>text</typeOfResource>
+      <genre authority="local" xml:lang="en">journalArticle</genre>
+      <genre authority="marcgt" xml:lang="en">article</genre>
+      <name type="personal"
+            xml:lang="ota"
+            authority="oape"
+            valueURI="oape:pers:2838">
+         <namePart>   فريدة    هانم   </namePart>
+         <role>
+            <roleTerm authority="marcrelator" type="code">aut</roleTerm>
+         </role>
+      </name>
+      <relatedItem type="host">
+         <titleInfo>
+            <title xml:lang="ar">الحسناء</title>
+            <subTitle lang="ar">مجلة نسائية ادبية اخلاقية اجتماعية</subTitle>
+         </titleInfo>
+         <genre authority="marcgt">journal</genre>
+         <name type="personal"
+               xml:lang="ar"
+               authority="viaf"
+               valueURI="https://viaf.org/viaf/311789687">
+            <namePart type="family" xml:lang="ar">باز</namePart>
+            <namePart type="given" xml:lang="ar">جرجي</namePart>
+            <namePart type="given" xml:lang="ar">نقولا</namePart>
+            <role>
+               <roleTerm authority="marcrelator" type="code">edt</roleTerm>
+            </role>
+         </name>
+         <originInfo>
+            <place>
+               <placeTerm type="text"
+                          xml:lang="ar"
+                          authority="geonames"
+                          valueURI="https://www.geonames.org/276781">بيروت</placeTerm>
+            </place>
+                                    <publisher xml:lang="ar-Latn-x-ijmes">Maṭbaʿat Jarīdat Ḥadīqat al-Akhbār</publisher>
+                                    <publisher xml:lang="ar">مطبعة جريدة حديقة الاخبار</publisher>
+                                <dateIssued encoding="w3cdtf">1909-06-20</dateIssued>
+            <dateOther calendar="julian">1909-06-07</dateOther>
+            <dateOther>1909-06-07 [1909-06-20]</dateOther>
+            <issuance>continuing</issuance>
+         </originInfo>
+         <part>
+            <detail type="issue">
+               <number>1</number>
+            </detail>
+            <detail type="volume">
+               <number>1</number>
+            </detail>
+            <extent unit="pages">
+               <start>15</start>
+               <end>18</end>
+            </extent>
+         </part>
+         <identifier type="BibTeX">oclc_792756327-v_1-i_1-div_5.d2e436</identifier>
+         <identifier type="callNumber">EAP119/1/8/1</identifier>
+         <identifier type="CitationID">hasna 1</identifier>
+         <identifier type="OCLC">792756327</identifier>
+         <identifier type="OCLC">792755433</identifier>
+         <identifier type="OCLC">1034555587</identifier>
+         <identifier type="OCLC">1034550210</identifier>
+         <identifier type="OCLC">672047031</identifier>
+         <identifier type="URI">oclc_792756327-v_1-i_1</identifier>
+         <subject>
+			<topic>frequency_monthly</topic>
+		</subject>
+		<subject>
+			<topic>days_monday</topic>
+		</subject>
+      </relatedItem>
+      <accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+      <location>
+         <url usage="primary display">https://github.com/openarabicpe/journal_al-hasna/blob/master/tei/oclc_792756327-v_1-i_1.TEIP5.xml#div_5.d2e436</url>
+         <url usage="primary display">https://openarabicpe.github.io/journal_al-hasna/tei/oclc_792756327-v_1-i_1.TEIP5.xml#div_5.d2e436</url>
+         <url usage="primary display">http://eap.bl.uk/database/overview_item.a4d?catId=890;r=30191</url>
+      </location>
+      <language>
+         <languageTerm type="code"
+                       authorityURI="http://www.iana.org/assignments/language-subtag-registry/language-subtag-registry">ar</languageTerm>
+      </language>
+   </mods>
+   <mods>
+      <titleInfo>
+         <title xml:lang="ar">الأخلاق الفاضلة</title>
+      </titleInfo>
+      <typeOfResource>text</typeOfResource>
+      <genre authority="local" xml:lang="en">journalArticle</genre>
+      <genre authority="marcgt" xml:lang="en">article</genre>
+      <name type="personal"
+            xml:lang="ar"
+            authority="viaf"
+            valueURI="https://viaf.org/viaf/32410755">
+         <namePart type="family" xml:lang="ar">إبراهيم</namePart>
+         <namePart type="given" xml:lang="ar">حافظ</namePart>
+         <role>
+            <roleTerm authority="marcrelator" type="code">aut</roleTerm>
+         </role>
+      </name>
+      <relatedItem type="host">
+         <titleInfo>
+            <title xml:lang="ar">المقتبس</title>
+            <subTitle xml:lang="ar">مجلة أدبية علمية اجتماعية تصدر ب القاهرة في غرة كل شهر عربي</subTitle>
+            <title xml:lang="ar">المقتبس</title>
+            <subTitle xml:lang="ar">مجلة أدبية علمية اجتماعية تصدر ب القاهرة في غرة كل شهر عربي</subTitle>
+            <subTitle xml:lang="ar">اعيد طبعها بالتصوير باشراف الدكتور محمد يوسف نجم</subTitle>
+         </titleInfo>
+         <genre authority="marcgt">journal</genre>
+         <name type="personal"
+               xml:lang="ar"
+               authority="viaf"
+               valueURI="https://viaf.org/viaf/32272677">
+            <namePart type="family" xml:lang="ar">كرد علي</namePart>
+            <namePart type="given" xml:lang="ar">محمد</namePart>
+            <role>
+               <roleTerm authority="marcrelator" type="code">edt</roleTerm>
+            </role>
+         </name>
+         <name type="personal"
+               xml:lang="ar"
+               authority="viaf"
+               valueURI="https://viaf.org/viaf/32272677">
+            <namePart type="family" xml:lang="ar">كرد علي</namePart>
+            <namePart type="given" xml:lang="ar">محمد</namePart>
+            <role>
+               <roleTerm authority="marcrelator" type="code">edt</roleTerm>
+            </role>
+         </name>
+         <name type="personal"
+               xml:lang="ar"
+               authority="viaf"
+               valueURI="https://viaf.org/viaf/22295803">
+            <namePart type="family" xml:lang="ar">نجم</namePart>
+            <namePart type="given" xml:lang="ar">محمد</namePart>
+            <namePart type="given" xml:lang="ar">يوسف</namePart>
+            <role>
+               <roleTerm authority="marcrelator" type="code">edt</roleTerm>
+            </role>
+         </name>
+         <originInfo>
+            <place>
+               <placeTerm type="text"
+                          xml:lang="ar"
+                          authority="geonames"
+                          valueURI="https://www.geonames.org/360630">القاهرة</placeTerm>
+               <placeTerm type="text"
+                          xml:lang="ar"
+                          authority="geonames"
+                          valueURI="https://www.geonames.org/276781">بيروت</placeTerm>
+            </place>
+                                    <publisher xml:lang="ar">مطبعة الظاهر</publisher>
+                                    <publisher xml:lang="ar-Latn-x-ijmes">Maṭbaʿa al-Ẓāhir</publisher>
+                                
+                                    <publisher xml:lang="ar">المطبعة العمومية</publisher>
+                                    <publisher xml:lang="ar-Latn-x-ijmes">al-Maṭbaʿa al-ʿUmūmiyya</publisher>
+                                
+                                    <publisher xml:lang="ar">دار صادر</publisher>
+                                    <publisher xml:lang="ar-Latn-x-ijmes">Dār Ṣādir</publisher>
+                                <dateIssued encoding="w3cdtf">1906-02-25</dateIssued>
+            <dateOther calendar="islamic">1324-01-01</dateOther>
+            <dateOther>1324-01-01 [1906-02-25]</dateOther>
+            <issuance>continuing</issuance>
+         </originInfo>
+         <part>
+            <detail type="volume">
+               <number>1</number>
+            </detail>
+            <detail type="issue">
+               <number>1</number>
+            </detail>
+            <detail type="volume">
+               <number>1</number>
+            </detail>
+            <detail type="issue">
+               <number>1</number>
+            </detail>
+            <extent unit="pages">
+               <start>19</start>
+               <end>19</end>
+            </extent>
+         </part>
+         <identifier type="BibTeX">oclc_4770057679-i_1-div_7.d1e1661</identifier>
+         <identifier type="OCLC">4770057679</identifier>
+         <identifier type="OCLC">79440195</identifier>
+         <identifier type="aucr">07201136864</identifier>
+         <identifier type="shamela">26523</identifier>
+         <identifier type="zenodo">45922152</identifier>
+         <identifier type="OCLC">4770057679</identifier>
+         <identifier type="OCLC">79440195</identifier>
+         <identifier type="URI">oclc_4770057679-i_1</identifier>
+      </relatedItem>
+      <accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+      <location>
+         <url usage="primary display">https://github.com/tillgrallert/digital-muqtabas/blob/master/xml/oclc_4770057679-i_1.TEIP5.xml#div_7.d1e1661</url>
+      </location>
+      <language>
+         <languageTerm type="code"
+                       authorityURI="http://www.iana.org/assignments/language-subtag-registry/language-subtag-registry">ar</languageTerm>
+      </language>
+   </mods>
+   <mods>
+      <titleInfo>
+         <title xml:lang="ar">ماهية الحياة</title>
+      </titleInfo>
+      <typeOfResource>text</typeOfResource>
+      <genre authority="local" xml:lang="en">journalArticle</genre>
+      <genre authority="marcgt" xml:lang="en">article</genre>
+      <name type="personal"
+            xml:lang="ar"
+            authority="viaf"
+            valueURI="https://viaf.org/viaf/65658340">
+         <namePart type="family" xml:lang="ar">شهبندر</namePart>
+         <namePart type="given" xml:lang="ar">عبد الرحمن</namePart>
+         <role>
+            <roleTerm authority="marcrelator" type="code">aut</roleTerm>
+         </role>
+      </name>
+      <relatedItem type="host">
+         <titleInfo>
+            <title xml:lang="ar">المقتبس</title>
+            <subTitle lang="ar">مجلة أدبية علمية اجتماعية تصدر ب القاهرة في غرة كل شهر عربي</subTitle>
+            <title xml:lang="ar">المقتبس</title>
+            <subTitle lang="ar">مجلة أدبية علمية اجتماعية تصدر ب القاهرة في غرة كل شهر عربي</subTitle>
+            <subTitle lang="ar">اعيد طبعها بالتصوير باشراف الدكتور محمد يوسف نجم</subTitle>
+         </titleInfo>
+         <genre authority="marcgt">journal</genre>
+         <name type="personal"
+               xml:lang="ar"
+               authority="viaf"
+               valueURI="https://viaf.org/viaf/32272677">
+            <namePart type="family" xml:lang="ar">كرد علي</namePart>
+            <namePart type="given" xml:lang="ar">محمد</namePart>
+            <role>
+               <roleTerm authority="marcrelator" type="code">edt</roleTerm>
+            </role>
+         </name>
+         <name type="personal"
+               xml:lang="ar"
+               authority="viaf"
+               valueURI="https://viaf.org/viaf/32272677">
+            <namePart type="family" xml:lang="ar">كرد علي</namePart>
+            <namePart type="given" xml:lang="ar">محمد</namePart>
+            <role>
+               <roleTerm authority="marcrelator" type="code">edt</roleTerm>
+            </role>
+         </name>
+         <name type="personal"
+               xml:lang="ar"
+               authority="viaf"
+               valueURI="https://viaf.org/viaf/22295803">
+            <namePart type="family" xml:lang="ar">نجم</namePart>
+            <namePart type="given" xml:lang="ar">محمد</namePart>
+            <namePart type="given" xml:lang="ar">يوسف</namePart>
+            <role>
+               <roleTerm authority="marcrelator" type="code">edt</roleTerm>
+            </role>
+         </name>
+         <originInfo>
+            <place>
+               <placeTerm type="text"
+                          xml:lang="ar"
+                          authority="geonames"
+                          valueURI="https://www.geonames.org/360630">القاهرة</placeTerm>
+               <placeTerm type="text"
+                          xml:lang="ar"
+                          authority="geonames"
+                          valueURI="https://www.geonames.org/276781">بيروت</placeTerm>
+            </place>
+                                    <publisher xml:lang="ar">مطبعة الظاهر</publisher>
+                                    <publisher xml:lang="ar-Latn-x-ijmes">Maṭbaʿa al-Ẓāhir</publisher>
+                                
+                                    <publisher xml:lang="ar">المطبعة العمومية</publisher>
+                                    <publisher xml:lang="ar-Latn-x-ijmes">al-Maṭbaʿa al-ʿUmūmiyya</publisher>
+                                
+                                    <publisher xml:lang="ar">دار صادر</publisher>
+                                    <publisher xml:lang="ar-Latn-x-ijmes">Dār Ṣādir</publisher>
+                                <dateIssued encoding="w3cdtf">1906-02-25</dateIssued>
+            <dateOther calendar="islamic">1324-01-01</dateOther>
+            <dateOther>1324-01-01 [1906-02-25]</dateOther>
+            <issuance>continuing</issuance>
+         </originInfo>
+         <part>
+            <detail type="volume">
+               <number>1</number>
+            </detail>
+            <detail type="issue">
+               <number>1</number>
+            </detail>
+            <detail type="volume">
+               <number>1</number>
+            </detail>
+            <detail type="issue">
+               <number>1</number>
+            </detail>
+            <extent unit="pages">
+               <start>19</start>
+               <end>19</end>
+            </extent>
+         </part>
+         <identifier type="BibTeX">oclc_4770057679-i_1-div_8.d1e1769</identifier>
+         <identifier type="OCLC">4770057679</identifier>
+         <identifier type="OCLC">79440195</identifier>
+         <identifier type="aucr">07201136864</identifier>
+         <identifier type="shamela">26523</identifier>
+         <identifier type="zenodo">45922152</identifier>
+         <identifier type="OCLC">4770057679</identifier>
+         <identifier type="OCLC">79440195</identifier>
+         <identifier type="URI">oclc_4770057679-i_1</identifier>
+      </relatedItem>
+      <accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+      <location>
+         <url usage="primary display">https://github.com/tillgrallert/digital-muqtabas/blob/master/xml/oclc_4770057679-i_1.TEIP5.xml#div_8.d1e1769</url>
+      </location>
+      <language>
+         <languageTerm type="code"
+                       authorityURI="http://www.iana.org/assignments/language-subtag-registry/language-subtag-registry">ar</languageTerm>
+      </language>
+   </mods>
+</modsCollection>
