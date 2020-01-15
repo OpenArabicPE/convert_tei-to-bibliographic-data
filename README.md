@@ -12,14 +12,18 @@ This repository contains code to generate a variety of bibliographic metadata fo
     - [convert_tei-to-biblstruct_functions.xsl](xslt/convert_tei-to-biblstruct_functions.xsl): provides the necessary function to construct a `<tei:biblStruct>` for a `<tei:div>` using information from the TEI file's `<sourceDesc>` and the `<tei:div>` itself as `oape:bibliography-tei-div-to-biblstruct()`.
     - [convert_tei-to-biblstruct_articles.xsl](xslt/convert_tei-to-biblstruct_articles.xsl): applies the conversion to `<tei:div type="item">`
 3. Convert `<tei:biblStruct>` to:
-    1. MODS XML: This repository is part of OpenArabicPE, which deals with Arabic source files that come with many non-Gregorian dates. It utilises [XSLT from another repository](https://github.com/tillgrallert/xslt-calendar-conversion) for calendar conversion. One can decide to link to a local copy or use the following lineto include the online version: `<xsl:include href="https://tillgrallert.github.io/xslt-calendar-conversion/functions/date-functions.xsl"/>`.
+    1. **MODS XML**: This repository is part of OpenArabicPE, which deals with Arabic source files that come with many non-Gregorian dates. It utilises [XSLT from another repository](https://github.com/tillgrallert/xslt-calendar-conversion) for calendar conversion. One can decide to link to a local copy or use the following lin to include the online version: `<xsl:include href="https://tillgrallert.github.io/xslt-calendar-conversion/functions/date-functions.xsl"/>`.
         - [convert_tei-to-mods_functions.xsl](xslt/convert_tei-to-mods_functions.xsl): provides the function `oape:bibliography-tei-to-mods()` to convert a single `<tei:biblStruct>` to `<mods:mods>`
         - [convert_tei-to-mods_articles.xsl](xslt/convert_tei-to-mods_articles.xsl): chains the functions `oape:bibliography-tei-div-to-biblstruct()` and `oape:bibliography-tei-to-mods()` to generate one MODS XML file per `<tei:div>` as input.
         - [convert_tei-to-mods_issues.xsl](xslt/convert_tei-to-mods_issues.xsl): chains the functions `oape:bibliography-tei-div-to-biblstruct()` and `oape:bibliography-tei-to-mods()` to generate one MODS XML file per TEI XML file as input with `<mods:mods>` children for each `<tei:div>`.
-    2. BibTeX
+    2. **BibTeX**:
+        - [convert_tei-to-bibtex_functions.xsl](xslt/convert_tei-to-bibtex_functions.xsl): provides the function `oape:bibliography-tei-to-bibtex()` to convert a single `<tei:biblStruct>` to BibTeX
+        - [convert_tei-to-bibtex_articles.xsl](xslt/convert_tei-to-bibtex_articles.xsl): chains the functions `oape:bibliography-tei-div-to-biblstruct()` and `oape:bibliography-tei-to-bibtex()` to generate one BibTeX file (`.bib`) per `<tei:div>` as input.
+        - [convert_tei-to-bibtex_issues.xsl](xslt/convert_tei-to-bibtex_issues.xsl): chains the functions `oape:bibliography-tei-div-to-biblstruct()` and `oape:bibliography-tei-to-bibtex()` to generate one BibTeX file (`.bib`) per TEI XML file as input with one BibTeX child for each `<tei:div>`.
     3. CSV
-    4. YAML:
-        - YAML would be of use for generating a static website from periodical editions, where each article is transformed to markdown with its own metadata block written in YAML in order to keep data and metadata together.
+    4. **YAML**: YAML would be of use for generating a static website from periodical editions, where each article is transformed to markdown with its own metadata block written in YAML in order to keep data and metadata together.
+        - [convert_tei-to-yaml_functions.xsl](xslt/convert_tei-to-yaml_functions.xsl): provides the function `oape:bibliography-tei-to-yaml()` to convert a single `<tei:biblStruct>` to YAML
+        - [convert_tei-to-yaml_issues.xsl](xslt/convert_tei-to-yaml_issues.xsl): chains the functions `oape:bibliography-tei-div-to-biblstruct()` and `oape:bibliography-tei-to-yaml()` to generate one YAML file (`.yml`) per TEI XML file as input with one YAML child for each `<tei:div>`.
     4. Zotero JSON: **to do**, first draft done
     4. TSS XML: **to do**
 
@@ -77,7 +81,7 @@ There are, however, a number of problems with the format:
 
 # YAML
 
-A basic conversion to YAML was built by mapping the `<tei:biblStruct>` input to fields using [this example](http://blog.martinfenner.org/2013/07/30/citeproc-yaml-for-bibliographies/), which should work with Pandoc citeproc.
+A basic conversion to YAML was built by mapping the `<tei:biblStruct>` input to fields using [this example](http://blog.martinfenner.org/2013/07/30/citeproc-yaml-for-bibliographies/), which basically mirrors [CSL JSON]() and should work with [Pandoc]() using the [pandoc-citeproc](https://github.com/jgm/pandoc-citeproc/blob/master/man/pandoc-citeproc.1.md) filter.
 
 # Zotero JSON
 
