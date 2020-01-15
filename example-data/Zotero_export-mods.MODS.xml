@@ -1,23 +1,361 @@
 <?xml version="1.0"?>
-<modsCollection xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-2.xsd">
+<modsCollection xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-2.xsd">
 	<mods>
 		<titleInfo>
-			<title>الميت الحي</title>
+			<title>لغة العرب: مجلة شهرية ادبية علمية تاريخية</title>
 		</titleInfo>
 		<typeOfResource>text</typeOfResource>
 		<genre authority="local">journalArticle</genre>
-		<name type="personal">
-			<namePart type="family">محمد إمام العبد</namePart>
-			<role>
-				<roleTerm authority="marcrelator" type="code">aut</roleTerm>
-			</role>
-		</name>
 		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
-		<location>
-			<url dateLastAccessed="2019-08-20" usage="primary display">https://tillgrallert.github.io/digital-muqtabas/xml/oclc_4770057679-i_2.TEIP5.xml#div_13.d1e1252</url>
-		</location>
-		<note>&lt;p&gt;# test note&lt;/p&gt;</note>
+		<subject>
+			<topic>frequency_monthly</topic>
+		</subject>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">الكرملي</namePart>
+				<namePart type="given">أنستاس ماري</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<name type="personal">
+				<namePart type="family">الدجيلي</namePart>
+				<namePart type="given">كاظم</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<part>
+				<detail type="volume">
+					<number>1</number>
+				</detail>
+				<detail type="issue">
+					<number>1</number>
+				</detail>
+			</part>
+			<originInfo>
+				<dateIssued>1911-06-30</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>المنار</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">رضا</namePart>
+				<namePart type="given">محمد رشيد</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<part>
+				<detail type="volume">
+					<number>1</number>
+				</detail>
+				<detail type="issue">
+					<number>1</number>
+				</detail>
+			</part>
+			<originInfo>
+				<dateIssued>1898-03-15</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>الزهور: مجلة أدبية فنية علمية</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">الجميل</namePart>
+				<namePart type="given">أنطوان</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<part>
+				<detail type="volume">
+					<number>1</number>
+				</detail>
+				<detail type="issue">
+					<number>1</number>
+				</detail>
+			</part>
+			<originInfo>
+				<dateIssued>1910-03-01</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>الأستاذ</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">النديم</namePart>
+				<namePart type="given">عبد الله</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<originInfo>
+				<dateIssued>1892-08-24</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>المقتطف</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">صروف</namePart>
+				<namePart type="given">يعقوب</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<name type="personal">
+				<namePart type="family">نمر</namePart>
+				<namePart type="given">فارس</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<name type="personal">
+				<namePart type="family">مكاريوس</namePart>
+				<namePart type="given">شاهين</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<originInfo>
+				<dateIssued>1876-06-01</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>المقتطف</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">صروف</namePart>
+				<namePart type="given">يعقوب</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<name type="personal">
+				<namePart type="family">نمر</namePart>
+				<namePart type="given">فارس</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<name type="personal">
+				<namePart type="family">مكاريوس</namePart>
+				<namePart type="given">شاهين</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<originInfo>
+				<dateIssued>1884</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>المشرق</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">شيخو</namePart>
+				<namePart type="given">لويس</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<name type="personal">
+				<namePart type="family">خليل</namePart>
+				<namePart type="given">لويس</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<part>
+				<detail type="volume">
+					<number>1</number>
+				</detail>
+				<detail type="issue">
+					<number>1</number>
+				</detail>
+			</part>
+			<originInfo>
+				<dateIssued>1898-01-01</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>الجامعة: مجلة سياسية ادبية علمية تهذيبية</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">أنطون</namePart>
+				<namePart type="given">فرح</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<name type="personal">
+				<namePart type="family">كرم</namePart>
+				<namePart type="given">مخائيل</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<part>
+				<detail type="volume">
+					<number>1</number>
+				</detail>
+				<detail type="issue">
+					<number>1</number>
+				</detail>
+			</part>
+			<originInfo>
+				<dateIssued>1899-03-15</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>المقتبس: مجلة أدبية علمية اجتماعية تصدر بالقاهرة في غرة كل شهر عربي</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>frequency_monthly</topic>
+		</subject>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
 		<language>
 			<languageTerm type="text">ar</languageTerm>
 		</language>
@@ -35,75 +373,1258 @@
 					<number>1</number>
 				</detail>
 				<detail type="issue">
-					<number>2</number>
+					<number>1</number>
 				</detail>
 				<extent unit="pages">
-					<list>90</list>
+					<start>1</start>
+					<end>56</end>
 				</extent>
 			</part>
 			<originInfo>
-				<dateIssued>1906-03-27</dateIssued>
+				<dateIssued>1906-02-25</dateIssued>
 				<issuance>continuing</issuance>
 			</originInfo>
-			<titleInfo>
-				<title>المقتبس</title>
-			</titleInfo>
 		</relatedItem>
 	</mods>
 	<mods>
 		<titleInfo>
-			<title>قوة الجنس اللطيف</title>
+			<title>القبس: جريدة يومية سياسية اقتصادية اجتماعية</title>
 		</titleInfo>
 		<typeOfResource>text</typeOfResource>
-		<genre authority="local">magazineArticle</genre>
-		<name type="personal">
-			<namePart type="family">الرافعي</namePart>
-			<namePart type="given">مصطفى صادق</namePart>
-			<role>
-				<roleTerm authority="marcrelator" type="code">aut</roleTerm>
-			</role>
-		</name>
-		<name type="personal">
-			<namePart type="family">كرد علي</namePart>
-			<namePart type="given">محمد</namePart>
-			<role>
-				<roleTerm authority="marcrelator" type="code">ctb</roleTerm>
-			</role>
-		</name>
+		<genre authority="local">journalArticle</genre>
 		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
 		<location>
-			<url dateLastAccessed="2019-08-22" usage="primary display">https://tillgrallert.github.io/digital-muqtabas/xml/oclc_4770057679-i_3.TEIP5.xml#div_11.d1e1087</url>
+			<url usage="primary display">http://eap.bl.uk/database/overview_item.a4d?catId=7596;r=29795</url>
 		</location>
 		<subject>
-			<topic>frequency_monthly</topic>
+			<topic>frequency_daily</topic>
 		</subject>
 		<subject>
-			<topic>days_monday</topic>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
 		</subject>
 		<language>
 			<languageTerm type="text">ar</languageTerm>
 		</language>
 		<relatedItem type="host">
-			<genre authority="marcgt">periodical</genre>
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">العسلي</namePart>
+				<namePart type="given">شكري</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<name type="personal">
+				<namePart type="family">كرد علي</namePart>
+				<namePart type="given">محمد</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
 			<part>
 				<detail type="volume">
 					<number>1</number>
 				</detail>
 				<detail type="issue">
-					<number>3</number>
+					<number>1301-1/1400-100</number>
 				</detail>
 				<extent unit="pages">
-					<start>146</start>
-					<end>147</end>
+					<start>1</start>
+					<end>4</end>
 				</extent>
 			</part>
 			<originInfo>
-				<dateIssued>1906-04-25</dateIssued>
+				<dateIssued>1913-09-30</dateIssued>
 				<issuance>continuing</issuance>
 			</originInfo>
-			<titleInfo>
-				<title>المقتبس</title>
-			</titleInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>المقتبس: جريدة يومية سياسية اقتصادية اجتماعية</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<location>
+			<url usage="primary display">http://eap.bl.uk/database/overview_item.a4d?catId=6756;r=26919</url>
+		</location>
+		<subject>
+			<topic>frequency_daily</topic>
+		</subject>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">كرد علي</namePart>
+				<namePart type="given">محمد</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<part>
+				<detail type="volume">
+					<number>1/2</number>
+				</detail>
+				<detail type="issue">
+					<number>1/352</number>
+				</detail>
+				<extent unit="pages">
+					<start>1</start>
+					<end>4</end>
+				</extent>
+			</part>
+			<originInfo>
+				<dateIssued>1908-12-17</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>المقتبس: جريدة يومية سياسية اقتصادية اجتماعية</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<location>
+			<url usage="primary display">http://eap.bl.uk/database/overview_item.a4d?catId=6756;r=26919</url>
+		</location>
+		<subject>
+			<topic>frequency_daily</topic>
+		</subject>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">كرد علي</namePart>
+				<namePart type="given">محمد</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<name type="personal">
+				<namePart type="family">كرد علي</namePart>
+				<namePart type="given">احمد</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<part>
+				<detail type="volume">
+					<number>3/5</number>
+				</detail>
+				<detail type="issue">
+					<number>353/1300</number>
+				</detail>
+				<extent unit="pages">
+					<start>1</start>
+					<end>4</end>
+				</extent>
+			</part>
+			<originInfo>
+				<dateIssued>1910-04-26</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>المقتبس: جريدة يومية سياسية اقتصادية اجتماعية</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<location>
+			<url usage="primary display">http://eap.bl.uk/database/overview_item.a4d?catId=6756;r=26919</url>
+		</location>
+		<subject>
+			<topic>frequency_daily</topic>
+		</subject>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">كرد علي</namePart>
+				<namePart type="given">محمد</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<name type="personal">
+				<namePart type="family">كرد علي</namePart>
+				<namePart type="given">احمد</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<part>
+				<detail type="volume">
+					<number>5/7</number>
+				</detail>
+				<detail type="issue">
+					<number>1401/1929</number>
+				</detail>
+				<extent unit="pages">
+					<start>1</start>
+					<end>4</end>
+				</extent>
+			</part>
+			<originInfo>
+				<dateIssued>1914-02-01</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>المقتبس: جريدة يومية سياسية اقتصادية اجتماعية</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<location>
+			<url usage="primary display">http://eap.bl.uk/database/overview_item.a4d?catId=6756;r=26919</url>
+		</location>
+		<subject>
+			<topic>frequency_daily</topic>
+		</subject>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">كرد علي</namePart>
+				<namePart type="given">احمد</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<part>
+				<detail type="volume">
+					<number>7</number>
+				</detail>
+				<detail type="issue">
+					<number>1930/2046</number>
+				</detail>
+				<extent unit="pages">
+					<start>1</start>
+					<end>2</end>
+				</extent>
+			</part>
+			<originInfo>
+				<dateIssued>1916-06-17</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>الهلال</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">زيدان</namePart>
+				<namePart type="given">جرجي</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<originInfo>
+				<dateIssued>1892-09-01</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>البيان: مجلة علمية أدبية طبية صناعية</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">اليازجي</namePart>
+				<namePart type="given">إبراهيم</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<name type="personal">
+				<namePart type="family">زلزل</namePart>
+				<namePart type="given">بشارة</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<part>
+				<detail type="volume">
+					<number>1</number>
+				</detail>
+				<detail type="issue">
+					<number>1</number>
+				</detail>
+			</part>
+			<originInfo>
+				<dateIssued>1897-03-01</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>العرفان</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">الزين</namePart>
+				<namePart type="given">أحمد عارف</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<part>
+				<detail type="volume">
+					<number>1</number>
+				</detail>
+				<detail type="issue">
+					<number>1</number>
+				</detail>
+			</part>
+			<originInfo>
+				<dateIssued>1909-02-05</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>الآثار: مجلة عامة مصورة</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">المعلوف</namePart>
+				<namePart type="given">عيسى اسكندر</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<part>
+				<detail type="volume">
+					<number>1</number>
+				</detail>
+				<detail type="issue">
+					<number>1</number>
+				</detail>
+				<extent unit="pages">
+					<start>1</start>
+					<end>32</end>
+				</extent>
+			</part>
+			<originInfo>
+				<dateIssued>1911</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>الاتحاد العثماني: جريدة يومية سياسية ادبية اجتماعية عمرانية</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">طبارة</namePart>
+				<namePart type="given">احمد حسن</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<part>
+				<detail type="volume">
+					<number>1</number>
+				</detail>
+				<detail type="issue">
+					<number>1</number>
+				</detail>
+				<extent unit="pages">
+					<start>1</start>
+					<end>4</end>
+				</extent>
+			</part>
+			<originInfo>
+				<dateIssued>1908-09-22</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>الجنان</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<location>
+			<url usage="primary display">http://hdl.handle.net/2027/njp.32101007751447</url>
+		</location>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">البستاني</namePart>
+				<namePart type="given">بطرس</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<name type="personal">
+				<namePart type="family">البستاني</namePart>
+				<namePart type="given">سليم</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<part>
+				<detail type="volume">
+					<number>1</number>
+				</detail>
+				<detail type="issue">
+					<number>1</number>
+				</detail>
+				<extent unit="pages">
+					<start>1</start>
+					<end>36</end>
+				</extent>
+			</part>
+			<originInfo>
+				<dateIssued>1870-01-01</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>الحسناء: مجلة نسائية ادبية اخلاقية اجتماعية</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">باز</namePart>
+				<namePart type="given">جرجي نقولا</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<part>
+				<detail type="volume">
+					<number>1</number>
+				</detail>
+				<detail type="issue">
+					<number>1</number>
+				</detail>
+				<extent unit="pages">
+					<start>1</start>
+					<end>32</end>
+				</extent>
+			</part>
+			<originInfo>
+				<dateIssued>1909-06-20</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>الحقائق: مجلة علمية دينية اخلاقية اجتماعية</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">الإسكندراني</namePart>
+				<namePart type="given">عبد القادر</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<part>
+				<detail type="volume">
+					<number>1</number>
+				</detail>
+				<detail type="issue">
+					<number>1</number>
+				</detail>
+				<extent unit="pages">
+					<start>1</start>
+					<end>32</end>
+				</extent>
+			</part>
+			<originInfo>
+				<dateIssued>1910-08-07</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>الحقيقة: جريدة يومية سياسية أدبية</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">شيخ أحمد عباس الأزهري</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<name type="personal">
+				<namePart type="family">الناطور</namePart>
+				<namePart type="given">حسن</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<part>
+				<detail type="volume">
+					<number>1</number>
+				</detail>
+				<detail type="issue">
+					<number>1</number>
+				</detail>
+			</part>
+			<originInfo>
+				<dateIssued>1909</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>الحياة</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">وجدي</namePart>
+				<namePart type="given">محمد فريد</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<part>
+				<detail type="volume">
+					<number>1</number>
+				</detail>
+				<detail type="issue">
+					<number>1</number>
+				</detail>
+			</part>
+			<originInfo>
+				<dateIssued>1899-06-09</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>الرأي العام</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">طه أفندي المدور</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<part>
+				<detail type="volume">
+					<number>1</number>
+				</detail>
+				<detail type="issue">
+					<number>1</number>
+				</detail>
+			</part>
+			<originInfo>
+				<dateIssued>1910-03-30</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>الرياض</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">الدخيل</namePart>
+				<namePart type="given">سليمان</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<part>
+				<detail type="volume">
+					<number>1</number>
+				</detail>
+				<detail type="issue">
+					<number>1</number>
+				</detail>
+			</part>
+			<originInfo>
+				<dateIssued>1910</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>الضياء: مجلة علمية أدبية صحية صناعية</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">اليازجي</namePart>
+				<namePart type="given">إبراهيم</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<part>
+				<detail type="volume">
+					<number>1</number>
+				</detail>
+				<detail type="issue">
+					<number>1</number>
+				</detail>
+			</part>
+			<originInfo>
+				<dateIssued>1898-09-15</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>الطبيب: مجلة طبية علمية صناعية</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">اليازجي</namePart>
+				<namePart type="given">إبراهيم</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<name type="personal">
+				<namePart type="family">زلزل</namePart>
+				<namePart type="given">بشارة</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<name type="personal">
+				<namePart type="family">سعادة</namePart>
+				<namePart type="given">خالد</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<part>
+				<detail type="volume">
+					<number>1</number>
+				</detail>
+				<detail type="issue">
+					<number>1</number>
+				</detail>
+			</part>
+			<originInfo>
+				<dateIssued>1874</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>العصر الجديد: جريدة سياسية تجارية علمية صناعية ادبية زراعية</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">ابو زيد</namePart>
+				<namePart type="given">ناصيف</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<part>
+				<detail type="volume">
+					<number>2</number>
+				</detail>
+				<detail type="issue">
+					<number>53</number>
+				</detail>
+				<extent unit="pages">
+					<start>1</start>
+					<end>4</end>
+				</extent>
+			</part>
+			<originInfo>
+				<dateIssued>1909-10-05</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>المؤيد: جريدة اسبوعية سياسية تجارية</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">يوسف</namePart>
+				<namePart type="given">علي</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<name type="personal">
+				<namePart type="family">مادي</namePart>
+				<namePart type="given">أحمد</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<part>
+				<detail type="volume">
+					<number>1</number>
+				</detail>
+				<detail type="issue">
+					<number>1</number>
+				</detail>
+			</part>
+			<originInfo>
+				<dateIssued>1889-12-01</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>المفيد</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">العريسي</namePart>
+				<namePart type="given">عبد الغني</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<name type="personal">
+				<namePart type="family">بيهم</namePart>
+				<namePart type="given">حسن</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<part>
+				<detail type="volume">
+					<number>1</number>
+				</detail>
+				<detail type="issue">
+					<number>1</number>
+				</detail>
+			</part>
+			<originInfo>
+				<dateIssued>1911</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>الوطن</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">ملاط</namePart>
+				<namePart type="given">شبلي</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<name type="personal">
+				<namePart type="family">شوشاني</namePart>
+				<namePart type="given">نجيب</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<name type="personal">
+				<namePart type="family">فارس</namePart>
+				<namePart type="given">فيليكس</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<part>
+				<detail type="volume">
+					<number>1</number>
+				</detail>
+				<detail type="issue">
+					<number>1</number>
+				</detail>
+			</part>
+			<originInfo>
+				<dateIssued>1908</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>الاهرام</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">تقلا</namePart>
+				<namePart type="given">سليم</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<name type="personal">
+				<namePart type="family">تقلا</namePart>
+				<namePart type="given">بشارة</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<originInfo>
+				<dateIssued>1876-08-05</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>الاهرام</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">تقلا</namePart>
+				<namePart type="given">بشارة</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<originInfo>
+				<dateIssued>1898</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>الهدى</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<note>pubPlace: Philadelphia</note>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">مكرزل</namePart>
+				<namePart type="given">نعوم</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<originInfo>
+				<dateIssued>1898-02-22</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>الهدى</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<note>pubPlace: New York</note>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">مكرزل</namePart>
+				<namePart type="given">نعوم</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<originInfo>
+				<dateIssued>1903</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>مجلة الآثار</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_secondary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">المعلوف</namePart>
+				<namePart type="given">عيسى اسكندر</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<originInfo>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>الحسناء: مجلة نسائية علمية أدبية تاريخية أخلاقية اجتماعية</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">journalArticle</genre>
+		<accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+		<subject>
+			<topic>status_complete</topic>
+		</subject>
+		<subject>
+			<topic>record_primary</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">journal</genre>
+			<name type="personal">
+				<namePart type="family">باز</namePart>
+				<namePart type="given">جرجي نقولا</namePart>
+				<role>
+					<roleTerm authority="marcrelator" type="code">edt</roleTerm>
+				</role>
+			</name>
+			<originInfo>
+				<issuance>continuing</issuance>
+			</originInfo>
 		</relatedItem>
 	</mods>
 </modsCollection>
