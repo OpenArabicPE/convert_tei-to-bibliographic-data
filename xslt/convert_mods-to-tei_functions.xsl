@@ -13,12 +13,12 @@
     <!-- this stylesheet translates <mods:mods> to <tei:biblStruct> -->
     
     <!-- debugging -->
-    <xsl:template match="/">
+   <!-- <xsl:template match="/">
         <xsl:apply-templates select="descendant::mods:mods" mode="m_mods-to-tei"/>
     </xsl:template>
     <xsl:template match="mods:mods" mode="m_mods-to-tei">
         <xsl:copy-of select="oape:bibliography-mods-to-tei(.)"/>
-    </xsl:template>
+    </xsl:template>-->
     
     <!-- funtion -->
     <xsl:function name="oape:bibliography-mods-to-tei">
@@ -30,7 +30,6 @@
                 <!-- construct output -->
                 <biblStruct>
                     <xsl:attribute name="zot:genre" select="$p_input/mods:genre[@authority = 'local']"/>
-                    <!-- some test stuff, not the final output -->
                     <!-- the article: analytic -->
                     <analytic>
                         <xsl:apply-templates select="$p_input/mods:titleInfo" mode="m_mods-to-tei"/>
@@ -159,6 +158,9 @@
                 <xsl:when test="matches(.,'\d{4}-\d{2}-\d{2}')">
                     <xsl:attribute name="when" select="."/>
                 </xsl:when>
+                <xsl:when test="matches(.,'\d{4}$')">
+                    <xsl:attribute name="when" select="."/>
+                </xsl:when>
                 <xsl:otherwise>
                     <xsl:message>
                         <xsl:text>The date "</xsl:text><xsl:value-of select="."/><xsl:text>" has the wrong format.</xsl:text>
@@ -170,14 +172,67 @@
     
     <!-- titles -->
     <xsl:template match="mods:titleInfo" mode="m_mods-to-tei">
-        <xsl:apply-templates mode="m_mods-to-tei"/>
+        <xsl:variable name="v_title-pre-processed">
+            <xsl:apply-templates select="mods:title" mode="m_mods-to-tei"/>
+        </xsl:variable>
+        <!-- to account for potential errors in splitting of titles and subtitles m_process is applied -->
+        <xsl:apply-templates select="$v_title-pre-processed/descendant-or-self::tei:title" mode="m_process"/>
     </xsl:template>
+    <!-- establish the correct value for @level -->
     <xsl:template match="mods:title" mode="m_mods-to-tei">
-        <title>
+        <xsl:element name="title">
             <xsl:apply-templates select="@xml:lang"/>
+            <xsl:attribute name="level">
+                <xsl:choose>
+                    <xsl:when test="parent::mods:titleInfo/parent::mods:mods">
+                        <xsl:value-of select="'a'"/>
+                    </xsl:when>
+                    <xsl:when test="parent::mods:titleInfo/parent::mods:relatedItem">
+                        <xsl:choose>
+                            <xsl:when test="ancestor::mods:mods/mods:genre = 'journalArticle'">
+                                <xsl:value-of select="'j'"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="'m'"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:attribute>
             <xsl:apply-templates select="." mode="m_plain-text"/>
-        </title>
+        </xsl:element>
     </xsl:template>
+    
+    <xsl:template match="tei:title" mode="m_process">
+        <!-- check if title contains ":". If so, split into two titles -->
+        <xsl:choose>
+            <xsl:when test="contains(.,': ')">
+                <!-- main title -->
+                <xsl:copy>
+                    <xsl:apply-templates select="@*"/>
+                    <xsl:value-of select="replace(.,'(.+?):\s+.+$','$1')"/>
+                </xsl:copy>
+                <!-- sub title -->
+                <xsl:copy>
+                    <xsl:apply-templates select="@*"/>
+                    <xsl:attribute name="type" select="'sub'"/>
+                    <xsl:value-of select="replace(.,'.+?:\s+(.+)$','$1')"/>
+                </xsl:copy>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:copy-of select="."/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    <!-- identity transform -->
+    <xsl:template match="node() | @*">
+        <xsl:copy>
+            <xsl:apply-templates select="@* | node()"/>
+        </xsl:copy>
+    </xsl:template>
+    
+    <!-- sub titles -->
     <xsl:template match="mods:subTitle" mode="m_mods-to-tei">
         <title type="sub">
             <xsl:apply-templates select="@xml:lang"/>
