@@ -13,12 +13,12 @@
     <!-- this stylesheet translates <mods:mods> to <tei:biblStruct> -->
     
     <!-- debugging -->
-    <!--<xsl:template match="/">
+    <xsl:template match="/">
         <xsl:apply-templates select="descendant::mods:mods" mode="m_mods-to-tei"/>
     </xsl:template>
     <xsl:template match="mods:mods" mode="m_mods-to-tei">
         <xsl:copy-of select="oape:bibliography-mods-to-tei(.)"/>
-    </xsl:template>-->
+    </xsl:template>
     
     <!-- funtion -->
     <xsl:function name="oape:bibliography-mods-to-tei">
@@ -92,7 +92,7 @@
         <xsl:apply-templates mode="m_mods-to-tei"/>
     </xsl:template>
     <xsl:template match="mods:languageTerm" mode="m_mods-to-tei">
-        <textLang mainLang="."/>
+        <textLang mainLang="{.}"/>
     </xsl:template>
     
     <!-- identifiers -->
