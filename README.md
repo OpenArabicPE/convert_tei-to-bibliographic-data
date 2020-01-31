@@ -275,3 +275,7 @@ The proprietary JSON to directly communicate with the Zotero database / servers 
     </data>
 </array>
 ```
+
+# Sente XML
+
+My primary interest is in moving reference data from Sente to Zotero. For this, we need a custom transformation from Sente XML to something Zotero can import. While I am most familiar with MODS, it seems that CSL JSON is the more complete format (quite a few fields are missing from the MODS im- and export).
