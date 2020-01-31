@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tss:senteContainer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tss="http://www.thirdstreetsoftware.com/SenteXML-1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="http://www.thirdstreetsoftware.com/SenteXML-1.0" version="1.0" xsi:schemaLocation="http://www.thirdstreetsoftware.com/SenteXML-1.0 SenteXML.xsd">
+   <tss:library>
+      <tss:references>
+      	<tss:reference xmlns:b64="https://github.com/ilyakharlamov/xslt_base64" xmlns:bin="http://expath.org/ns/binary" xmlns:oap="https://openarabicpe.github.io/ns" xmlns:fnxpath="http://www.w3.org/2005/xpath-functions">
+            <tss:publicationType name="Archival Book Chapter"/>
+            <tss:authors/>
+            <tss:dates>
+               <tss:date day="" month="" type="Publication" year="1914"/>
+               <tss:date day="18" month="7" type="Entry" year="2018"/>
+               <tss:date day="18" month="7" type="Modification" year="2018"/>
+               <tss:date day="" month="" type="Retrieval" year=""/>
+            </tss:dates>
+            <tss:characteristics>
+               <tss:characteristic name="UUID">010B85AC-5A0A-4880-BB1E-C9F5B5FBFEB5</tss:characteristic>
+               <tss:characteristic name="publicationTitle">Diplomatic and Consular Reports</tss:characteristic>
+               <tss:characteristic name="volume">5225</tss:characteristic>
+               <tss:characteristic name="issue"/>
+               <tss:characteristic name="pages"/>
+               <tss:characteristic name="articleTitle">Report for the year 1913 on the trade of Baghdad</tss:characteristic>
+               <tss:characteristic name="abstractText"/>
+               <tss:characteristic name="language">en</tss:characteristic>
+               <tss:characteristic name="affiliation"/>
+               <tss:characteristic name="status"/>
+               <tss:characteristic name="Short Titel">Commercial Report Baghdad 1913</tss:characteristic>
+               <tss:characteristic name="bibTeXKey"/>
+               <tss:characteristic name="Signatur">Cd. 7048-41</tss:characteristic>
+               <tss:characteristic name="publicationStatus"/>
+               <tss:characteristic name="DOI"/>
+               <tss:characteristic name="URL">https://parlipapers.proquest.com/parlipapers/docview/t70.d75.1914-017605_0183</tss:characteristic>
+               <tss:characteristic name="Repository">HCPP</tss:characteristic>
+               <tss:characteristic name="publicationCountry">London</tss:characteristic>
+               <tss:characteristic name="publisher">Harrison and Sons</tss:characteristic>
+            </tss:characteristics>
+            <tss:keywords>
+               <tss:keyword assigner="Sente User till" quickTagHierarchy="Economic report|Source|">Economic report</tss:keyword>
+               <tss:keyword assigner="Sente User till" quickTagHierarchy="Source|">Source</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian" quickTagHierarchy="official records|Source|">official records</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian" quickTagHierarchy="statistics|Source|">statistics</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian" quickTagHierarchy="Digital copy|Availability|Reading status|">Digital copy</tss:keyword>
+               <tss:keyword assigner="Sente User till" quickTagHierarchy="British source|Source|">British source</tss:keyword>
+            </tss:keywords>
+            <tss:notes/>
+            <tss:attachments>
+               <tss:attachmentReference xml:id="uuid_6DF89DC8-35F5-4E84-A27A-805E17E5EB17" type="" editor="Sente User Sebastian" when-iso="2018-07-18T19:45:55+0000">
+                  <name/>
+                  <URL xml:id="uuid_2D211EB5-3152-43EA-862B-6D16563DDDE4" storageMethod="Base Directory-Relative, Optionally Alias-Backed">/BachCore/SenteLibrary/BachBibliographie.sente6lib/Contents/Attachments/! Unknown Author(s)/1914 Diplomatic and Consular Reports 5225 Report for the year 1913 on the trade of Baghdad.pdf</URL>
+               </tss:attachmentReference>
+            </tss:attachments>
+         </tss:reference>
+         <tss:reference>
+            <tss:publicationType name="Archival File"/>
+            <tss:authors/>
+            <tss:dates>
+               <tss:date day="" month="" type="Publication" year="1912"/>
+               <tss:date day="22" month="1" type="Entry" year="2010"/>
+               <tss:date day="7" month="12" type="Modification" year="2014"/>
+               <tss:date day="" month="" type="Retrieval" year=""/>
+            </tss:dates>
+            <tss:characteristics>
+               <tss:characteristic name="UUID">05A9098B-5156-4AD4-B1B0-1358D2637790</tss:characteristic>
+               <tss:characteristic name="publicationTitle">RG 84 Damascus Vol.22, Correspondence [Letters received], 1912-1913</tss:characteristic>
+               <tss:characteristic name="volume">22</tss:characteristic>
+               <tss:characteristic name="issue"/>
+               <tss:characteristic name="pages"/>
+               <tss:characteristic name="articleTitle"/>
+               <tss:characteristic name="abstractText">[Link to file](sente:/BachBibliographie/Rg84DamascusVol22+1912)<html:br/>
+                  <html:br/># NACP RG 84 Damascus Vol.22 Damascus, 1912<html:br/>
+                  <html:br/># Individual entries<html:br/>
+                  <html:br/>## Index of Correspondence 1912<html:br/>
+                  <html:br/>Topic | date<html:br/>-|-<html:br/>Casmie assault | May 29<html:br/>" | Jun 9<html:br/>Hakar, Nickolas H. | Mar 20<html:br/>" | Mar 29<html:br/>Rizk, Mena | Aug 8<html:br/>" | Dec 20 <html:br/>" | Sep 22<html:br/>" | Nov 16<html:br/>" | Dec 6<html:br/>Salhani, Ibrahim, pasport | Mar 26<html:br/>" | Apr 2<html:br/>Tourists Americans, robbery near Kerak | Jul 23<html:br/>" | Jul 31<html:br/>Tweel, Naif, allegation | Apr 2<html:br/>" | Apr 24<html:br/>" | Apr 30<html:br/>Vacuum Oil Company, deposit | Feb 3<html:br/>" | Feb 8<html:br/>" | May 7<html:br/>" , gazhane | May 7<html:br/>" , waggon Cheikh Meskine | Jun 19</tss:characteristic>
+               <tss:characteristic name="language">en</tss:characteristic>
+               <tss:characteristic name="affiliation"/>
+               <tss:characteristic name="status">To be reviewed</tss:characteristic>
+               <tss:characteristic name="Signatur">RG 84 Damascus Vol.22</tss:characteristic>
+               <tss:characteristic name="publisher"/>
+               <tss:characteristic name="publicationCountry">Damascus</tss:characteristic>
+               <tss:characteristic name="DOI"/>
+               <tss:characteristic name="Repository">NACP</tss:characteristic>
+               <tss:characteristic name="Citation identifier">Rg84DamascusVol22 1912</tss:characteristic>
+               <tss:characteristic name="publicationStatus">Unknown</tss:characteristic>
+            </tss:characteristics>
+            <tss:keywords>
+               <tss:keyword assigner="Sente User till">Source</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">US source</tss:keyword>
+               <tss:keyword assigner="Sente User till">Digital copy</tss:keyword>
+               <tss:keyword assigner="Sente User till">official records</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Damascus</tss:keyword>
+            </tss:keywords>
+            <tss:notes/>
+            <tss:attachments>
+               <tss:attachmentReference xml:id="uuid_0D814241-B411-495E-B2E8-285CF30F8A5A" type="" editor="Sente User Sebastian" when-iso="2013-12-11T17:42:06+0000">
+                  <name/>
+                  <URL xml:id="uuid_D61C64FA-7480-42BC-8C59-651A3E6330A4" storageMethod="Base Directory-Relative, Optionally Alias-Backed">/BachCore/SenteLibrary/BachBibliographie.sente6lib/Contents/Attachments/! Unknown Author(s)/1912 RG 84 Damascus Vol.22, Correspondence [Letters received], 1912-1913 22.pdf</URL>
+                  <URL xml:id="uuid_ED86814C-4CF7-41D4-B476-86ACB45360D0" storageMethod="Replication Server">eyJGaWxlbmFtZSI6IjE5MTIgUkcgODQgRGFtYXNjdXMgVm9sLjIyLCBDb3JyZXNwb25kZW5j
+            ZSBbTGV0dGVycyByZWNlaXZlZF0sIDE5MTItMTkxMyAyMi5wZGYifQ==
+            </URL>
+               </tss:attachmentReference>
+               <tss:attachmentReference xml:id="uuid_6D473AEE-DF0F-41A4-AC45-58EC466E68F7" type="Plain Text Document" editor="Sente User Sebastian" when-iso="2014-12-08T13:19:13+0000">
+                  <name/>
+                  <URL xml:id="uuid_D39ED200-618A-4843-A5FA-93274FDC160D" storageMethod="Replication Server">eyJGaWxlbmFtZSI6IjE5MTIgUkcgODQgRGFtYXNjdXMgVm9sLjIyLCBDb3JyZXNwb25kZW5j
+            ZSBbTGV0dGVycyByZWNlaXZlZF0sIDE5MTItMTkxMyAyMi50eHQifQ==
+            </URL>
+                  <URL xml:id="uuid_E08BFD1B-4B09-45C0-A37B-86297157B68E" storageMethod="Base Directory-Relative, Optionally Alias-Backed">/BachCore/SenteLibrary/BachBibliographie.sente6lib/Contents/Attachments/! Unknown Author(s)/1912 RG 84 Damascus Vol.22, Correspondence [Letters received], 1912-1913 22.txt</URL>
+               </tss:attachmentReference>
+            </tss:attachments>
+         </tss:reference>
+         <tss:reference>
+            <tss:publicationType name="Archival Journal Entry"/>
+            <tss:authors>
+               <tss:author role="Author">
+                  <tss:surname>Bauernfeind</tss:surname>
+                  <tss:forenames>Gustav</tss:forenames>
+                  <tss:initials/>
+               </tss:author>
+               <tss:author role="Editor">
+                  <tss:surname>Schmid</tss:surname>
+                  <tss:forenames>Hugo</tss:forenames>
+                  <tss:initials/>
+               </tss:author>
+               <tss:author role="Editor">
+                  <tss:surname>Höschle</tss:surname>
+                  <tss:forenames>Otto</tss:forenames>
+                  <tss:initials/>
+               </tss:author>
+            </tss:authors>
+            <tss:dates>
+               <tss:date day="27" month="12" type="Publication" year="1888"/>
+               <tss:date day="17" month="12" type="Entry" year="2013"/>
+               <tss:date day="12" month="1" type="Modification" year="2014"/>
+               <tss:date day="" month="" type="Retrieval" year=""/>
+            </tss:dates>
+            <tss:characteristics>
+               <tss:characteristic name="UUID">0221D2E1-5475-425E-B8A2-4A74C6591B2F</tss:characteristic>
+               <tss:characteristic name="publicationTitle">Die Reise nach Damaskus 1888/89: Tagebuchaufzeichnungen des Orientmalers</tss:characteristic>
+               <tss:characteristic name="volume"/>
+               <tss:characteristic name="issue"/>
+               <tss:characteristic name="pages">28</tss:characteristic>
+               <tss:characteristic name="articleTitle">Entry 37</tss:characteristic>
+               <tss:characteristic name="abstractText">Donnerstag, den 27. Dezember. Morgens warte ich bis 9.45 Uhr, als endlich Joseph daherwackelte. Ich ärgerte mich sehr darüber, weil es seit langer Zeit der erste klare Morgen war. Wir gingen zuerst zur Seitentüre der kleinen Moschee, wo ich zuerst vier Platten opferte und dann an der Aquarellstudie weiter arbeitete. Wie gerne hätte ich einen Phonographen bei mir gehabt, um die Töne, welche mich umschwirrten, festhalten zu können. Nachmittags nahm ich in der Amara zwei Photographien auf und machte dann noch fünf Bleistiftskizzen in den kleinen Seitengassen, in welchen die vielen Säulen in die Häuser eingemauert sind. Entweder gab es in Damaskus früher Säulenstraßen wie in Palmyra, oder es wurde der alte heidnische Tempel inmitten der Stadt von Säulenhallen ringsherum eingeschlossen.</tss:characteristic>
+               <tss:characteristic name="language">de</tss:characteristic>
+               <tss:characteristic name="affiliation"/>
+               <tss:characteristic name="status">Reviewed</tss:characteristic>
+               <tss:characteristic name="publisher">A. Francke</tss:characteristic>
+               <tss:characteristic name="Short Titel">Reisetagebuch 1888/89</tss:characteristic>
+               <tss:characteristic name="OCLCID">36211848</tss:characteristic>
+               <tss:characteristic name="publicationCountry">Damaskus</tss:characteristic>
+               <tss:characteristic name="DOI"/>
+               <tss:characteristic name="Original publication year">1996</tss:characteristic>
+               <tss:characteristic name="Citation identifier">Bauernfeind 1888aj</tss:characteristic>
+               <tss:characteristic name="RIS reference number">36211848</tss:characteristic>
+               <tss:characteristic name="ISBN">9783772021633</tss:characteristic>
+               <tss:characteristic name="publicationStatus">Published</tss:characteristic>
+            </tss:characteristics>
+            <tss:keywords>
+               <tss:keyword assigner="Sente User Sebastian">journal/diary</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Damascus</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Source</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">German source</tss:keyword>
+            </tss:keywords>
+            <tss:notes/>
+            <tss:attachments/>
+         </tss:reference>
+         <tss:reference>
+            <tss:publicationType name="Archival Letter"/>
+            <tss:authors>
+               <tss:author role="Author">
+                  <tss:surname>Mishāqa</tss:surname>
+                  <tss:forenames>Nāṣīf</tss:forenames>
+                  <tss:initials/>
+               </tss:author>
+            </tss:authors>
+            <tss:dates>
+               <tss:date day="27" month="2" type="Publication" year="1909"/>
+               <tss:date day="15" month="11" type="Entry" year="2011"/>
+               <tss:date day="12" month="1" type="Modification" year="2014"/>
+               <tss:date day="" month="" type="Retrieval" year=""/>
+            </tss:dates>
+            <tss:characteristics>
+               <tss:characteristic name="UUID">007A2B21-8C63-4EA7-A9A8-0FFD611F8993</tss:characteristic>
+               <tss:characteristic name="publicationTitle">NACP RG 84 Damascus Vol.10 Damascus, Mishāqa to Mektubci Bey 27 Feb. 1909</tss:characteristic>
+               <tss:characteristic name="volume">10</tss:characteristic>
+               <tss:characteristic name="issue"/>
+               <tss:characteristic name="pages"/>
+               <tss:characteristic name="articleTitle"/>
+               <tss:characteristic name="abstractText">  further reminder as to the provincial bonds hold by M, interest rates not paid</tss:characteristic>
+               <tss:characteristic name="language">en</tss:characteristic>
+               <tss:characteristic name="affiliation"/>
+               <tss:characteristic name="status">Complete</tss:characteristic>
+               <tss:characteristic name="Signatur">RG 84 Damascus Vol.10</tss:characteristic>
+               <tss:characteristic name="publisher"/>
+               <tss:characteristic name="publicationCountry">Damascus</tss:characteristic>
+               <tss:characteristic name="DOI"/>
+               <tss:characteristic name="Recipient">Mektubci Bey</tss:characteristic>
+               <tss:characteristic name="Date read">2011-08-30</tss:characteristic>
+               <tss:characteristic name="Repository">NACP</tss:characteristic>
+               <tss:characteristic name="Citation identifier">Mishāqa 1909o</tss:characteristic>
+               <tss:characteristic name="publicationStatus">Unknown</tss:characteristic>
+            </tss:characteristics>
+            <tss:keywords>
+               <tss:keyword assigner="Sente User till">Source</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">US source</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Damascus</tss:keyword>
+               <tss:keyword assigner="Sente User till">official records</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Damascus Treasury Bonds</tss:keyword>
+            </tss:keywords>
+            <tss:notes/>
+            <tss:attachments/>
+         </tss:reference>
+         <tss:reference>
+            <tss:publicationType name="Archival Material"/>
+            <tss:authors>
+               <tss:author role="Editor">
+                  <tss:surname>al-Khūrī</tss:surname>
+                  <tss:forenames>Khalīl</tss:forenames>
+                  <tss:initials/>
+               </tss:author>
+            </tss:authors>
+            <tss:dates>
+               <tss:date day="" month="" type="Publication" year="1881"/>
+               <tss:date day="18" month="11" type="Entry" year="2008"/>
+               <tss:date day="31" month="12" type="Modification" year="2013"/>
+               <tss:date day="" month="" type="Retrieval" year=""/>
+            </tss:dates>
+            <tss:characteristics>
+               <tss:characteristic name="UUID">04E0AD90-9847-4D6A-BBD4-E217B44196B7</tss:characteristic>
+               <tss:characteristic name="publicationTitle">ḥadīqat al-akhbār</tss:characteristic>
+               <tss:characteristic name="volume"/>
+               <tss:characteristic name="issue"/>
+               <tss:characteristic name="pages"/>
+               <tss:characteristic name="articleTitle"/>
+               <tss:characteristic name="abstractText">The numbers from the early 1880s contain 2 pages each in French and Arabic back to back that are not numbered. The news are replicated in the two languages only to a certain extend. The French version has more international and news from Constantinople without quoting extensively from Suriye or publishing regulations, laws, etc. as the Arabic version does.
+            It is published weekly every Thursday in Beirut by Khalīl Efendi al-Khūrī, the director of foreign affairs of the province of Syria.
+            
+            AUB holdings comprise copies between 1858-68 and 1881-88 (<html:u>
+                     <html:b>Mic-NA:000147)</html:b>
+                  </html:u>, StaBi holds copies between 1858-65
+            
+            SOAS Main Library Ex Per 41753 Note: Lacks nos40,177,450,454 Holdings: n20 -n506, 1858-1868. Main Library M4938 Note: negative microfilm 4 reels. A Copy is held by FU Islamwissenschaft
+            
+            Same at British Library (OP.401) and University Haifa.
+            
+            Fruma Zachs 2009:630 claims  "The issues from 1868 to 1881 and 1888 to 1911 have been lost, so we are unable to establish a clear pattern of the development of themes in this journal. "</tss:characteristic>
+               <tss:characteristic name="language">ar</tss:characteristic>
+               <tss:characteristic name="affiliation"/>
+               <tss:characteristic name="status">Reviewed</tss:characteristic>
+               <tss:characteristic name="Signatur">Mic-NA:000147, 2" Ad 5921</tss:characteristic>
+               <tss:characteristic name="publisher"/>
+               <tss:characteristic name="Short Titel">Ḥadīqat</tss:characteristic>
+               <tss:characteristic name="BibTeX cite tag">HadiqatAlAkhbar:</tss:characteristic>
+               <tss:characteristic name="publicationCountry">Bayrūt</tss:characteristic>
+               <tss:characteristic name="DOI"/>
+               <tss:characteristic name="ISSN"/>
+               <tss:characteristic name="Primary contributor role">Editor</tss:characteristic>
+               <tss:characteristic name="Standort">AUB, StaBi, SOAS, British Library</tss:characteristic>
+               <tss:characteristic name="Citation identifier">AlKhūrī 1881</tss:characteristic>
+               <tss:characteristic name="publicationStatus">Unknown</tss:characteristic>
+            </tss:characteristics>
+            <tss:keywords>
+               <tss:keyword assigner="Sente User BachPrivat">weekly</tss:keyword>
+               <tss:keyword assigner="Sente User till">newspaper/periodical</tss:keyword>
+               <tss:keyword assigner="Sente User till">Source</tss:keyword>
+            </tss:keywords>
+            <tss:notes/>
+            <tss:attachments/>
+         </tss:reference>
+         <tss:reference>
+            <tss:publicationType name="Archival Periodical"/>
+            <tss:authors/>
+            <tss:dates>
+               <tss:date day="15" month="10" type="Publication" year="1876"/>
+               <tss:date day="27" month="2" type="Entry" year="2014"/>
+               <tss:date day="6" month="2" type="Modification" year="2018"/>
+               <tss:date day="27" month="02" type="Retrieval" year="2014"/>
+            </tss:dates>
+            <tss:characteristics>
+               <tss:characteristic name="UUID">0000EA9E-0A6B-4619-B226-9F117C302528</tss:characteristic>
+               <tss:characteristic name="publicationTitle">al-Jinān</tss:characteristic>
+               <tss:characteristic name="volume">7</tss:characteristic>
+               <tss:characteristic name="issue">20</tss:characteristic>
+               <tss:characteristic name="pages">685-720</tss:characteristic>
+               <tss:characteristic name="articleTitle">20</tss:characteristic>
+               <tss:characteristic name="abstractText"/>
+               <tss:characteristic name="language">ar</tss:characteristic>
+               <tss:characteristic name="affiliation"/>
+               <tss:characteristic name="status"/>
+               <tss:characteristic name="publisher">Maṭbaʿa al-Maʿārif</tss:characteristic>
+               <tss:characteristic name="Short Titel">Jinān</tss:characteristic>
+               <tss:characteristic name="publicationCountry">Bayrūt</tss:characteristic>
+               <tss:characteristic name="DOI"/>
+               <tss:characteristic name="Repository">PUL</tss:characteristic>
+               <tss:characteristic name="Standort">Princeton</tss:characteristic>
+               <tss:characteristic name="Citation identifier">jinan 7-20</tss:characteristic>
+               <tss:characteristic name="URL">http://hdl.handle.net/2027/njp.32101007749359</tss:characteristic>
+               <tss:characteristic name="publicationStatus">Published</tss:characteristic>
+            </tss:characteristics>
+            <tss:keywords>
+               <tss:keyword assigner="Sente User Sebastian">Source</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">fortnightly</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">newspaper/periodical</tss:keyword>
+            </tss:keywords>
+            <tss:notes/>
+            <tss:attachments/>
+         </tss:reference>
+         <tss:reference>
+            <tss:publicationType name="Archival Periodical Article"/>
+            <tss:authors/>
+            <tss:dates>
+               <tss:date day="" month="5" type="Publication" year="1913"/>
+               <tss:date day="9" month="9" type="Entry" year="2010"/>
+               <tss:date day="20" month="2" type="Modification" year="2016"/>
+               <tss:date day="10" month="6" type="Retrieval" year="2010"/>
+            </tss:dates>
+            <tss:characteristics>
+               <tss:characteristic name="UUID">02F93798-B3D9-458F-B285-EDA468FCFDE5</tss:characteristic>
+               <tss:characteristic name="publicationTitle">Bulletin de l'Alliance Israélite Universelle</tss:characteristic>
+               <tss:characteristic name="volume">37, année 1912</tss:characteristic>
+               <tss:characteristic name="issue"/>
+               <tss:characteristic name="pages">94-98</tss:characteristic>
+               <tss:characteristic name="articleTitle">Turquie d'Asie</tss:characteristic>
+               <tss:characteristic name="abstractText"/>
+               <tss:characteristic name="language">fr</tss:characteristic>
+               <tss:characteristic name="affiliation"/>
+               <tss:characteristic name="status">Reviewed</tss:characteristic>
+               <tss:characteristic name="Medium consulted">Web</tss:characteristic>
+               <tss:characteristic name="publisher">La Société</tss:characteristic>
+               <tss:characteristic name="Short Titel">AIU Bulletin</tss:characteristic>
+               <tss:characteristic name="OCLCID">608132398</tss:characteristic>
+               <tss:characteristic name="publicationCountry">Paris</tss:characteristic>
+               <tss:characteristic name="DOI"/>
+               <tss:characteristic name="Series number">2</tss:characteristic>
+               <tss:characteristic name="Web data source">WorldCat</tss:characteristic>
+               <tss:characteristic name="Citation identifier">BulletinDeLallianceIsraélite 1913b</tss:characteristic>
+               <tss:characteristic name="RIS reference number">608132398</tss:characteristic>
+               <tss:characteristic name="URL">http://www.jpress.org.il/publications/Bulletin-en.asp</tss:characteristic>
+               <tss:characteristic name="publicationStatus">Unknown</tss:characteristic>
+            </tss:characteristics>
+            <tss:keywords>
+               <tss:keyword assigner="Sente User till">Damascus</tss:keyword>
+               <tss:keyword assigner="Sente User till">Source</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">statistics</tss:keyword>
+               <tss:keyword assigner="Sente User till">Alliance Israelite Universelle</tss:keyword>
+               <tss:keyword assigner="Sente User till">newspaper/periodical</tss:keyword>
+               <tss:keyword assigner="Sente User till">Education</tss:keyword>
+            </tss:keywords>
+            <tss:notes/>
+            <tss:attachments>
+               <tss:attachmentReference xml:id="uuid_41055F2A-9334-4C99-ABC6-BB389D6A100E" type="PDF (Portable Document Format)" editor="Sente User Sebastian" when-iso="2014-08-18T19:11:06+0000">
+                  <name/>
+                  <URL xml:id="uuid_4AEFBEBC-11E9-413C-965E-91BC40848DC9" storageMethod="Replication Server">eyJGaWxlbmFtZSI6IjE5MTMgQnVsbGV0aW4gZGUgbCdBbGxpYW5jZSBJc3Jhw6lsaXRlIFVu
+            aXZlcnNlbGxlIDM3LCBhbm7DqWUgMTkxMiBUdXJxdWllIGQnQXNpZS5wZGYifQ==
+            </URL>
+                  <URL xml:id="uuid_79BB5459-A8F3-451E-9846-4DFB9CF8CD26" storageMethod="Base Directory-Relative, Optionally Alias-Backed">/BachCore/SenteLibrary/BachBibliographie.sente6lib/Contents/Attachments/! Unknown Author(s)/1913 Bulletin de l'Alliance Israélite Universelle 37, année 1912 Turquie d'Asie #2.pdf</URL>
+               </tss:attachmentReference>
+            </tss:attachments>
+         </tss:reference>
+         <tss:reference>
+            <tss:publicationType name="Book"/>
+            <tss:authors>
+               <tss:author role="Author">
+                  <tss:surname>al-Bustānī</tss:surname>
+                  <tss:forenames>Buṭrus</tss:forenames>
+                  <tss:initials/>
+               </tss:author>
+            </tss:authors>
+            <tss:dates>
+               <tss:date day="7" month="8" type="Publication" year="1867"/>
+               <tss:date day="4" month="4" type="Entry" year="2012"/>
+               <tss:date day="19" month="8" type="Modification" year="2014"/>
+               <tss:date day="18" month="4" type="Retrieval" year="2012"/>
+            </tss:dates>
+            <tss:characteristics>
+               <tss:characteristic name="UUID">64DC4931-7114-4DCB-B22E-2FA554FC1B2D</tss:characteristic>
+               <tss:characteristic name="publicationTitle">Kitāb Muḥīṭ al-Muḥīṭ: qāmūs muṭawwal li-l-lugha al-ʿarabiyya</tss:characteristic>
+               <tss:characteristic name="volume">1: Alif - Ṣād</tss:characteristic>
+               <tss:characteristic name="issue"/>
+               <tss:characteristic name="pages">1-1228</tss:characteristic>
+               <tss:characteristic name="articleTitle"/>
+               <tss:characteristic name="abstractText">The book is differently divided into two volumes by different libraries. At least StaBi did not follow the actual print version, which states on page 1228: "the printing of this first volume of the muḥīṭ was finished on 7 Aug 1867</tss:characteristic>
+               <tss:characteristic name="language">ar</tss:characteristic>
+               <tss:characteristic name="affiliation"/>
+               <tss:characteristic name="status">Started</tss:characteristic>
+               <tss:characteristic name="Medium consulted">Web</tss:characteristic>
+               <tss:characteristic name="call-num">OLS Dd VOR arab 230</tss:characteristic>
+               <tss:characteristic name="publisher"/>
+               <tss:characteristic name="Shortened title">Muḥīṭ</tss:characteristic>
+               <tss:characteristic name="publicationCountry">Bayrūt</tss:characteristic>
+               <tss:characteristic name="DOI"/>
+               <tss:characteristic name="EndNote reference number">50</tss:characteristic>
+               <tss:characteristic name="Web data source">Berlin</tss:characteristic>
+               <tss:characteristic name="Date read">2012</tss:characteristic>
+               <tss:characteristic name="Standort">StaBi</tss:characteristic>
+               <tss:characteristic name="Citation identifier">AlBustānī 1867</tss:characteristic>
+               <tss:characteristic name="URL">http://archive.org/details/kitabmuhitalmuhi01bustuoft</tss:characteristic>
+               <tss:characteristic name="publicationStatus">Unknown</tss:characteristic>
+            </tss:characteristics>
+            <tss:keywords>
+               <tss:keyword assigner="Sente User Sebastian">Digital copy</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">II. Terminology</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Arabic language</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Online</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Dictionary</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Secondary source</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Source</tss:keyword>
+            </tss:keywords>
+         </tss:reference>
+         <tss:reference>
+            <tss:publicationType name="Book"/>
+            <tss:authors>
+               <tss:author role="Author">
+                  <tss:surname>Midhat Bey</tss:surname>
+                  <tss:forenames>Ali Haydar</tss:forenames>
+                  <tss:initials/>
+               </tss:author>
+            </tss:authors>
+            <tss:dates>
+               <tss:date day="" month="" type="Publication" year="1903"/>
+               <tss:date day="5" month="9" type="Entry" year="2008"/>
+               <tss:date day="14" month="1" type="Modification" year="2014"/>
+               <tss:date day="" month="" type="Retrieval" year=""/>
+            </tss:dates>
+            <tss:characteristics>
+               <tss:characteristic name="UUID">000D8742-688D-4BB5-8D8A-A3B18004585D</tss:characteristic>
+               <tss:characteristic name="publicationTitle">The life of Midhat Pasha: a record of his services, political reforms, banishment, and judicial murder</tss:characteristic>
+               <tss:characteristic name="volume"/>
+               <tss:characteristic name="issue"/>
+               <tss:characteristic name="pages"/>
+               <tss:characteristic name="articleTitle"/>
+               <tss:characteristic name="abstractText">Does not mention the placards of 1880</tss:characteristic>
+               <tss:characteristic name="language">en</tss:characteristic>
+               <tss:characteristic name="affiliation"/>
+               <tss:characteristic name="status"/>
+               <tss:characteristic name="call-num">Ui 5412</tss:characteristic>
+               <tss:characteristic name="publisher">John Murray</tss:characteristic>
+               <tss:characteristic name="accession-num">x192357416</tss:characteristic>
+               <tss:characteristic name="BibTeX cite tag"/>
+               <tss:characteristic name="publicationCountry">London</tss:characteristic>
+               <tss:characteristic name="DOI"/>
+               <tss:characteristic name="Dewey Decimal Classification"/>
+               <tss:characteristic name="Standort">StaBi, SOAS</tss:characteristic>
+               <tss:characteristic name="Citation identifier">Midhat 1903</tss:characteristic>
+               <tss:characteristic name="URL">http://hdl.handle.net/2027/yale.39002013906194</tss:characteristic>
+               <tss:characteristic name="publicationStatus"/>
+            </tss:characteristics>
+            <tss:keywords>
+               <tss:keyword assigner="Sente User US Library of Congress (via MARC)">Statesmen</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Damascus</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Digital copy</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Online</tss:keyword>
+               <tss:keyword assigner="Sente User till">Source</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Ottoman Empire</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">19th century</tss:keyword>
+               <tss:keyword assigner="Sente User US Library of Congress (via MARC)">Turkey</tss:keyword>
+               <tss:keyword assigner="Sente User US Library of Congress (via MARC)">Biography</tss:keyword>
+            </tss:keywords>
+            <tss:notes>
+               <tss:note xml:id="uuid_7FF06A81-5BC7-4DA2-866E-320915718445" correspAttachment="#uuid_BFEFE40D-BB4C-4315-B742-113FBAC55F3F" editor="Sente User Sebastian" color="unknown" inputOs="iOS" when-iso="2013-11-11T14:02:19+0000" style="display:inline-block;background-color: rgba(0.9960784,0.8745098,0,0.20.9960784,0.8745098,0,0.20.9960784,0.8745098,0,0.2);">
+                  <title>Public opinion in Damascus concerning Asʿad Efendi</title>
+                  <comment/>
+                  <quotation>As to Essad Effendi, all who have seen him at Damascus will be able to estimate these erroneous publications at their true value.</quotation>
+                  <pages>199</pages>
+                  <locationInAttachedFile>{"Encoding":"V1","X":491.435,"Page":207,"Y":441.5413}</locationInAttachedFile>
+                  <annotationDetails>{"Encoding":"V1","Selection Original Ending Point":"{321.241760,414.139008}","Type":"Highlighted Text","Original Selection Mode":"Text","Selection Target Zone":"{{132.000000,406.780000},{351.435000,42.142500}}","Rectangles":[{"Bounds":"{{179.789993,434.160000},{305.645004,14.762500}}","Corner Radius":3,"Fill RGBA":[0.9960784,0.8745098,0,0.2]},{"Bounds":"{{130.000000,420.660000},{354.477000,14.762500}}","Corner Radius":3,"Fill RGBA":[0.9960784,0.8745098,0,0.2]},{"Bounds":"{{131.000000,406.780000},{190.687195,14.762500}}","Corner Radius":3,"Fill RGBA":[0.9960784,0.8745098,0,0.2]}],"Selection Original Starting Point":"{184.185397,442.492428}"}</annotationDetails>
+               </tss:note>
+               <tss:note xml:id="uuid_CB9FA285-D0C4-4D8A-BC3E-92B78C478149" correspAttachment="#uuid_BFEFE40D-BB4C-4315-B742-113FBAC55F3F" editor="Sente User Sebastian" color="yellow" inputOs="macOS" when-iso="2014-01-14T22:58:15+0000" style="display:inline-block;background-color: rgba(0.9960784,0.8745098,0,0.2);">
+                  <title>7 Jan 1881, Midḥat to Grand Vizier</title>
+                  <comment>defending his companion Essad Efendi, who was exiled to Damascus and since left for Greece, against allegations by *Tercümān-ı Ḥaḳīḳta* that he is the author of some anti-Hamidian articles printed in Athen</comment>
+                  <quotation>From  JJ/dlwt Pasha to the Grand Vizier.</quotation>
+                  <pages>199</pages>
+                  <locationInAttachedFile>{"Encoding":"V1","X":181,"Page":207,"Y":632.5275}</locationInAttachedFile>
+                  <annotationDetails>{"Encoding":"V1","Selection Original Ending Point":"{421.684784,625.473328}","Type":"Highlighted Text","Original Selection Mode":"Text","Selection Target Zone":"{{192.151077,626.466000},{229.533707,12.123000}}","Rectangles":[{"Bounds":"{{187.000000,626.466000},{235.101013,12.123000}}","Corner Radius":3,"Fill RGBA":[0.9960784,0.8745098,0,0.2]}],"Selection Original Starting Point":"{192.151082,632.810697}"}</annotationDetails>
+               </tss:note>
+            </tss:notes>
+            <tss:attachments>
+               <tss:attachmentReference xml:id="uuid_0A18BC06-9797-400A-A90B-B538D088C9CE" type="" editor="Sente User Sebastian" when-iso="2012-08-22T19:52:14+0000">
+                  <name/>
+                  <URL xml:id="uuid_A7986EF5-B8E3-4451-86D1-299FBE49A755" storageMethod="Remote URL">http://archive.org/stream/lifemidhatpasha00mithgoog#page/n220/mode/2up</URL>
+               </tss:attachmentReference>
+               <tss:attachmentReference xml:id="uuid_CA841630-F366-4C67-B117-74A394A223C4" type="" editor="Sente User Sebastian" when-iso="2014-08-18T18:57:29+0000">
+                  <name/>
+                  <URL xml:id="uuid_395C3FF3-3774-449D-8049-DB138217AAF4" storageMethod="Base Directory-Relative, Optionally Alias-Backed">/BachCore/SenteLibrary/BachBibliographie.sente6lib/Contents/Attachments/Midhat Bey, Ali Haydar/1903 The life of Midhat Pasha a record of his services, political reforms, banishment, and judicia.txt</URL>
+                  <URL xml:id="uuid_B288B809-2A3B-4508-BFA8-6F6FB2BC9FC3" storageMethod="Replication Server">eyJGaWxlbmFtZSI6IjE5MDMgVGhlIGxpZmUgb2YgTWlkaGF0IFBhc2hhIGEgcmVjb3JkIG9m
+            IGhpcyBzZXJ2aWNlcywgcG9saXRpY2FsIHJlZm9ybXMsIGJhbmlzaG1lbnQsIGFuLnR4dCJ9
+            
+            </URL>
+               </tss:attachmentReference>
+               <tss:attachmentReference xml:id="uuid_BFEFE40D-BB4C-4315-B742-113FBAC55F3F" type="" editor="Sente User Sebastian" when-iso="2014-08-18T18:57:29+0000">
+                  <name/>
+                  <URL xml:id="uuid_2114FB80-9EFC-4FDB-9AAA-82022D5FF86F" storageMethod="Replication Server">eyJGaWxlbmFtZSI6IjE5MDMgVGhlIGxpZmUgb2YgTWlkaGF0IFBhc2hhIGEgcmVjb3JkIG9m
+            IGhpcyBzZXJ2aWNlcywgcG9saXRpY2FsIHJlZm9ybXMsIGJhbmlzaG1lbnQsIGFuLnBkZiJ9
+            
+            </URL>
+                  <URL xml:id="uuid_C33B0BDB-D647-441A-9BD7-63FDFDD6EDFF" storageMethod="Base Directory-Relative, Optionally Alias-Backed">/BachCore/SenteLibrary/BachBibliographie.sente6lib/Contents/Attachments/Midhat Bey, Ali Haydar/1903 The life of Midhat Pasha a record of his services, political reforms, banishment, and judicia.pdf</URL>
+               </tss:attachmentReference>
+            </tss:attachments>
+         </tss:reference>
+      </tss:references>
+   </tss:library>
+</tss:senteContainer>

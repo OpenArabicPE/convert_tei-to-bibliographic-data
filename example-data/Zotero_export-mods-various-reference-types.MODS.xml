@@ -1,0 +1,270 @@
+<?xml version="1.0"?>
+<modsCollection xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-2.xsd">
+	<mods>
+		<titleInfo>
+			<title>Kitāb Muḥīṭ al-Muḥīṭ: qāmūs muṭawwal li-l-lugha al-ʿarabiyya</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">book</genre>
+		<genre authority="marcgt">book</genre>
+		<name type="personal">
+			<namePart type="family">al-Bustānī</namePart>
+			<namePart type="given">Buṭrus</namePart>
+			<role>
+				<roleTerm authority="marcrelator" type="code">aut</roleTerm>
+			</role>
+		</name>
+		<part>
+			<detail type="volume">
+				<number>2</number>
+			</detail>
+		</part>
+		<physicalDescription>
+			<extent>1229-2308 p.</extent>
+		</physicalDescription>
+		<originInfo>
+			<place>
+				<placeTerm type="text">Bayrūt</placeTerm>
+			</place>
+			<copyrightDate>1870</copyrightDate>
+			<issuance>monographic</issuance>
+		</originInfo>
+		<classification>OLS Dd VOR arab 230</classification>
+		<location>
+			<url usage="primary display">http://archive.org/details/kitabmuhitalmuhi02bustuoft</url>
+		</location>
+		<abstract>the book was finished on 12 Jul 1869 and 1286 aH (2307), and printed in Beirut in 1870 / 1286</abstract>
+		<subject>
+			<topic>Source</topic>
+		</subject>
+		<subject>
+			<topic>Arabic language</topic>
+		</subject>
+		<subject>
+			<topic>Digital copy</topic>
+		</subject>
+		<subject>
+			<topic>Secondary source</topic>
+		</subject>
+		<subject>
+			<topic>Online</topic>
+		</subject>
+		<subject>
+			<topic>Dictionary</topic>
+		</subject>
+		<subject>
+			<topic>II. Terminology</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>lisān al-ḥāl</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">magazineArticle</genre>
+		<abstract>`</abstract>
+		<subject>
+			<topic>biweekly</topic>
+		</subject>
+		<subject>
+			<topic>Café</topic>
+		</subject>
+		<subject>
+			<topic>Damascus</topic>
+		</subject>
+		<subject>
+			<topic>Digital copy</topic>
+		</subject>
+		<subject>
+			<topic>entertainment</topic>
+		</subject>
+		<subject>
+			<topic>expanding government control</topic>
+		</subject>
+		<subject>
+			<topic>Karagöz</topic>
+		</subject>
+		<subject>
+			<topic>Morality</topic>
+		</subject>
+		<subject>
+			<topic>Municipal government</topic>
+		</subject>
+		<subject>
+			<topic>newspaper/periodical</topic>
+		</subject>
+		<subject>
+			<topic>Propriety</topic>
+		</subject>
+		<subject>
+			<topic>Read</topic>
+		</subject>
+		<subject>
+			<topic>referenced: PhD thesis</topic>
+		</subject>
+		<subject>
+			<topic>Road works</topic>
+		</subject>
+		<subject>
+			<topic>Source</topic>
+		</subject>
+		<subject>
+			<topic>Street cleaning</topic>
+		</subject>
+		<subject>
+			<topic>Street lighting</topic>
+		</subject>
+		<subject>
+			<topic>theatre</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">periodical</genre>
+			<part>
+				<detail type="volume">
+					<number>2</number>
+				</detail>
+				<detail type="issue">
+					<number>86</number>
+				</detail>
+			</part>
+			<originInfo>
+				<dateIssued>1878-09-02</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>thamarāt al-funūn</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">newspaperArticle</genre>
+		<name type="corporate">
+			<namePart>A.N.</namePart>
+			<role>
+				<roleTerm authority="marcrelator" type="code">aut</roleTerm>
+			</role>
+		</name>
+		<subject>
+			<topic>administrative change</topic>
+		</subject>
+		<subject>
+			<topic>Damascus</topic>
+		</subject>
+		<subject>
+			<topic>Judiciary</topic>
+		</subject>
+		<subject>
+			<topic>newspaper/periodical</topic>
+		</subject>
+		<subject>
+			<topic>officials</topic>
+		</subject>
+		<subject>
+			<topic>praise</topic>
+		</subject>
+		<subject>
+			<topic>promotions</topic>
+		</subject>
+		<subject>
+			<topic>Public opinion</topic>
+		</subject>
+		<subject>
+			<topic>referenced: PhD thesis</topic>
+		</subject>
+		<subject>
+			<topic>Source</topic>
+		</subject>
+		<subject>
+			<topic>weekly</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">ar</languageTerm>
+		</language>
+		<relatedItem type="host">
+			<genre authority="marcgt">newspaper</genre>
+			<part>
+				<extent unit="pages">
+					<start>2</start>
+					<end>3</end>
+				</extent>
+			</part>
+			<originInfo>
+				<place>
+					<placeTerm type="text">Bayrūt</placeTerm>
+				</place>
+				<dateIssued>1881-12-05</dateIssued>
+				<issuance>continuing</issuance>
+			</originInfo>
+		</relatedItem>
+	</mods>
+	<mods>
+		<titleInfo>
+			<title>PRO FO 195/1514 Damascus 33, Green to Elliot 23 Jul. 1873</title>
+		</titleInfo>
+		<typeOfResource>text</typeOfResource>
+		<genre authority="local">letter</genre>
+		<genre authority="marcgt">letter</genre>
+		<name type="personal">
+			<namePart type="family">Kirby Green</namePart>
+			<namePart type="given">William</namePart>
+			<role>
+				<roleTerm authority="marcrelator" type="code">aut</roleTerm>
+			</role>
+		</name>
+		<name type="personal">
+			<namePart type="family">Elliot</namePart>
+			<namePart type="given">Henry</namePart>
+			<role>
+				<roleTerm authority="marcrelator" type="code">ctb</roleTerm>
+			</role>
+		</name>
+		<originInfo>
+			<dateCreated>1873-07-23</dateCreated>
+			<issuance>monographic</issuance>
+		</originInfo>
+		<location>
+			<physicalLocation>FO 195/1514</physicalLocation>
+		</location>
+		<abstract>&quot;Extract from Mr. Vice Consul Green's Despatch to Sir Henry Elliot no. 33 of July 23. 1873.&quot; on the issue of British Indian subjects: the counterfoils of the certificates of registration were sent to the Consulate General at Constantinople &quot;'Afghan' in Damascus is a generic term including any Indian who may be a Mohammedan, but this Consulate has never accorded certificates of Registration to Afghans who have not proved their right to its protection from being natives of British territory. There are many British Indian Subjects in Damascus who have not gone through the formality of providing themselves with Ceritificates either from a sense of fanaticism which keeps them from applying for Christian support, or from disinclination to disburse the yearly fee of five shillings, &quot; acting on their behalf &quot;as was the case recently when a native of Moultan had been kept in prison for upwards of forty days on the mere play that he was the night watchman of a quarter, where a burglary had been committed&quot;</abstract>
+		<subject>
+			<topic>Afghan</topic>
+		</subject>
+		<subject>
+			<topic>British source</topic>
+		</subject>
+		<subject>
+			<topic>Burglary</topic>
+		</subject>
+		<subject>
+			<topic>Damascus</topic>
+		</subject>
+		<subject>
+			<topic>Digital copy</topic>
+		</subject>
+		<subject>
+			<topic>Military</topic>
+		</subject>
+		<subject>
+			<topic>official records</topic>
+		</subject>
+		<subject>
+			<topic>question of nationality</topic>
+		</subject>
+		<subject>
+			<topic>referenced: PhD thesis</topic>
+		</subject>
+		<subject>
+			<topic>Source</topic>
+		</subject>
+		<language>
+			<languageTerm type="text">en</languageTerm>
+		</language>
+	</mods>
+</modsCollection>
