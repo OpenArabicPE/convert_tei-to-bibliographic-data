@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+	<records>
+		<record>
+			<database name="MyLibrary">MyLibrary</database>
+			<source-app name="Zotero">Zotero</source-app>
+			<ref-type name="Personal Communication">26</ref-type>
+			<contributors>
+				<authors>
+					<author>Kirby Green, William</author>
+				</authors>
+				<secondary-authors>
+					<author>Elliot, Henry</author>
+				</secondary-authors>
+			</contributors>
+			<titles>
+				<title>PRO FO 195/1514 Damascus 33, Green to Elliot 23 Jul. 1873</title>
+			</titles>
+			<keywords>
+				<keyword>Afghan</keyword>
+				<keyword>British source</keyword>
+				<keyword>Burglary</keyword>
+				<keyword>Damascus</keyword>
+				<keyword>Digital copy</keyword>
+				<keyword>Military</keyword>
+				<keyword>official records</keyword>
+				<keyword>question of nationality</keyword>
+				<keyword>referenced: PhD thesis</keyword>
+				<keyword>Source</keyword>
+			</keywords>
+			<dates>
+				<year>1873</year>
+				<pub-dates>
+					<date>1873-07-23</date>
+				</pub-dates>
+			</dates>
+			<call-num>Damascus 33</call-num>
+			<abstract>&quot;Extract from Mr. Vice Consul Green's Despatch to Sir Henry Elliot no. 33 of July 23. 1873.&quot; on the issue of British Indian subjects: the counterfoils of the certificates of registration were sent to the Consulate General at Constantinople &quot;'Afghan' in Damascus is a generic term including any Indian who may be a Mohammedan, but this Consulate has never accorded certificates of Registration to Afghans who have not proved their right to its protection from being natives of British territory. There are many British Indian Subjects in Damascus who have not gone through the formality of providing themselves with Ceritificates either from a sense of fanaticism which keeps them from applying for Christian support, or from disinclination to disburse the yearly fee of five shillings, &quot; acting on their behalf &quot;as was the case recently when a native of Moultan had been kept in prison for upwards of forty days on the mere play that he was the night watchman of a quarter, where a burglary had been committed&quot;</abstract>
+			<language>en</language>
+		</record>
+	</records>
+</xml>

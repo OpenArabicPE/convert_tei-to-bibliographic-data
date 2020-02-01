@@ -1,0 +1,45 @@
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:z="http://www.zotero.org/namespaces/export#"
+ xmlns:bib="http://purl.org/net/biblio#"
+ xmlns:foaf="http://xmlns.com/foaf/0.1/"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:dcterms="http://purl.org/dc/terms/">
+    <bib:Letter rdf:about="#item_123531">
+        <z:itemType>letter</z:itemType>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Mishāqa</foaf:surname>
+                        <foaf:givenName>Nāṣīf</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <z:recipients>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                       <foaf:surname>Mektubci Bey</foaf:surname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </z:recipients>
+        <dc:subject>Damascus</dc:subject>
+        <dc:subject>Damascus Treasury Bonds</dc:subject>
+        <dc:subject>official records</dc:subject>
+        <dc:subject>Source</dc:subject>
+        <dc:subject>US source</dc:subject>
+        <dc:date>1909-02-27</dc:date>
+        <dc:subject>
+           <dcterms:LCC><rdf:value>RG 84 Damascus Vol.10</rdf:value></dcterms:LCC>
+        </dc:subject>
+        <dc:description>uuid:05A9098B-5156-4AD4-B1B0-1358D2637790
+new line</dc:description>
+        <z:language>en</z:language>
+        <dcterms:abstract>further reminder as to the provincial bonds hold by M, interest rates not paid</dcterms:abstract>
+        <dc:title>NACP RG 84 Damascus Vol.10 Damascus, Mishāqa to Mektubci Bey 27 Feb. 1909</dc:title>
+        <z:archive>NACP</z:archive>
+    </bib:Letter>
+</rdf:RDF>

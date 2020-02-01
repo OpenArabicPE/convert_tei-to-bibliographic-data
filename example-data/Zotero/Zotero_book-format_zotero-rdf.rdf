@@ -1,0 +1,115 @@
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:z="http://www.zotero.org/namespaces/export#"
+ xmlns:dcterms="http://purl.org/dc/terms/"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:bib="http://purl.org/net/biblio#"
+ xmlns:vcard="http://nwalsh.com/rdf/vCard#"
+ xmlns:foaf="http://xmlns.com/foaf/0.1/"
+ xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/">
+    <bib:Book rdf:about="urn:isbn:some-fake-isbn">
+        <z:itemType>book</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Series>
+                <dc:title>series title</dc:title>
+                <dc:identifier>series number</dc:identifier>
+            </bib:Series>
+        </dcterms:isPartOf>
+        <dc:publisher>
+            <foaf:Organization>
+                <vcard:adr>
+                    <vcard:Address>
+                       <vcard:locality>London</vcard:locality>
+                    </vcard:Address>
+                </vcard:adr>
+                <foaf:name>John Murray</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Midhat Bey</foaf:surname>
+                        <foaf:givenName>Ali Haydar</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <bib:editors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Fake</foaf:surname>
+                        <foaf:givenName>Editor</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:editors>
+        <z:translators>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Fake</foaf:surname>
+                        <foaf:givenName>Translator</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </z:translators>
+        <bib:contributors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Fake</foaf:surname>
+                        <foaf:givenName>Contributor</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:contributors>
+        <dcterms:isReferencedBy rdf:resource="#item_123478"/>
+        <dcterms:isReferencedBy rdf:resource="#item_123477"/>
+        <dc:subject>19th century</dc:subject>
+        <dc:subject>Biography</dc:subject>
+        <dc:subject>Damascus</dc:subject>
+        <dc:subject>Digital copy</dc:subject>
+        <dc:subject>Online</dc:subject>
+        <dc:subject>Ottoman Empire</dc:subject>
+        <dc:subject>Source</dc:subject>
+        <dc:subject>Statesmen</dc:subject>
+        <dc:subject>Turkey</dc:subject>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://hdl.handle.net/2027/yale.39002013906194</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <prism:volume>volume</prism:volume>
+        <prism:edition>edition</prism:edition>
+        <dc:identifier>ISBN some-fake-isbn</dc:identifier>
+        <dc:date>1903</dc:date>
+        <dc:subject>
+           <dcterms:LCC><rdf:value>Ui 5412</rdf:value></dcterms:LCC>
+        </dc:subject>
+        <dc:description>doi: fake-doi</dc:description>
+        <z:libraryCatalog>StaBi</z:libraryCatalog>
+        <z:language>en</z:language>
+        <dcterms:abstract>Does not mention the placards of 1880</dcterms:abstract>
+        <dc:title>The life of Midhat Pasha: a record of his services, political reforms, banishment, and judicial murder</dc:title>
+        <z:shortTitle>short title</z:shortTitle>
+        <z:archive>StaBi</z:archive>
+    </bib:Book>
+    <bib:Memo rdf:about="#item_123478">
+        <rdf:value>&lt;p&gt;&lt;span&gt;(191)&lt;/span&gt;&lt;/p&gt;
+&lt;h1&gt;# 7 Jan 1881, Midḥat to Grand Vizier&lt;/h1&gt;
+&lt;blockquote style=&quot;background-color: yellow;&quot;&gt;
+&lt;p&gt;&amp;gt;From JJ/dlwt Pasha to the Grand Vizier.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;defending his companion Essad Efendi, who was exiled to Damascus and since left for Greece, against allegations by *Tercümān-ı Ḥaḳīḳta* that he is the author of some anti-Hamidian articles printed in Athen&lt;/p&gt;</rdf:value>
+    </bib:Memo>
+    <bib:Memo rdf:about="#item_123477">
+        <rdf:value>&lt;p&gt;&lt;span&gt;(199)&lt;/span&gt;&lt;/p&gt;
+&lt;h1&gt;# Public opinion in Damascus concerning Asʿad Efendi&lt;/h1&gt;
+&lt;blockquote style=&quot;background-color: unknown;&quot;&gt;
+&lt;p&gt;&amp;gt;As to Essad Effendi, all who have seen him at Damascus will be able to estimate these erroneous publications at their true value.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt; &lt;/p&gt;</rdf:value>
+    </bib:Memo>
+</rdf:RDF>

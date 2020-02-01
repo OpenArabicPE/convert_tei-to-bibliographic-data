@@ -1,0 +1,62 @@
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:z="http://www.zotero.org/namespaces/export#"
+ xmlns:dcterms="http://purl.org/dc/terms/"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:bib="http://purl.org/net/biblio#"
+ xmlns:vcard="http://nwalsh.com/rdf/vCard#"
+ xmlns:foaf="http://xmlns.com/foaf/0.1/"
+ xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/">
+    <bib:BookSection rdf:about="http://hdl.handle.net/2027/yale.39002013906194">
+        <z:itemType>bookSection</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Book>
+                <dc:title>Maecenas sed diam eget risus varius blandit sit amet non magna</dc:title>
+            </bib:Book>
+        </dcterms:isPartOf>
+        <dc:publisher>
+            <foaf:Organization>
+                <vcard:adr>
+                    <vcard:Address>
+                       <vcard:locality>London</vcard:locality>
+                    </vcard:Address>
+                </vcard:adr>
+                <foaf:name>John Murray</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Midhat Bey</foaf:surname>
+                        <foaf:givenName>Ali Haydar</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:subject>19th century</dc:subject>
+        <dc:subject>Biography</dc:subject>
+        <dc:subject>Damascus</dc:subject>
+        <dc:subject>Digital copy</dc:subject>
+        <dc:subject>Online</dc:subject>
+        <dc:subject>Ottoman Empire</dc:subject>
+        <dc:subject>Source</dc:subject>
+        <dc:subject>Statesmen</dc:subject>
+        <dc:subject>Turkey</dc:subject>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://hdl.handle.net/2027/yale.39002013906194</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <prism:edition>5</prism:edition>
+        <bib:pages>1-15</bib:pages>
+        <dc:date>1903</dc:date>
+        <dc:subject>
+           <dcterms:LCC><rdf:value>Ui 5412</rdf:value></dcterms:LCC>
+        </dc:subject>
+        <z:libraryCatalog>StaBi, SOAS</z:libraryCatalog>
+        <z:language>en</z:language>
+        <dcterms:abstract>Does not mention the placards of 1880</dcterms:abstract>
+        <dc:title>Egestas Justo Etiam Ultricies Porta</dc:title>
+    </bib:BookSection>
+</rdf:RDF>

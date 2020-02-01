@@ -1,0 +1,27 @@
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:z="http://www.zotero.org/namespaces/export#"
+ xmlns:dcterms="http://purl.org/dc/terms/"
+ xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:bib="http://purl.org/net/biblio#">
+    <bib:Article rdf:about="http://www.jpress.org.il/publications/Bulletin-en.asp">
+        <z:itemType>magazineArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Periodical>
+                <prism:volume>37, année 1912</prism:volume>
+                <prism:number>11</prism:number>
+                <dc:title>Bulletin de l'Alliance Israélite Universelle</dc:title>
+            </bib:Periodical>
+        </dcterms:isPartOf>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://www.jpress.org.il/publications/Bulletin-en.asp</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <bib:pages>94-98</bib:pages>
+        <dc:date>1913-05</dc:date>
+        <z:language>fr</z:language>
+        <dc:title>Turquie d'Asie</dc:title>
+    </bib:Article>
+</rdf:RDF>
