@@ -34,15 +34,12 @@
     </xsl:template>
     
      <!-- fields not yet covered 
-        + volume
-        + issue 
-        + pages
         + Date read
         + attachments
-        + notes
         + some IDs: ISBN
         + series title
         + series number
+        + short title
     -->
     
     <xsl:function name="oape:bibliography-tss-to-zotero-rdf">
@@ -87,6 +84,8 @@
         <xsl:variable name="v_reference-is-section" select="if($tss_reference/descendant::tss:characteristic[@name = 'articleTitle']!='') then(true()) else(false())"/>
         <!-- output -->
         <xsl:element name="bib:{$v_reference-type-bib}">
+            <!-- add an ID -->
+            <xsl:attribute name="rdf:about" select="concat('#',$tss_reference/descendant::tss:characteristic[@name = 'UUID'])"/>
             <!-- itemType -->
             <z:itemType>
                 <xsl:value-of select="$v_reference-type-zotero"/>
