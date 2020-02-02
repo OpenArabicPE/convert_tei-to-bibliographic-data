@@ -14,7 +14,8 @@
     
     <!-- date conversion functions -->
 <!--    <xsl:include href="https://tillgrallert.github.io/xslt-calendar-conversion/functions/date-functions.xsl"/>-->
-     <xsl:include href="../../../xslt-calendar-conversion/functions/date-functions.xsl"/> 
+     <xsl:include href="../../../xslt-calendar-conversion/functions/date-functions.xsl"/>
+    <xsl:include href="convert_tss_functions.xsl"/>
 
     <xsl:variable name="vgFileId" select="substring-before(tokenize(base-uri(),'/')[last()],'.TSS')"/>
     <!-- this needs to be adopted to work with any periodical and not just al-Muqtabas -->
@@ -657,30 +658,5 @@
         <note>
             <xsl:copy-of select="oape:bibliography-tss-note-to-html(.)"/>
         </note>
-    </xsl:template>
-    
-    <xsl:function name="oape:bibliography-tss-note-to-html">
-        <!-- expects a <tss:note> as input -->
-        <xsl:param name="p_input"/>
-        <xsl:apply-templates select="$p_input/tss:pages" mode="m_tss-to-mods-notes"/>
-        <xsl:apply-templates select="$p_input/tss:title" mode="m_tss-to-mods-notes"/>
-        <xsl:apply-templates select="$p_input/tss:pages" mode="m_tss-to-mods-notes"/>
-        <xsl:apply-templates select="$p_input/tss:quotation" mode="m_tss-to-mods-notes"/>
-        <xsl:apply-templates select="$p_input/tss:comment" mode="m_tss-to-mods-notes"/>
-    </xsl:function>
-    
-    <xsl:template match="tss:title" mode="m_tss-to-mods-notes">
-        <![CDATA[<h1>]]><xsl:text># </xsl:text><xsl:apply-templates/><![CDATA[</h1>]]>
-    </xsl:template>
-    <xsl:template match="tss:pages" mode="m_tss-to-mods-notes">
-        <![CDATA[<span>]]><xsl:text>(p.</xsl:text><xsl:apply-templates/><xsl:text>)</xsl:text><![CDATA[</span>]]>
-    </xsl:template>
-    <xsl:template match="tss:quotation" mode="m_tss-to-mods-notes">
-        <![CDATA[<blockquote style="background-color:]]><xsl:value-of select="parent::tss:note/@color"/><![CDATA[">]]>
-            <![CDATA[<p>]]><xsl:text>></xsl:text><xsl:apply-templates/><![CDATA[</p>]]>
-        <![CDATA[</blockquote>]]>
-    </xsl:template>
-    <xsl:template match="tss:comment" mode="m_tss-to-mods-notes">
-        <![CDATA[<p>]]><xsl:apply-templates/><![CDATA[</p>]]>
     </xsl:template>
 </xsl:stylesheet>
