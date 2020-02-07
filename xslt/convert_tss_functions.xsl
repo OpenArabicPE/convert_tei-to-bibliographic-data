@@ -16,7 +16,7 @@
         <xsl:param name="tss_note"/>
         <xsl:apply-templates select="$tss_note/tss:pages" mode="m_tss-to-notes-html"/>
         <xsl:apply-templates select="$tss_note/tss:title" mode="m_tss-to-notes-html"/>
-        <xsl:apply-templates select="$tss_note/tss:pages" mode="m_tss-to-notes-html"/>
+<!--        <xsl:apply-templates select="$tss_note/tss:pages" mode="m_tss-to-notes-html"/>-->
         <xsl:apply-templates select="$tss_note/tss:quotation" mode="m_tss-to-notes-html"/>
         <xsl:apply-templates select="$tss_note/tss:comment" mode="m_tss-to-notes-html"/>
     </xsl:function>
@@ -35,4 +35,178 @@
     <xsl:template match="tss:comment" mode="m_tss-to-notes-html">
         <![CDATA[<p>]]><xsl:apply-templates/><![CDATA[</p>]]>
     </xsl:template>
+
+    <!-- map reference types -->
+    <xsl:variable name="v_reference-types">
+        <tei:listNym>
+            <tei:nym>
+                <tei:form n="tss">Archival Book Chapter</tei:form>
+                <tei:form n="zotero">bookSection</tei:form>
+                <tei:form n="marcgt"></tei:form>
+                <tei:form n="bib">BookSection</tei:form>
+                <tei:form n="biblatex"></tei:form>
+                <tei:form n="csl"></tei:form>
+            </tei:nym>
+            <tei:nym>
+                <tei:form n="tss">Archival File</tei:form>
+                <tei:form n="zotero"></tei:form>
+                <tei:form n="marcgt"></tei:form>
+                <tei:form n="bib"></tei:form>
+                <tei:form n="biblatex"></tei:form>
+                <tei:form n="csl"></tei:form>
+            </tei:nym>
+            <tei:nym>
+                <tei:form n="tss">Archival Journal Entry</tei:form>
+                <tei:form n="zotero"></tei:form>
+                <tei:form n="marcgt"></tei:form>
+                <tei:form n="bib"></tei:form>
+                <tei:form n="biblatex"></tei:form>
+                <tei:form n="csl"></tei:form>
+            </tei:nym>
+            <tei:nym>
+                <tei:form n="tss">Archival Letter</tei:form>
+                <tei:form n="zotero">letter</tei:form>
+                <tei:form n="marcgt">letter</tei:form>
+                <tei:form n="bib">Letter</tei:form>
+                <tei:form n="biblatex"></tei:form>
+                <tei:form n="csl"></tei:form>
+            </tei:nym>
+            <tei:nym>
+                <tei:form n="tss">Archival Material</tei:form>
+                <tei:form n="zotero"></tei:form>
+                <tei:form n="marcgt"></tei:form>
+                <tei:form n="bib"></tei:form>
+                <tei:form n="biblatex"></tei:form>
+                <tei:form n="csl"></tei:form>
+            </tei:nym>
+            <tei:nym>
+                <tei:form n="tss">Archival Periodical</tei:form>
+                <tei:form n="zotero"></tei:form>
+                <tei:form n="marcgt">periodical</tei:form>
+                <tei:form n="bib"></tei:form>
+                <tei:form n="biblatex"></tei:form>
+                <tei:form n="csl"></tei:form>
+            </tei:nym>
+            <tei:nym>
+                <tei:form n="tss">Archival Periodical Article</tei:form>
+                <tei:form n="zotero">magazineArticle</tei:form>
+                <tei:form n="marcgt"></tei:form>
+                <tei:form n="bib">Article</tei:form>
+                <tei:form n="biblatex">article</tei:form>
+                <tei:form n="csl">article-magazine</tei:form>
+            </tei:nym>
+            <tei:nym>
+                <tei:form n="tss">Bill</tei:form>
+                <tei:form n="zotero">Bill</tei:form>
+                <tei:form n="marcgt"></tei:form>
+                <tei:form n="bib"></tei:form>
+                <tei:form n="biblatex"></tei:form>
+                <tei:form n="csl"></tei:form>
+            </tei:nym>
+            <tei:nym>
+                <tei:form n="tss">Book</tei:form>
+                <tei:form n="zotero">book</tei:form>
+                <tei:form n="marcgt">book</tei:form>
+                <tei:form n="bib">Book</tei:form>
+                <tei:form n="biblatex">mvbook</tei:form>
+                <tei:form n="csl"></tei:form>
+            </tei:nym>
+            <tei:nym>
+                <tei:form n="tss">Book Chapter</tei:form>
+                <tei:form n="zotero">bookSection</tei:form>
+                <tei:form n="marcgt"></tei:form>
+                <tei:form n="bib">BookSection</tei:form>
+                <tei:form n="biblatex"></tei:form>
+                <tei:form n="csl"></tei:form>
+            </tei:nym>
+            <tei:nym>
+                <tei:form n="tss">Computer Software</tei:form>
+                <tei:form n="zotero">Computer Programme</tei:form>
+                <tei:form n="marcgt"></tei:form>
+                <tei:form n="bib"></tei:form>
+                <tei:form n="biblatex"></tei:form>
+                <tei:form n="csl"></tei:form>
+            </tei:nym>
+            <tei:nym>
+                <tei:form n="tss">Edited Book</tei:form>
+                <tei:form n="zotero">book</tei:form>
+                <tei:form n="marcgt">book</tei:form>
+                <tei:form n="bib">Book</tei:form>
+                <tei:form n="biblatex">mvbook</tei:form>
+                <tei:form n="csl"></tei:form>
+            </tei:nym>
+            <tei:nym>
+                <tei:form n="tss">Electronic Citation</tei:form>
+                <tei:form n="zotero"></tei:form>
+                <tei:form n="marcgt"></tei:form>
+                <tei:form n="bib"></tei:form>
+                <tei:form n="biblatex"></tei:form>
+                <tei:form n="csl"></tei:form>
+            </tei:nym>
+            <tei:nym>
+                <tei:form n="tss">Journal Article</tei:form>
+                <tei:form n="zotero">journalArticle</tei:form>
+                <tei:form n="marcgt"></tei:form>
+                <tei:form n="bib">Article</tei:form>
+                <tei:form n="biblatex">article</tei:form>
+                <tei:form n="csl">article-journal</tei:form>
+            </tei:nym>
+            <tei:nym>
+                <tei:form n="tss">Manuscript</tei:form>
+                <tei:form n="zotero"></tei:form>
+                <tei:form n="marcgt"></tei:form>
+                <tei:form n="bib"></tei:form>
+                <tei:form n="biblatex"></tei:form>
+                <tei:form n="csl"></tei:form>
+            </tei:nym>
+            <tei:nym>
+                <tei:form n="tss">Maps</tei:form>
+                <tei:form n="zotero">Map</tei:form>
+                <tei:form n="marcgt"></tei:form>
+                <tei:form n="bib"></tei:form>
+                <tei:form n="biblatex"></tei:form>
+                <tei:form n="csl"></tei:form>
+            </tei:nym>
+            <tei:nym>
+                <tei:form n="tss">Motion Picture</tei:form>
+                <tei:form n="zotero"></tei:form>
+                <tei:form n="marcgt"></tei:form>
+                <tei:form n="bib"></tei:form>
+                <tei:form n="biblatex"></tei:form>
+                <tei:form n="csl"></tei:form>
+            </tei:nym>
+            <tei:nym>
+                <tei:form n="tss">Newspaper Article</tei:form>
+                <tei:form n="zotero">newspaperArticle</tei:form>
+                <tei:form n="marcgt"></tei:form>
+                <tei:form n="bib">Article</tei:form>
+                <tei:form n="biblatex">article</tei:form>
+                <tei:form n="csl">article-newspaper</tei:form>
+            </tei:nym>
+            <tei:nym>
+                <tei:form n="tss">Other</tei:form>
+                <tei:form n="zotero"></tei:form>
+                <tei:form n="marcgt"></tei:form>
+                <tei:form n="bib"></tei:form>
+                <tei:form n="biblatex"></tei:form>
+                <tei:form n="csl"></tei:form>
+            </tei:nym>
+            <tei:nym>
+                <tei:form n="tss">Photograph</tei:form>
+                <tei:form n="zotero"></tei:form>
+                <tei:form n="marcgt"></tei:form>
+                <tei:form n="bib"></tei:form>
+                <tei:form n="biblatex"></tei:form>
+                <tei:form n="csl"></tei:form>
+            </tei:nym>
+            <tei:nym>
+                <tei:form n="tss">Web Page</tei:form>
+                <tei:form n="zotero">Web Page</tei:form>
+                <tei:form n="marcgt"></tei:form>
+                <tei:form n="bib"></tei:form>
+                <tei:form n="biblatex"></tei:form>
+                <tei:form n="csl"></tei:form>
+            </tei:nym>
+        </tei:listNym>
+    </xsl:variable>
 </xsl:stylesheet>
