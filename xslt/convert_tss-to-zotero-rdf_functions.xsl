@@ -21,14 +21,29 @@
      <xsl:include href="../../../xslt-calendar-conversion/functions/date-functions.xsl"/> 
     <xsl:include href="convert_tss_functions.xsl"/>
     <xsl:variable name="v_new-line" select="'&#x0A;'"/>
+    <xsl:variable name="v_separator-key-value" select="': '"/>
+    <xsl:variable name="v_cite-key-whitespace-replacement" select="'+'"/>
+    
+    <!-- to do
+        - the abstract field is correctly mapped but it should probably be replicated as a note with the tag abstract
+        - due to the dependence of fields on the item type in Zotero, everything should also be replicated to the extra field.
+        - a lot of information should also be mapped to tags, to make use of the tag cloud (and set of the dearly missing browsing feature)
+        - due to Sente's file naming restrictions, I had to use the volume field for issue numbers and vice versa. this should be fixed.
+    -->
     
      <!-- fields not yet covered 
         + Date read
+        + Original publication year
         + attachments
         + some IDs: ISBN
-        + series title
-        + series number
-        + short title
+    -->
+    
+    <!-- undecided mappings:
+        + Archival File -> manuscript
+        + Archival Journal Entry
+        + Archival Material -> manuscript
+        + Archival Periodical
+        + Photo
     -->
     
     <xsl:function name="oape:bibliography-tss-to-zotero-rdf">

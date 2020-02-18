@@ -21,7 +21,7 @@
     
     <!-- debugging -->
     <xsl:template match="/">
-        <xsl:result-document href="{$v_file-name}.ZOTERO.rdf">
+        <xsl:result-document href="{$v_file-name}.Zotero.rdf">
             <rdf:RDF>
                 <xsl:apply-templates select="descendant::tss:reference" mode="m_tss-to-zotero-rdf"/>
             </rdf:RDF>
