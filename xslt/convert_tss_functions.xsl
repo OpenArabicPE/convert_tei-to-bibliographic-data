@@ -49,9 +49,9 @@
             </tei:nym>
             <tei:nym>
                 <tei:form n="tss">Archival File</tei:form>
-                <tei:form n="zotero"></tei:form>
+                <tei:form n="zotero">manuscript</tei:form>
                 <tei:form n="marcgt"></tei:form>
-                <tei:form n="bib"></tei:form>
+                <tei:form n="bib">Manuscript</tei:form>
                 <tei:form n="biblatex"></tei:form>
                 <tei:form n="csl"></tei:form>
             </tei:nym>
@@ -73,9 +73,9 @@
             </tei:nym>
             <tei:nym>
                 <tei:form n="tss">Archival Material</tei:form>
-                <tei:form n="zotero"></tei:form>
+                <tei:form n="zotero">manuscript</tei:form>
                 <tei:form n="marcgt"></tei:form>
-                <tei:form n="bib"></tei:form>
+                <tei:form n="bib">Manuscript</tei:form>
                 <tei:form n="biblatex"></tei:form>
                 <tei:form n="csl"></tei:form>
             </tei:nym>
@@ -97,9 +97,9 @@
             </tei:nym>
             <tei:nym>
                 <tei:form n="tss">Bill</tei:form>
-                <tei:form n="zotero">Bill</tei:form>
+                <tei:form n="zotero">bill</tei:form>
                 <tei:form n="marcgt"></tei:form>
-                <tei:form n="bib"></tei:form>
+                <tei:form n="bib">Legislation</tei:form>
                 <tei:form n="biblatex"></tei:form>
                 <tei:form n="csl"></tei:form>
             </tei:nym>
@@ -161,9 +161,9 @@
             </tei:nym>
             <tei:nym>
                 <tei:form n="tss">Maps</tei:form>
-                <tei:form n="zotero">Map</tei:form>
+                <tei:form n="zotero">map</tei:form>
                 <tei:form n="marcgt"></tei:form>
-                <tei:form n="bib"></tei:form>
+                <tei:form n="bib">Image</tei:form>
                 <tei:form n="biblatex"></tei:form>
                 <tei:form n="csl"></tei:form>
             </tei:nym>
@@ -176,7 +176,7 @@
                 <tei:form n="csl"></tei:form>
             </tei:nym>
             <tei:nym>
-                <tei:form n="tss">Newspaper Article</tei:form>
+                <tei:form n="tss">Newspaper article</tei:form>
                 <tei:form n="zotero">newspaperArticle</tei:form>
                 <tei:form n="marcgt"></tei:form>
                 <tei:form n="bib">Article</tei:form>
@@ -209,4 +209,18 @@
             </tei:nym>
         </tei:listNym>
     </xsl:variable>
+    
+    <!-- this function checks, if one needs to switch volume and issue information based on a periodical's title -->
+    <xsl:function name="oape:bibliography-tss-switch-volume-and-issue">
+        <xsl:param name="tss_reference"/>
+        <xsl:variable name="v_title-short" select=" lower-case($tss_reference/descendant::tss:characteristic[@name = 'Short Titel'])"/>
+        <xsl:choose>
+            <xsl:when test="$v_title-short = ('lisān')">
+                <xsl:copy-of select="true()"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:copy-of select="false()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
 </xsl:stylesheet>
