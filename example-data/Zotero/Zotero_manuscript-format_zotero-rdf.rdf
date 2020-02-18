@@ -1,0 +1,45 @@
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:z="http://www.zotero.org/namespaces/export#"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:vcard="http://nwalsh.com/rdf/vCard#"
+ xmlns:foaf="http://xmlns.com/foaf/0.1/"
+ xmlns:bib="http://purl.org/net/biblio#">
+    <bib:Manuscript rdf:about="#item_123595">
+        <z:itemType>manuscript</z:itemType>
+        <dc:title>RG 84 Damascus Vol.22, Correspondence [Letters received], 1912-1913</dc:title>
+        <dc:publisher>
+            <foaf:Organization>
+                <vcard:adr>
+                    <vcard:Address>
+                       <vcard:locality>Damascus</vcard:locality>
+                    </vcard:Address>
+                </vcard:adr>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Dickson</foaf:surname>
+                        <foaf:givenName>John</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:subject>Source</dc:subject>
+      <dc:subject>US source</dc:subject>
+      <dc:subject>Digital copy</dc:subject>
+      <dc:subject>official records</dc:subject>
+      <dc:subject>Damascus</dc:subject>
+        <dc:date>1912</dc:date>
+      <z:archive>NACP</z:archive>
+        <dc:coverage>RG 84</dc:coverage>
+        <z:type>Folder</z:type>
+        <dc:description>SenteCitationID: Rg84DamascusVol22 1912
+doi: 
+uuid: 05A9098B-5156-4AD4-B1B0-1358D2637790
+</dc:description>
+        <z:language>en</z:language>
+    </bib:Manuscript>
+</rdf:RDF>

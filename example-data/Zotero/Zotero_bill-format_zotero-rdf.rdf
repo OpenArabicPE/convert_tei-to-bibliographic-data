@@ -1,0 +1,45 @@
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:z="http://www.zotero.org/namespaces/export#"
+ xmlns:dcterms="http://purl.org/dc/terms/"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:bib="http://purl.org/net/biblio#"
+ xmlns:foaf="http://xmlns.com/foaf/0.1/"
+ xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/">
+    <bib:Legislation rdf:about="#item_123584">
+        <z:itemType>bill</z:itemType>
+        <dcterms:isPartOf>
+           <bib:Part><dc:title>section</dc:title></bib:Part>
+        </dcterms:isPartOf>
+        <z:sponsors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>al-Khūrī</foaf:surname>
+                        <foaf:givenName>Khalīl</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </z:sponsors>
+        <bib:contributors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Nawfal</foaf:surname>
+                        <foaf:givenName>Nawfal Efendi Niʿmat Allāh</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:contributors>
+        <dc:date>1869</dc:date>
+        <z:code>al-Dustūr: tarjamahu min al-lughat al-turkiyya ilā al-ʿarabiyya Nawfal Niʿmat Allāh Nawfal bāshkātib kamāruk ʿArabistān sābiqan; bi-murājaʿa wa tadqīq Khalīl al-Khūrī mudīr maṭbūʿāt wilāyat Sūriyya</z:code>
+        <z:legislativeBody>legislative body</z:legislativeBody>
+        <z:history>history</z:history>
+        <z:language>ar</z:language>
+        <prism:number>bill number</prism:number>
+        <prism:volume>2</prism:volume>
+        <bib:pages>261-267</bib:pages>
+        <dc:title>niẓām al-ṭuruq wa al-maʿābir</dc:title>
+        <z:shortTitle>al-Dustūr: Tarajama min al-Lughat al-Turkiyya</z:shortTitle>
+    </bib:Legislation>
+</rdf:RDF>

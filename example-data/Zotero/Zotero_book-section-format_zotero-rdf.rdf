@@ -11,6 +11,12 @@
         <z:itemType>bookSection</z:itemType>
         <dcterms:isPartOf>
             <bib:Book>
+                <dcterms:isPartOf>
+                    <bib:Series>
+                        <dc:title>Some Series</dc:title>
+                        <dc:identifier>5</dc:identifier>
+                    </bib:Series>
+                </dcterms:isPartOf>
                 <dc:title>Maecenas sed diam eget risus varius blandit sit amet non magna</dc:title>
             </bib:Book>
         </dcterms:isPartOf>
@@ -34,15 +40,15 @@
                 </rdf:li>
             </rdf:Seq>
         </bib:authors>
-        <dc:subject>19th century</dc:subject>
-        <dc:subject>Biography</dc:subject>
-        <dc:subject>Damascus</dc:subject>
-        <dc:subject>Digital copy</dc:subject>
-        <dc:subject>Online</dc:subject>
-        <dc:subject>Ottoman Empire</dc:subject>
         <dc:subject>Source</dc:subject>
-        <dc:subject>Statesmen</dc:subject>
+        <dc:subject>Biography</dc:subject>
+        <dc:subject>Digital copy</dc:subject>
+        <dc:subject>Ottoman Empire</dc:subject>
+        <dc:subject>19th century</dc:subject>
+        <dc:subject>Damascus</dc:subject>
+        <dc:subject>Online</dc:subject>
         <dc:subject>Turkey</dc:subject>
+        <dc:subject>Statesmen</dc:subject>
         <dc:identifier>
             <dcterms:URI>
                 <rdf:value>http://hdl.handle.net/2027/yale.39002013906194</rdf:value>

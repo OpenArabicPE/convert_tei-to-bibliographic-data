@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tss:senteContainer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tss="http://www.thirdstreetsoftware.com/SenteXML-1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="http://www.thirdstreetsoftware.com/SenteXML-1.0" version="1.0" xsi:schemaLocation="http://www.thirdstreetsoftware.com/SenteXML-1.0 SenteXML.xsd">
+<tss:senteContainer version="1.0" xmlns="http://www.thirdstreetsoftware.com/SenteXML-1.0" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:tss="http://www.thirdstreetsoftware.com/SenteXML-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thirdstreetsoftware.com/SenteXML-1.0 SenteXML.xsd">
    <tss:library>
       <tss:references>
-      	<tss:reference xmlns:b64="https://github.com/ilyakharlamov/xslt_base64" xmlns:bin="http://expath.org/ns/binary" xmlns:oap="https://openarabicpe.github.io/ns" xmlns:fnxpath="http://www.w3.org/2005/xpath-functions">
+         <tss:reference xmlns:b64="https://github.com/ilyakharlamov/xslt_base64" xmlns:bin="http://expath.org/ns/binary" xmlns:fnxpath="http://www.w3.org/2005/xpath-functions" xmlns:oap="https://openarabicpe.github.io/ns">
             <tss:publicationType name="Archival Book Chapter"/>
             <tss:authors/>
             <tss:dates>
@@ -42,9 +42,9 @@
             </tss:keywords>
             <tss:notes/>
             <tss:attachments>
-               <tss:attachmentReference xml:id="uuid_6DF89DC8-35F5-4E84-A27A-805E17E5EB17" type="" editor="Sente User Sebastian" when-iso="2018-07-18T19:45:55+0000">
+               <tss:attachmentReference editor="Sente User Sebastian" type="" when-iso="2018-07-18T19:45:55+0000" xml:id="uuid_6DF89DC8-35F5-4E84-A27A-805E17E5EB17">
                   <name/>
-                  <URL xml:id="uuid_2D211EB5-3152-43EA-862B-6D16563DDDE4" storageMethod="Base Directory-Relative, Optionally Alias-Backed">/BachCore/SenteLibrary/BachBibliographie.sente6lib/Contents/Attachments/! Unknown Author(s)/1914 Diplomatic and Consular Reports 5225 Report for the year 1913 on the trade of Baghdad.pdf</URL>
+                  <URL storageMethod="Base Directory-Relative, Optionally Alias-Backed" xml:id="uuid_2D211EB5-3152-43EA-862B-6D16563DDDE4">/BachCore/SenteLibrary/BachBibliographie.sente6lib/Contents/Attachments/! Unknown Author(s)/1914 Diplomatic and Consular Reports 5225 Report for the year 1913 on the trade of Baghdad.pdf</URL>
                </tss:attachmentReference>
             </tss:attachments>
          </tss:reference>
@@ -64,11 +64,63 @@
                <tss:characteristic name="issue"/>
                <tss:characteristic name="pages"/>
                <tss:characteristic name="articleTitle"/>
-               <tss:characteristic name="abstractText">[Link to file](sente:/BachBibliographie/Rg84DamascusVol22+1912)<html:br/>
-                  <html:br/># NACP RG 84 Damascus Vol.22 Damascus, 1912<html:br/>
-                  <html:br/># Individual entries<html:br/>
-                  <html:br/>## Index of Correspondence 1912<html:br/>
-                  <html:br/>Topic | date<html:br/>-|-<html:br/>Casmie assault | May 29<html:br/>" | Jun 9<html:br/>Hakar, Nickolas H. | Mar 20<html:br/>" | Mar 29<html:br/>Rizk, Mena | Aug 8<html:br/>" | Dec 20 <html:br/>" | Sep 22<html:br/>" | Nov 16<html:br/>" | Dec 6<html:br/>Salhani, Ibrahim, pasport | Mar 26<html:br/>" | Apr 2<html:br/>Tourists Americans, robbery near Kerak | Jul 23<html:br/>" | Jul 31<html:br/>Tweel, Naif, allegation | Apr 2<html:br/>" | Apr 24<html:br/>" | Apr 30<html:br/>Vacuum Oil Company, deposit | Feb 3<html:br/>" | Feb 8<html:br/>" | May 7<html:br/>" , gazhane | May 7<html:br/>" , waggon Cheikh Meskine | Jun 19</tss:characteristic>
+               <tss:characteristic name="abstractText">[Link to file](sente:/BachBibliographie/Rg84DamascusVol22+1912)
+                  <html:br/>
+                  <html:br/>
+                  # NACP RG 84 Damascus Vol.22 Damascus, 1912
+                  <html:br/>
+                  <html:br/>
+                  # Individual entries
+                  <html:br/>
+                  <html:br/>
+                  ## Index of Correspondence 1912
+                  <html:br/>
+                  <html:br/>
+                  Topic | date
+                  <html:br/>
+                  -|-
+                  <html:br/>
+                  Casmie assault | May 29
+                  <html:br/>
+                  &quot; | Jun 9
+                  <html:br/>
+                  Hakar, Nickolas H. | Mar 20
+                  <html:br/>
+                  &quot; | Mar 29
+                  <html:br/>
+                  Rizk, Mena | Aug 8
+                  <html:br/>
+                  &quot; | Dec 20 
+                  <html:br/>
+                  &quot; | Sep 22
+                  <html:br/>
+                  &quot; | Nov 16
+                  <html:br/>
+                  &quot; | Dec 6
+                  <html:br/>
+                  Salhani, Ibrahim, pasport | Mar 26
+                  <html:br/>
+                  &quot; | Apr 2
+                  <html:br/>
+                  Tourists Americans, robbery near Kerak | Jul 23
+                  <html:br/>
+                  &quot; | Jul 31
+                  <html:br/>
+                  Tweel, Naif, allegation | Apr 2
+                  <html:br/>
+                  &quot; | Apr 24
+                  <html:br/>
+                  &quot; | Apr 30
+                  <html:br/>
+                  Vacuum Oil Company, deposit | Feb 3
+                  <html:br/>
+                  &quot; | Feb 8
+                  <html:br/>
+                  &quot; | May 7
+                  <html:br/>
+                  &quot; , gazhane | May 7
+                  <html:br/>
+                  &quot; , waggon Cheikh Meskine | Jun 19</tss:characteristic>
                <tss:characteristic name="language">en</tss:characteristic>
                <tss:characteristic name="affiliation"/>
                <tss:characteristic name="status">To be reviewed</tss:characteristic>
@@ -89,19 +141,19 @@
             </tss:keywords>
             <tss:notes/>
             <tss:attachments>
-               <tss:attachmentReference xml:id="uuid_0D814241-B411-495E-B2E8-285CF30F8A5A" type="" editor="Sente User Sebastian" when-iso="2013-12-11T17:42:06+0000">
+               <tss:attachmentReference editor="Sente User Sebastian" type="" when-iso="2013-12-11T17:42:06+0000" xml:id="uuid_0D814241-B411-495E-B2E8-285CF30F8A5A">
                   <name/>
-                  <URL xml:id="uuid_D61C64FA-7480-42BC-8C59-651A3E6330A4" storageMethod="Base Directory-Relative, Optionally Alias-Backed">/BachCore/SenteLibrary/BachBibliographie.sente6lib/Contents/Attachments/! Unknown Author(s)/1912 RG 84 Damascus Vol.22, Correspondence [Letters received], 1912-1913 22.pdf</URL>
-                  <URL xml:id="uuid_ED86814C-4CF7-41D4-B476-86ACB45360D0" storageMethod="Replication Server">eyJGaWxlbmFtZSI6IjE5MTIgUkcgODQgRGFtYXNjdXMgVm9sLjIyLCBDb3JyZXNwb25kZW5j
+                  <URL storageMethod="Base Directory-Relative, Optionally Alias-Backed" xml:id="uuid_D61C64FA-7480-42BC-8C59-651A3E6330A4">/BachCore/SenteLibrary/BachBibliographie.sente6lib/Contents/Attachments/! Unknown Author(s)/1912 RG 84 Damascus Vol.22, Correspondence [Letters received], 1912-1913 22.pdf</URL>
+                  <URL storageMethod="Replication Server" xml:id="uuid_ED86814C-4CF7-41D4-B476-86ACB45360D0">eyJGaWxlbmFtZSI6IjE5MTIgUkcgODQgRGFtYXNjdXMgVm9sLjIyLCBDb3JyZXNwb25kZW5j
             ZSBbTGV0dGVycyByZWNlaXZlZF0sIDE5MTItMTkxMyAyMi5wZGYifQ==
             </URL>
                </tss:attachmentReference>
-               <tss:attachmentReference xml:id="uuid_6D473AEE-DF0F-41A4-AC45-58EC466E68F7" type="Plain Text Document" editor="Sente User Sebastian" when-iso="2014-12-08T13:19:13+0000">
+               <tss:attachmentReference editor="Sente User Sebastian" type="Plain Text Document" when-iso="2014-12-08T13:19:13+0000" xml:id="uuid_6D473AEE-DF0F-41A4-AC45-58EC466E68F7">
                   <name/>
-                  <URL xml:id="uuid_D39ED200-618A-4843-A5FA-93274FDC160D" storageMethod="Replication Server">eyJGaWxlbmFtZSI6IjE5MTIgUkcgODQgRGFtYXNjdXMgVm9sLjIyLCBDb3JyZXNwb25kZW5j
+                  <URL storageMethod="Replication Server" xml:id="uuid_D39ED200-618A-4843-A5FA-93274FDC160D">eyJGaWxlbmFtZSI6IjE5MTIgUkcgODQgRGFtYXNjdXMgVm9sLjIyLCBDb3JyZXNwb25kZW5j
             ZSBbTGV0dGVycyByZWNlaXZlZF0sIDE5MTItMTkxMyAyMi50eHQifQ==
             </URL>
-                  <URL xml:id="uuid_E08BFD1B-4B09-45C0-A37B-86297157B68E" storageMethod="Base Directory-Relative, Optionally Alias-Backed">/BachCore/SenteLibrary/BachBibliographie.sente6lib/Contents/Attachments/! Unknown Author(s)/1912 RG 84 Damascus Vol.22, Correspondence [Letters received], 1912-1913 22.txt</URL>
+                  <URL storageMethod="Base Directory-Relative, Optionally Alias-Backed" xml:id="uuid_E08BFD1B-4B09-45C0-A37B-86297157B68E">/BachCore/SenteLibrary/BachBibliographie.sente6lib/Contents/Attachments/! Unknown Author(s)/1912 RG 84 Damascus Vol.22, Correspondence [Letters received], 1912-1913 22.txt</URL>
                </tss:attachmentReference>
             </tss:attachments>
          </tss:reference>
@@ -183,7 +235,7 @@
                <tss:characteristic name="issue"/>
                <tss:characteristic name="pages"/>
                <tss:characteristic name="articleTitle"/>
-               <tss:characteristic name="abstractText">  further reminder as to the provincial bonds hold by M, interest rates not paid</tss:characteristic>
+               <tss:characteristic name="abstractText">further reminder as to the provincial bonds hold by M, interest rates not paid</tss:characteristic>
                <tss:characteristic name="language">en</tss:characteristic>
                <tss:characteristic name="affiliation"/>
                <tss:characteristic name="status">Complete</tss:characteristic>
@@ -232,19 +284,19 @@
                <tss:characteristic name="abstractText">The numbers from the early 1880s contain 2 pages each in French and Arabic back to back that are not numbered. The news are replicated in the two languages only to a certain extend. The French version has more international and news from Constantinople without quoting extensively from Suriye or publishing regulations, laws, etc. as the Arabic version does.
             It is published weekly every Thursday in Beirut by Khalīl Efendi al-Khūrī, the director of foreign affairs of the province of Syria.
             
-            AUB holdings comprise copies between 1858-68 and 1881-88 (<html:u>
-                     <html:b>Mic-NA:000147)</html:b>
-                  </html:u>, StaBi holds copies between 1858-65
+            AUB holdings comprise copies between 1858-68 and 1881-88 (
+                  <html:u>
+                     <html:b>Mic-NA:000147)</html:b></html:u>, StaBi holds copies between 1858-65
             
             SOAS Main Library Ex Per 41753 Note: Lacks nos40,177,450,454 Holdings: n20 -n506, 1858-1868. Main Library M4938 Note: negative microfilm 4 reels. A Copy is held by FU Islamwissenschaft
             
             Same at British Library (OP.401) and University Haifa.
             
-            Fruma Zachs 2009:630 claims  "The issues from 1868 to 1881 and 1888 to 1911 have been lost, so we are unable to establish a clear pattern of the development of themes in this journal. "</tss:characteristic>
+            Fruma Zachs 2009:630 claims  &quot;The issues from 1868 to 1881 and 1888 to 1911 have been lost, so we are unable to establish a clear pattern of the development of themes in this journal. &quot;</tss:characteristic>
                <tss:characteristic name="language">ar</tss:characteristic>
                <tss:characteristic name="affiliation"/>
                <tss:characteristic name="status">Reviewed</tss:characteristic>
-               <tss:characteristic name="Signatur">Mic-NA:000147, 2" Ad 5921</tss:characteristic>
+               <tss:characteristic name="Signatur">Mic-NA:000147, 2&quot; Ad 5921</tss:characteristic>
                <tss:characteristic name="publisher"/>
                <tss:characteristic name="Short Titel">Ḥadīqat</tss:characteristic>
                <tss:characteristic name="BibTeX cite tag">HadiqatAlAkhbar:</tss:characteristic>
@@ -345,12 +397,12 @@
             </tss:keywords>
             <tss:notes/>
             <tss:attachments>
-               <tss:attachmentReference xml:id="uuid_41055F2A-9334-4C99-ABC6-BB389D6A100E" type="PDF (Portable Document Format)" editor="Sente User Sebastian" when-iso="2014-08-18T19:11:06+0000">
+               <tss:attachmentReference editor="Sente User Sebastian" type="PDF (Portable Document Format)" when-iso="2014-08-18T19:11:06+0000" xml:id="uuid_41055F2A-9334-4C99-ABC6-BB389D6A100E">
                   <name/>
-                  <URL xml:id="uuid_4AEFBEBC-11E9-413C-965E-91BC40848DC9" storageMethod="Replication Server">eyJGaWxlbmFtZSI6IjE5MTMgQnVsbGV0aW4gZGUgbCdBbGxpYW5jZSBJc3Jhw6lsaXRlIFVu
+                  <URL storageMethod="Replication Server" xml:id="uuid_4AEFBEBC-11E9-413C-965E-91BC40848DC9">eyJGaWxlbmFtZSI6IjE5MTMgQnVsbGV0aW4gZGUgbCdBbGxpYW5jZSBJc3Jhw6lsaXRlIFVu
             aXZlcnNlbGxlIDM3LCBhbm7DqWUgMTkxMiBUdXJxdWllIGQnQXNpZS5wZGYifQ==
             </URL>
-                  <URL xml:id="uuid_79BB5459-A8F3-451E-9846-4DFB9CF8CD26" storageMethod="Base Directory-Relative, Optionally Alias-Backed">/BachCore/SenteLibrary/BachBibliographie.sente6lib/Contents/Attachments/! Unknown Author(s)/1913 Bulletin de l'Alliance Israélite Universelle 37, année 1912 Turquie d'Asie #2.pdf</URL>
+                  <URL storageMethod="Base Directory-Relative, Optionally Alias-Backed" xml:id="uuid_79BB5459-A8F3-451E-9846-4DFB9CF8CD26">/BachCore/SenteLibrary/BachBibliographie.sente6lib/Contents/Attachments/! Unknown Author(s)/1913 Bulletin de l'Alliance Israélite Universelle 37, année 1912 Turquie d'Asie #2.pdf</URL>
                </tss:attachmentReference>
             </tss:attachments>
          </tss:reference>
@@ -376,7 +428,7 @@
                <tss:characteristic name="issue"/>
                <tss:characteristic name="pages">1-1228</tss:characteristic>
                <tss:characteristic name="articleTitle"/>
-               <tss:characteristic name="abstractText">The book is differently divided into two volumes by different libraries. At least StaBi did not follow the actual print version, which states on page 1228: "the printing of this first volume of the muḥīṭ was finished on 7 Aug 1867</tss:characteristic>
+               <tss:characteristic name="abstractText">The book is differently divided into two volumes by different libraries. At least StaBi did not follow the actual print version, which states on page 1228: &quot;the printing of this first volume of the muḥīṭ was finished on 7 Aug 1867</tss:characteristic>
                <tss:characteristic name="language">ar</tss:characteristic>
                <tss:characteristic name="affiliation"/>
                <tss:characteristic name="status">Started</tss:characteristic>
@@ -454,45 +506,532 @@
                <tss:keyword assigner="Sente User US Library of Congress (via MARC)">Biography</tss:keyword>
             </tss:keywords>
             <tss:notes>
-               <tss:note xml:id="uuid_7FF06A81-5BC7-4DA2-866E-320915718445" correspAttachment="#uuid_BFEFE40D-BB4C-4315-B742-113FBAC55F3F" editor="Sente User Sebastian" color="unknown" inputOs="iOS" when-iso="2013-11-11T14:02:19+0000" style="display:inline-block;background-color: rgba(0.9960784,0.8745098,0,0.20.9960784,0.8745098,0,0.20.9960784,0.8745098,0,0.2);">
+               <tss:note color="unknown" correspAttachment="#uuid_BFEFE40D-BB4C-4315-B742-113FBAC55F3F" editor="Sente User Sebastian" inputOs="iOS" style="display:inline-block;background-color: rgba(0.9960784,0.8745098,0,0.20.9960784,0.8745098,0,0.20.9960784,0.8745098,0,0.2);" when-iso="2013-11-11T14:02:19+0000" xml:id="uuid_7FF06A81-5BC7-4DA2-866E-320915718445">
                   <title>Public opinion in Damascus concerning Asʿad Efendi</title>
                   <comment/>
                   <quotation>As to Essad Effendi, all who have seen him at Damascus will be able to estimate these erroneous publications at their true value.</quotation>
                   <pages>199</pages>
-                  <locationInAttachedFile>{"Encoding":"V1","X":491.435,"Page":207,"Y":441.5413}</locationInAttachedFile>
-                  <annotationDetails>{"Encoding":"V1","Selection Original Ending Point":"{321.241760,414.139008}","Type":"Highlighted Text","Original Selection Mode":"Text","Selection Target Zone":"{{132.000000,406.780000},{351.435000,42.142500}}","Rectangles":[{"Bounds":"{{179.789993,434.160000},{305.645004,14.762500}}","Corner Radius":3,"Fill RGBA":[0.9960784,0.8745098,0,0.2]},{"Bounds":"{{130.000000,420.660000},{354.477000,14.762500}}","Corner Radius":3,"Fill RGBA":[0.9960784,0.8745098,0,0.2]},{"Bounds":"{{131.000000,406.780000},{190.687195,14.762500}}","Corner Radius":3,"Fill RGBA":[0.9960784,0.8745098,0,0.2]}],"Selection Original Starting Point":"{184.185397,442.492428}"}</annotationDetails>
+                  <locationInAttachedFile>{&quot;Encoding&quot;:&quot;V1&quot;,&quot;X&quot;:491.435,&quot;Page&quot;:207,&quot;Y&quot;:441.5413}</locationInAttachedFile>
+                  <annotationDetails>{&quot;Encoding&quot;:&quot;V1&quot;,&quot;Selection Original Ending Point&quot;:&quot;{321.241760,414.139008}&quot;,&quot;Type&quot;:&quot;Highlighted Text&quot;,&quot;Original Selection Mode&quot;:&quot;Text&quot;,&quot;Selection Target Zone&quot;:&quot;{{132.000000,406.780000},{351.435000,42.142500}}&quot;,&quot;Rectangles&quot;:[{&quot;Bounds&quot;:&quot;{{179.789993,434.160000},{305.645004,14.762500}}&quot;,&quot;Corner Radius&quot;:3,&quot;Fill RGBA&quot;:[0.9960784,0.8745098,0,0.2]},{&quot;Bounds&quot;:&quot;{{130.000000,420.660000},{354.477000,14.762500}}&quot;,&quot;Corner Radius&quot;:3,&quot;Fill RGBA&quot;:[0.9960784,0.8745098,0,0.2]},{&quot;Bounds&quot;:&quot;{{131.000000,406.780000},{190.687195,14.762500}}&quot;,&quot;Corner Radius&quot;:3,&quot;Fill RGBA&quot;:[0.9960784,0.8745098,0,0.2]}],&quot;Selection Original Starting Point&quot;:&quot;{184.185397,442.492428}&quot;}</annotationDetails>
                </tss:note>
-               <tss:note xml:id="uuid_CB9FA285-D0C4-4D8A-BC3E-92B78C478149" correspAttachment="#uuid_BFEFE40D-BB4C-4315-B742-113FBAC55F3F" editor="Sente User Sebastian" color="yellow" inputOs="macOS" when-iso="2014-01-14T22:58:15+0000" style="display:inline-block;background-color: rgba(0.9960784,0.8745098,0,0.2);">
+               <tss:note color="yellow" correspAttachment="#uuid_BFEFE40D-BB4C-4315-B742-113FBAC55F3F" editor="Sente User Sebastian" inputOs="macOS" style="display:inline-block;background-color: rgba(0.9960784,0.8745098,0,0.2);" when-iso="2014-01-14T22:58:15+0000" xml:id="uuid_CB9FA285-D0C4-4D8A-BC3E-92B78C478149">
                   <title>7 Jan 1881, Midḥat to Grand Vizier</title>
                   <comment>defending his companion Essad Efendi, who was exiled to Damascus and since left for Greece, against allegations by *Tercümān-ı Ḥaḳīḳta* that he is the author of some anti-Hamidian articles printed in Athen</comment>
                   <quotation>From  JJ/dlwt Pasha to the Grand Vizier.</quotation>
                   <pages>199</pages>
-                  <locationInAttachedFile>{"Encoding":"V1","X":181,"Page":207,"Y":632.5275}</locationInAttachedFile>
-                  <annotationDetails>{"Encoding":"V1","Selection Original Ending Point":"{421.684784,625.473328}","Type":"Highlighted Text","Original Selection Mode":"Text","Selection Target Zone":"{{192.151077,626.466000},{229.533707,12.123000}}","Rectangles":[{"Bounds":"{{187.000000,626.466000},{235.101013,12.123000}}","Corner Radius":3,"Fill RGBA":[0.9960784,0.8745098,0,0.2]}],"Selection Original Starting Point":"{192.151082,632.810697}"}</annotationDetails>
+                  <locationInAttachedFile>{&quot;Encoding&quot;:&quot;V1&quot;,&quot;X&quot;:181,&quot;Page&quot;:207,&quot;Y&quot;:632.5275}</locationInAttachedFile>
+                  <annotationDetails>{&quot;Encoding&quot;:&quot;V1&quot;,&quot;Selection Original Ending Point&quot;:&quot;{421.684784,625.473328}&quot;,&quot;Type&quot;:&quot;Highlighted Text&quot;,&quot;Original Selection Mode&quot;:&quot;Text&quot;,&quot;Selection Target Zone&quot;:&quot;{{192.151077,626.466000},{229.533707,12.123000}}&quot;,&quot;Rectangles&quot;:[{&quot;Bounds&quot;:&quot;{{187.000000,626.466000},{235.101013,12.123000}}&quot;,&quot;Corner Radius&quot;:3,&quot;Fill RGBA&quot;:[0.9960784,0.8745098,0,0.2]}],&quot;Selection Original Starting Point&quot;:&quot;{192.151082,632.810697}&quot;}</annotationDetails>
                </tss:note>
             </tss:notes>
             <tss:attachments>
-               <tss:attachmentReference xml:id="uuid_0A18BC06-9797-400A-A90B-B538D088C9CE" type="" editor="Sente User Sebastian" when-iso="2012-08-22T19:52:14+0000">
+               <tss:attachmentReference editor="Sente User Sebastian" type="" when-iso="2012-08-22T19:52:14+0000" xml:id="uuid_0A18BC06-9797-400A-A90B-B538D088C9CE">
                   <name/>
-                  <URL xml:id="uuid_A7986EF5-B8E3-4451-86D1-299FBE49A755" storageMethod="Remote URL">http://archive.org/stream/lifemidhatpasha00mithgoog#page/n220/mode/2up</URL>
+                  <URL storageMethod="Remote URL" xml:id="uuid_A7986EF5-B8E3-4451-86D1-299FBE49A755">http://archive.org/stream/lifemidhatpasha00mithgoog#page/n220/mode/2up</URL>
                </tss:attachmentReference>
-               <tss:attachmentReference xml:id="uuid_CA841630-F366-4C67-B117-74A394A223C4" type="" editor="Sente User Sebastian" when-iso="2014-08-18T18:57:29+0000">
+               <tss:attachmentReference editor="Sente User Sebastian" type="" when-iso="2014-08-18T18:57:29+0000" xml:id="uuid_CA841630-F366-4C67-B117-74A394A223C4">
                   <name/>
-                  <URL xml:id="uuid_395C3FF3-3774-449D-8049-DB138217AAF4" storageMethod="Base Directory-Relative, Optionally Alias-Backed">/BachCore/SenteLibrary/BachBibliographie.sente6lib/Contents/Attachments/Midhat Bey, Ali Haydar/1903 The life of Midhat Pasha a record of his services, political reforms, banishment, and judicia.txt</URL>
-                  <URL xml:id="uuid_B288B809-2A3B-4508-BFA8-6F6FB2BC9FC3" storageMethod="Replication Server">eyJGaWxlbmFtZSI6IjE5MDMgVGhlIGxpZmUgb2YgTWlkaGF0IFBhc2hhIGEgcmVjb3JkIG9m
+                  <URL storageMethod="Base Directory-Relative, Optionally Alias-Backed" xml:id="uuid_395C3FF3-3774-449D-8049-DB138217AAF4">/BachCore/SenteLibrary/BachBibliographie.sente6lib/Contents/Attachments/Midhat Bey, Ali Haydar/1903 The life of Midhat Pasha a record of his services, political reforms, banishment, and judicia.txt</URL>
+                  <URL storageMethod="Replication Server" xml:id="uuid_B288B809-2A3B-4508-BFA8-6F6FB2BC9FC3">eyJGaWxlbmFtZSI6IjE5MDMgVGhlIGxpZmUgb2YgTWlkaGF0IFBhc2hhIGEgcmVjb3JkIG9m
             IGhpcyBzZXJ2aWNlcywgcG9saXRpY2FsIHJlZm9ybXMsIGJhbmlzaG1lbnQsIGFuLnR4dCJ9
             
             </URL>
                </tss:attachmentReference>
-               <tss:attachmentReference xml:id="uuid_BFEFE40D-BB4C-4315-B742-113FBAC55F3F" type="" editor="Sente User Sebastian" when-iso="2014-08-18T18:57:29+0000">
+               <tss:attachmentReference editor="Sente User Sebastian" type="" when-iso="2014-08-18T18:57:29+0000" xml:id="uuid_BFEFE40D-BB4C-4315-B742-113FBAC55F3F">
                   <name/>
-                  <URL xml:id="uuid_2114FB80-9EFC-4FDB-9AAA-82022D5FF86F" storageMethod="Replication Server">eyJGaWxlbmFtZSI6IjE5MDMgVGhlIGxpZmUgb2YgTWlkaGF0IFBhc2hhIGEgcmVjb3JkIG9m
+                  <URL storageMethod="Replication Server" xml:id="uuid_2114FB80-9EFC-4FDB-9AAA-82022D5FF86F">eyJGaWxlbmFtZSI6IjE5MDMgVGhlIGxpZmUgb2YgTWlkaGF0IFBhc2hhIGEgcmVjb3JkIG9m
             IGhpcyBzZXJ2aWNlcywgcG9saXRpY2FsIHJlZm9ybXMsIGJhbmlzaG1lbnQsIGFuLnBkZiJ9
             
             </URL>
-                  <URL xml:id="uuid_C33B0BDB-D647-441A-9BD7-63FDFDD6EDFF" storageMethod="Base Directory-Relative, Optionally Alias-Backed">/BachCore/SenteLibrary/BachBibliographie.sente6lib/Contents/Attachments/Midhat Bey, Ali Haydar/1903 The life of Midhat Pasha a record of his services, political reforms, banishment, and judicia.pdf</URL>
+                  <URL storageMethod="Base Directory-Relative, Optionally Alias-Backed" xml:id="uuid_C33B0BDB-D647-441A-9BD7-63FDFDD6EDFF">/BachCore/SenteLibrary/BachBibliographie.sente6lib/Contents/Attachments/Midhat Bey, Ali Haydar/1903 The life of Midhat Pasha a record of his services, political reforms, banishment, and judicia.pdf</URL>
                </tss:attachmentReference>
             </tss:attachments>
+         </tss:reference>
+         <tss:reference xmlns:b64="https://github.com/ilyakharlamov/xslt_base64" xmlns:bin="http://expath.org/ns/binary" xmlns:fnxpath="http://www.w3.org/2005/xpath-functions" xmlns:oap="https://openarabicpe.github.io/ns">
+            <tss:publicationType name="Maps"/>
+            <tss:authors/>
+            <tss:dates>
+               <tss:date day="" month="" type="Publication" year="1958"/>
+               <tss:date day="23" month="1" type="Entry" year="2017"/>
+               <tss:date day="13" month="4" type="Modification" year="2018"/>
+               <tss:date day="3" month="9" type="Retrieval" year="2013"/>
+            </tss:dates>
+            <tss:characteristics>
+               <tss:characteristic name="UUID">AD8D3F8F-C73B-4F88-BBD4-F63CE1C1E2C5</tss:characteristic>
+               <tss:characteristic name="publicationTitle"/>
+               <tss:characteristic name="volume"/>
+               <tss:characteristic name="issue"/>
+               <tss:characteristic name="pages"/>
+               <tss:characteristic name="articleTitle">Alep, Series K922</tss:characteristic>
+               <tss:characteristic name="abstractText">detailed map of Damascus, showing the tramway lines, new developments
+                  <html:br/>
+                  according to the imprint, the map is based on a British Map of 1942 and an American map of 1941 </tss:characteristic>
+               <tss:characteristic name="language">en</tss:characteristic>
+               <tss:characteristic name="affiliation"/>
+               <tss:characteristic name="status"/>
+               <tss:characteristic name="publisher">Army Map Service, Corps of Engineers</tss:characteristic>
+               <tss:characteristic name="OCLCID">44821944</tss:characteristic>
+               <tss:characteristic name="publicationCountry">Washington, D.C.</tss:characteristic>
+               <tss:characteristic name="DOI"/>
+               <tss:characteristic name="Description">1:10.000</tss:characteristic>
+               <tss:characteristic name="Standort">University of Texas</tss:characteristic>
+               <tss:characteristic name="URL">https://www.lib.utexas.edu/maps/world_cities/txu-oclc-13214823-alep-1958.jpg</tss:characteristic>
+               <tss:characteristic name="publicationStatus"/>
+            </tss:characteristics>
+            <tss:keywords>
+               <tss:keyword assigner="Sente User Sebastian" quickTagHierarchy="Map|Source|">Map</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian" quickTagHierarchy="Online|Availability|Reading status|">Online</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian" quickTagHierarchy="Source|">Source</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian" quickTagHierarchy="20th century|Era|">20th century</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian" quickTagHierarchy="Aleppo|Aleppo (Province)|Geographical Syria|Locations|">Aleppo</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian" quickTagHierarchy="Digital copy|Availability|Reading status|">Digital copy</tss:keyword>
+            </tss:keywords>
+            <tss:notes/>
+            <tss:attachments>
+               <tss:attachmentReference editor="Sente User Sebastian" type="JPEG image" when-iso="2017-01-23T13:32:25+0000" xml:id="uuid_697FEC32-F2DD-4F11-BA64-19CCDFE6FB8C">
+                  <name/>
+                  <URL storageMethod="Replication Server" xml:id="uuid_4F702573-5F57-4164-9F65-5B07386F646F">eyJGaWxlbmFtZSI6IjE5NTggQWxlcCwgU2VyaWVzIEs5MjIuanBnIn0=
+            </URL>
+                  <URL storageMethod="Base Directory-Relative, Optionally Alias-Backed" xml:id="uuid_DDFD5BAF-5846-4DF2-9FCD-1E72FD7C9D40">/BachCore/SenteLibrary/BachBibliographie.sente6lib/Contents/Attachments/! Unknown Author(s)/1958 Alep, Series K922.jpg</URL>
+               </tss:attachmentReference>
+               <tss:attachmentReference editor="Sente User Sebastian" type="Portable Document Format (PDF)" when-iso="2018-04-13T09:08:27+0000" xml:id="uuid_CD33EE01-3891-4057-88D9-9684BF19945D">
+                  <name/>
+                  <URL storageMethod="Base Directory-Relative, Optionally Alias-Backed" xml:id="uuid_03C7E98E-20CA-4C94-A8FA-823179F7A341">/BachCore/SenteLibrary/BachBibliographie.sente6lib/Contents/Attachments/! Unknown Author(s)/1958 Alep, Series K922.pdf</URL>
+               </tss:attachmentReference>
+            </tss:attachments>
+         </tss:reference>
+         <tss:reference xmlns:b64="https://github.com/ilyakharlamov/xslt_base64" xmlns:bin="http://expath.org/ns/binary" xmlns:fnxpath="http://www.w3.org/2005/xpath-functions" xmlns:oap="https://openarabicpe.github.io/ns">
+            <tss:publicationType name="Edited Book"/>
+            <tss:authors>
+               <tss:author role="Editor">
+                  <tss:surname>Philipp</tss:surname>
+                  <tss:forenames>Thomas</tss:forenames>
+                  <tss:initials/>
+               </tss:author>
+               <tss:author role="Editor">
+                  <tss:surname>Schaebler</tss:surname>
+                  <tss:forenames>Birgit</tss:forenames>
+                  <tss:initials/>
+               </tss:author>
+            </tss:authors>
+            <tss:dates>
+               <tss:date day="" month="" type="Publication" year="1998"/>
+               <tss:date day="15" month="10" type="Entry" year="2007"/>
+               <tss:date day="17" month="1" type="Modification" year="2014"/>
+               <tss:date day="" month="" type="Retrieval" year=""/>
+            </tss:dates>
+            <tss:characteristics>
+               <tss:characteristic name="UUID">00E0BE23-6A51-4826-B320-C742B433A1D3</tss:characteristic>
+               <tss:characteristic name="publicationTitle">The Syrian land: processes of integration and fragmentation; Bilād Al-Shām from the 18th to the 20th century</tss:characteristic>
+               <tss:characteristic name="volume"/>
+               <tss:characteristic name="issue"/>
+               <tss:characteristic name="pages"/>
+               <tss:characteristic name="articleTitle"/>
+               <tss:characteristic name="abstractText">Part I (1-154):
+                  <html:br/>
+                  Highways, Railroads, Telegraphs, and Seaport: The Physical Means of Integration
+                  <html:br/>
+                  -   Fawaz: The Beirut-Damasuc Road
+                  <html:br/>
+                  <html:br/>
+                  Part II (155-202)
+                  <html:br/>
+                  Sewerage and City Quarters: The Infrastrucure of the Urban Space
+                  <html:br/>
+                  - Moaz: The Urban Fabric of an Extramural QUarter in 19th-Century Damascus
+                  <html:br/>
+                  - Sack: The Historic Fabric of Damascus and its Changes in the 19th and at the Beginning of the 20th Century -&gt; based on Sack 1989
+                  <html:br/>
+                  <html:br/>
+                  Part III (203-292)
+                  <html:br/>
+                  The Role of Administration &amp; Education
+                  <html:br/>
+                  - Deguilhem: State Civil Education in Late Ottoman Damascus: A Unifying or a Seperating FOrce?
+                  <html:br/>
+                  <html:br/>
+                  Part IV (293-396)
+                  <html:br/>
+                  Integration and Resistance
+                  <html:br/>
+                  - Kayalı: Wartime Regional and Imperial Integration of Greater Syria during World War I
+                  <html:br/>
+                  - Strauss: The Disintegration of Ottoman Rule in the Syrian Territories as Viewed by German Observers
+                  <html:br/>
+                  - Schaebler: State(s) Power and the Druzes: Integration and the Struggle for Social Control (1838-1949)
+                  <html:br/>
+                  - Landis: Shishaklī and the Druzes: Integration and Intransigence </tss:characteristic>
+               <tss:characteristic name="language">engfre</tss:characteristic>
+               <tss:characteristic name="affiliation"/>
+               <tss:characteristic name="status">Started</tss:characteristic>
+               <tss:characteristic name="Signatur">NP 380 /754768, 1A363653, III h(6) Philipp</tss:characteristic>
+               <tss:characteristic name="publisher">Franz Steiner Verlag</tss:characteristic>
+               <tss:characteristic name="BibTeX cite tag"/>
+               <tss:characteristic name="publicationCountry">Stuttgart</tss:characteristic>
+               <tss:characteristic name="DOI"/>
+               <tss:characteristic name="ISSN"/>
+               <tss:characteristic name="Series number">6</tss:characteristic>
+               <tss:characteristic name="Series">Berliner Islamstudien</tss:characteristic>
+               <tss:characteristic name="Date read">2005-04</tss:characteristic>
+               <tss:characteristic name="Primary contributor role">Author</tss:characteristic>
+               <tss:characteristic name="Standort">SOAS, StaBi, FU Islamwissenschaft</tss:characteristic>
+               <tss:characteristic name="Citation identifier">Philipp 1998</tss:characteristic>
+               <tss:characteristic name="ISBN">3515073094 (kart.) :</tss:characteristic>
+               <tss:characteristic name="publicationStatus">Published</tss:characteristic>
+            </tss:characteristics>
+            <tss:keywords>
+               <tss:keyword assigner="Sente User Sebastian" quickTagHierarchy="">Lebanon</tss:keyword>
+               <tss:keyword assigner="Sente User till" quickTagHierarchy="2005 Büssow: Notabeln|2003-7 FU Berlin|Seminars taken|Context|">2005 Büssow: Notabeln</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian" quickTagHierarchy="">Israel</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian" quickTagHierarchy="">Jordan</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian" quickTagHierarchy="18th century|Era|">18th century</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian" quickTagHierarchy="20th century|Era|">20th century</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian" quickTagHierarchy="Ottoman Empire|Topic|">Ottoman Empire</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian" quickTagHierarchy="19th century|Era|">19th century</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian" quickTagHierarchy="">Palestine</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian" quickTagHierarchy="">Syria</tss:keyword>
+            </tss:keywords>
+            <tss:notes/>
+            <tss:attachments>
+               <tss:attachmentReference editor="Sente User Sebastian" type="PDF (Portable Document Format)" when-iso="2014-08-10T23:09:08+0000" xml:id="uuid_4D19B0C3-1DF2-4447-94D8-EADE87DD28B3">
+                  <name/>
+                  <URL storageMethod="Base Directory-Relative, Optionally Alias-Backed" type="base64" xml:id="uuid_2DAA2F63-CD2C-4E7E-B7F5-1D41CC8847F4">PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIHBsaXN0
+            IFBVQkxJQyAiLS8vQXBwbGUvL0RURCBQTElTVCAxLjAvL0VOIiAiaHR0cDovL3d3dy5hcHBs
+            ZS5jb20vRFREcy9Qcm9wZXJ0eUxpc3QtMS4wLmR0ZCI+CjxwbGlzdCB2ZXJzaW9uPSIxLjAi
+            Pgo8ZGljdD4KCTxrZXk+UmVsYXRpdmUgUGF0aDwva2V5PgoJPHN0cmluZz5QaGlsaXBwLCBU
+            aG9tYXMvUGhpbGlwcCAxOTk4IFRoZSBTeXJpYW4gbGFuZCBwcm9jZXNzZXMgb2YgaW50ZWdy
+            YXRpb24gYW5kIGZyYWdtZW50YXRpb247IEJpbMSBZCBBbC1TaMSBbSBmcm9tIHRoZSAxOC5w
+            ZGY8L3N0cmluZz4KPC9kaWN0Pgo8L3BsaXN0Pgo=
+            </URL>
+               </tss:attachmentReference>
+            </tss:attachments>
+         </tss:reference>
+         <tss:reference>
+            <tss:publicationType name="Bill"/>
+            <tss:authors>
+               <tss:author role="Translator">
+                  <tss:surname>Nawfal</tss:surname>
+                  <tss:forenames>Nawfal Efendi Niʿmat Allāh</tss:forenames>
+                  <tss:initials/>
+               </tss:author>
+               <tss:author role="Editor">
+                  <tss:surname>al-Khūrī</tss:surname>
+                  <tss:forenames>Khalīl Efendi</tss:forenames>
+                  <tss:initials/>
+               </tss:author>
+            </tss:authors>
+            <tss:dates>
+               <tss:date day="" month="" type="Publication" year="1885"/>
+               <tss:date day="16" month="9" type="Entry" year="2013"/>
+               <tss:date day="22" month="7" type="Modification" year="2015"/>
+               <tss:date day="" month="" type="Retrieval" year=""/>
+            </tss:dates>
+            <tss:characteristics>
+               <tss:characteristic name="UUID">0457860B-D71B-448A-9EFB-CDD3AFC55E07</tss:characteristic>
+               <tss:characteristic name="publicationTitle">al-Dustūr: tarjamahu min al-lughat al-turkiyya ilā al-ʿarabiyya Nawfal Niʿmat Allāh Nawfal bāshkātib kamāruk ʿArabistān sābiqan; bi-murājaʿa wa tadqīq Khalīl al-Khūrī mudīr maṭbūʿāt wilāyat Sūriyya</tss:characteristic>
+               <tss:characteristic name="volume">2</tss:characteristic>
+               <tss:characteristic name="issue"/>
+               <tss:characteristic name="pages">261-267</tss:characteristic>
+               <tss:characteristic name="articleTitle">niẓām al-ṭuruq wa al-maʿābir</tss:characteristic>
+               <tss:characteristic name="abstractText"/>
+               <tss:characteristic name="language">ar</tss:characteristic>
+               <tss:characteristic name="affiliation"/>
+               <tss:characteristic name="status">Currently reading: Till</tss:characteristic>
+               <tss:characteristic name="Date Rumi">1301</tss:characteristic>
+               <tss:characteristic name="Date Hijri">18 Jum I 1286</tss:characteristic>
+               <tss:characteristic name="Short Titel">al-Dustūr: Tarajama min al-Lughat al-Turkiyya</tss:characteristic>
+               <tss:characteristic name="call-num">CA 349.56:T93dA:v.1 / v.2, Or. Fiche 378</tss:characteristic>
+               <tss:characteristic name="Original publication year">1869</tss:characteristic>
+               <tss:characteristic name="Standort">AUB, British Library</tss:characteristic>
+               <tss:characteristic name="Original publication month">8</tss:characteristic>
+               <tss:characteristic name="OCLCID">11351292</tss:characteristic>
+               <tss:characteristic name="Translated title">Law on Roads and Buildings</tss:characteristic>
+               <tss:characteristic name="Shortened title">al-Dustūr</tss:characteristic>
+               <tss:characteristic name="publicationStatus">Published</tss:characteristic>
+               <tss:characteristic name="DOI"/>
+               <tss:characteristic name="RIS reference number">11351292</tss:characteristic>
+               <tss:characteristic name="Repository">AUB</tss:characteristic>
+               <tss:characteristic name="Primary contributor role">Author</tss:characteristic>
+               <tss:characteristic name="publicationCountry">Bayrūt</tss:characteristic>
+               <tss:characteristic name="Original publication day">26</tss:characteristic>
+               <tss:characteristic name="Citation identifier">Nawfal 1883f</tss:characteristic>
+               <tss:characteristic name="publisher">al-Maṭbaʿa al-Adabiyya</tss:characteristic>
+               <tss:characteristic name="Web data source">WorldCat</tss:characteristic>
+            </tss:characteristics>
+            <tss:keywords>
+               <tss:keyword assigner="Sente User Sebastian">coercion</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Press</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Digital copy</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">official records</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Legal text</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Ottoman Empire</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">forced labour</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Road works</tss:keyword>
+            </tss:keywords>
+            <tss:notes>
+               <tss:note xml:id="uuid_C932AA19-4D43-4B8E-8C4E-8D30B7E8EBC9" correspAttachment="#uuid_" editor="Sente User Sebastian" color="unknown" inputOs="iOS" when-iso="2013-09-16T14:26:40+0000">
+                  <title>Art 1</title>
+                  <comment>Art 1: the law is concerned with the roads in the empire. the highest class are the roads from the provincial capitals to Istanbul.
+            [apparently the law is only concerned with the roads outside of any settlement]</comment>
+                  <quotation/>
+                  <pages>261</pages>
+                  <locationInAttachedFile/>
+                  <annotationDetails/>
+               </tss:note>
+               <tss:note xml:id="uuid_888A3DD9-F11B-4A4A-AA89-3018882F707C" correspAttachment="#uuid_" editor="Sente User Sebastian" color="unknown" inputOs="iOS" when-iso="2013-09-16T14:28:24+0000">
+                  <title>&lt;b&gt;Art 7: &lt;/b&gt;corvée labour in cities,  towns, and villages</title>
+                  <comment>those in the age of manual labour (fī sinn al-aʿmāl) are liable to crovée for road works, they can either work themselves, pay an exemption fee, or provide beasts of burden</comment>
+                  <quotation/>
+                  <pages>262</pages>
+                  <locationInAttachedFile/>
+                  <annotationDetails/>
+               </tss:note>
+               <tss:note xml:id="uuid_A4081EEC-483F-419E-A51C-14FBA160480D" correspAttachment="#uuid_" editor="Sente User Sebastian" color="unknown" inputOs="iOS" when-iso="2013-09-16T14:28:34+0000">
+                  <title>Art 8</title>
+                  <comment>- liable inhabitants are established by census. everyone has to serve 20 days in five years or pay an exemption fee.
+            - beasts of burden</comment>
+                  <quotation/>
+                  <pages>262-263</pages>
+                  <locationInAttachedFile/>
+                  <annotationDetails/>
+               </tss:note>
+               <tss:note xml:id="uuid_22112659-6BD2-4374-BF93-AA96587ECD6F" correspAttachment="#uuid_" editor="Sente User Sebastian" color="unknown" inputOs="iOS" when-iso="2013-09-16T14:28:51+0000">
+                  <title>&lt;b&gt;Art 9&lt;/b&gt;: extend of works</title>
+                  <comment>- a day's work is at least 9 pics of pavement (turāb) lining the sides of the streets, or 2,5 pics of road works (taking the stones and breaking them up and lying them on the street)
+            - a day's work of a beast of burden is to transport the whole stones from the warehouse/ quarry to the construction site.</comment>
+                  <quotation/>
+                  <pages>263</pages>
+                  <locationInAttachedFile/>
+                  <annotationDetails/>
+               </tss:note>
+               <tss:note xml:id="uuid_EB22C660-F946-4CBD-8E16-2E97D04FA26E" correspAttachment="#uuid_" editor="Sente User Sebastian" color="unknown" inputOs="iOS" when-iso="2013-09-16T14:29:09+0000">
+                  <title>Art 10</title>
+                  <comment>- certain people are exempt from the works: clergy, rabbis, teachers at schools (makātib wa madāris), soldiers and gendarmes under arms</comment>
+                  <quotation/>
+                  <pages>263</pages>
+                  <locationInAttachedFile/>
+                  <annotationDetails/>
+               </tss:note>
+               <tss:note xml:id="uuid_38A96C12-732E-47D2-AA1A-1F19CCD5C313" correspAttachment="#uuid_" editor="Sente User Sebastian" color="unknown" inputOs="iOS" when-iso="2013-09-16T14:29:28+0000">
+                  <title>Art 11</title>
+                  <comment>- extend of works and scheduled dates are established annually by the council of the sancak</comment>
+                  <quotation/>
+                  <pages>263</pages>
+                  <locationInAttachedFile/>
+                  <annotationDetails/>
+               </tss:note>
+               <tss:note xml:id="uuid_4FE625C7-EDA4-4219-981A-3545B4672F21" correspAttachment="#uuid_" editor="Sente User Sebastian" color="unknown" inputOs="iOS" when-iso="2013-09-16T14:29:41+0000">
+                  <title>Art 14</title>
+                  <comment>- at the end of five years every settlement has to prepare accounts of the days of corvéed labour actually worked. if it differs from the legally allotted number of days, the inhabitants (ahālī) have the right / duty to compensate the numbers during the next five years</comment>
+                  <quotation/>
+                  <pages>264</pages>
+                  <locationInAttachedFile/>
+                  <annotationDetails/>
+               </tss:note>
+               <tss:note xml:id="uuid_0471408E-4EED-4456-9070-58C2D26E64E1" correspAttachment="#uuid_" editor="Sente User Sebastian" color="unknown" inputOs="iOS" when-iso="2013-09-16T14:29:54+0000">
+                  <title>Art 15</title>
+                  <comment>- cities, towns, or villages cannot order road works at locations more than 12 hours' distance, but by special order from the Sublime Porte</comment>
+                  <quotation/>
+                  <pages>264</pages>
+                  <locationInAttachedFile/>
+                  <annotationDetails/>
+               </tss:note>
+            </tss:notes>
+            <tss:attachments>
+               <tss:attachmentReference xml:id="uuid_1BB2A5D3-EA37-4B18-9CC6-8090A49C7CB5" type="Portable Document Format (PDF)" editor="Sente User Sebastian" when-iso="2015-07-22T16:02:19+0000">
+                  <name/>
+                  <URL xml:id="uuid_2150EEA7-0329-4A78-9DC2-9BBEDD3791BB" storageMethod="Base Directory-Relative, Optionally Alias-Backed">/BachCore/SenteLibrary/BachBibliographie.sente6lib/Contents/Attachments/Nawfal, Nawfal Efendi Niʿmat Allāh/1885 al-Dustūr tarjamahu min al-lughat al-turkiyya ilā al-ʿarabiyya Nawfal Niʿmat Allāh Nawfal bās #5.pdf</URL>
+                  <URL xml:id="uuid_4F42B768-5C86-4D1A-896C-959367C739AE" storageMethod="Replication Server">eyJGaWxlbmFtZSI6IjE4ODUgYWwtRHVzdHXMhHIgdGFyamFtYWh1IG1pbiBhbC1sdWdoYXQg
+            YWwtdHVya2l5eWEgaWxhzIQgYWwtyr9hcmFiaXl5YSBOYXdmYWwgTmnKv21hdCBBbGxhzIRo
+            IE5hd2ZhbCBiYcyEcyAjMTAucGRmIn0=
+            </URL>
+               </tss:attachmentReference>
+            </tss:attachments>
+         </tss:reference>
+         <tss:reference>
+            <tss:publicationType name="Archival Periodical"/>
+            <tss:authors/>
+            <tss:dates>
+               <tss:date day="25" month="8" type="Publication" year="1904"/>
+               <tss:date day="21" month="4" type="Entry" year="2015"/>
+               <tss:date day="16" month="5" type="Modification" year="2015"/>
+               <tss:date day="" month="" type="Retrieval" year=""/>
+            </tss:dates>
+            <tss:characteristics>
+               <tss:characteristic name="UUID">004FDF22-6FC7-4FEA-929F-69FE2C7CA4A8</tss:characteristic>
+               <tss:characteristic name="publicationTitle">Servet-i Fünūn</tss:characteristic>
+               <tss:characteristic name="volume">696</tss:characteristic>
+               <tss:characteristic name="issue">14/27</tss:characteristic>
+               <tss:characteristic name="pages">305-320</tss:characteristic>
+               <tss:characteristic name="articleTitle">32640</tss:characteristic>
+               <tss:characteristic name="abstractText">
+                  <tei:pb n="305"/>
+                  <html:br/>photo: a coach of the Ḥamdīyya Ḥijāz Railway built in Constantinople and transported to Damascus via steamer from Izmir</tss:characteristic>
+               <tss:characteristic name="language">ota</tss:characteristic>
+               <tss:characteristic name="affiliation"/>
+               <tss:characteristic name="status">Reviewed</tss:characteristic>
+               <tss:characteristic name="publisher">Ālem Maṭbaʿası</tss:characteristic>
+               <tss:characteristic name="Short Titel">Servet-i Fünūn</tss:characteristic>
+               <tss:characteristic name="Date Rumi">12 Agh 1320</tss:characteristic>
+               <tss:characteristic name="OCLCID">6298921</tss:characteristic>
+               <tss:characteristic name="publicationCountry">Der-i Saʿādet</tss:characteristic>
+               <tss:characteristic name="DOI"/>
+               <tss:characteristic name="Repository">MKA</tss:characteristic>
+               <tss:characteristic name="Standort">Milli Kütüphane, Ankara</tss:characteristic>
+               <tss:characteristic name="Citation identifier">servet-mka 32640</tss:characteristic>
+               <tss:characteristic name="URL">http://gazeteler.ankara.edu.tr/dergiler/482/171366/32640.pdf</tss:characteristic>
+               <tss:characteristic name="publicationStatus">Published</tss:characteristic>
+            </tss:characteristics>
+            <tss:keywords>
+               <tss:keyword assigner="Sente User Sebastian">Damascus</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Hijaz Railway</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">weekly</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Source</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">newspaper/periodical</tss:keyword>
+            </tss:keywords>
+            <tss:notes/>
+            <tss:attachments>
+               <tss:attachmentReference xml:id="uuid_6CE73DD1-EBDD-4D40-8F0A-D2B26FCD6E88" type="" editor="Sente User Sebastian" when-iso="2015-04-21T16:37:07+0000">
+                  <name>PDF</name>
+                  <URL xml:id="uuid_5075C127-703F-4982-B00E-B0C458E942F0" storageMethod="Base Directory-Relative, Optionally Alias-Backed">/BachCore/SenteLibrary/BachBibliographie.sente6lib/Contents/Attachments/! Unknown Author(s)/1904 Servet-i Fünūn 696 32640.pdf</URL>
+                  <URL xml:id="uuid_7CCA9C8F-B658-42D8-B405-F705D729C984" storageMethod="Replication Server">eyJGaWxlbmFtZSI6IjE5MDQgU2VydmV0LWkgRnXMiG51zIRuIDY5NiAzMjY0MC5wZGYifQ==
+            </URL>
+               </tss:attachmentReference>
+            </tss:attachments>
+         </tss:reference>
+         <tss:reference>
+            <tss:publicationType name="Archival Periodical"/>
+            <tss:authors/>
+            <tss:dates>
+               <tss:date day="14" month="5" type="Publication" year="1863"/>
+               <tss:date day="5" month="8" type="Entry" year="2014"/>
+               <tss:date day="5" month="8" type="Modification" year="2014"/>
+               <tss:date day="11" month="04" type="Retrieval" year="2014"/>
+            </tss:dates>
+            <tss:characteristics>
+               <tss:characteristic name="UUID">006C0BE1-C4D4-49F8-98C4-48F40E972EB3</tss:characteristic>
+               <tss:characteristic name="publicationTitle">Ḥadīqat al-Akhbār</tss:characteristic>
+               <tss:characteristic name="volume">265</tss:characteristic>
+               <tss:characteristic name="issue">6</tss:characteristic>
+               <tss:characteristic name="pages">1-4</tss:characteristic>
+               <tss:characteristic name="articleTitle">265</tss:characteristic>
+               <tss:characteristic name="abstractText"/>
+               <tss:characteristic name="language">ar</tss:characteristic>
+               <tss:characteristic name="affiliation"/>
+               <tss:characteristic name="status"/>
+               <tss:characteristic name="publisher">al-Maṭbaʿat al-Sūriyya</tss:characteristic>
+               <tss:characteristic name="Short Titel">Ḥadīqat</tss:characteristic>
+               <tss:characteristic name="Date Rumi">2 Ayyār 1863</tss:characteristic>
+               <tss:characteristic name="Date Hijri">26 Dhu I 1279</tss:characteristic>
+               <tss:characteristic name="publicationCountry">Bayrūt</tss:characteristic>
+               <tss:characteristic name="DOI"/>
+               <tss:characteristic name="Repository">StaBi</tss:characteristic>
+               <tss:characteristic name="Citation identifier">hadiqat265</tss:characteristic>
+               <tss:characteristic name="publicationStatus">Published</tss:characteristic>
+            </tss:characteristics>
+            <tss:keywords>
+               <tss:keyword assigner="Sente User Sebastian">Source</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">newspaper/periodical</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">weekly</tss:keyword>
+            </tss:keywords>
+            <tss:notes/>
+            <tss:attachments>
+               <tss:attachmentReference xml:id="uuid_86708E74-93C6-49BB-961B-2BA805C678E6" type="" editor="Sente User Sebastian" when-iso="2014-08-18T18:57:11+0000">
+                  <name/>
+                  <URL xml:id="uuid_00C7CB80-9BA4-4EC9-B7B1-26570252EC28" storageMethod="Replication Server">eyJGaWxlbmFtZSI6IjE4NjMgSMyjYWRpzIRxYXQgYWwtQWtoYmHMhHIgMjY1IDI2NS5wZGYi
+            fQ==
+            </URL>
+                  <URL xml:id="uuid_FD9C2D4B-A9E5-4F3B-A2C4-6D47812E4665" storageMethod="Base Directory-Relative, Optionally Alias-Backed">/BachCore/SenteLibrary/BachBibliographie.sente6lib/Contents/Attachments/! Unknown Author(s)/1863 Ḥadīqat al-Akhbār 265 265 #2.pdf</URL>
+               </tss:attachmentReference>
+            </tss:attachments>
+         </tss:reference>
+         <tss:reference>
+            <tss:publicationType name="Newspaper article"/>
+            <tss:authors/>
+            <tss:dates>
+               <tss:date day="21" month="6" type="Publication" year="1910"/>
+               <tss:date day="11" month="9" type="Entry" year="2011"/>
+               <tss:date day="6" month="12" type="Modification" year="2015"/>
+               <tss:date day="" month="" type="Retrieval" year=""/>
+            </tss:dates>
+            <tss:characteristics>
+               <tss:characteristic name="UUID">003057D3-2DD7-4F24-B7F4-258EFDFBC8CE</tss:characteristic>
+               <tss:characteristic name="publicationTitle">lisān al-ḥāl</tss:characteristic>
+               <tss:characteristic name="volume">6357</tss:characteristic>
+               <tss:characteristic name="issue"/>
+               <tss:characteristic name="pages">2</tss:characteristic>
+               <tss:characteristic name="articleTitle">murāsilāt: al-shām</tss:characteristic>
+               <tss:characteristic name="abstractText">celebrations of Greek Catholic Patriach Cyril VIII's jubilee<html:br/>	- Sun, 11 Jun: various clerics involved in the celebration. i.a. five bishops. at 7:30 commenced the procession headed by the Patriarch, Bishops, and Priest. Music played until they entered the church. First he delivered a religious sermon, then he thanked the Bishopric, Priests, and the people (*shaʿb*). The procession then returned to the Patriarchate. A priest walked in front and blessed the people. Arabic translation of what he shouted.</tss:characteristic>
+               <tss:characteristic name="language">ar</tss:characteristic>
+               <tss:characteristic name="affiliation"/>
+               <tss:characteristic name="status"/>
+               <tss:characteristic name="Short Titel">Lisān</tss:characteristic>
+               <tss:characteristic name="ISSN">lisān al-ḥāl</tss:characteristic>
+               <tss:characteristic name="call-num">Mic-Na:111-26</tss:characteristic>
+               <tss:characteristic name="Signatur">Mic-Na:111-26</tss:characteristic>
+               <tss:characteristic name="User rating">3</tss:characteristic>
+               <tss:characteristic name="Standort">AUB</tss:characteristic>
+               <tss:characteristic name="Physical description">microfilm reel.</tss:characteristic>
+               <tss:characteristic name="DOI"/>
+               <tss:characteristic name="publicationCountry">Bayrūt</tss:characteristic>
+               <tss:characteristic name="Citation identifier">lisan 6357</tss:characteristic>
+               <tss:characteristic name="publisher"/>
+            </tss:characteristics>
+            <tss:keywords>
+               <tss:keyword assigner="Sente User till">newspaper/periodical</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Music</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Damascus</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Public ritual</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Patriarch</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Greek Catholic</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Anniversary of accession</tss:keyword>
+               <tss:keyword assigner="Sente User till">Source</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">daily</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Bab Tuma</tss:keyword>
+               <tss:keyword assigner="Sente User Sebastian">Procession</tss:keyword>
+            </tss:keywords>
+            <tss:notes/>
+            <tss:attachments/>
+         </tss:reference>
+         <tss:reference>
+            <tss:publicationType name="Newspaper article"/>
+            <tss:authors/>
+            <tss:dates>
+               <tss:date day="22" month="11" type="Publication" year="1877"/>
+               <tss:date day="2" month="1" type="Entry" year="2011"/>
+               <tss:date day="3" month="3" type="Modification" year="2014"/>
+               <tss:date day="" month="" type="Retrieval" year=""/>
+            </tss:dates>
+            <tss:characteristics>
+               <tss:characteristic name="UUID">B4B947DD-C061-43FC-90E7-4675C271DFE7</tss:characteristic>
+               <tss:characteristic name="publicationTitle">thamarāt al-funūn</tss:characteristic>
+               <tss:characteristic name="volume">134</tss:characteristic>
+               <tss:characteristic name="issue"/>
+               <tss:characteristic name="pages">4</tss:characteristic>
+               <tss:characteristic name="articleTitle">[ḥawādith maḥalliyya]</tss:characteristic>
+               <tss:characteristic name="abstractText">- news from Damascus: al-ahrām, the Egyptian newspaper, is banned from Syria
+            - Muḥammad Tawfīq al-Qudsī, member of the Senate, arrived in Beirut on his way to COnstantionple</tss:characteristic>
+               <tss:characteristic name="language">ar</tss:characteristic>
+               <tss:characteristic name="affiliation"/>
+               <tss:characteristic name="status"/>
+               <tss:characteristic name="Signatur">Mic-NA:000026, Inv 9583 Mic-A 297</tss:characteristic>
+               <tss:characteristic name="publisher">Jamʿiyyat al-Funūn</tss:characteristic>
+               <tss:characteristic name="Short Titel">Thamarāt</tss:characteristic>
+               <tss:characteristic name="BibTeX cite tag">ThamaratAlFunun:1877</tss:characteristic>
+               <tss:characteristic name="publicationCountry">Bayrūt</tss:characteristic>
+               <tss:characteristic name="DOI"/>
+               <tss:characteristic name="Standort">AUB, FU Islamwissenschaft</tss:characteristic>
+               <tss:characteristic name="Citation identifier">thamarat 134a</tss:characteristic>
+               <tss:characteristic name="publicationStatus">Unknown</tss:characteristic>
+            </tss:characteristics>
+            <tss:keywords>
+               <tss:keyword assigner="Sente User till">Source</tss:keyword>
+               <tss:keyword assigner="Sente User till">Censorship</tss:keyword>
+               <tss:keyword assigner="Sente User till">weekly</tss:keyword>
+               <tss:keyword assigner="Sente User till">newspaper/periodical</tss:keyword>
+               <tss:keyword assigner="Sente User till">Damascus</tss:keyword>
+            </tss:keywords>
+            <tss:notes/>
+            <tss:attachments/>
          </tss:reference>
       </tss:references>
    </tss:library>

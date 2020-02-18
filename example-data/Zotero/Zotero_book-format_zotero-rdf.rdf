@@ -7,109 +7,96 @@
  xmlns:vcard="http://nwalsh.com/rdf/vCard#"
  xmlns:foaf="http://xmlns.com/foaf/0.1/"
  xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/">
-    <bib:Book rdf:about="urn:isbn:some-fake-isbn">
+    <bib:Book rdf:about="#item_123583">
         <z:itemType>book</z:itemType>
         <dcterms:isPartOf>
             <bib:Series>
-                <dc:title>series title</dc:title>
-                <dc:identifier>series number</dc:identifier>
+                <dc:title>Berliner Islamstudien</dc:title>
+                <dc:identifier>6</dc:identifier>
             </bib:Series>
         </dcterms:isPartOf>
         <dc:publisher>
             <foaf:Organization>
                 <vcard:adr>
                     <vcard:Address>
-                       <vcard:locality>London</vcard:locality>
+                       <vcard:locality>Stuttgart</vcard:locality>
                     </vcard:Address>
                 </vcard:adr>
-                <foaf:name>John Murray</foaf:name>
+                <foaf:name>Franz Steiner Verlag</foaf:name>
             </foaf:Organization>
         </dc:publisher>
-        <bib:authors>
-            <rdf:Seq>
-                <rdf:li>
-                    <foaf:Person>
-                        <foaf:surname>Midhat Bey</foaf:surname>
-                        <foaf:givenName>Ali Haydar</foaf:givenName>
-                    </foaf:Person>
-                </rdf:li>
-            </rdf:Seq>
-        </bib:authors>
         <bib:editors>
             <rdf:Seq>
                 <rdf:li>
                     <foaf:Person>
-                        <foaf:surname>Fake</foaf:surname>
-                        <foaf:givenName>Editor</foaf:givenName>
+                        <foaf:surname>Philipp</foaf:surname>
+                        <foaf:givenName>Thomas</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Schaebler</foaf:surname>
+                        <foaf:givenName>Birgit</foaf:givenName>
                     </foaf:Person>
                 </rdf:li>
             </rdf:Seq>
         </bib:editors>
-        <z:translators>
-            <rdf:Seq>
-                <rdf:li>
-                    <foaf:Person>
-                        <foaf:surname>Fake</foaf:surname>
-                        <foaf:givenName>Translator</foaf:givenName>
-                    </foaf:Person>
-                </rdf:li>
-            </rdf:Seq>
-        </z:translators>
-        <bib:contributors>
-            <rdf:Seq>
-                <rdf:li>
-                    <foaf:Person>
-                        <foaf:surname>Fake</foaf:surname>
-                        <foaf:givenName>Contributor</foaf:givenName>
-                    </foaf:Person>
-                </rdf:li>
-            </rdf:Seq>
-        </bib:contributors>
-        <dcterms:isReferencedBy rdf:resource="#item_123478"/>
-        <dcterms:isReferencedBy rdf:resource="#item_123477"/>
-        <dc:subject>19th century</dc:subject>
-        <dc:subject>Biography</dc:subject>
-        <dc:subject>Damascus</dc:subject>
-        <dc:subject>Digital copy</dc:subject>
-        <dc:subject>Online</dc:subject>
         <dc:subject>Ottoman Empire</dc:subject>
-        <dc:subject>Source</dc:subject>
-        <dc:subject>Statesmen</dc:subject>
-        <dc:subject>Turkey</dc:subject>
-        <dc:identifier>
-            <dcterms:URI>
-                <rdf:value>http://hdl.handle.net/2027/yale.39002013906194</rdf:value>
-            </dcterms:URI>
-        </dc:identifier>
-        <prism:volume>volume</prism:volume>
-        <prism:edition>edition</prism:edition>
-        <dc:identifier>ISBN some-fake-isbn</dc:identifier>
-        <dc:date>1903</dc:date>
+        <dc:subject>19th century</dc:subject>
+        <dc:subject>20th century</dc:subject>
+        <dc:subject>Palestine</dc:subject>
+        <dc:subject>Lebanon</dc:subject>
+        <dc:subject>18th century</dc:subject>
+        <dc:subject>Syria</dc:subject>
+        <dc:subject>Jordan</dc:subject>
+        <dc:subject>Israel</dc:subject>
+        <dc:subject>2005 Büssow: Notabeln</dc:subject>
+        <prism:edition>2</prism:edition>
+        <dc:date>1998</dc:date>
         <dc:subject>
-           <dcterms:LCC><rdf:value>Ui 5412</rdf:value></dcterms:LCC>
+            <dcterms:LCC>
+               <rdf:value>NP 380 /754768, 1A363653, III h(6) Philipp</rdf:value>
+            </dcterms:LCC>
         </dc:subject>
-        <dc:description>doi: fake-doi</dc:description>
-        <z:libraryCatalog>StaBi</z:libraryCatalog>
-        <z:language>en</z:language>
-        <dcterms:abstract>Does not mention the placards of 1880</dcterms:abstract>
-        <dc:title>The life of Midhat Pasha: a record of his services, political reforms, banishment, and judicial murder</dc:title>
-        <z:shortTitle>short title</z:shortTitle>
-        <z:archive>StaBi</z:archive>
+        <dc:description>uuid: 00E0BE23-6A51-4826-B320-C742B433A1D3
+doi: 
+SenteCitationID: Philipp 1998</dc:description>
+        <z:libraryCatalog>SOAS, StaBi, FU Islamwissenschaft</z:libraryCatalog>
+        <z:language>engfre</z:language>
+        <dcterms:abstract>Part I (1-154):
+                  
+                  Highways, Railroads, Telegraphs, and Seaport: The Physical Means of Integration
+                  
+                  -   Fawaz: The Beirut-Damasuc Road
+                  
+                  
+                  Part II (155-202)
+                  
+                  Sewerage and City Quarters: The Infrastrucure of the Urban Space
+                  
+                  - Moaz: The Urban Fabric of an Extramural QUarter in 19th-Century Damascus
+                  
+                  - Sack: The Historic Fabric of Damascus and its Changes in the 19th and at the Beginning of the 20th Century -&gt; based on Sack 1989
+                  
+                  
+                  Part III (203-292)
+                  
+                  The Role of Administration &amp; Education
+                  
+                  - Deguilhem: State Civil Education in Late Ottoman Damascus: A Unifying or a Seperating FOrce?
+                  
+                  
+                  Part IV (293-396)
+                  
+                  Integration and Resistance
+                  
+                  - Kayalı: Wartime Regional and Imperial Integration of Greater Syria during World War I
+                  
+                  - Strauss: The Disintegration of Ottoman Rule in the Syrian Territories as Viewed by German Observers
+                  
+                  - Schaebler: State(s) Power and the Druzes: Integration and the Struggle for Social Control (1838-1949)
+                  
+                  - Landis: Shishaklī and the Druzes: Integration and Intransigence</dcterms:abstract>
+        <dc:title>The Syrian land: processes of integration and fragmentation; Bilād Al-Shām from the 18th to the 20th century</dc:title>
     </bib:Book>
-    <bib:Memo rdf:about="#item_123478">
-        <rdf:value>&lt;p&gt;&lt;span&gt;(191)&lt;/span&gt;&lt;/p&gt;
-&lt;h1&gt;# 7 Jan 1881, Midḥat to Grand Vizier&lt;/h1&gt;
-&lt;blockquote style=&quot;background-color: yellow;&quot;&gt;
-&lt;p&gt;&amp;gt;From JJ/dlwt Pasha to the Grand Vizier.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;defending his companion Essad Efendi, who was exiled to Damascus and since left for Greece, against allegations by *Tercümān-ı Ḥaḳīḳta* that he is the author of some anti-Hamidian articles printed in Athen&lt;/p&gt;</rdf:value>
-    </bib:Memo>
-    <bib:Memo rdf:about="#item_123477">
-        <rdf:value>&lt;p&gt;&lt;span&gt;(199)&lt;/span&gt;&lt;/p&gt;
-&lt;h1&gt;# Public opinion in Damascus concerning Asʿad Efendi&lt;/h1&gt;
-&lt;blockquote style=&quot;background-color: unknown;&quot;&gt;
-&lt;p&gt;&amp;gt;As to Essad Effendi, all who have seen him at Damascus will be able to estimate these erroneous publications at their true value.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt; &lt;/p&gt;</rdf:value>
-    </bib:Memo>
 </rdf:RDF>

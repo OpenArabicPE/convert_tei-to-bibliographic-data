@@ -1,0 +1,42 @@
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:z="http://www.zotero.org/namespaces/export#"
+ xmlns:dcterms="http://purl.org/dc/terms/"
+ xmlns:bib="http://purl.org/net/biblio#"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:vcard="http://nwalsh.com/rdf/vCard#"
+ xmlns:foaf="http://xmlns.com/foaf/0.1/">
+    <bib:Image rdf:about="http://www.jpress.org.il/publications/Bulletin-en.asp">
+        <z:itemType>map</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Series>
+               <dcterms:alternative>K922</dcterms:alternative>
+            </bib:Series>
+        </dcterms:isPartOf>
+        <dc:publisher>
+            <foaf:Organization>
+                <vcard:adr>
+                    <vcard:Address>
+                       <vcard:locality>Washington, DC</vcard:locality>
+                    </vcard:Address>
+                </vcard:adr>
+                <foaf:name>Army Map Service, Corps of Engineers</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <dc:subject>Source</dc:subject>
+        <dc:subject>Education</dc:subject>
+        <dc:subject>Damascus</dc:subject>
+        <dc:subject>newspaper/periodical</dc:subject>
+        <dc:subject>statistics</dc:subject>
+        <dc:subject>Alliance Israelite Universelle</dc:subject>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://www.jpress.org.il/publications/Bulletin-en.asp</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dc:date>1913-05</dc:date>
+        <z:scale>1:150</z:scale>
+        <z:language>fr</z:language>
+        <dc:title>Map of Damascus</dc:title>
+    </bib:Image>
+</rdf:RDF>

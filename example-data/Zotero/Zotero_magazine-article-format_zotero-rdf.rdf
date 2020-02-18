@@ -10,10 +10,15 @@
         <dcterms:isPartOf>
             <bib:Periodical>
                 <prism:volume>37, année 1912</prism:volume>
-                <prism:number>11</prism:number>
                 <dc:title>Bulletin de l'Alliance Israélite Universelle</dc:title>
             </bib:Periodical>
         </dcterms:isPartOf>
+        <dc:subject>Alliance Israelite Universelle</dc:subject>
+        <dc:subject>Damascus</dc:subject>
+        <dc:subject>Education</dc:subject>
+        <dc:subject>newspaper/periodical</dc:subject>
+        <dc:subject>Source</dc:subject>
+        <dc:subject>statistics</dc:subject>
         <dc:identifier>
             <dcterms:URI>
                 <rdf:value>http://www.jpress.org.il/publications/Bulletin-en.asp</rdf:value>
@@ -21,7 +26,12 @@
         </dc:identifier>
         <bib:pages>94-98</bib:pages>
         <dc:date>1913-05</dc:date>
+        <dc:description>SenteCitationID: BulletinDeLallianceIsraélite 1913b
+oclc: 608132398
+uuid: 02F93798-B3D9-458F-B285-EDA468FCFDE5
+volume: 37, année 1912</dc:description>
         <z:language>fr</z:language>
         <dc:title>Turquie d'Asie</dc:title>
+        <z:shortTitle>Bulletin AIU</z:shortTitle>
     </bib:Article>
 </rdf:RDF>
