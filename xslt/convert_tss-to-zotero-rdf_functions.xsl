@@ -28,7 +28,7 @@
         - the abstract field is correctly mapped but it should probably be replicated as a note with the tag abstract
         - due to the dependence of fields on the item type in Zotero, everything should also be replicated to the extra field.
         - a lot of information should also be mapped to tags, to make use of the tag cloud (and set of the dearly missing browsing feature)
-        - due to Sente's file naming restrictions, I had to use the volume field for issue numbers and vice versa. this should be fixed.
+        - due to Sente's file naming restrictions, I had to use the volume field for issue numbers and vice versa. this ought to be fixed BEFORE converting TSS XML to Zotero RDF.
     -->
     
      <!-- fields not yet covered 
@@ -294,28 +294,28 @@
     </xsl:template>
     <xsl:template match="tss:characteristic[@name = 'issue']" mode="m_extra-field">
         <xsl:if test=".!=''">
-            <xsl:choose>
+            <!--<xsl:choose>
                  <xsl:when test="oape:bibliography-tss-switch-volume-and-issue(ancestor::tss:reference) = false()">
                      <xsl:text>issue</xsl:text>
                  </xsl:when>
                  <xsl:otherwise>
                      <xsl:text>volume</xsl:text>
                  </xsl:otherwise>
-             </xsl:choose>
-            <xsl:value-of select="concat($v_separator-key-value,.,$v_new-line)"/>
+             </xsl:choose>-->
+            <xsl:value-of select="concat('issue', $v_separator-key-value,.,$v_new-line)"/>
         </xsl:if>
     </xsl:template>
      <xsl:template match="tss:characteristic[@name = 'volume']" mode="m_extra-field">
          <xsl:if test=".!=''">
-             <xsl:choose>
+             <!--<xsl:choose>
                  <xsl:when test="oape:bibliography-tss-switch-volume-and-issue(ancestor::tss:reference) = true()">
                      <xsl:text>issue</xsl:text>
                  </xsl:when>
                  <xsl:otherwise>
                      <xsl:text>volume</xsl:text>
                  </xsl:otherwise>
-             </xsl:choose>
-             <xsl:value-of select="concat($v_separator-key-value,.,$v_new-line)"/>
+             </xsl:choose>-->
+             <xsl:value-of select="concat('volume', $v_separator-key-value,.,$v_new-line)"/>
          </xsl:if>
     </xsl:template>
     
@@ -428,26 +428,28 @@
     </xsl:template>
     <xsl:template match="tss:characteristic[@name = 'volume']" mode="m_tss-to-zotero-rdf">
         <xsl:if test=".!=''">
-            <xsl:choose>
+            <!--<xsl:choose>
                  <xsl:when test="oape:bibliography-tss-switch-volume-and-issue(ancestor::tss:reference) = true()">
                     <prism:number><xsl:value-of select="."/></prism:number>
                  </xsl:when>
                  <xsl:otherwise>
                      <prism:volume><xsl:value-of select="."/></prism:volume>
                  </xsl:otherwise>
-             </xsl:choose>
+             </xsl:choose>-->
+            <prism:volume><xsl:value-of select="."/></prism:volume>
         </xsl:if>
     </xsl:template>
     <xsl:template match="tss:characteristic[@name = 'issue']" mode="m_tss-to-zotero-rdf">
         <xsl:if test=".!=''">
-            <xsl:choose>
+            <!--<xsl:choose>
                  <xsl:when test="oape:bibliography-tss-switch-volume-and-issue(ancestor::tss:reference) = false()">
                     <prism:number><xsl:value-of select="."/></prism:number>
                  </xsl:when>
                  <xsl:otherwise>
                      <prism:volume><xsl:value-of select="."/></prism:volume>
                  </xsl:otherwise>
-             </xsl:choose>
+             </xsl:choose>-->
+            <prism:number><xsl:value-of select="."/></prism:number>
         </xsl:if>
     </xsl:template>
     <xsl:template match="tss:characteristic[@name = 'pages']" mode="m_tss-to-zotero-rdf">
