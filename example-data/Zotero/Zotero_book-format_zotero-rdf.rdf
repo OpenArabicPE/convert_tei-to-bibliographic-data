@@ -1,102 +1,199 @@
 <rdf:RDF
  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
  xmlns:z="http://www.zotero.org/namespaces/export#"
- xmlns:dcterms="http://purl.org/dc/terms/"
  xmlns:dc="http://purl.org/dc/elements/1.1/"
- xmlns:bib="http://purl.org/net/biblio#"
  xmlns:vcard="http://nwalsh.com/rdf/vCard#"
  xmlns:foaf="http://xmlns.com/foaf/0.1/"
- xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/">
-    <bib:Book rdf:about="#item_123583">
+ xmlns:bib="http://purl.org/net/biblio#"
+ xmlns:dcterms="http://purl.org/dc/terms/"
+ xmlns:link="http://purl.org/rss/1.0/modules/link/">
+    <bib:Book rdf:about="/core/books/open-access-and-the-humanities/02BD7DB4A5172A864C432DBFD86E5FB4">
         <z:itemType>book</z:itemType>
-        <dcterms:isPartOf>
-            <bib:Series>
-                <dc:title>Berliner Islamstudien</dc:title>
-                <dc:identifier>6</dc:identifier>
-            </bib:Series>
-        </dcterms:isPartOf>
         <dc:publisher>
             <foaf:Organization>
                 <vcard:adr>
                     <vcard:Address>
-                       <vcard:locality>Stuttgart</vcard:locality>
+                       <vcard:locality>Cambridge</vcard:locality>
                     </vcard:Address>
                 </vcard:adr>
-                <foaf:name>Franz Steiner Verlag</foaf:name>
+                <foaf:name>Cambridge University Press</foaf:name>
             </foaf:Organization>
         </dc:publisher>
-        <bib:editors>
+        <bib:authors>
             <rdf:Seq>
                 <rdf:li>
                     <foaf:Person>
-                        <foaf:surname>Philipp</foaf:surname>
-                        <foaf:givenName>Thomas</foaf:givenName>
-                    </foaf:Person>
-                </rdf:li>
-                <rdf:li>
-                    <foaf:Person>
-                        <foaf:surname>Schaebler</foaf:surname>
-                        <foaf:givenName>Birgit</foaf:givenName>
+                        <foaf:surname>Eve</foaf:surname>
+                        <foaf:givenName>Martin Paul</foaf:givenName>
                     </foaf:Person>
                 </rdf:li>
             </rdf:Seq>
-        </bib:editors>
-        <dc:subject>Ottoman Empire</dc:subject>
-        <dc:subject>19th century</dc:subject>
-        <dc:subject>20th century</dc:subject>
-        <dc:subject>Palestine</dc:subject>
-        <dc:subject>Lebanon</dc:subject>
-        <dc:subject>18th century</dc:subject>
-        <dc:subject>Syria</dc:subject>
-        <dc:subject>Jordan</dc:subject>
-        <dc:subject>Israel</dc:subject>
-        <dc:subject>2005 Büssow: Notabeln</dc:subject>
-        <prism:edition>2</prism:edition>
-        <dc:date>1998</dc:date>
-        <dc:subject>
-            <dcterms:LCC>
-               <rdf:value>NP 380 /754768, 1A363653, III h(6) Philipp</rdf:value>
-            </dcterms:LCC>
-        </dc:subject>
-        <dc:description>uuid: 00E0BE23-6A51-4826-B320-C742B433A1D3
-doi: 
-SenteCitationID: Philipp 1998</dc:description>
-        <z:libraryCatalog>SOAS, StaBi, FU Islamwissenschaft</z:libraryCatalog>
-        <z:language>engfre</z:language>
-        <dcterms:abstract>Part I (1-154):
-                  
-                  Highways, Railroads, Telegraphs, and Seaport: The Physical Means of Integration
-                  
-                  -   Fawaz: The Beirut-Damasuc Road
-                  
-                  
-                  Part II (155-202)
-                  
-                  Sewerage and City Quarters: The Infrastrucure of the Urban Space
-                  
-                  - Moaz: The Urban Fabric of an Extramural QUarter in 19th-Century Damascus
-                  
-                  - Sack: The Historic Fabric of Damascus and its Changes in the 19th and at the Beginning of the 20th Century -&gt; based on Sack 1989
-                  
-                  
-                  Part III (203-292)
-                  
-                  The Role of Administration &amp; Education
-                  
-                  - Deguilhem: State Civil Education in Late Ottoman Damascus: A Unifying or a Seperating FOrce?
-                  
-                  
-                  Part IV (293-396)
-                  
-                  Integration and Resistance
-                  
-                  - Kayalı: Wartime Regional and Imperial Integration of Greater Syria during World War I
-                  
-                  - Strauss: The Disintegration of Ottoman Rule in the Syrian Territories as Viewed by German Observers
-                  
-                  - Schaebler: State(s) Power and the Druzes: Integration and the Struggle for Social Control (1838-1949)
-                  
-                  - Landis: Shishaklī and the Druzes: Integration and Intransigence</dcterms:abstract>
-        <dc:title>The Syrian land: processes of integration and fragmentation; Bilād Al-Shām from the 18th to the 20th century</dc:title>
+        </bib:authors>
+        <dcterms:isReferencedBy rdf:resource="#item_123700"/>
+        <link:link rdf:resource="#item_123432"/>
+        <link:link rdf:resource="#item_93936"/>
+        <dc:subject>Digital copy</dc:subject>
+        <dc:subject>Digital Humanities</dc:subject>
+        <dc:subject>status: to be read</dc:subject>
+        <dc:subject>OpenAccess</dc:subject>
+        <dc:subject>2019 Workshop OA</dc:subject>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>/core/books/open-access-and-the-humanities/02BD7DB4A5172A864C432DBFD86E5FB4</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dc:date>2014/11</dc:date>
+        <dc:description>DOI: 10.1017/CBO9781316161012</dc:description>
+        <dcterms:dateSubmitted>2018-04-03 07:11:28</dcterms:dateSubmitted>
+        <z:language>en</z:language>
+        <dc:title>Open Access and the Humanities: Contexts, Controversies and the Future</dc:title>
+        <z:shortTitle>Open Access and the Humanities</z:shortTitle>
     </bib:Book>
+    <bib:Memo rdf:about="#item_123700">
+        <rdf:value>&lt;p&gt;&lt;strong&gt;Extracted Annotations (2/20/2020, 10:42:18 AM)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&quot;&lt;u&gt;For a piece of academic research to be called ‘open access’, it must be available digitally for anybody to read at no ﬁnancial cost beyond those intrinsic to using the internet; the removal of price barriers.&lt;/u&gt;&quot; (&lt;a href=&quot;zotero://open-pdf/library/items/AVL8VWRF?page=19&quot;&gt;Eve 2014:19&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;basic definition of open access (&lt;a href=&quot;zotero://open-pdf/library/items/AVL8VWRF?page=19&quot;&gt;note on p.19&lt;/a&gt;)&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;p&gt;&quot;&lt;u&gt;The term also means, perhaps more contentiously, that people&lt;/u&gt;&quot; (&lt;a href=&quot;zotero://open-pdf/library/items/AVL8VWRF?page=19&quot;&gt;Eve 2014:19&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;&quot;&lt;u&gt;should be able to reuse this material beyond the provisions of fair use enshrined in copyright law, as long as the author is credited. This is the removal of permission barriers&lt;/u&gt;&quot; (&lt;a href=&quot;zotero://open-pdf/library/items/AVL8VWRF?page=20&quot;&gt;Eve 2014:20&lt;/a&gt;)&lt;/p&gt;</rdf:value>
+    </bib:Memo>
+    <z:Attachment rdf:about="#item_123432">
+        <z:itemType>attachment</z:itemType>
+        <rdf:resource rdf:resource="/BachUni/BachBibliothek/ZotfileLibrary/Eve/2014/eve_2014_open access and the.pdf"/>
+        <dc:title>eve_2014_open access and the.pdf</dc:title>
+        <z:linkMode>2</z:linkMode>
+        <link:type>application/pdf</link:type>
+        <dc:description>&lt;p id=&quot;title&quot;&gt;&lt;strong&gt;Contents&lt;/strong&gt;&lt;/p&gt;
+&lt;ul id=&quot;toc&quot; style=&quot;list-style-type: none; padding-left: 0px;&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/1&quot;&gt;Cover&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/3&quot;&gt;Half-title&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/5&quot;&gt;Title page&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/6&quot;&gt;Copyright information&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/7&quot;&gt;Dedication&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/9&quot;&gt;Table of contents&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/10&quot;&gt;Epigraph&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/11&quot;&gt;Preface&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/14&quot;&gt;Acknowledgements&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/17&quot;&gt;Citing this work&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 8px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/19&quot;&gt;Chapter 1 Introduction, or why open access?&lt;/a&gt;
+&lt;ul style=&quot;list-style-type: none; padding-left: 12px;&quot;&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/19&quot;&gt;What is open access?&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/26&quot;&gt;A brief glossary of and introduction to open access&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 8px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/30&quot;&gt;Open access: a historical background&lt;/a&gt;
+&lt;ul style=&quot;list-style-type: none; padding-left: 24px;&quot;&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/31&quot;&gt;Library budgets, the 'serials crisis' and over-supply&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/34&quot;&gt;Free culture, copyright and an open ethos&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/39&quot;&gt;Convergences&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li style=&quot;padding-top: 8px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/40&quot;&gt;The Two Cultures: is OA just for scientists?&lt;/a&gt;
+&lt;ul style=&quot;list-style-type: none; padding-left: 24px;&quot;&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/41&quot;&gt;Open access: scientific origins&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li style=&quot;padding-top: 8px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/48&quot;&gt;Why not open access?&lt;/a&gt;
+&lt;ul style=&quot;list-style-type: none; padding-left: 24px;&quot;&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/48&quot;&gt;Academics' oppositions to open access&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/52&quot;&gt;Commercial publishers' oppositions to open access&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/56&quot;&gt;University press and learned society publishers' oppositions to open access&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/59&quot;&gt;Librarians' oppositions to open access&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li style=&quot;padding-top: 8px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/61&quot;&gt;Chapter 2 Digital economics&lt;/a&gt;
+&lt;ul style=&quot;list-style-type: none; padding-left: 12px;&quot;&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/62&quot;&gt;Cultural and symbolic capital in academic publishing&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 8px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/74&quot;&gt;Economics, 'academic labour' and publishing&lt;/a&gt;
+&lt;ul style=&quot;list-style-type: none; padding-left: 24px;&quot;&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/80&quot;&gt;Scholarship and the commodity form&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/85&quot;&gt;How can open access be affordable for the humanities?&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/94&quot;&gt;International challenges&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li style=&quot;padding-top: 8px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/104&quot;&gt;Chapter 3 Open licensing&lt;/a&gt;
+&lt;ul style=&quot;list-style-type: none; padding-left: 12px;&quot;&gt;
+&lt;li style=&quot;padding-top: 8px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/104&quot;&gt;An introduction and context to free and open licensing&lt;/a&gt;
+&lt;ul style=&quot;list-style-type: none; padding-left: 24px;&quot;&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/107&quot;&gt;Open licenses&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li style=&quot;padding-top: 8px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/112&quot;&gt;Arguments in favour of open licensing&lt;/a&gt;
+&lt;ul style=&quot;list-style-type: none; padding-left: 24px;&quot;&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/114&quot;&gt;Use beyond 'fair dealing'&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/116&quot;&gt;Translation&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/118&quot;&gt;Text/content mining and experimental re-presentation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li style=&quot;padding-top: 8px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/120&quot;&gt;The challenges of integrating open licensing into the academy&lt;/a&gt;
+&lt;ul style=&quot;list-style-type: none; padding-left: 24px;&quot;&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/120&quot;&gt;Concerns over scholarly integrity&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/125&quot;&gt;Concerns over undesirable reuse&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li style=&quot;padding-top: 8px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/130&quot;&gt;Chapter 4 Monographs&lt;/a&gt;
+&lt;ul style=&quot;list-style-type: none; padding-left: 12px;&quot;&gt;
+&lt;li style=&quot;padding-top: 8px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/131&quot;&gt;Why are monographs different?&lt;/a&gt;
+&lt;ul style=&quot;list-style-type: none; padding-left: 24px;&quot;&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/132&quot;&gt;The purpose of the monograph&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/135&quot;&gt;How monographs are produced&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/138&quot;&gt;Why should the monograph be seen differently?&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li style=&quot;padding-top: 8px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/139&quot;&gt;Open-access monograph projects&lt;/a&gt;
+&lt;ul style=&quot;list-style-type: none; padding-left: 24px;&quot;&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/140&quot;&gt;Studies of the OA monograph&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/140&quot;&gt;OAPEN-NL&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li style=&quot;padding-top: 8px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/142&quot;&gt;OAPEN-UK&lt;/a&gt;
+&lt;ul style=&quot;list-style-type: none; padding-left: 24px;&quot;&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/147&quot;&gt;HEFCE open-access monographs investigation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li style=&quot;padding-top: 8px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/148&quot;&gt;Economic models for monographs&lt;/a&gt;
+&lt;ul style=&quot;list-style-type: none; padding-left: 24px;&quot;&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/149&quot;&gt;Print subsidy&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/150&quot;&gt;Institutional subsidy&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/151&quot;&gt;Freemium&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/152&quot;&gt;Collective funding&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/153&quot;&gt;Concluding thoughts on monograph economics&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li style=&quot;padding-top: 8px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/155&quot;&gt;Chapter 5 Innovations&lt;/a&gt;
+&lt;ul style=&quot;list-style-type: none; padding-left: 12px;&quot;&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/156&quot;&gt;Peer review&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 8px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/160&quot;&gt;Proposed experiments in peer review&lt;/a&gt;
+&lt;ul style=&quot;list-style-type: none; padding-left: 24px;&quot;&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/164&quot;&gt;Overlay journals: editing as social curation&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/166&quot;&gt;Speed of turnaround and establishing precedence&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/168&quot;&gt;Restoring the editor function&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/170&quot;&gt;Notes&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/197&quot;&gt;Glossary of open access terms&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/200&quot;&gt;Bibliography&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot;padding-top: 4px;&quot;&gt;&lt;a href=&quot;zotero://open-pdf/0_AVL8VWRF/219&quot;&gt;Index&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</dc:description>
+    </z:Attachment>
+    <z:Attachment rdf:about="#item_93936">
+        <z:itemType>attachment</z:itemType>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://www.cambridge.org/core/books/open-access-and-the-humanities/02BD7DB4A5172A864C432DBFD86E5FB4</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2018-04-03 07:11:40</dcterms:dateSubmitted>
+        <dc:title>Snapshot</dc:title>
+        <z:linkMode>1</z:linkMode>
+        <link:type>text/html</link:type>
+    </z:Attachment>
 </rdf:RDF>
