@@ -116,4 +116,13 @@
              <xsl:apply-templates select="tei:date"/>
          </xsl:copy>
     </xsl:template>
+    
+    <xsl:template match="tei:persName">
+        <xsl:copy>
+            <xsl:apply-templates select="@*"/>
+            <xsl:apply-templates select="tei:forename"/>
+            <xsl:text> </xsl:text>
+            <xsl:apply-templates select="tei:surname"/>
+        </xsl:copy>
+    </xsl:template>
 </xsl:stylesheet>
