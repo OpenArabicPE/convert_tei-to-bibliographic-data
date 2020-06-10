@@ -65,7 +65,11 @@
             <xsl:value-of select="$v_title-article"/>
             <xsl:text>}, </xsl:text><xsl:value-of select="$v_new-line"/>
             <xsl:text>journal = {</xsl:text>
-            <xsl:value-of select="$p_input/descendant::tei:title[@level = 'j'][@xml:lang = $p_lang]"/>
+            <xsl:value-of select="$p_input/descendant::tei:title[@level = 'j'][@xml:lang = $p_lang][not(@type = 'sub')]"/>
+            <!-- subtitle -->
+            <xsl:if test="$p_input/descendant::tei:title[@level = 'j'][@xml:lang = $p_lang][@type = 'sub']">
+                <xsl:text>: </xsl:text><xsl:value-of select="$p_input/descendant::tei:title[@level = 'j'][@xml:lang = $p_lang][@type = 'sub']"/>
+            </xsl:if>
             <xsl:text>}, </xsl:text><xsl:value-of select="$v_new-line"/>
             <!-- imprint -->
             <xsl:apply-templates select="$p_input/descendant::tei:biblScope" mode="m_tei-to-bibtex"/>
