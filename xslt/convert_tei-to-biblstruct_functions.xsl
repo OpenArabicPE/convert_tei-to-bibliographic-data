@@ -7,29 +7,37 @@
     <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no" version="1.0" name="xml"/>
     <!-- this stylesheets takes a <tei:div> as input and generates a <biblStruct> -->
     <xsl:function name="oape:bibliography-tei-div-to-biblstruct">
-        <xsl:param name="p_input"/>
-        <xsl:variable name="v_source-monogr" select="$p_input/ancestor::tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:biblStruct/tei:monogr"/>
-        <xsl:variable name="v_id-file" select="$p_input/ancestor::tei:TEI/@xml:id"/>
-        <xsl:variable name="v_id-div" select="$p_input/@xml:id"/>
+        <xsl:param name="p_div"/>
+<!--        <xsl:param name="p_translate-url-github-to-gh-pages"/>-->
+        <xsl:variable name="v_source-monogr" select="$p_div/ancestor::tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:biblStruct/tei:monogr"/>
+        <xsl:variable name="v_id-file" select="$p_div/ancestor::tei:TEI/@xml:id"/>
+        <xsl:variable name="v_id-div" select="$p_div/@xml:id"/>
         <xsl:variable name="v_bibtex-key" select="concat($v_id-file,'-',$v_id-div)"/>
         <xsl:element name="biblStruct">
             <xsl:element name="analytic">
                 <!-- article title -->
                 <xsl:element name="title">
                     <xsl:attribute name="level" select="'a'"/>
-                    <xsl:attribute name="xml:lang" select="$p_input/@xml:lang"/>
-                    <xsl:value-of select="oape:get-title-from-div($p_input)"/>
+                    <xsl:attribute name="xml:lang" select="$p_div/@xml:lang"/>
+                    <xsl:value-of select="oape:get-title-from-div($p_div)"/>
                 </xsl:element>
                 <!-- authorship  information -->
                 <xsl:element name="author">
-                    <xsl:apply-templates select="oape:get-author-from-div($p_input)" mode="m_replicate"/>
+                    <xsl:apply-templates select="oape:get-author-from-div($p_div)" mode="m_replicate"/>
                 </xsl:element>
                 <!-- IDs: URL -->
-                <xsl:for-each select="$p_input/ancestor::tei:TEI/tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type='url']">
+                <!-- add gh-pages -->
+                    <xsl:if test="not(contains($p_div/ancestor::tei:TEI/tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type='url'], '.github.io/'))">
+                        <xsl:element name="idno">
+                            <xsl:attribute name="type" select="'url'"/>
+                            <xsl:value-of select="concat( oape:transform-url-github-gh-pages($p_div/ancestor::tei:TEI/tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type='url'][not(contains(., '.github.io/'))]),'#',$v_id-div)"/>
+                        </xsl:element>
+                    </xsl:if>
+                <xsl:for-each select="$p_div/ancestor::tei:TEI/tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type='url']">
                     <xsl:element name="idno">
-                    <xsl:attribute name="type" select="'url'"/>
-                    <xsl:value-of select="concat(.,'#',$v_id-div)"/>
-                </xsl:element>
+                        <xsl:attribute name="type" select="'url'"/>
+                        <xsl:value-of select="concat(.,'#',$v_id-div)"/>
+                    </xsl:element>
                 </xsl:for-each>
                 <!-- BibTeX key -->
                 <xsl:element name="idno">
@@ -53,9 +61,9 @@
                     <xsl:when test="$v_source-monogr/tei:textLang">
                         <xsl:apply-templates select="$v_source-monogr/tei:textLang" mode="m_replicate"/>
                     </xsl:when>
-                    <xsl:when test="$p_input/@xml:lang">
+                    <xsl:when test="$p_div/@xml:lang">
                         <xsl:element name="tei:textLang">
-                            <xsl:attribute name="mainLang" select="$p_input/@xml:lang"/>
+                            <xsl:attribute name="mainLang" select="$p_div/@xml:lang"/>
                         </xsl:element>
                     </xsl:when>
                 </xsl:choose>
@@ -68,11 +76,11 @@
                 <!-- page numbers -->
                 <xsl:element name="biblScope">
                     <xsl:attribute name="unit" select="'page'"/>
-                    <xsl:variable name="v_page-onset" select="$p_input/preceding::tei:pb[@ed = 'print'][1]/@n"/>
+                    <xsl:variable name="v_page-onset" select="$p_div/preceding::tei:pb[@ed = 'print'][1]/@n"/>
                     <xsl:variable name="v_page_terminus">
                         <xsl:choose>
-                            <xsl:when test="$p_input/descendant::tei:pb[@ed = 'print']">
-                                <xsl:value-of select="$p_input/descendant::tei:pb[@ed = 'print'][last()]/@n"/>
+                            <xsl:when test="$p_div/descendant::tei:pb[@ed = 'print']">
+                                <xsl:value-of select="$p_div/descendant::tei:pb[@ed = 'print'][last()]/@n"/>
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:value-of select="$v_page-onset"/>
@@ -89,30 +97,30 @@
     
     <!-- function to get the author(s) of a div -->
     <xsl:function name="oape:get-author-from-div">
-        <xsl:param name="p_input"/>
+        <xsl:param name="p_div"/>
         <xsl:choose>
             <xsl:when
-                test="$p_input/child::tei:byline/descendant::tei:persName[not(ancestor::tei:note)]">
+                test="$p_div/child::tei:byline/descendant::tei:persName[not(ancestor::tei:note)]">
                 <xsl:copy-of
-                    select="$p_input/child::tei:byline/descendant::tei:persName[not(ancestor::tei:note)]"
+                    select="$p_div/child::tei:byline/descendant::tei:persName[not(ancestor::tei:note)]"
                 />
             </xsl:when>
             <xsl:when
-                test="$p_input/child::tei:byline/descendant::tei:orgName[not(ancestor::tei:note)]">
+                test="$p_div/child::tei:byline/descendant::tei:orgName[not(ancestor::tei:note)]">
                 <xsl:copy-of
-                    select="$p_input/child::tei:byline/descendant::tei:orgName[not(ancestor::tei:note)]"
+                    select="$p_div/child::tei:byline/descendant::tei:orgName[not(ancestor::tei:note)]"
                 />
             </xsl:when>
             <xsl:when
-                test="$p_input/descendant::tei:note[@type = 'bibliographic']/tei:bibl/tei:author">
+                test="$p_div/descendant::tei:note[@type = 'bibliographic']/tei:bibl/tei:author">
                 <xsl:copy-of
-                    select="$p_input/descendant::tei:note[@type = 'bibliographic']/tei:bibl/tei:author/descendant::tei:persName"
+                    select="$p_div/descendant::tei:note[@type = 'bibliographic']/tei:bibl/tei:author/descendant::tei:persName"
                 />
             </xsl:when>
             <xsl:when
-                test="$p_input/descendant::tei:note[@type = 'bibliographic']/tei:bibl/tei:title[@level = 'j']">
+                test="$p_div/descendant::tei:note[@type = 'bibliographic']/tei:bibl/tei:title[@level = 'j']">
                 <xsl:copy-of
-                    select="$p_input/descendant::tei:note[@type = 'bibliographic']/tei:bibl/tei:title[@level = 'j']"
+                    select="$p_div/descendant::tei:note[@type = 'bibliographic']/tei:bibl/tei:title[@level = 'j']"
                 />
             </xsl:when>
         </xsl:choose>
@@ -120,13 +128,27 @@
     
     <!-- function to get a title of a div -->
     <xsl:function name="oape:get-title-from-div">
-        <xsl:param name="p_input"/>
-            <xsl:if test="$p_input/@type = 'item' and $p_input/ancestor::tei:div[@type = 'section']">
-                <xsl:apply-templates select="$p_input/ancestor::tei:div[@type = 'section']/tei:head"
+        <xsl:param name="p_div"/>
+            <xsl:if test="$p_div/@type = 'item' and $p_div/ancestor::tei:div[@type = 'section']">
+                <xsl:apply-templates select="$p_div/ancestor::tei:div[@type = 'section']/tei:head"
                     mode="m_plain-text"/>
                 <xsl:text>: </xsl:text>
             </xsl:if>
-            <xsl:apply-templates select="$p_input/tei:head" mode="m_plain-text"/>
+            <xsl:apply-templates select="$p_div/tei:head" mode="m_plain-text"/>
+    </xsl:function>
+    
+    <!-- function to convert GitHub URLs to gh-pages  -->
+    <!-- input / output: string -->
+    <xsl:function name="oape:transform-url-github-gh-pages">
+        <xsl:param name="p_url"/>
+        <xsl:analyze-string select="$p_url" regex="https*://github\.com/(\w+)/(.+?)/blob/master/(.+\.xml)">
+            <xsl:matching-substring>
+                        <xsl:value-of select="concat('https://',regex-group(1),'.github.io/',regex-group(2),'/',regex-group(3))"/>
+                    </xsl:matching-substring>
+                    <xsl:non-matching-substring>
+                        <xsl:value-of select="."/>
+                    </xsl:non-matching-substring>
+                </xsl:analyze-string>
     </xsl:function>
     
     <xsl:template match="node()" mode="m_plain-text">
