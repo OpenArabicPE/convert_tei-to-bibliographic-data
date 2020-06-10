@@ -301,9 +301,9 @@
     <!-- plain text output: beware that heavily marked up nodes will have most whitespace omitted -->
     <xsl:template match="text()" mode="m_plain-text">
 <!--        <xsl:value-of select="normalize-space(replace(.,'(\w)[\s|\n]+','$1 '))"/>-->
-        <xsl:text> </xsl:text>
+<!--        <xsl:text> </xsl:text>-->
         <xsl:value-of select="normalize-space(.)"/>
-        <xsl:text> </xsl:text>
+<!--        <xsl:text> </xsl:text>-->
     </xsl:template>
     <!-- replace any line, column or page break with a single whitespace -->
     <xsl:template match="tei:lb | tei:cb | tei:pb" mode="m_plain-text">

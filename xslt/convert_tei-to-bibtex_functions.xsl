@@ -39,10 +39,10 @@
         <xsl:variable name="v_title-article">
             <xsl:choose>
                 <xsl:when test="$p_input/descendant::tei:title[@level = 'a'][@xml:lang = $p_lang]">
-                    <xsl:value-of select="$p_input/descendant::tei:title[@level = 'a'][@xml:lang = $p_lang][1]"/>
+                    <xsl:apply-templates select="$p_input/descendant::tei:title[@level = 'a'][@xml:lang = $p_lang][1]" mode="m_tei-to-bibtex"/>
                 </xsl:when>
                 <xsl:when test="$p_input/descendant::tei:title[@level = 'a']">
-                    <xsl:value-of select="$p_input/descendant::tei:title[@level = 'a'][1]"/>
+                    <xsl:apply-templates select="$p_input/descendant::tei:title[@level = 'a'][1]" mode="m_tei-to-bibtex"/>
                 </xsl:when>
             </xsl:choose>
         </xsl:variable> 
@@ -110,14 +110,15 @@
                 <xsl:apply-templates select="tei:forename" mode="m_tei-to-bibtex"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="." mode="m_plain-text"/>
+                <xsl:apply-templates select="text()" mode="m_tei-to-bibtex"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     
     <!-- plain text output: beware that heavily marked up nodes will have most whitespace omitted -->
     <xsl:template match="text()" mode="m_tei-to-bibtex">
-                <xsl:value-of select="replace(.,'[\s|\n]+',' ')"/>
+        <xsl:value-of select="normalize-space(.)"/>
+<!--                <xsl:value-of select="replace(.,'[\s|\n]+',' ')"/>-->
     </xsl:template>
     
     <xsl:template match="tei:biblScope" mode="m_tei-to-bibtex">

@@ -131,11 +131,23 @@
         <xsl:param name="p_div"/>
             <xsl:if test="$p_div/@type = 'item' and $p_div/ancestor::tei:div[@type = 'section']">
                 <xsl:apply-templates select="$p_div/ancestor::tei:div[@type = 'section']/tei:head"
-                    mode="m_plain-text"/>
+                    mode="m_tei-to-biblstruct"/>
                 <xsl:text>: </xsl:text>
             </xsl:if>
-            <xsl:apply-templates select="$p_div/tei:head" mode="m_plain-text"/>
+            <xsl:apply-templates select="$p_div/tei:head" mode="m_tei-to-biblstruct"/>
     </xsl:function>
+      <!-- this removes notes from heads -->
+    <xsl:template match="tei:head" mode="m_tei-to-biblstruct">
+        <xsl:apply-templates mode="m_tei-to-biblstruct"/>
+    </xsl:template>
+    <xsl:template match="tei:head/tei:note" mode="m_tei-to-biblstruct" priority="10"/>
+    <!-- text that contains non-whitespace characters -->
+    <xsl:template match="text()[normalize-space(.)]" mode="m_tei-to-biblstruct">
+<!--        <xsl:if test="position() &gt; 1">-->
+            <xsl:text> </xsl:text>
+        <!--</xsl:if>-->
+        <xsl:value-of select="normalize-space(.)"/>
+    </xsl:template>
     
     <!-- function to convert GitHub URLs to gh-pages  -->
     <!-- input / output: string -->
@@ -150,11 +162,6 @@
                     </xsl:non-matching-substring>
                 </xsl:analyze-string>
     </xsl:function>
-    
-    <xsl:template match="node()" mode="m_plain-text">
-        <xsl:value-of select="normalize-space()"/>
-    </xsl:template>
-    <xsl:template match="tei:head/tei:note" mode="m_plain-text"/>
     
     <xsl:template match="node() | @*" mode="m_replicate">
         <xsl:copy>
