@@ -274,12 +274,8 @@
             <xsl:if test="$p_input/descendant::tei:idno[@type='url']">
                 <!-- MODS allows for more than one URL! -->
                 <location>
-                    <xsl:for-each select="$p_input/descendant::tei:idno[@type='url']">
+                    <xsl:apply-templates select="$p_input/descendant::tei:idno[@type='url']" mode="m_tei-to-mods"/>
                     <!--<url dateLastAccessed="{$p_date-accessed}" usage="primary display">-->
-                    <url usage="primary display">
-                        <xsl:value-of select="."/>
-                    </url>
-                    </xsl:for-each>
                 </location>
             </xsl:if>
             <!-- language information -->
@@ -377,12 +373,14 @@
                 <xsl:choose>
                     <!-- note that MODS seemingly supports only one authority file -->
                     <xsl:when test="matches(@ref, 'viaf:\d+')">
-                        <xsl:attribute name="authority" select="'viaf'"/>
+                        <!-- @authority is a controlled list with the values: marcgac, marccountry, iso3166 -->
+<!--                        <xsl:attribute name="authority" select="'viaf'"/>-->
                         <!-- it is arguably better to directly dereference VIAF IDs -->
                         <xsl:attribute name="valueURI" select="replace(@ref,'.*viaf:(\d+).*','https://viaf.org/viaf/$1')"/>
                     </xsl:when>
                     <xsl:when test="matches(@ref, 'oape:pers:\d+')">
-                        <xsl:attribute name="authority" select="'oape'"/>
+                        <!-- @authority is a controlled list with the values: marcgac, marccountry, iso3166 -->
+<!--                        <xsl:attribute name="authority" select="'oape'"/>-->
                         <!-- OpenArabicPE IDs do not resolve -->
                         <xsl:attribute name="valueURI" select="replace(@ref,'.*(oape:pers:\d+).*','$1')"/>
                     </xsl:when>
@@ -395,12 +393,14 @@
              <xsl:choose>
                     <!-- note that MODS seemingly supports only one authority file -->
                     <xsl:when test="matches(@ref, 'geon:\d+')">
-                        <xsl:attribute name="authority" select="'geonames'"/>
+                        <!-- @authority is a controlled list with the values: marcgac, marccountry, iso3166 -->
+<!--                        <xsl:attribute name="authority" select="'geonames'"/>-->
                         <!-- it is arguably better to directly dereference VIAF IDs -->
                         <xsl:attribute name="valueURI" select="replace(@ref,'.*geon:(\d+).*','https://www.geonames.org/$1')"/>
                     </xsl:when>
                     <xsl:when test="matches(@ref, 'oape:place:\d+')">
-                        <xsl:attribute name="authority" select="'oape'"/>
+                        <!-- @authority is a controlled list with the values: marcgac, marccountry, iso3166 -->
+<!--                        <xsl:attribute name="authority" select="'oape'"/>-->
                         <!-- OpenArabicPE IDs do not resolve -->
                         <xsl:attribute name="valueURI" select="replace(@ref,'.*(oape:place:\d+).*','$1')"/>
                     </xsl:when>
@@ -416,6 +416,11 @@
             </xsl:variable>
             <xsl:value-of select="normalize-space($v_plain)"/>
         </identifier>
+    </xsl:template>
+    <xsl:template match="tei:idno[@type = 'url']" mode="m_tei-to-mods">
+        <url usage="primary display">
+            <xsl:value-of select="."/>
+        </url>
     </xsl:template>
     
     <!-- source languages -->
