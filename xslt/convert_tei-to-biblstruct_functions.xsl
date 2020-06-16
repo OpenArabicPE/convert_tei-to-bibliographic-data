@@ -9,7 +9,7 @@
     <xsl:function name="oape:bibliography-tei-div-to-biblstruct">
         <xsl:param name="p_div"/>
 <!--        <xsl:param name="p_translate-url-github-to-gh-pages"/>-->
-        <xsl:variable name="v_source-monogr" select="$p_div/ancestor::tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:biblStruct/tei:monogr"/>
+        <xsl:variable name="v_source-monogr" select="$p_div/ancestor::tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:biblStruct[1]/tei:monogr"/>
         <xsl:variable name="v_id-file" select="$p_div/ancestor::tei:TEI/@xml:id"/>
         <xsl:variable name="v_id-div" select="$p_div/@xml:id"/>
         <xsl:variable name="v_bibtex-key" select="concat($v_id-file,'-',$v_id-div)"/>
@@ -19,6 +19,7 @@
                 <xsl:element name="title">
                     <xsl:attribute name="level" select="'a'"/>
                     <xsl:attribute name="xml:lang" select="$p_div/@xml:lang"/>
+                    <!-- with a single head, this function still returns two strings (the second is empty) -->
                     <xsl:value-of select="oape:get-title-from-div($p_div)"/>
                 </xsl:element>
                 <!-- authorship  information -->
@@ -111,16 +112,17 @@
                     select="$p_div/child::tei:byline/descendant::tei:orgName[not(ancestor::tei:note)]"
                 />
             </xsl:when>
+            <!-- there is a problem here: sections will inherit all the authors of the contained items -->
             <xsl:when
-                test="$p_div/descendant::tei:note[@type = 'bibliographic']/tei:bibl/tei:author">
+                test="$p_div/descendant::tei:note[@type = 'bibliographic'][ancestor::tei:div[1] = $p_div]/tei:bibl/tei:author">
                 <xsl:copy-of
-                    select="$p_div/descendant::tei:note[@type = 'bibliographic']/tei:bibl/tei:author/descendant::tei:persName"
+                    select="$p_div/descendant::tei:note[@type = 'bibliographic'][ancestor::tei:div[1] = $p_div]/tei:bibl/tei:author/descendant::tei:persName"
                 />
             </xsl:when>
             <xsl:when
-                test="$p_div/descendant::tei:note[@type = 'bibliographic']/tei:bibl/tei:title[@level = 'j']">
+                test="$p_div/descendant::tei:note[@type = 'bibliographic'][ancestor::tei:div[1] = $p_div]/tei:bibl/tei:title[@level = 'j']">
                 <xsl:copy-of
-                    select="$p_div/descendant::tei:note[@type = 'bibliographic']/tei:bibl/tei:title[@level = 'j']"
+                    select="$p_div/descendant::tei:note[@type = 'bibliographic'][ancestor::tei:div[1] = $p_div]/tei:bibl/tei:title[@level = 'j']"
                 />
             </xsl:when>
         </xsl:choose>
