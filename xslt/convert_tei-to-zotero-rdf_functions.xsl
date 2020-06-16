@@ -14,6 +14,7 @@
   xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/"
   xmlns:link="http://purl.org/rss/1.0/modules/link/"
   xmlns:oape="https://openarabicpe.github.io/ns"
+  exclude-result-prefixes="tei tss"
     version="3.0">
     
     <xsl:output method="xml" indent="yes" omit-xml-declaration="no" encoding="UTF-8"/>
@@ -22,7 +23,7 @@
     <!-- this stylesheet translates <tei:biblStruct> to Zotero RDF -->
     <!-- to do:
           - remove whitespace from subtitles
-          - improve short titles
+          - improve short titles: add eclipse
           - add full-text notes
     -->
     
@@ -71,7 +72,9 @@
                                     <!--<xsl:if test="$v_reference-is-part-of-series = true()">
                                         <xsl:copy-of select="$v_series"/>
                                     </xsl:if>-->
-                                    <xsl:apply-templates select="$tei_biblstruct/tei:monogr/tei:title[@xml:lang = $p_lang]" mode="m_tei-to-zotero-rdf"/>
+                                    <xsl:apply-templates select="$tei_biblstruct/tei:monogr/tei:title[@xml:lang = $p_lang][not(@type = 'sub')]" mode="m_tei-to-zotero-rdf">
+                                        <xsl:with-param name="p_lang" select="$p_lang"/>
+                                    </xsl:apply-templates>
                                 </bib:Book>
                             </xsl:when>
                             <!-- periodical articles -->
@@ -79,7 +82,9 @@
                                 <bib:Periodical>
                                     <xsl:apply-templates select="$tei_biblstruct/tei:monogr/tei:biblScope[@unit = 'volume']" mode="m_tei-to-zotero-rdf"/>
                                     <xsl:apply-templates select="$tei_biblstruct/tei:monogr/tei:biblScope[@unit = 'issue']" mode="m_tei-to-zotero-rdf"/>
-                                    <xsl:apply-templates select="$tei_biblstruct/tei:monogr/tei:title[@xml:lang = $p_lang]" mode="m_tei-to-zotero-rdf"/>
+                                    <xsl:apply-templates select="$tei_biblstruct/tei:monogr/tei:title[@xml:lang = $p_lang][not(@type = 'sub')]" mode="m_tei-to-zotero-rdf">
+                                        <xsl:with-param name="p_lang" select="$p_lang"/>
+                                    </xsl:apply-templates>
                                 </bib:Periodical>
                             </xsl:when>
                             <!-- maps: it seems that the articleTitle should be mapped to Series -->
@@ -91,7 +96,9 @@
                                     <!--<xsl:if test="$v_reference-is-part-of-series = true()">
                                         <xsl:copy-of select="$v_series"/>
                                     </xsl:if>-->
-                                    <xsl:apply-templates select="$tei_biblstruct/tei:monogr/tei:title[@xml:lang = $p_lang]" mode="m_tei-to-zotero-rdf"/>
+                                    <xsl:apply-templates select="$tei_biblstruct/tei:monogr/tei:title[@xml:lang = $p_lang][not(@type = 'sub')]" mode="m_tei-to-zotero-rdf">
+                                        <xsl:with-param name="p_lang" select="$p_lang"/>
+                                    </xsl:apply-templates>
                                 </bib:Book>
                             </xsl:otherwise>
                         </xsl:choose>
@@ -303,8 +310,16 @@
     <xsl:template match="tei:persName" mode="m_tei-to-zotero-rdf">
         <rdf:li>
             <foaf:Person>
-                <xsl:apply-templates select="tei:surname" mode="m_tei-to-zotero-rdf"/>
-                <xsl:apply-templates select="tei:forename" mode="m_tei-to-zotero-rdf"/>
+                <!-- Zotero has a problem with non-Western name schemes -->
+                <xsl:choose>
+                    <xsl:when test="tei:surname and tei:forename">
+                        <xsl:apply-templates select="tei:surname" mode="m_tei-to-zotero-rdf"/>
+                        <xsl:apply-templates select="tei:forename" mode="m_tei-to-zotero-rdf"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <foaf:surname><xsl:value-of select="normalize-space(.)"/></foaf:surname>
+                    </xsl:otherwise>
+                </xsl:choose>
             </foaf:Person>
         </rdf:li>
     </xsl:template>
@@ -327,9 +342,22 @@
     
     <!-- titles -->
     <xsl:template match="tei:title" mode="m_tei-to-zotero-rdf">
-        <xsl:if test=".!=''">
-            <dc:title><xsl:apply-templates/></dc:title>
-        </xsl:if>
+        <xsl:param name="p_lang"/>
+        <xsl:choose>
+            <xsl:when test="parent::tei:author">
+                <foaf:surname><xsl:value-of select="normalize-space(.)"/></foaf:surname>
+            </xsl:when>
+            <xsl:otherwise>
+            <dc:title>
+                <xsl:apply-templates/>
+                <xsl:if test="parent::node()/tei:title[@type = 'sub'][@xml:lang = $p_lang]">
+                    <xsl:text>: </xsl:text>
+                    <xsl:apply-templates select="parent::node()/tei:title[@type = 'sub'][@xml:lang = $p_lang]"/>
+                </xsl:if>
+            </dc:title>
+            </xsl:otherwise>
+        </xsl:choose>
+        
     </xsl:template>
     <xsl:template match="tss:characteristic[@name = ('Short Titel', 'Shortened title')]" mode="m_tei-to-zotero-rdf">
         <xsl:if test=".!=''">

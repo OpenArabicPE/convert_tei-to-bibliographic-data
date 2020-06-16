@@ -31,9 +31,8 @@
     
     <xsl:template match="tei:div">
         <xsl:choose>
-            <!-- prevent output for sections of legal texts -->
-            <xsl:when
-                test="ancestor::tei:div[@type = 'bill'] or ancestor::tei:div[@subtype = 'bill']"/>
+             <!-- prevent output for sections of legal texts -->
+            <xsl:when test="ancestor::tei:div[@type = 'bill'] or ancestor::tei:div[@subtype = 'bill']"/>
             <!-- prevent output for mastheads -->
             <xsl:when test="@type='masthead' or @subtype='masthead'"/>
             <!-- prevent output for sections of articles -->

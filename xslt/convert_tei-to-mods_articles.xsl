@@ -19,15 +19,12 @@
     <xsl:template match="tei:div">
         <!-- tei:div[@type = 'section'][not(ancestor::tei:div[@type = ('article', 'bill', 'item')])] | tei:div[@type = ('article', 'item')][not(ancestor::tei:div[@type = 'bill'])] | tei:div[@type = ('article', 'item')][not(ancestor::tei:div[@type = 'item'][@subtype = 'bill'])] | tei:div[@type = 'bill'] | tei:div[@type = 'item'][@subtype = 'bill'] -->
         <xsl:choose>
-            <!-- prevent output for sections of legal texts -->
-            <xsl:when
-                test="ancestor::tei:div[@type = 'bill'] or ancestor::tei:div[@subtype = 'bill']"/>
+             <!-- prevent output for sections of legal texts -->
+            <xsl:when test="ancestor::tei:div[@type = 'bill'] or ancestor::tei:div[@subtype = 'bill']"/>
             <!-- prevent output for mastheads -->
             <xsl:when test="@type='masthead' or @subtype='masthead'"/>
             <!-- prevent output for sections of articles -->
             <xsl:when test="ancestor::tei:div[@type='item']"/>
-            <!-- prevent output for mastheads -->
-            <xsl:when test="@type = 'item' and @subtype = 'masthead'"/>
             <xsl:when test="@type = ('section', 'item')">
                 <xsl:result-document href="../metadata/{concat($vgFileId,'-',@xml:id)}.MODS.xml">
                     <xsl:element name="modsCollection">
