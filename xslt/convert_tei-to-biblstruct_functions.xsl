@@ -5,6 +5,8 @@
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xpath-default-namespace="http://www.tei-c.org/ns/1.0">
     <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no" version="1.0" name="xml"/>
+    
+<!--    <xsl:param name="p_include-section-titles" select="true()"/>-->
     <!-- this stylesheets takes a <tei:div> as input and generates a <biblStruct> -->
     <xsl:function name="oape:bibliography-tei-div-to-biblstruct">
         <xsl:param name="p_div"/>
@@ -30,12 +32,20 @@
                     <xsl:attribute name="level" select="'a'"/>
                     <xsl:attribute name="xml:lang" select="$p_div/@xml:lang"/>
                     <!-- with a single head, this function still returns two strings (the second is empty) -->
-                    <xsl:value-of select="oape:get-title-from-div($p_div)"/>
+                    <xsl:value-of select="oape:get-title-from-div($p_div, if($v_source-monogr/tei:title/@level = 'm') then(false()) else(true()))"/>
                 </xsl:element>
                 <!-- authorship  information -->
-                <xsl:element name="author">
-                    <xsl:apply-templates select="oape:get-author-from-div($p_div)" mode="m_replicate"/>
-                </xsl:element>
+                <!-- if the input is not a periodical but a book, the bool's author should be replicated here -->
+                <xsl:choose>
+                    <xsl:when test="$v_source-monogr/tei:title/@level = 'm'">
+                        <xsl:apply-templates select="$v_source-monogr/descendant::tei:author" mode="m_replicate"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:element name="author">
+                            <xsl:apply-templates select="oape:get-author-from-div($p_div)" mode="m_replicate"/>
+                        </xsl:element>
+                    </xsl:otherwise>
+                </xsl:choose>
                 <!-- IDs: URL -->
                 <!-- add gh-pages -->
                     <xsl:if test="not(contains($p_div/ancestor::tei:TEI/tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type='url'], '.github.io/'))">
@@ -141,12 +151,16 @@
     <!-- function to get a title of a div -->
     <xsl:function name="oape:get-title-from-div">
         <xsl:param name="p_div"/>
+        <xsl:param name="p_include-section-titles"/>
+        <!-- include section titles -->
+        <xsl:if test="$p_include-section-titles = true()">
             <xsl:if test="$p_div/@type = 'item' and $p_div/ancestor::tei:div[@type = 'section']">
                 <xsl:apply-templates select="$p_div/ancestor::tei:div[@type = 'section']/tei:head"
                     mode="m_tei-to-biblstruct"/>
                 <xsl:text>: </xsl:text>
             </xsl:if>
-            <xsl:apply-templates select="$p_div/tei:head" mode="m_tei-to-biblstruct"/>
+        </xsl:if>
+        <xsl:apply-templates select="$p_div/tei:head" mode="m_tei-to-biblstruct"/>
     </xsl:function>
       <!-- this removes notes from heads -->
     <xsl:template match="tei:head" mode="m_tei-to-biblstruct">
