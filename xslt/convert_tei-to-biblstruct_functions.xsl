@@ -10,7 +10,17 @@
         <xsl:param name="p_div"/>
 <!--        <xsl:param name="p_translate-url-github-to-gh-pages"/>-->
         <xsl:variable name="v_source-monogr" select="$p_div/ancestor::tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:biblStruct[1]/tei:monogr"/>
-        <xsl:variable name="v_id-file" select="$p_div/ancestor::tei:TEI/@xml:id"/>
+        <xsl:variable name="v_id-file">
+            <xsl:choose>
+                <xsl:when test="$p_div/ancestor::tei:TEI/@xml:id">
+                    <xsl:value-of select="$p_div/ancestor::tei:TEI/@xml:id"/>
+                </xsl:when>
+                <!-- fallback: OCLC -->
+                <xsl:when test="$v_source-monogr/tei:idno[@type = 'OCLC']">
+                    <xsl:value-of select="concat('oclc_', $v_source-monogr/tei:idno[@type = 'OCLC'][1])"/>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:variable>
         <xsl:variable name="v_id-div" select="$p_div/@xml:id"/>
         <xsl:variable name="v_bibtex-key" select="concat($v_id-file,'-',$v_id-div)"/>
         <xsl:element name="biblStruct">
