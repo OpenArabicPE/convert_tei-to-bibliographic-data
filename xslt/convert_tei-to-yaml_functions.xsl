@@ -20,9 +20,9 @@
   
     <xsl:variable name="vgFileId" select="substring-before(tokenize(base-uri(),'/')[last()],'.TEIP5')"/>
     <!-- testing -->
-    <xsl:template match="/">
+    <!--<xsl:template match="/">
         <xsl:apply-templates select="descendant::tei:biblStruct" mode="m_tei-to-yaml"/>
-    </xsl:template>  
+    </xsl:template>-->  
     <xsl:template match="tei:biblStruct" mode="m_tei-to-yaml">
         <xsl:copy-of select="oape:bibliography-tei-to-yaml(., 'ar', false())"/>
     </xsl:template>
