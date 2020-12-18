@@ -12,6 +12,15 @@
     <xsl:include href="convert_tei-to-bibtex_functions.xsl"/>
     
     <xsl:param name="p_target-language" select="'ar'"/>
+    <xsl:param name="p_github-action" select="false()"/>
+    <xsl:variable name="v_base-directory">
+        <xsl:choose>
+            <xsl:when test="$p_github-action = true()"/>
+            <xsl:when test="$p_github-action = false()">
+                <xsl:value-of select="'../'"/>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:variable>
     
     <!-- all parameters and variables are set in Tei2BibTex-functions.xsl -->
     <xsl:template match="/">
@@ -28,7 +37,7 @@
             <!-- prevent output for sections of articles -->
             <xsl:when test="ancestor::tei:div[@type='item']"/>
             <xsl:when test="@type = ('section', 'item')">
-                <xsl:result-document href="../metadata/{concat($vgFileId,'-',@xml:id)}.bib"
+                <xsl:result-document href="{$v_base-directory}metadata/{concat($vgFileId,'-',@xml:id)}.bib"
                     method="text">
                     <xsl:call-template name="t_file-head"/>
                    <xsl:copy-of select="oape:bibliography-tei-to-bibtex(oape:bibliography-tei-div-to-biblstruct(.), $p_target-language)"/>
