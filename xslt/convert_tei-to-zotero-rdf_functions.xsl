@@ -44,11 +44,14 @@
             <xsl:choose>
                 <!-- test if input is an entire work or a part of it -->
                 <xsl:when test="$tei_biblstruct/tei:analytic">
-                    <!-- test what typo of work it is part of -->
+                    <!-- test what type of work it is part of -->
                     <xsl:choose>
+                        <!-- a periodical article -->
                         <xsl:when test="$tei_biblstruct/tei:monogr/tei:title/@level = 'j'">
-                            <xsl:text>journalArticle</xsl:text>
+                            <!-- With reference to OpenArabicPE this should be mapped to -->
+                            <xsl:text>magazineArticle</xsl:text>
                         </xsl:when>
+                        <!-- a book chapter -->
                         <xsl:when test="$tei_biblstruct/tei:monogr/tei:title/@level = 'm'">
                             <xsl:text>bookSection</xsl:text>
                         </xsl:when>

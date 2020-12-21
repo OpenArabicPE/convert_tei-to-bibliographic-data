@@ -47,6 +47,12 @@
                     </xsl:otherwise>
                 </xsl:choose>
                 <!-- IDs: URL -->
+                <xsl:for-each select="$p_div/ancestor::tei:TEI/tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type='url']">
+                    <xsl:element name="idno">
+                        <xsl:attribute name="type" select="'url'"/>
+                        <xsl:value-of select="concat(.,'#',$v_id-div)"/>
+                    </xsl:element>
+                </xsl:for-each>
                 <!-- add gh-pages -->
                     <xsl:if test="not(contains($p_div/ancestor::tei:TEI/tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type='url'], '.github.io/'))">
                         <xsl:element name="idno">
@@ -54,12 +60,6 @@
                             <xsl:value-of select="concat( oape:transform-url-github-gh-pages($p_div/ancestor::tei:TEI/tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type='url'][not(contains(., '.github.io/'))]),'#',$v_id-div)"/>
                         </xsl:element>
                     </xsl:if>
-                <xsl:for-each select="$p_div/ancestor::tei:TEI/tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type='url']">
-                    <xsl:element name="idno">
-                        <xsl:attribute name="type" select="'url'"/>
-                        <xsl:value-of select="concat(.,'#',$v_id-div)"/>
-                    </xsl:element>
-                </xsl:for-each>
                 <!-- BibTeX key -->
                 <xsl:element name="idno">
                     <xsl:attribute name="type" select="'BibTeX'"/>
