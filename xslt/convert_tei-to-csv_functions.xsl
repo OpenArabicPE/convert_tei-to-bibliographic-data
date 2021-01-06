@@ -11,7 +11,8 @@
     <!-- this stylesheet translates <tei:biblStruct>s to  csv -->
     
     <!-- toggle debugging messages -->
-    <xsl:include href="../../oxygen-project/OpenArabicPE_parameters.xsl"/>
+    <!-- this XSLT is already imported through chained XSLT -->
+<!--    <xsl:include href="../../oxygen-project/OpenArabicPE_parameters.xsl"/>-->
     <!-- import functions -->
     <xsl:include href="../../tools/xslt/openarabicpe_functions.xsl"/>
     
