@@ -54,7 +54,7 @@
                     </xsl:element>
                 </xsl:for-each>
                 <!-- add gh-pages -->
-                <xsl:if test="$p_div/ancestor::tei:TEI/tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type='url'][not(contains(.,'.github.io/'))]">
+                <xsl:if test="not($p_div/ancestor::tei:TEI/tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type='url'][contains(.,'.github.io/')])">
                         <xsl:element name="idno">
                             <xsl:attribute name="type" select="'url'"/>
                             <xsl:value-of select="concat( oape:transform-url-github-gh-pages($p_div/ancestor::tei:TEI/tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type='url'][not(contains(., '.github.io/'))]),'#',$v_id-div)"/>
