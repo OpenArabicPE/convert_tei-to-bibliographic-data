@@ -17,8 +17,7 @@
     <xsl:variable name="v_quot" select="'&apos;''"/>
     <xsl:variable name="v_comma" select="','"/>
     <xsl:variable name="v_tab" select="'  '"/>
-  
-    <xsl:variable name="vgFileId" select="substring-before(tokenize(base-uri(),'/')[last()],'.TEIP5')"/>
+    
     <!-- testing -->
     <!--<xsl:template match="/">
         <xsl:apply-templates select="descendant::tei:biblStruct" mode="m_tei-to-yaml"/>

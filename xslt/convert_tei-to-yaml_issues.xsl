@@ -11,17 +11,6 @@
     <xsl:include href="convert_tei-to-biblstruct_functions.xsl"/>
     <xsl:include href="convert_tei-to-yaml_functions.xsl"/>
     
-    <xsl:param name="p_target-language" select="'ar'"/>
-    <xsl:param name="p_github-action" select="false()"/>
-    <xsl:variable name="v_base-directory">
-        <xsl:choose>
-            <xsl:when test="$p_github-action = true()"/>
-            <xsl:when test="$p_github-action = false()">
-                <xsl:value-of select="'../'"/>
-            </xsl:when>
-        </xsl:choose>
-    </xsl:variable>
-    
     <xsl:template match="/">
         <xsl:result-document href="{$v_base-directory}metadata/issues/{$vgFileId}.yml">
                 <!-- construct YAML -->

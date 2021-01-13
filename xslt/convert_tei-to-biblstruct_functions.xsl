@@ -6,6 +6,8 @@
     xpath-default-namespace="http://www.tei-c.org/ns/1.0">
     <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no" version="1.0" name="xml"/>
     
+    <xsl:include href="parameters.xsl"/>
+    
 <!--    <xsl:param name="p_include-section-titles" select="true()"/>-->
     <!-- this stylesheets takes a <tei:div> as input and generates a <biblStruct> -->
     <xsl:function name="oape:bibliography-tei-div-to-biblstruct">

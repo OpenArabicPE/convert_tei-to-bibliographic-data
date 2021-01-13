@@ -21,8 +21,6 @@
     <xsl:include href="convert_tei-to-biblstruct_functions.xsl"/>
     <xsl:include href="convert_tei-to-zotero-rdf_functions.xsl"/>
     
-    <xsl:param name="p_target-language" select="'ar'"/>
-    
     <xsl:template match="/">
                 <xsl:apply-templates select="descendant::tei:text/tei:body/descendant::tei:div"/>
     </xsl:template>

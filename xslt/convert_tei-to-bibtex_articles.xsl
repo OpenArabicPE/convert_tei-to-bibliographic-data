@@ -11,17 +11,6 @@
     <xsl:include href="convert_tei-to-biblstruct_functions.xsl"/>
     <xsl:include href="convert_tei-to-bibtex_functions.xsl"/>
     
-    <xsl:param name="p_target-language" select="'ar'"/>
-    <xsl:param name="p_github-action" select="false()"/>
-    <xsl:variable name="v_base-directory">
-        <xsl:choose>
-            <xsl:when test="$p_github-action = true()"/>
-            <xsl:when test="$p_github-action = false()">
-                <xsl:value-of select="'../'"/>
-            </xsl:when>
-        </xsl:choose>
-    </xsl:variable>
-    
     <!-- all parameters and variables are set in Tei2BibTex-functions.xsl -->
     <xsl:template match="/">
         <xsl:apply-templates select="descendant::tei:text/tei:body/descendant::tei:div"/>

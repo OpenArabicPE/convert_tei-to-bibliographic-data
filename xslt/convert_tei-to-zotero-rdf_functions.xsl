@@ -32,7 +32,6 @@
     <xsl:variable name="v_new-line" select="'&#x0A;'"/>
     <xsl:variable name="v_separator-key-value" select="': '"/>
     <xsl:variable name="v_cite-key-whitespace-replacement" select="'+'"/>
-    <xsl:variable name="vgFileId" select="substring-before(tokenize(base-uri(),'/')[last()],'.TEIP5')"/>
     
     <xsl:function name="oape:bibliography-tei-to-zotero-rdf">
         <xsl:param name="tei_biblstruct"/>

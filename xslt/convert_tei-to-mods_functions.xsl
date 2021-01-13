@@ -15,8 +15,7 @@
 <!--    <xsl:include href="https://tillgrallert.github.io/xslt-calendar-conversion/functions/date-functions.xsl"/>-->
     <xsl:include href="https://www.sitzextase.de/xslt-calendar-conversion/functions/date-functions.xsl"/>
     <!-- <xsl:include href="../../../xslt-calendar-conversion/date-functions.xsl"/> -->
-
-    <xsl:variable name="vgFileId" select="substring-before(tokenize(base-uri(),'/')[last()],'.TEIP5')"/>
+    
     <!-- this needs to be adopted to work with any periodical and not just al-Muqtabas -->
     <xsl:variable name="v_schema" select="'http://www.loc.gov/standards/mods/mods-3-7.xsd'"/>
     <xsl:variable name="v_license" select="'http://creativecommons.org/licenses/by-sa/4.0/'"/>
@@ -188,6 +187,7 @@
         <!-- construct output -->
         <mods>
             <!-- what is this ID? -->
+            <!-- The variable is declared in parameters.xsl, which is always loaded together with the current XSLT -->
                 <xsl:if test="$vgFileId !='' and $p_input/@xml:id !=''">
                     <xsl:attribute name="ID">
                         <xsl:value-of select="concat($vgFileId,'-',$p_input/@xml:id,'-mods')"/>

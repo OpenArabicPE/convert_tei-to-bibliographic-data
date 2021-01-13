@@ -11,7 +11,6 @@
     <!-- this stylesheet translates <tei:biblStruct>s to  BibTeX -->
     
     <xsl:variable name="v_new-line" select="'&#x0A;'"/>
-    <xsl:variable name="vgFileId" select="substring-before(tokenize(base-uri(),'/')[last()],'.TEIP5')"/>
     
     <xsl:function name="oape:bibliography-tei-to-bibtex">
         <!-- input is a bibl or biblStruct -->

@@ -13,12 +13,12 @@
     <xsl:preserve-space elements="tei:head tei:bibl"/>
 
     <xsl:include href="convert_tei-to-mods_functions.xsl"/>
+    <xsl:include href="parameters.xsl"/>
     
     <!-- this parameter is currently not used -->
 <!--    <xsl:param name="pg_head-section" select="'مخطوطات ومطبوعات'"/>-->
     <!--  -->
     <xsl:param name="p_url-boilerplate" select="'../xslt-boilerplate/modsbp_parameters.xsl'"/>
-    <xsl:param name="p_target-language" select="'ar'"/>
     
     <!-- it doesn't matter if one applies the transformation to bibl or biblStruct -->
     <xsl:template match="tei:bibl | tei:biblStruct">
