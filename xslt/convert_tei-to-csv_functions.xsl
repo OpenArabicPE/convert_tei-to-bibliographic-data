@@ -41,7 +41,7 @@
     <xsl:variable name="v_bibliography"
         select="doc(concat($p_path-authority-files, $p_file-name-bibliography))"/>
     
-    <xsl:variable name="vgFileId" select="substring-before(tokenize(base-uri(),'/')[last()],'.TEIP5')"/>
+    <!--<xsl:variable name="vgFileId" select="substring-before(tokenize(base-uri(),'/')[last()],'.TEIP5')"/>-->
     
     <xsl:variable name="v_csv-head">
         <!-- csv head -->
