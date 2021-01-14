@@ -8,6 +8,8 @@
     
     <xsl:include href="parameters.xsl"/>
     
+    <!-- are translators covered? -->
+    
 <!--    <xsl:param name="p_include-section-titles" select="true()"/>-->
     <!-- this stylesheets takes a <tei:div> as input and generates a <biblStruct> -->
     <xsl:function name="oape:bibliography-tei-div-to-biblstruct">
@@ -37,7 +39,7 @@
                     <xsl:value-of select="oape:get-title-from-div($p_div, if($v_source-monogr/tei:title/@level = 'm') then(false()) else(true()))"/>
                 </xsl:element>
                 <!-- authorship  information -->
-                <!-- if the input is not a periodical but a book, the bool's author should be replicated here -->
+                <!-- if the input is not a periodical but a book, the book's author should be replicated here -->
                 <xsl:choose>
                     <xsl:when test="$v_source-monogr/tei:title/@level = 'm'">
                         <xsl:apply-templates select="$v_source-monogr/descendant::tei:author" mode="m_replicate"/>
@@ -47,6 +49,12 @@
                             <xsl:apply-templates select="oape:get-author-from-div($p_div)" mode="m_replicate"/>
                         </xsl:element>
                     </xsl:otherwise>
+                </xsl:choose>
+                <!-- further responsibilities -->
+                <xsl:choose>
+                    <xsl:when test="$p_div/descendant::tei:note[@type = 'bibliographic'][ancestor::tei:div[1] = $p_div]/tei:bibl/tei:respStmt">
+                        <xsl:copy-of select="$p_div/descendant::tei:note[@type = 'bibliographic'][ancestor::tei:div[1] = $p_div]/tei:bibl/tei:respStmt"/>
+                    </xsl:when>
                 </xsl:choose>
                 <!-- IDs: URL -->
                 <xsl:for-each select="$p_div/ancestor::tei:TEI/tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type='url']">
