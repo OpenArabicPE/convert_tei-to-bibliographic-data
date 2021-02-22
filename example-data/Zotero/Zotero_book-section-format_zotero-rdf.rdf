@@ -4,65 +4,66 @@
  xmlns:dcterms="http://purl.org/dc/terms/"
  xmlns:dc="http://purl.org/dc/elements/1.1/"
  xmlns:bib="http://purl.org/net/biblio#"
+ xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/"
  xmlns:vcard="http://nwalsh.com/rdf/vCard#"
- xmlns:foaf="http://xmlns.com/foaf/0.1/"
- xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/">
-    <bib:BookSection rdf:about="http://hdl.handle.net/2027/yale.39002013906194">
+ xmlns:foaf="http://xmlns.com/foaf/0.1/">
+    <bib:BookSection rdf:about="http://www.tufs.ac.jp/common/fs/asw/tur/htu/list1.html#d">
         <z:itemType>bookSection</z:itemType>
         <dcterms:isPartOf>
             <bib:Book>
                 <dcterms:isPartOf>
                     <bib:Series>
-                        <dc:title>Some Series</dc:title>
-                        <dc:identifier>5</dc:identifier>
+                        <dc:title>Tertip I</dc:title>
+                        <dc:identifier>2</dc:identifier>
                     </bib:Series>
                 </dcterms:isPartOf>
-                <dc:title>Maecenas sed diam eget risus varius blandit sit amet non magna</dc:title>
+                <prism:volume>1</prism:volume>
+                <dc:title>Düstur: kavanin ve nizamat ve muahedat ile umuma ait mukavelat ve iradat-i seniyeyi muhtevidir</dc:title>
             </bib:Book>
         </dcterms:isPartOf>
         <dc:publisher>
             <foaf:Organization>
                 <vcard:adr>
                     <vcard:Address>
-                       <vcard:locality>London</vcard:locality>
+                       <vcard:locality>Der-i Saʿādet</vcard:locality>
                     </vcard:Address>
                 </vcard:adr>
-                <foaf:name>John Murray</foaf:name>
+                <foaf:name>Maṭbaʿa-yi ʿĀmire</foaf:name>
             </foaf:Organization>
         </dc:publisher>
-        <bib:authors>
-            <rdf:Seq>
-                <rdf:li>
-                    <foaf:Person>
-                        <foaf:surname>Midhat Bey</foaf:surname>
-                        <foaf:givenName>Ali Haydar</foaf:givenName>
-                    </foaf:Person>
-                </rdf:li>
-            </rdf:Seq>
-        </bib:authors>
-        <dc:subject>Source</dc:subject>
-        <dc:subject>Biography</dc:subject>
         <dc:subject>Digital copy</dc:subject>
-        <dc:subject>Ottoman Empire</dc:subject>
-        <dc:subject>19th century</dc:subject>
-        <dc:subject>Damascus</dc:subject>
-        <dc:subject>Online</dc:subject>
-        <dc:subject>Turkey</dc:subject>
-        <dc:subject>Statesmen</dc:subject>
+        <dc:subject>referenced: PhD thesis</dc:subject>
+        <dc:subject>Source</dc:subject>
+        <dc:subject>newspaper/periodical</dc:subject>
+        <dc:subject>Legal text</dc:subject>
+        <dc:subject>official records</dc:subject>
+        <dc:subject>Ottoman source</dc:subject>
+        <dc:subject>Laws: press</dc:subject>
+        <dc:subject>Ottoman Law</dc:subject>
+        <dc:subject>status_Reviewed</dc:subject>
+        <dc:subject>reference-type_bill</dc:subject>
+        <dc:title>Maṭbūʿāt niẓāmnāmesi</dc:title>
+        <dcterms:abstract>A French translation is printed in Règlement de la Censure de la Presse.&quot; Promulgated on 2 Shaʿ 1281 aH [1 Feb. 1865]. In Corps de Droit Ottoman II Edited by George Young. Translated by Aristarchi. Oxford: Clarendon Press, 1905: 321-326&lt;a href=&quot;sente:/BachBibliographie/Young+1905e&quot;&gt;sente:/BachBibliographie/Young+1905e&lt;/a&gt;</dcterms:abstract>
+        <dc:date>1872</dc:date>
+        <z:language>ota</z:language>
+        <z:shortTitle>Düstur</z:shortTitle>
+        <z:archive>HTU</z:archive>
+        <z:libraryCatalog>SOAS, FU Islamwissenschaft (MF), StaBi</z:libraryCatalog>
+        <dc:subject>
+           <dcterms:LCC><rdf:value>EC87.109 /77862</rdf:value></dcterms:LCC>
+        </dc:subject>
         <dc:identifier>
             <dcterms:URI>
-                <rdf:value>http://hdl.handle.net/2027/yale.39002013906194</rdf:value>
+                <rdf:value>http://www.tufs.ac.jp/common/fs/asw/tur/htu/list1.html#d</rdf:value>
             </dcterms:URI>
         </dc:identifier>
-        <prism:edition>5</prism:edition>
-        <bib:pages>1-15</bib:pages>
-        <dc:date>1903</dc:date>
-        <dc:subject>
-           <dcterms:LCC><rdf:value>Ui 5412</rdf:value></dcterms:LCC>
-        </dc:subject>
-        <z:libraryCatalog>StaBi, SOAS</z:libraryCatalog>
-        <z:language>en</z:language>
-        <dcterms:abstract>Does not mention the placards of 1880</dcterms:abstract>
-        <dc:title>Egestas Justo Etiam Ultricies Porta</dc:title>
+        <dc:description>date_mali: 1280-10-19
+date_hijri: 1281-08-02
+oclc: 81476270
+translated-title: Law on printed material
+uuid: 5BC2C944-EBB6-4572-AFA2-3C17259300AE
+Citation Key: 1872+MatbuatNizamnamesi</dc:description>
+        <z:numberOfVolumes>4</z:numberOfVolumes>
+        <bib:pages>220-226</bib:pages>
     </bib:BookSection>
 </rdf:RDF>

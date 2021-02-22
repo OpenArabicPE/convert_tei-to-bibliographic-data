@@ -1,0 +1,9 @@
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:z="http://www.zotero.org/namespaces/export#"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:bib="http://purl.org/net/biblio#">
+    <bib:Thesis rdf:about="#item_1">
+       <z:itemType>thesis</z:itemType><dc:title>test</dc:title>
+    </bib:Thesis>
+</rdf:RDF>

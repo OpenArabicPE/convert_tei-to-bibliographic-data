@@ -1,0 +1,36 @@
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:z="http://www.zotero.org/namespaces/export#"
+ xmlns:foaf="http://xmlns.com/foaf/0.1/"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:dcterms="http://purl.org/dc/terms/"
+ xmlns:bib="http://purl.org/net/biblio#">
+    <bib:ConferenceProceedings rdf:about="https://twitter.com/NAMansour26/status/1274361436215574529">
+        <z:itemType>presentation</z:itemType>
+        <z:presenters>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Wrisley</foaf:surname>
+                        <foaf:givenName>David Joseph</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </z:presenters>
+        <dc:subject>Digital Humanities</dc:subject>
+        <dc:subject>Arabic language</dc:subject>
+        <dc:subject>2020 DHQ</dc:subject>
+        <dc:subject>multilingualism</dc:subject>
+        <dc:title>RTL SoftwareLocalization and Digital Humanities: the Case Study of Translating Voyant Tools into Arabic</dc:title>
+        <dc:date>2019-06-08</dc:date>
+        <z:shortTitle>RTL SoftwareLocalization and Digital Humanities</z:shortTitle>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://twitter.com/NAMansour26/status/1274361436215574529</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2020-06-21</dcterms:dateSubmitted>
+        <dc:description>Citation Key: Wrisley+2019
+uuid: 3A7FE0F9-B715-432A-8F8B-30D3EF704255</dc:description>
+    </bib:ConferenceProceedings>
+</rdf:RDF>
