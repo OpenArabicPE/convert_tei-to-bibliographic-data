@@ -340,35 +340,39 @@
                         <xsl:apply-templates select="tei:surname" mode="m_tei-to-zotero-rdf"/>
                         <xsl:apply-templates select="tei:forename" mode="m_tei-to-zotero-rdf"/>
                     </xsl:when>
+                    <xsl:when test="tei:surname">
+                        <xsl:apply-templates select="tei:surname" mode="m_tei-to-zotero-rdf"/>
+                        <foaf:givenName><xsl:apply-templates select="child::node()[not(self::tei:surname | self::tei:roleName)]" mode="m_plain-text"/></foaf:givenName>
+                    </xsl:when>
                     <xsl:otherwise>
-                        <foaf:surname><xsl:value-of select="normalize-space(.)"/></foaf:surname>
+                        <foaf:surname><!--<xsl:apply-templates select="." mode="m_plain-text"/>-->
+                            <xsl:value-of select="normalize-space(.)"/>
+                        </foaf:surname>
                     </xsl:otherwise>
                 </xsl:choose>
             </foaf:Person>
         </rdf:li>
     </xsl:template>
     <xsl:template match="tei:surname" mode="m_tei-to-zotero-rdf">
-        <foaf:surname><xsl:apply-templates/></foaf:surname>
+        <foaf:surname><xsl:apply-templates mode="m_plain-text"/></foaf:surname>
     </xsl:template>
     <xsl:template match="tei:forename" mode="m_tei-to-zotero-rdf">
-        <foaf:givenName><xsl:apply-templates/></foaf:givenName>
+        <foaf:givenName><xsl:apply-templates mode="m_plain-text"/></foaf:givenName>
     </xsl:template>
-    
-   
     
     <!-- titles -->
     <xsl:template match="tei:title" mode="m_tei-to-zotero-rdf">
         <xsl:param name="p_lang"/>
         <xsl:choose>
             <xsl:when test="parent::tei:author">
-                <foaf:surname><xsl:value-of select="normalize-space(.)"/></foaf:surname>
+                <foaf:surname><xsl:apply-templates mode="m_plain-text"/></foaf:surname>
             </xsl:when>
             <xsl:otherwise>
             <dc:title>
-                <xsl:apply-templates/>
+                <xsl:apply-templates mode="m_plain-text"/>
                 <xsl:if test="parent::node()/tei:title[@type = 'sub'][@xml:lang = $p_lang]">
                     <xsl:text>: </xsl:text>
-                    <xsl:apply-templates select="parent::node()/tei:title[@type = 'sub'][@xml:lang = $p_lang]"/>
+                    <xsl:apply-templates select="parent::node()/tei:title[@type = 'sub'][@xml:lang = $p_lang]" mode="m_plain-text"/>
                 </xsl:if>
             </dc:title>
             </xsl:otherwise>
@@ -383,9 +387,16 @@
                 <xsl:when test="@when">
                     <xsl:value-of select="@when"/>
                 </xsl:when>
+                <!-- date ranges -->
+                <xsl:when test="@from">
+                    <xsl:value-of select="@from"/>
+                </xsl:when>
+                <xsl:when test="@notBefore">
+                    <xsl:value-of select="@notBefore"/>
+                </xsl:when>
                 <xsl:otherwise>
                     <xsl:message>
-                        <xsl:text>Date note has no @when attribute</xsl:text>
+                        <xsl:text>Date note has no @when, @from or @notBefore attributes</xsl:text>
                     </xsl:message>
                 </xsl:otherwise>
             </xsl:choose>
