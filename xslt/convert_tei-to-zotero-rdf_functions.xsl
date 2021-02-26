@@ -354,14 +354,6 @@
         <foaf:givenName><xsl:apply-templates/></foaf:givenName>
     </xsl:template>
     
-   <!-- choice -->
-    <xsl:template match="tei:choice">
-        <xsl:choose>
-            <xsl:when test="tei:abbr and tei:expan">
-                <xsl:apply-templates select="tei:expan"/>
-            </xsl:when>
-        </xsl:choose>
-    </xsl:template>
    
     
     <!-- titles -->
@@ -383,16 +375,7 @@
         </xsl:choose>
         
     </xsl:template>
-    <xsl:template match="tss:characteristic[@name = ('Short Titel', 'Shortened title')]" mode="m_tei-to-zotero-rdf">
-        <xsl:if test=".!=''">
-            <z:shortTitle><xsl:apply-templates/></z:shortTitle>
-        </xsl:if>
-    </xsl:template>
-    <xsl:template match="tss:characteristic[@name = ('Series number')]" mode="m_tei-to-zotero-rdf">
-        <xsl:if test=".!=''">
-            <dc:identifier><xsl:apply-templates/></dc:identifier>
-        </xsl:if>
-    </xsl:template>
+  
        <!-- transform dates -->
     <xsl:template match="tei:date" mode="m_tei-to-zotero-rdf">
         <xsl:variable name="v_date">
@@ -451,27 +434,7 @@
    
     
     <!-- call-numbers -->
-    <xsl:template match="tss:characteristic[@name = ('Signatur', 'call-num')]" mode="m_tei-to-zotero-rdf">
-        <xsl:if test=".!=''">
-        <xsl:choose>
-            <!-- for archival reference the call-number should be mapped to location in archive -->
-            <xsl:when test="ancestor::tss:reference/tss:publicationType/@name = ('Archival File', 'Archival Material', 'Archival Letter')">
-                <dc:coverage>
-                    <xsl:apply-templates/>
-                </dc:coverage>
-            </xsl:when>
-            <xsl:otherwise>
-                <dc:subject>
-                    <dcterms:LCC>
-                        <rdf:value>
-                            <xsl:apply-templates/>
-                        </rdf:value>
-                    </dcterms:LCC>
-                </dc:subject>
-            </xsl:otherwise>
-        </xsl:choose>
-        </xsl:if>
-    </xsl:template>
+
     
     <!-- full-text notes -->
     <xsl:function name="oape:bibliography-full-text-to-note">
