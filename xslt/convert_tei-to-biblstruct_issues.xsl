@@ -10,7 +10,7 @@
     <xsl:include href="convert_tei-to-biblstruct_functions.xsl"/>
     
     <xsl:template match="/">
-        <xsl:result-document href="{$v_base-directory}metadata/{$vgFileId}.biblStruct.TEIP5.xml">
+        <xsl:result-document href="{$v_base-directory}metadata/issues/{$vgFileId}.biblStruct.TEIP5.xml">
             <xsl:copy>
                 <xsl:element name="TEI">
                     <xsl:copy-of select="tei:TEI/tei:teiHeader"/>
