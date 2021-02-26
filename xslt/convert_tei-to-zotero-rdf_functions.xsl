@@ -19,10 +19,10 @@
     
     <xsl:output method="xml" indent="yes" omit-xml-declaration="no" encoding="UTF-8"/>
     
+    <xsl:include href="functions.xsl"/>
     
     <!-- this stylesheet translates <tei:biblStruct> to Zotero RDF -->
     <!-- to do:
-          - remove whitespace from subtitles
           - improve short titles: add eclipse
           - add full-text notes
     -->
@@ -256,11 +256,6 @@
             <xsl:copy-of select="oape:bibliography-full-text-to-note($tei_biblstruct)"/>
         </xsl:if>
     </xsl:function>
-    
-    <!-- plain text -->
-    <xsl:template match="text()">
-        <xsl:value-of select="normalize-space(.)"/>
-    </xsl:template>
     
     <!-- extra field -->
     <!-- if used with Better BibTeX, one can set the citation key in the extra field -->
