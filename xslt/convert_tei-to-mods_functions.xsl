@@ -14,7 +14,7 @@
     <!-- date conversion functions -->
 <!--    <xsl:include href="https://tillgrallert.github.io/xslt-calendar-conversion/functions/date-functions.xsl"/>-->
     <xsl:include href="https://www.sitzextase.de/xslt-calendar-conversion/functions/date-functions.xsl"/>
-    <!-- <xsl:include href="../../../xslt-calendar-conversion/date-functions.xsl"/> -->
+<!--     <xsl:include href="../../../xslt-calendar-conversion/date-functions.xsl"/> -->
     <xsl:include href="functions.xsl"/>
     
     <!-- this needs to be adopted to work with any periodical and not just al-Muqtabas -->
