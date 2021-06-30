@@ -83,12 +83,58 @@
         <!-- output -->
         <xsl:element name="bib:{$v_reference-type-bib}">
             <!-- add an ID -->
-            <xsl:attribute name="rdf:about" select="concat('#',$tei_biblstruct/tei:analytic/tei:idno[@type = 'BibTeX'])"/>
+            <xsl:variable name="v_rdf-about">
+                <xsl:choose>
+                    <xsl:when test="$tei_biblstruct/tei:analytic/tei:idno[@type = 'BibTeX']">
+                        <xsl:value-of select="$tei_biblstruct/tei:analytic/tei:idno[@type = 'BibTeX'][1]"/>
+                    </xsl:when>
+                    <xsl:when test="$tei_biblstruct/tei:monogr/tei:idno[@type = 'BibTeX']">
+                        <xsl:value-of select="$tei_biblstruct/tei:monogr/tei:idno[@type = 'BibTeX'][1]"/>
+                    </xsl:when>
+                    <!-- construct an ID from availabele idno and biblScope -->
+                    <xsl:when test="$tei_biblstruct/tei:monogr/tei:idno[@type = 'OCLC']">
+                        <xsl:variable name="v_oclc" select="concat('oclc_', $tei_biblstruct/tei:monogr/tei:idno[@type = 'OCLC'][1])"/>
+                        <xsl:variable name="v_volume">
+                            <xsl:if test="$tei_biblstruct/tei:monogr/tei:biblScope[@unit = 'volume']">
+                                <xsl:value-of select="concat('-v_',$tei_biblstruct/tei:monogr/tei:biblScope[@unit = 'volume']/@from )"/>
+                            </xsl:if>
+                        </xsl:variable>
+                        <xsl:variable name="v_issue">
+                            <xsl:if test="$tei_biblstruct/tei:monogr/tei:biblScope[@unit = 'issue']">
+                                <xsl:value-of select="concat('-i_',$tei_biblstruct/tei:monogr/tei:biblScope[@unit = 'issue']/@from )"/>
+                            </xsl:if>
+                        </xsl:variable>
+                        <xsl:variable name="v_article">
+                            <xsl:choose>
+                                <xsl:when test="$tei_biblstruct/tei:analytic/tei:idno[@type != 'url']">
+                                    <xsl:value-of select="concat('-', $tei_biblstruct/tei:analytic/tei:idno[@type != 'url']/@type,'_', $tei_biblstruct/tei:analytic/tei:idno[@type != 'url'][1])"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="concat('-a_', generate-id($tei_biblstruct))"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:variable>
+                        <xsl:value-of select="concat($v_oclc, $v_volume, $v_issue, $v_article)"/>
+                    </xsl:when>
+                    <xsl:when test="$tei_biblstruct/@xml:id">
+                        <xsl:value-of select="$tei_biblstruct/@xml:id"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="generate-id($tei_biblstruct)"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:attribute name="rdf:about" select="concat('#',$v_rdf-about)"/>
             <!-- itemType -->
             <z:itemType>
                 <xsl:value-of select="$v_reference-type-zotero"/>
             </z:itemType>
             <!-- titles -->
+            <xsl:variable name="v_title-monogr">
+                <xsl:apply-templates select="$tei_biblstruct/tei:monogr/tei:title[@xml:lang = $p_lang][not(@type = 'sub')]" mode="m_tei-to-zotero-rdf">
+                    <xsl:with-param name="p_lang" select="$p_lang"/>
+                </xsl:apply-templates>
+            </xsl:variable>
             <xsl:choose>
                 <!-- check if the reference is part of a larger work (i.e. a chapter, article) -->
                 <xsl:when test="$v_reference-is-section = true()">
@@ -97,13 +143,7 @@
                             <!-- book chapters -->
                             <xsl:when test="$v_reference-type-bib = 'BookSection'">
                                 <bib:Book>
-                                    <!-- check if reference is part of a series -->
-                                    <!--<xsl:if test="$v_reference-is-part-of-series = true()">
-                                        <xsl:copy-of select="$v_series"/>
-                                    </xsl:if>-->
-                                    <xsl:apply-templates select="$tei_biblstruct/tei:monogr/tei:title[@xml:lang = $p_lang][not(@type = 'sub')]" mode="m_tei-to-zotero-rdf">
-                                        <xsl:with-param name="p_lang" select="$p_lang"/>
-                                    </xsl:apply-templates>
+                                    <xsl:copy-of select="$v_title-monogr"/>
                                 </bib:Book>
                             </xsl:when>
                             <!-- periodical articles -->
@@ -111,9 +151,7 @@
                                 <bib:Periodical>
                                     <xsl:apply-templates select="$tei_biblstruct/tei:monogr/tei:biblScope[@unit = 'volume']" mode="m_tei-to-zotero-rdf"/>
                                     <xsl:apply-templates select="$tei_biblstruct/tei:monogr/tei:biblScope[@unit = 'issue']" mode="m_tei-to-zotero-rdf"/>
-                                    <xsl:apply-templates select="$tei_biblstruct/tei:monogr/tei:title[@xml:lang = $p_lang][not(@type = 'sub')]" mode="m_tei-to-zotero-rdf">
-                                        <xsl:with-param name="p_lang" select="$p_lang"/>
-                                    </xsl:apply-templates>
+                                    <xsl:copy-of select="$v_title-monogr"/>
                                 </bib:Periodical>
                             </xsl:when>
                             <!-- maps: it seems that the articleTitle should be mapped to Series -->
@@ -121,13 +159,7 @@
                             <!-- fallback: book -->
                             <xsl:otherwise>
                                 <bib:Book>
-                                    <!-- check if reference is part of a series -->
-                                    <!--<xsl:if test="$v_reference-is-part-of-series = true()">
-                                        <xsl:copy-of select="$v_series"/>
-                                    </xsl:if>-->
-                                    <xsl:apply-templates select="$tei_biblstruct/tei:monogr/tei:title[@xml:lang = $p_lang][not(@type = 'sub')]" mode="m_tei-to-zotero-rdf">
-                                        <xsl:with-param name="p_lang" select="$p_lang"/>
-                                    </xsl:apply-templates>
+                                    <xsl:copy-of select="$v_title-monogr"/>
                                 </bib:Book>
                             </xsl:otherwise>
                         </xsl:choose>
@@ -136,32 +168,27 @@
                     <xsl:apply-templates select="$tei_biblstruct/tei:analytic/tei:title[@level = 'a'][@xml:lang = $p_lang]" mode="m_tei-to-zotero-rdf"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <!-- check if reference is part of a series -->
-                    <!--<xsl:if test="$v_reference-is-part-of-series = true()">
-                        <xsl:copy-of select="$v_series"/>
-                    </xsl:if>-->
-                    <xsl:apply-templates select="$tei_biblstruct/tei:monogr/tei:title[@xml:lang = $p_lang]" mode="m_tei-to-zotero-rdf"/>
+<!--                    <xsl:apply-templates select="$tei_biblstruct/tei:monogr/tei:title[@xml:lang = $p_lang]" mode="m_tei-to-zotero-rdf"/>-->
+                     <xsl:copy-of select="$v_title-monogr"/>
                 </xsl:otherwise>
             </xsl:choose>
             <!-- short titles -->
-            <xsl:choose>
-                <!-- fake code -->
-                <xsl:when test=" 1 = 2"/>
-                <!--<xsl:when test="$tss_reference/descendant::tss:characteristic[@name = 'Short Titel']">
-                    <xsl:apply-templates select="$tss_reference/descendant::tss:characteristic[@name = 'Short Titel']" mode="m_tei-to-zotero-rdf"/>
-                </xsl:when>
-                <xsl:when test="$tss_reference/descendant::tss:characteristic[@name = 'Shortened title']">
-                    <xsl:apply-templates select="$tss_reference/descendant::tss:characteristic[@name = 'Shortened title']" mode="m_tei-to-zotero-rdf"/>
-                </xsl:when>-->
-                <!-- fallback: create a short title -->
-                <xsl:otherwise>
-                    <xsl:variable name="v_title-temp" select="if($v_reference-is-section = true()) then($tei_biblstruct/tei:analytic/tei:title[@level = 'a'][@xml:lang = $p_lang]) else($tei_biblstruct/tei:monogr/tei:title[@xml:lang = $p_lang])"/>
-                    <xsl:analyze-string select="normalize-space($v_title-temp)" regex="^(.+?)([:|\.|\?])(.+)$">
+            <xsl:variable name="v_title-temp">
+                <xsl:choose>
+                    <xsl:when test="$v_reference-is-section = true()">
+                        <xsl:value-of select="$tei_biblstruct/tei:analytic/tei:title[@level = 'a'][@xml:lang = $p_lang]"/>
+                    </xsl:when>
+                    <xsl:when test="$v_reference-is-section = false()">
+                        <xsl:value-of select="$tei_biblstruct/tei:monogr/tei:title[@xml:lang = $p_lang][not(@type = 'sub')]"/>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:variable name="v_title-short">
+                <xsl:analyze-string select="normalize-space($v_title-temp)" regex="^(.+?)([:|\.|\?])(.+)$">
                         <xsl:matching-substring>
-                            <z:shortTitle><xsl:value-of select="normalize-space(regex-group(1))"/></z:shortTitle>
+                            <xsl:value-of select="normalize-space(regex-group(1))"/>
                         </xsl:matching-substring>
                         <xsl:non-matching-substring>
-                            <z:shortTitle>
                             <xsl:for-each select="tokenize(normalize-space($v_title-temp),'\s+')">
                                 <xsl:if test="position() &lt;= $p_length-short-title">
                                     <xsl:if test="position() gt 1">
@@ -170,11 +197,10 @@
                                     <xsl:value-of select="."/>
                                 </xsl:if>
                             </xsl:for-each>
-                            </z:shortTitle>
                         </xsl:non-matching-substring>
                     </xsl:analyze-string>
-                </xsl:otherwise>
-            </xsl:choose>
+            </xsl:variable>
+            <z:shortTitle><xsl:value-of select="$v_title-short"/></z:shortTitle>
             <!-- contributors: authors, editors etc. -->
             <xsl:if test="$tei_biblstruct/descendant::tei:author">
                 <bib:authors>
@@ -214,7 +240,14 @@
                 <dcterms:isReferencedBy rdf:resource="{concat('#',$tei_biblstruct/descendant::tei:idno[@type = 'BibTeX'],'-text')}"/>
             </xsl:if>
         <!-- IDs / URLs -->
-        <xsl:apply-templates select="$tei_biblstruct/tei:analytic/tei:idno[@type = 'url']" mode="m_tei-to-zotero-rdf"/>
+            <xsl:choose>
+                <xsl:when test="$tei_biblstruct/tei:analytic/tei:idno[@type = 'url']">
+                    <xsl:apply-templates select="$tei_biblstruct/tei:analytic/tei:idno[@type = 'url']" mode="m_tei-to-zotero-rdf"/>
+                </xsl:when>
+                <xsl:when test="$tei_biblstruct/tei:monogr/tei:idno[@type = 'url']">
+                    <xsl:apply-templates select="$tei_biblstruct/tei:monogr/tei:idno[@type = 'url']" mode="m_tei-to-zotero-rdf"/>
+                </xsl:when>
+            </xsl:choose>
             <!-- Identitifiers -->
             <!-- edition -->
 <!--            <xsl:apply-templates select="$tss_reference/descendant::tss:characteristic[@name = 'Edition']" mode="m_tei-to-zotero-rdf"/>-->
@@ -229,12 +262,14 @@
             <!-- extra field: map all sorts of custom fields -->
             <dc:description>
                 <xsl:apply-templates select="$tei_biblstruct/tei:analytic/tei:idno[@type = 'BibTeX']" mode="m_extra-field"/>
+                <xsl:apply-templates select="$tei_biblstruct/tei:monogr/tei:idno[@type = 'BibTeX']" mode="m_extra-field"/>
                 <xsl:apply-templates select="$tei_biblstruct/tei:monogr/tei:imprint/tei:date[@datingMethod = '#cal_ottomanfiscal']" mode="m_extra-field"/>
                 <xsl:apply-templates select="$tei_biblstruct/tei:monogr/tei:imprint/tei:date[@datingMethod = '#cal_islamic']" mode="m_extra-field"/>
                 <xsl:apply-templates select="$tei_biblstruct/tei:monogr/tei:imprint/tei:date[@datingMethod = '#cal_julian']" mode="m_extra-field"/>
                 <xsl:apply-templates select="$tei_biblstruct/tei:monogr/tei:idno[@type = 'DOI']" mode="m_extra-field"/>
                 <xsl:apply-templates select="$tei_biblstruct/tei:monogr/tei:idno[@type = 'ISBN']" mode="m_extra-field"/>
-                <xsl:apply-templates select="$tei_biblstruct/tei:monogr/tei:idno[@type = 'OCLC']" mode="m_extra-field"/>
+                <!-- do not replicate all OCLC IDs -->
+                <xsl:apply-templates select="$tei_biblstruct/tei:monogr/tei:idno[@type = 'OCLC'][1]" mode="m_extra-field"/>
                 <xsl:apply-templates select="$tei_biblstruct/tei:monogr/tei:idno[@type = 'zenodo']" mode="m_extra-field"/>
                 <!-- support for multiple languages? -->
                 <!--<xsl:apply-templates select="$tss_reference/descendant::tss:characteristic[@name = 'Original publication year']" mode="m_extra-field"/>
@@ -364,6 +399,7 @@
     <xsl:template match="tei:title" mode="m_tei-to-zotero-rdf">
         <xsl:param name="p_lang"/>
         <xsl:choose>
+            <!-- for cases when author names contain periodical titles -->
             <xsl:when test="parent::tei:author">
                 <foaf:surname><xsl:apply-templates mode="m_plain-text"/></foaf:surname>
             </xsl:when>
@@ -372,7 +408,7 @@
                 <xsl:apply-templates mode="m_plain-text"/>
                 <xsl:if test="parent::node()/tei:title[@type = 'sub'][@xml:lang = $p_lang]">
                     <xsl:text>: </xsl:text>
-                    <xsl:apply-templates select="parent::node()/tei:title[@type = 'sub'][@xml:lang = $p_lang]" mode="m_plain-text"/>
+                    <xsl:apply-templates select="parent::node()/tei:title[@type = 'sub'][@xml:lang = $p_lang][1]" mode="m_plain-text"/>
                 </xsl:if>
             </dc:title>
             </xsl:otherwise>
