@@ -389,10 +389,16 @@
         </rdf:li>
     </xsl:template>
     <xsl:template match="tei:surname" mode="m_tei-to-zotero-rdf">
-        <foaf:surname><xsl:apply-templates mode="m_plain-text"/></foaf:surname>
+        <xsl:variable name="v_temp">
+            <xsl:apply-templates mode="m_plain-text"/>
+        </xsl:variable>
+        <foaf:surname><xsl:value-of select="normalize-space($v_temp)"/></foaf:surname>
     </xsl:template>
     <xsl:template match="tei:forename" mode="m_tei-to-zotero-rdf">
-        <foaf:givenName><xsl:apply-templates mode="m_plain-text"/></foaf:givenName>
+        <xsl:variable name="v_temp">
+            <xsl:apply-templates mode="m_plain-text"/>
+        </xsl:variable>
+        <foaf:givenName><xsl:value-of select="normalize-space($v_temp)"/></foaf:givenName>
     </xsl:template>
     
     <!-- titles -->

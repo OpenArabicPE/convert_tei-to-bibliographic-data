@@ -28,7 +28,7 @@
         </xsl:variable>
         <xsl:value-of select="normalize-space($v_temp)"/>
     </xsl:template>
-    <xsl:template match="element()[ancestor::tei:persName]" mode="m_plain-text">
+    <xsl:template match="element()[ancestor::tei:persName]" mode="m_plain-text" priority="2">
         <xsl:text> </xsl:text><xsl:apply-templates mode="m_plain-text"/><xsl:text> </xsl:text>
     </xsl:template>
     <xsl:template match="element()" mode="m_plain-text">
