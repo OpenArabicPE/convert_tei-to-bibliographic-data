@@ -297,6 +297,8 @@
     <xsl:template match="tei:idno[@type = 'BibTeX']" mode="m_extra-field">
         <xsl:if test=".!=''">
             <xsl:value-of select="concat('Citation Key', $v_separator-key-value, .,$v_new-line)"/>
+            <!-- as the Citation Key line is dropped upon dragging and dropping references between Zotero libraries or groups, we replicate the content in an additional line -->
+            <xsl:value-of select="concat('BibTeX Cite Key', $v_separator-key-value, .,$v_new-line)"/>
         </xsl:if>
     </xsl:template>
     <xsl:template match="tei:idno[@type = 'DOI']" mode="m_extra-field">
