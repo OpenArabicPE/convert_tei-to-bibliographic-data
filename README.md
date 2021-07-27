@@ -24,10 +24,10 @@ This repository contains code to generate a variety of bibliographic metadata fo
     4. **YAML**: YAML would be of use for generating a static website from periodical editions, where each article is transformed to markdown with its own metadata block written in YAML in order to keep data and metadata together.
         - [convert_tei-to-yaml_functions.xsl](xslt/convert_tei-to-yaml_functions.xsl): provides the function `oape:bibliography-tei-to-yaml()` to convert a single `<tei:biblStruct>` to YAML
         - [convert_tei-to-yaml_issues.xsl](xslt/convert_tei-to-yaml_issues.xsl): chains the functions `oape:bibliography-tei-div-to-biblstruct()` and `oape:bibliography-tei-to-yaml()` to generate one YAML file (`.yml`) per TEI XML file as input with one YAML child for each `<tei:div>`.
-    4. **Zotero RDF**: proprietary RDF which allows lossless import into Zotero and moving data between Zotero libraries
-        - [convert_tei-to-zotero-rdf_functions.xsl](xslt/convert_tei-to-zotero-rdf_functions.xsl): provides the function `oape:bibliography-tei-to-zotero-rdf()` to convert a single `<tei:biblStruct>` to `<mods:mods>`
-        - [convert_tei-to-zotero-rdf_articles.xsl](xslt/convert_tei-to-zotero-rdf_articles.xsl): chains the functions `oape:bibliography-tei-div-to-biblstruct()` and `oape:bibliography-tei-to-zotero-rdf()` to generate one MODS XML file per `<tei:div>` as input.
-        - [convert_tei-to-zotero-rdf_issues.xsl](xslt/convert_tei-to-zotero-rdf_issues.xsl): chains the functions `oape:bibliography-tei-div-to-biblstruct()` and `oape:bibliography-tei-to-zotero-rdf()` to generate one MODS XML file per TEI XML file as input with `<mods:mods>` children for each `<tei:div>`.
+    4. **Zotero RDF**: proprietary RDF and serialised as XML, which allows lossless import into Zotero and moving data between Zotero libraries
+        - [convert_tei-to-zotero-rdf_functions.xsl](xslt/convert_tei-to-zotero-rdf_functions.xsl): provides the function `oape:bibliography-tei-to-zotero-rdf()` to convert a single `<tei:biblStruct>` to `<bib:{reference-type}>`
+        - [convert_tei-to-zotero-rdf_articles.xsl](xslt/convert_tei-to-zotero-rdf_articles.xsl): chains the functions `oape:bibliography-tei-div-to-biblstruct()` and `oape:bibliography-tei-to-zotero-rdf()` to generate one Zotero RDF file per `<tei:div>` as input.
+        - [convert_tei-to-zotero-rdf_issues.xsl](xslt/convert_tei-to-zotero-rdf_issues.xsl): chains the functions `oape:bibliography-tei-div-to-biblstruct()` and `oape:bibliography-tei-to-zotero-rdf()` to generate one Zotero RDF file per TEI XML file as input with `<bib:{reference-type}>` children for each `<tei:div>`.
     4. TSS XML: **to do**
 
 # `<tei:biblStruct>`: intermediary / exchange format
@@ -88,6 +88,7 @@ A basic conversion to YAML was built by mapping the `<tei:biblStruct>` input to 
 # Zotero RDF
 
 - full conversion pipelines have been implemented
+- In order to generate stable cite keys, we make use of Better BibTeX and write our identifiers to the 'Citation Key: ' line in the extra field. Note that this line is deleted when dragging and dropping references between libraries or groups. Therefore, we also added a 'BibTeX: ' line with the same content to the extra field
 
 # Zotero JSON: not implemented
 
