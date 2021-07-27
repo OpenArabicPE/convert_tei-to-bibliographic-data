@@ -14,6 +14,7 @@
   xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/"
   xmlns:link="http://purl.org/rss/1.0/modules/link/"
   xmlns:oape="https://openarabicpe.github.io/ns"
+   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   exclude-result-prefixes="tei tss"
     version="3.0">
     
@@ -64,4 +65,17 @@
     </xsl:template>
     <!-- prevent notes in div/head from producing output -->
     <xsl:template match="tei:head/tei:note" mode="m_plain-text" priority="100"/>
+    <!-- trim trailing and leading punctuation marks -->
+    <xsl:function name="oape:strings_trim-punctuation-marks">
+        <xsl:param name="p_input" as="xs:string"/>
+        <xsl:variable name="v_punctuation" select="'[,،\.:;\?!\-–—_/]'"/>
+        <xsl:analyze-string select="$p_input" regex="^{$v_punctuation}*\s*(.+)\s*{$v_punctuation}$">
+            <xsl:matching-substring>
+                <xsl:value-of select="normalize-space(regex-group(1))"/>
+            </xsl:matching-substring>
+            <xsl:non-matching-substring>
+                <xsl:apply-templates select="." mode="m_plain-text"/>
+            </xsl:non-matching-substring>
+        </xsl:analyze-string>
+    </xsl:function>
 </xsl:stylesheet>
