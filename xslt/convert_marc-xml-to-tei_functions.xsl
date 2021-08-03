@@ -40,6 +40,8 @@
                 <xsl:apply-templates select="marc:datafield[@tag = '264']/marc:subfield[@code = 'b']"/>
                 <!-- language -->
                 <!-- IDs -->
+                <xsl:apply-templates select="marc:datafield[@tag = ('020', '022')]/marc:subfield"/>
+                <!-- imprint -->
                 <xsl:element name="imprint">
                     <!-- full imprint in one field -->
                     <!-- problem: the publisher might be the editor in our understanding -->
@@ -101,8 +103,15 @@
                 </xsl:element>
             </xsl:when>
             <!-- imprint -->
+            <!-- 264 - PRODUCTION, PUBLICATION, DISTRIBUTION, MANUFACTURE, AND COPYRIGHT NOTICE (R) -->
             <xsl:when test="$v_tag = '264'">
+                <!-- 	First indicator - Sequence of statements
+                        # - Not applicable/No information provided/Earliest; 2 - Intervening; 3 - Current/latest
+                    Second indicator - Function of entity
+                        0 - Production; 1 - Publication; 2 - Distribution; 3 - Manufacture; 4 - Copyright notice date 
+                -->
                 <xsl:choose>
+                    <!-- $a - Place of production, publication, distribution, manufacture (R)  -->
                     <xsl:when test="$v_code = 'a'">
                         <xsl:element name="pubPlace">
                             <xsl:element name="placeName">
@@ -110,6 +119,7 @@
                             </xsl:element>
                         </xsl:element>
                     </xsl:when>
+                    <!-- $b - Name of producer, publisher, distributor, manufacturer (R)  -->
                     <!-- publisher/ editor of a periodical -->
                     <!-- I have currently no means to establish which one it is! -->
                     <xsl:when test="$v_code = 'b'">
@@ -118,6 +128,7 @@
                                 <xsl:value-of select="$v_content"/>
                         </xsl:element>
                     </xsl:when>
+                    <!-- $c - Date of production, publication, distribution, manufacture, or copyright notice (R)  -->
                     <xsl:when test="$v_code = 'c'">
                         <xsl:element name="date">
                                 <xsl:value-of select="$v_content"/>
@@ -147,13 +158,16 @@
             <!-- 310: frequency -->
             <xsl:when test="$v_tag = '310'">
                 <!-- analyse string for controlled vocabulary -->
-                <xsl:attribute name="oape:frequency">
+                <xsl:variable name="v_frequency">
                     <xsl:choose>
                         <xsl:when test="matches(., '(نصف .سبوعية|مرتين بال.سبوع|مرتين في ال.سبوع)')">
                             <xsl:text>biweekly</xsl:text>
                         </xsl:when>
-                        <xsl:when test="matches(., '(نصف شهرية|مرتين بالشهر|مرتين في الشهر)')">
+                        <xsl:when test="matches(., '(نصف شهرية|مرتين بالشهر|مرتين في الشهر|كل .سبوعين مرة)')">
                             <xsl:text>fortnightly</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="matches(., '(.ربع مرات في السنة|كل ثلاثة .شهر)')">
+                            <xsl:text>quarterly</xsl:text>
                         </xsl:when>
                         <xsl:when test="matches(., '^سنوية$')">
                             <xsl:text>anually</xsl:text>
@@ -168,7 +182,10 @@
                             <xsl:text>daily</xsl:text>
                         </xsl:when>
                     </xsl:choose>
-                </xsl:attribute>
+                </xsl:variable>
+                <xsl:if test="$v_frequency !=''">
+                     <xsl:attribute name="oape:frequency" select="$v_frequency"/>
+                </xsl:if>
             </xsl:when>
             <!-- 530: shelfmark -->
             <!-- 530 - ADDITIONAL PHYSICAL FORM AVAILABLE NOTE (R)  -->
