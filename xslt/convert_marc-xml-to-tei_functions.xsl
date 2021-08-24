@@ -7,18 +7,15 @@
     <!-- documentation of the MARC21 field codes can be found here: https://marc21.ca/M21/MARC-Field-Codes.html -->
     <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no"/>
     <xsl:include href="functions.xsl"/>
-    
     <!-- these parameters are placeholders until I established a way of pulling language information from the source -->
     <xsl:param name="p_lang-1" select="'ar'"/>
     <xsl:param name="p_lang-2" select="'ar-Latn-x-ijmes'"/>
-    
     <!-- output: everything is wrapped in a listBibl -->
     <xsl:template match="/">
         <xsl:element name="listBibl">
             <xsl:apply-templates/>
         </xsl:element>
     </xsl:template>
-    
     <!-- individual records: pull approach -->
     <xsl:template match="marc:record">
         <xsl:variable name="v_analytic">
@@ -36,10 +33,12 @@
             <xsl:apply-templates select="marc:datafield[@tag = '310']/marc:subfield"/>
             <xsl:if test="$v_analytic = true()">
                 <xsl:element name="analytic">
-                    <!-- titles: 245, 246 -->
-                    <xsl:apply-templates select="marc:datafield[@tag = ('245', '246')]/marc:subfield[@code = ('a', 'b')]"/>
+                    <!-- titles: 245, 246. 246 can contain a plethora of alternative, related etc. titles and should not be used at this stage -->
+                    <xsl:apply-templates select="marc:datafield[@tag = ('245')]/marc:subfield[@code = ('a', 'b')]"/>
                     <!-- main contributors -->
                     <xsl:apply-templates select="marc:datafield[@tag = ('100', '101')]/marc:subfield[@code = '4']"/>
+                    <!-- text lang -->
+                    <xsl:apply-templates select="marc:datafield[@tag = '041']/marc:subfield[@code = 'a'][1]"/>
                     <!-- IDs -->
                     <xsl:apply-templates select="marc:datafield[@tag = ('024')]/marc:subfield"/>
                 </xsl:element>
@@ -49,15 +48,15 @@
                     <xsl:apply-templates select="marc:datafield[@tag = '773']/marc:subfield[@code = ('a', 't')]"/>
                 </xsl:if>
                 <xsl:if test="$v_analytic = false()">
-                    <!-- titles: 245, 246 -->
-                    <xsl:apply-templates select="marc:datafield[@tag = ('245', '246')]/marc:subfield[@code = ('a', 'b')]"/>
+                    <!-- titles: 245, 246. 246 can contain a plethora of alternative, related etc. titles and should not be used at this stage -->
+                    <xsl:apply-templates select="marc:datafield[@tag = ('245')]/marc:subfield[@code = ('a', 'b')]"/>
                     <!-- main contributors -->
                     <xsl:apply-templates select="marc:datafield[@tag = ('100', '101')]/marc:subfield[@code = '4']"/>
+                    <!-- text lang -->
+                    <xsl:apply-templates select="marc:datafield[@tag = '041']/marc:subfield[@code = 'a'][1]"/>
                 </xsl:if>
-                
                 <!-- editors: 264 shouldn't have been used for the editor -->
                 <!--<xsl:apply-templates select="marc:datafield[@tag = '264']/marc:subfield[@code = 'b']"/>-->
-                <!-- language -->
                 <!-- IDs -->
                 <xsl:apply-templates select="marc:datafield[@tag = ('020', '022')]/marc:subfield"/>
                 <xsl:if test="$v_analytic = false()">
@@ -72,16 +71,12 @@
                         <xsl:apply-templates select="marc:datafield[@tag = '773']/marc:subfield[@code = 'd']"/>
                     </xsl:if>
                 </xsl:element>
-                <!-- name/number of sections of a work -->
+                <!-- name/number of sections of a work (biblScope) -->
                 <xsl:apply-templates select="marc:datafield[@tag = ('245', '246')]/marc:subfield[@code = ('n')]"/>
-                <xsl:apply-templates select="marc:datafield[@tag = '936']/marc:subfield[@code = ('d', 'e')]"/>
+                <xsl:apply-templates select="marc:datafield[@tag = '936']/marc:subfield[@code = ('d', 'e', 'h')]"/>
             </xsl:element>
-            <xsl:if test="$v_analytic = true()">
-                <xsl:apply-templates select="marc:datafield[@tag = '936']/marc:subfield[@code = ('h')]"/>
-            </xsl:if>
         </xsl:element>
     </xsl:template>
-    
     <!-- one template to convert marc:subfields into TEI -->
     <xsl:template match="marc:subfield">
         <xsl:variable name="v_tag" select="parent::marc:datafield/@tag"/>
@@ -93,22 +88,58 @@
             <xsl:value-of select="oape:strings_trim-punctuation-marks(.)"/>
             <!--            <xsl:apply-templates mode="m_plain-text"/>-->
         </xsl:variable>
-        <!-- languages: can potentially depend on local data or parameters -->
-        <!-- language information can be found in 041/a and 101/a -->
-        <xsl:variable name="v_lang-1">
+        <!-- languages: can potentially depend on local data or parameters
+            - these should be the languages of the catalogue entry, NOT the described item
+            - language information for the original item can be found in 041/a and 101/a 
+            - language of cataloging is found in 040/b
+            - if 041/1 is Arabic and 040/b is German, we can probably assume that all Latin-script titles conform to DMG  
+        -->
+        <xsl:variable name="v_lang-item">
             <xsl:choose>
                 <xsl:when test="ancestor::marc:record/marc:datafield[@tag = '041']/marc:subfield[@code = 'a']">
-                    <xsl:apply-templates mode="m_plain-text" select="ancestor::marc:record/marc:datafield[@tag = '041']/marc:subfield[@code = 'a']"/>
+                    <xsl:call-template name="t_convert-lang-codes">
+                        <xsl:with-param name="p_code" select="ancestor::marc:record/marc:datafield[@tag = '041']/marc:subfield[@code = 'a'][1]"/>
+                    </xsl:call-template>
                 </xsl:when>
-                <xsl:when test="ancestor::marc:record/marc:datafield[@tag = '101']/marc:subfield[@code = 'a']">
-                    <xsl:apply-templates mode="m_plain-text" select="ancestor::marc:record/marc:datafield[@tag = '101']/marc:subfield[@code = 'a']"/>
-                </xsl:when>
+                <!-- fallback: undefined -->
                 <xsl:otherwise>
-                    <xsl:value-of select="$p_lang-1"/>
+                    <xsl:value-of select="'und'"/>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-        <xsl:variable name="v_lang-2" select="$p_lang-2"/>
+        <xsl:variable name="v_lang-catalogue">
+            <xsl:choose>
+                <xsl:when test="ancestor::marc:record/marc:datafield[@tag = '040']/marc:subfield[@code = 'b']">
+                    <xsl:call-template name="t_convert-lang-codes">
+                        <xsl:with-param name="p_code" select="ancestor::marc:record/marc:datafield[@tag = '040']/marc:subfield[@code = 'b'][1]"/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="'und'"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="v_lang-entry">
+            <xsl:choose>
+                <xsl:when test="$v_lang-item = 'ar'">
+                    <xsl:choose>
+                        <xsl:when test="$v_lang-catalogue = 'de'">
+                            <xsl:value-of select="'ar-Latn-x-dmg'"/>
+                        </xsl:when>
+                        <xsl:when test="$v_lang-catalogue = 'en'">
+                            <xsl:value-of select="'ar-Latn-x-ijmes'"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="'und'"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="$v_lang-item"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <!-- transformation -->
         <xsl:choose>
             <!-- code "0": IDs from authority files -->
             <xsl:when test="$v_code = '0' and $v_tag = ('100', '689', '700')">
@@ -127,7 +158,7 @@
                     <xsl:text> </xsl:text>
                 </xsl:if>
             </xsl:when>
-            <!-- 008 - FIXED-LENGTH DATA ELEMENTS -\- General information (NR)  -->
+            <!-- controlfield with tag 008 - FIXED-LENGTH DATA ELEMENTS -\- General information (NR)  -->
             <!-- IDs -->
             <xsl:when test="$v_tag = ('020', '022', '024') and $v_code = 'a'">
                 <xsl:element name="idno">
@@ -147,6 +178,36 @@
                     </xsl:attribute>
                     <xsl:value-of select="$v_content"/>
                 </xsl:element>
+            </xsl:when>
+            <!-- 040: cataloging source
+                - $a - Original cataloging agency (NR)
+                - $b - Language of cataloging (NR)
+                - $c - Transcribing agency (NR)
+                - $d - Modifying agency (R)
+                - $e - Description conventions (R) 
+            -->
+            <!-- 041: language code -->
+            <xsl:when test="$v_tag = '041'">
+                
+                    <xsl:choose>
+                        <xsl:when test="$v_code = 'a' and preceding-sibling::marc:subfield[@code = 'a']">
+                        <xsl:attribute name="otherLangs">
+                            <xsl:call-template name="t_convert-lang-codes">
+                                <xsl:with-param name="p_code" select="$v_content"/>
+                            </xsl:call-template>
+                        </xsl:attribute>
+                    </xsl:when>
+                    <xsl:when test="$v_code = 'a'">
+                        <xsl:element name="textLang">
+                        <xsl:attribute name="mainLang">
+                            <xsl:call-template name="t_convert-lang-codes">
+                                <xsl:with-param name="p_code" select="$v_content"/>
+                            </xsl:call-template>
+                        </xsl:attribute>
+                            <xsl:apply-templates select="following-sibling::marc:subfield[@code = 'a']"/>
+                        </xsl:element>
+                    </xsl:when>
+                    </xsl:choose>
             </xsl:when>
             <!-- 100: contributor -->
             <!-- 100 - MAIN ENTRY-\-PERSONAL NAME (NR) -->
@@ -168,6 +229,18 @@
                                     <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = '0']"/>
                                 </xsl:attribute>
                             </xsl:if>
+                            <!-- language -->
+                                <xsl:attribute name="xml:lang">
+                                <xsl:choose>
+                                    <xsl:when test="$v_lang-item = 'ar'">
+                                        <xsl:value-of select="$v_lang-entry"/>
+                                    </xsl:when>
+                                    <!-- fallback: undefined, Latin script -->
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="$v_lang-item"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:attribute>
                             <!-- content -->
                             <xsl:value-of select="$v_content"/>
                         </xsl:element>
@@ -176,6 +249,7 @@
                 </xsl:choose>
             </xsl:when>
             <!-- titles 
+                - 240: uniform title
                 - 241: romanized title
                 - 242: translation of title by cataloging agency
                 - 243: collective uniform title
@@ -193,11 +267,11 @@
                             <xsl:attribute name="xml:lang">
                                 <xsl:choose>
                                     <xsl:when test="$v_tag = '245'">
-                                        <xsl:value-of select="$v_lang-1"/>
+                                        <xsl:value-of select="$v_lang-entry"/>
                                     </xsl:when>
-                                    <xsl:when test="$v_tag = '246'">
-                                        <xsl:value-of select="$v_lang-2"/>
-                                    </xsl:when>
+                                    <!--<xsl:when test="$v_tag = '246'">
+                                        <xsl:value-of select=""/>
+                                    </xsl:when>-->
                                     <!-- fallback? -->
                                 </xsl:choose>
                             </xsl:attribute>
@@ -205,6 +279,12 @@
                             <xsl:value-of select="$v_content"/>
                         </xsl:element>
                     </xsl:when>
+                    <!-- Statement of responsibility, etc. -->
+                    <xsl:when test="$v_code = 'c'">
+                        <!-- this can provide information on editors, translators etc. if they are part of the title.
+                            I see currently no easy way to split that into the necessary components of <respStmt> -->
+                    </xsl:when>
+                    <!-- Number of part/section of a work -->
                     <xsl:when test="$v_code = ('n', 'p')">
                         <xsl:element name="biblScope">
                             <!-- the content isn't machine-readable per se -->
@@ -361,10 +441,10 @@
             </xsl:when>
         </xsl:choose>
     </xsl:template>
-    <xsl:template name="codeLangue">
-        <xsl:param name="code"/>
+    <xsl:template name="t_convert-lang-codes">
+        <xsl:param name="p_code"/>
         <xsl:variable name="var"
             >;aar=aa;abk=ab;afr=af;aka=ak;amh=am;ara=ar;arg=an;asm=as;ava=av;ave=ae;aym=ay;aze=az;bak=ba;bam=bm;bel=be;ben=bn;bis=bi;tib=bo;bos=bs;bre=br;bul=bg;cat=ca;cze=cs;cha=ch;che=ce;chu=cu;chv=cv;cor=kw;cos=co;cre=cr;wel=cy;dan=da;ger=de;div=dv;dzo=dz;gre=el;eng=en;epo=eo;est=et;baq=eu;ewe=ee;fao=fo;per=fa;fij=fj;fin=fi;fre=fr;fry=fy;ful=ff;gla=gd;gle=ga;glg=gl;glv=gv;grn=gn;guj=gu;hat=ht;hau=ha;=sh;heb=he;her=hz;hin=hi;hmo=ho;hrv=hr;hun=hu;arm=hy;ibo=ig;ido=io;iii=ii;iku=iu;ile=ie;ina=ia;ind=id;ipk=ik;ice=is;ita=it;jav=jv;jpn=ja;kal=kl;kan=kn;kas=ks;geo=ka;kau=kr;kaz=kk;khm=km;kik=ki;kin=rw;kir=ky;kom=kv;kon=kg;kor=ko;kua=kj;kur=ku;lao=lo;lat=la;lav=lv;lim=li;lin=ln;lit=lt;ltz=lb;lub=lu;lug=lg;mah=mh;mal=ml;mar=mr;mac=mk;mlg=mg;mlt=mt;mon=mn;mao=mi;may=ms;bur=my;nau=na;nav=nv;nbl=nr;nde=nd;ndo=ng;nep=ne;dut=nl;nno=nn;nob=nb;nor=no;nya=ny;oci=oc;oji=oj;ori=or;orm=om;oss=os;pan=pa;pli=pi;pol=pl;por=pt;pus=ps;que=qu;roh=rm;rum=ro;run=rn;rus=ru;sag=sg;san=sa;sin=si;slo=sk;slv=sl;sme=se;smo=sm;sna=sn;snd=sd;som=so;sot=st;spa=es;alb=sq;srd=sc;srp=sr;ssw=ss;sun=su;swa=sw;swe=sv;tah=ty;tam=ta;tat=tt;tel=te;tgk=tg;tgl=tl;tha=th;tir=ti;ton=to;tsn=tn;tso=ts;tuk=tk;tur=tr;twi=tw;uig=ug;ukr=uk;urd=ur;uzb=uz;ven=ve;vie=vi;vol=vo;wln=wa;wol=wo;xho=xh;yid=yi;yor=yo;zha=za;chi=zh;zul=zu</xsl:variable>
-        <xsl:value-of select="substring-before(substring-after($var, concat(';', $code, '=')), ';')"/>
+        <xsl:value-of select="substring-before(substring-after($var, concat(';', $p_code, '=')), ';')"/>
     </xsl:template>
 </xsl:stylesheet>
