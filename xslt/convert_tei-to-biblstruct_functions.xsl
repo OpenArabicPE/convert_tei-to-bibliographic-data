@@ -155,6 +155,10 @@
                     select="$p_div/descendant::tei:note[@type = 'bibliographic'][ancestor::tei:div[1] = $p_div]/tei:bibl/tei:title[@level = 'j']"
                 />
             </xsl:when>
+            <!-- fallback -->
+            <xsl:otherwise>
+                <xsl:text>NA</xsl:text>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:function>
     
