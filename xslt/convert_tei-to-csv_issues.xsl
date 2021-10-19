@@ -12,7 +12,7 @@
     <xsl:include href="convert_tei-to-csv_functions.xsl"/>
     
     <xsl:template match="/">
-        <xsl:result-document href="../metadata/issues/{$vgFileId}.csv" method="text">
+        <xsl:result-document href="../_output/statistics/{$vgFileId}-stats_tei-articles.csv" method="text">
             <xsl:value-of select="$v_csv-head"/>
             <xsl:value-of select="$v_new-line"/>
                 <!-- construct CSV -->

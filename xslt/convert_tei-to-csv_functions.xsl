@@ -61,7 +61,8 @@
         <xsl:text>author.death</xsl:text><xsl:value-of select="$v_seperator"/>
         <xsl:text>works.viaf.count</xsl:text><xsl:value-of select="$v_seperator"/>
         <xsl:text>page.count</xsl:text><xsl:value-of select="$v_seperator"/>
-        <xsl:text>word.count</xsl:text>
+        <xsl:text>word.count</xsl:text><xsl:value-of select="$v_seperator"/>
+        <xsl:text>character.count</xsl:text>
         <xsl:value-of select="$v_quot"/>
         <!--            <xsl:value-of select="$v_new-line"/>-->
     </xsl:variable>
@@ -116,15 +117,19 @@
                 select="$p_input/tei:monogr/tei:biblScope[@unit = 'issue']"/>
         </xsl:variable>
         <xsl:variable name="v_page-count">
+            <!-- this should never happen but apparently there are rare cases where either @from or @to are empty -->
             <xsl:choose>
                 <xsl:when
                     test="$p_input//tei:biblScope[@unit = 'page']/@from = $p_input//tei:biblScope[@unit = 'page']/@to">
                     <xsl:value-of select="1"/>
                 </xsl:when>
-                <xsl:otherwise>
+                <xsl:when test="$p_input//tei:biblScope[@unit = 'page']/@from &lt; $p_input//tei:biblScope[@unit = 'page']/@to">
                     <xsl:value-of
                         select="$p_input//tei:biblScope[@unit = 'page']/@to - $p_input//tei:biblScope[@unit = 'page']/@from + 1"
                     />
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>NA</xsl:text>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
@@ -160,6 +165,7 @@
             <xsl:apply-templates select="doc($v_url-file)/descendant::node()[@xml:id = $v_id-div]" mode="m_identity-transform"/>
         </xsl:variable>
         <xsl:variable name="v_word-count" select="number(count(tokenize(string($v_text), '\W+')))"/>
+        <xsl:variable name="v_character-count" select="number(string-length(replace(string($v_text), '\W', '')))"/>
         <!-- output -->
         <!-- article ID -->
         <xsl:value-of select="$v_quot"/>
@@ -236,7 +242,8 @@
         <!-- number of pages -->
         <xsl:value-of select="$v_page-count"/><xsl:value-of select="$v_seperator"/>
         <!-- number of words -->
-        <xsl:value-of select="$v_word-count"/>
+        <xsl:value-of select="$v_word-count"/><xsl:value-of select="$v_seperator"/>
+        <xsl:value-of select="$v_character-count"/>
         <!-- end of line -->
         <xsl:value-of select="$v_quot"/>
         <!--                <xsl:value-of select="$v_new-line"/>-->
