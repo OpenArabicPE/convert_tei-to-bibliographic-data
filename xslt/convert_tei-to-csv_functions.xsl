@@ -104,9 +104,9 @@
             </xsl:choose>
         </xsl:variable>
         <!-- pull author from authority file -->
-        <xsl:variable name="v_author-entity" select="oape:get-entity-from-authority-file($v_author/descendant-or-self::tei:persName[1], $p_local-authority, $personography)"/>
+        <xsl:variable name="v_author-entity" select="oape:get-entity-from-authority-file($v_author/descendant-or-self::tei:persName[1], $p_local-authority, $v_personography)"/>
         <xsl:variable name="v_id-author-oape"
-            select="oape:query-personography($v_author/descendant-or-self::tei:persName[1], $v_personography, $p_local-authority, 'id-local', '')"/>
+            select="oape:query-person($v_author-entity, 'id-local', '', $p_local-authority)"/>
         <xsl:variable name="v_volume">
             <xsl:apply-templates mode="m_tei-to-csv"
                 select="$p_input/tei:monogr/tei:biblScope[@unit = 'volume']"/>
@@ -132,12 +132,16 @@
             select="$p_input/tei:monogr/tei:imprint/tei:date[@when][1]/@when"/>
         <xsl:variable name="v_id-stylo">
             <xsl:choose>
-                <xsl:when test="$v_author/descendant-or-self::tei:persName/@ref">
+                <xsl:when test="$v_id-author-oape != 'NA'">
+                    <xsl:value-of select="concat('oape', $v_separator-attribute-value)"/>
+                    <xsl:value-of select="oape:query-person($v_author-entity, 'id-local', '', $p_local-authority)"/>
+                </xsl:when>
+               <!-- <xsl:when test="$v_author/descendant-or-self::tei:persName/@ref">
                     <xsl:value-of select="concat('oape', $v_separator-attribute-value)"/>
                     <xsl:value-of
                         select="oape:query-personography($v_author/descendant-or-self::tei:persName[1], $v_personography, $p_local-authority, 'id-local', '')"
                     />
-                </xsl:when>
+                </xsl:when>-->
                 <xsl:when test="$v_author/descendant::tei:surname">
                     <xsl:value-of select="$v_author/descendant::tei:surname"/>
                 </xsl:when>
@@ -194,7 +198,7 @@
         <xsl:value-of select="$v_seperator"/>
         <!-- has author? -->
         <xsl:choose>
-            <xsl:when test="$v_author/descendant-or-self::tei:persName">
+            <xsl:when test="$v_author != 'NA'">
                 <xsl:text>T</xsl:text>
             </xsl:when>
             <xsl:otherwise>
@@ -203,38 +207,32 @@
         </xsl:choose>
         <xsl:value-of select="$v_seperator"/>
         <!-- author names -->
-        <xsl:for-each select="$v_author/descendant-or-self::tei:persName">
+        <!--<xsl:for-each select="$v_author/descendant-or-self::tei:persName">
             <xsl:apply-templates mode="m_plain-text" select="."/>
             <xsl:if test="position() != last()">
                 <xsl:text>|</xsl:text>
             </xsl:if>
-        </xsl:for-each>
-        <xsl:value-of select="$v_seperator"/>
+        </xsl:for-each>-->
+        <xsl:apply-templates select="$v_author/descendant-or-self::tei:persName[1]" mode="m_plain-text"/><xsl:value-of select="$v_seperator"/>
         <!-- normalized -->
-        <xsl:for-each select="$v_author/descendant-or-self::tei:persName">
+        <!--<xsl:for-each select="$v_author/descendant-or-self::tei:persName">
             <xsl:value-of
                 select="oape:query-personography(., $v_personography, '', 'name', $p_output-language-persons)"/>
             <xsl:if test="position() != last()">
                 <xsl:text>|</xsl:text>
             </xsl:if>
-        </xsl:for-each>
-        <xsl:value-of select="$v_seperator"/>
+        </xsl:for-each>-->
+        <xsl:value-of select="oape:query-person($v_author-entity, 'name', $p_output-language-persons, $p_local-authority)"/><xsl:value-of select="$v_seperator"/>
         <!-- author id: VIAF -->
-        <xsl:value-of
-            select="oape:query-personography($v_author/descendant-or-self::tei:persName[1], $v_personography, '', 'id-viaf', '')"/>
-        <xsl:value-of select="$v_seperator"/>
+        <xsl:value-of select="oape:query-person($v_author-entity, 'id-viaf', '', $p_local-authority)"/><xsl:value-of select="$v_seperator"/>
         <!-- author id: OpenArabicPE (local authority file) -->
-        <xsl:value-of select="$v_id-author-oape"/>
-        <xsl:value-of select="$v_seperator"/>
+        <xsl:value-of select="$v_id-author-oape"/><xsl:value-of select="$v_seperator"/>
         <!-- birth -->
-        <xsl:value-of
-            select="oape:query-personography($v_author/descendant-or-self::tei:persName[1], $v_personography, '', 'date-birth', '')"/><xsl:value-of select="$v_seperator"/>
+        <xsl:value-of select="oape:query-person($v_author-entity, 'date-birth', '', $p_local-authority)"/><xsl:value-of select="$v_seperator"/>
         <!-- death -->
-        <xsl:value-of
-            select="oape:query-personography($v_author/descendant-or-self::tei:persName[1], $v_personography, '', 'date-death', '')"/><xsl:value-of select="$v_seperator"/>
+        <xsl:value-of select="oape:query-person($v_author-entity, 'date-death', '', $p_local-authority)"/><xsl:value-of select="$v_seperator"/>
         <!-- number of works in VIAF -->
-        <xsl:value-of
-            select="oape:query-personography($v_author/descendant-or-self::tei:persName[1], $v_personography, '', 'countWorks', '')"/><xsl:value-of select="$v_seperator"/>
+        <xsl:value-of select="oape:query-person($v_author-entity, 'countWorks', '', $p_local-authority)"/><xsl:value-of select="$v_seperator"/>
         <!-- number of pages -->
         <xsl:value-of select="$v_page-count"/><xsl:value-of select="$v_seperator"/>
         <!-- number of words -->
