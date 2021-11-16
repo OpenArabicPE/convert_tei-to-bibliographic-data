@@ -15,4 +15,8 @@
     </xsl:variable>
     
     <xsl:variable name="vgFileId" select="substring-before(tokenize(base-uri(),'/')[last()],'.TEIP5')"/>
+    <xsl:variable name="v_file-name_input">
+        <xsl:variable name="v_temp" select="tokenize(base-uri(), '/')[last()]"/>
+        <xsl:value-of select="replace($v_temp, '^(.+?)(\..*)*$', '$1')"/>
+    </xsl:variable>
 </xsl:stylesheet>
