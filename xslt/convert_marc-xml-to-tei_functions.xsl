@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet exclude-result-prefixes="#all" version="3.0" xmlns:bib="http://purl.org/net/biblio#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/"
-    xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:oape="https://openarabicpe.github.io/ns"
-    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.tei-c.org/ns/1.0">
+<xsl:stylesheet 
+    exclude-result-prefixes="#all" version="3.0" 
+    xmlns:marc="http://www.loc.gov/MARC21/slim" 
+    xmlns:oape="https://openarabicpe.github.io/ns"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+    xmlns:tei="http://www.tei-c.org/ns/1.0" 
+    xmlns="http://www.tei-c.org/ns/1.0" 
+    xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+    xpath-default-namespace="http://www.tei-c.org/ns/1.0">
     <!-- This stylesheet takes MARC21 records in XML serialisation as input and generates TEI XML as output -->
     <!-- documentation of the MARC21 field codes can be found here: https://marc21.ca/M21/MARC-Field-Codes.html -->
-    <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no"/>
+
+    <!-- to do:
+        - urgent: establish the level of a title in monogr
+    -->
     <xsl:include href="functions.xsl"/>
+    <xsl:include href="parameters.xsl"/>
     <!-- these parameters are placeholders until I established a way of pulling language information from the source -->
     <xsl:param name="p_lang-1" select="'ar'"/>
     <xsl:param name="p_lang-2" select="'ar-Latn-x-ijmes'"/>
-    <!-- output: everything is wrapped in a listBibl -->
-    <xsl:template match="/">
-        <xsl:element name="listBibl">
-            <xsl:apply-templates select="descendant::marc:record"/>
-        </xsl:element>
-    </xsl:template>
+    
     <!-- individual records: pull approach -->
     <xsl:template match="marc:record">
         <xsl:variable name="v_analytic">
@@ -51,6 +57,14 @@
                     <!-- titles: 245, 246. 246 can contain a plethora of alternative, related etc. titles and should not be used at this stage -->
                     <xsl:apply-templates select="marc:datafield[@tag = ('245')]/marc:subfield[@code = ('a', 'b')]"/>
                     <xsl:apply-templates select="marc:datafield[@tag = ('246')][@ind1 = '3'][@ind2 = '3']/marc:subfield[@code = 'a']"/>
+                </xsl:if>
+                <!-- IDs -->
+                <xsl:apply-templates select="marc:datafield[@tag = ('019', '020', '022', '035', '856')]/marc:subfield"/>
+                <xsl:apply-templates select="marc:datafield[@tag = ('084')]/marc:subfield[@code  = 'a']"/>
+                <xsl:if test="$v_analytic = false()">
+                    <xsl:apply-templates select="marc:datafield[@tag = ('024')]/marc:subfield"/>
+                </xsl:if>
+                <xsl:if test="$v_analytic = false()">
                     <!-- main contributors -->
                     <xsl:apply-templates select="marc:datafield[@tag = ('100', '101', '700')]/marc:subfield[@code = '4']"/>
                     <!-- text lang -->
@@ -58,11 +72,6 @@
                 </xsl:if>
                 <!-- editors: 264 shouldn't have been used for the editor -->
                 <!--<xsl:apply-templates select="marc:datafield[@tag = '264']/marc:subfield[@code = 'b']"/>-->
-                <!-- IDs -->
-                <xsl:apply-templates select="marc:datafield[@tag = ('020', '022', '035', '856')]/marc:subfield"/>
-                <xsl:if test="$v_analytic = false()">
-                    <xsl:apply-templates select="marc:datafield[@tag = ('024')]/marc:subfield"/>
-                </xsl:if>
                 <!-- imprint -->
                 <xsl:element name="imprint">
                     <!-- full imprint in one field -->
@@ -77,7 +86,10 @@
                 <!-- name/number of sections of a work (biblScope) -->
                 <xsl:apply-templates select="marc:datafield[@tag = ('245', '246')]/marc:subfield[@code = ('n')]"/>
                 <xsl:apply-templates select="marc:datafield[@tag = '936']/marc:subfield[@code = ('d', 'e', 'h')]"/>
+                <xsl:apply-templates select="marc:datafield[@tag = '300']/marc:subfield[@code = ('a')]"/>
             </xsl:element>
+            <!-- the infamous field 500: notes -->
+            <xsl:apply-templates select="marc:datafield[@tag = '500'][1]/marc:subfield"/>
         </xsl:element>
     </xsl:template>
     <!-- one template to convert marc:subfields into TEI -->
@@ -146,7 +158,7 @@
         <xsl:choose>
             <!-- code "0": IDs from authority files -->
             <xsl:when test="$v_code = '0' and $v_tag = ('100', '689', '700')">
-                <xsl:call-template name="t_convert-authority-id">
+                <xsl:call-template name="t_normalize-authority-id">
                     <xsl:with-param name="p_input" select="$v_content"/>
                 </xsl:call-template>
                 <xsl:if test="following-sibling::marc:subfield[@code = '0']">
@@ -155,7 +167,7 @@
             </xsl:when>
             <!-- controlfield with tag 008 - FIXED-LENGTH DATA ELEMENTS -\- General information (NR)  -->
             <!-- IDs -->
-            <xsl:when test="$v_tag = ('020', '022', '024') and $v_code = 'a'">
+            <xsl:when test="$v_tag = ( '020', '022', '024') and $v_code = 'a'">
                 <xsl:element name="idno">
                     <xsl:attribute name="type">
                         <xsl:choose>
@@ -174,9 +186,9 @@
                     <xsl:value-of select="$v_content"/>
                 </xsl:element>
             </xsl:when>
-            <xsl:when test="$v_tag = ('035') and $v_code = 'a'">
+            <xsl:when test="$v_tag = ('019', '035') and $v_code = 'a'">
                 <xsl:variable name="v_temp">
-                    <xsl:call-template name="t_convert-authority-id">
+                    <xsl:call-template name="t_normalize-authority-id">
                         <xsl:with-param name="p_input" select="$v_content"/>
                     </xsl:call-template>
                 </xsl:variable>
@@ -195,6 +207,19 @@
                         <xsl:value-of select="substring-after($v_temp, ':')"/>
                     </xsl:element>
                 </xsl:if>
+            </xsl:when>
+            <!-- 084: other classification number -->
+            <xsl:when test="$v_tag = '084' and $v_code = 'a'">
+                <xsl:element name="idno">
+                        <xsl:attribute name="type">
+                            <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = '2']"/>
+                        </xsl:attribute>
+                    <xsl:value-of select="$v_content"/>
+                </xsl:element>
+            </xsl:when>
+            <!-- this could be used to normalize the source of IDs -->
+            <xsl:when test="$v_tag = '084' and $v_code = '2'">
+                <xsl:value-of select="$v_content"/>
             </xsl:when>
             <xsl:when test="$v_tag = ('856') and $v_code = 'u'">
                 <xsl:element name="idno">
@@ -315,6 +340,7 @@
                                         <xsl:value-of select="$v_lang-entry"/>
                                     </xsl:attribute>
                                 </xsl:when>
+                                <!-- AUB uses 246 for entries in IJMES transcription -->
                                 <!--<xsl:when test="$v_tag = '246'">
                                         <xsl:value-of select=""/>
                                     </xsl:when>-->
@@ -396,31 +422,42 @@
             </xsl:when>
             <!-- 490: series statement -->
             <!-- 250: edition statement      -->
-            <!-- 300: format, such as microfilm etc. -->
+            <!-- 300: format, such as microfilm etc. can be read as biblscope -->
+            <xsl:when test="$v_tag = '300' and $v_code = 'a'">
+                <xsl:choose>
+                    <xsl:when test="matches($v_content, '\d+ مجلدات')">
+                        <xsl:element name="biblScope">
+                            <xsl:attribute name="unit" select="'volume'"/>
+                            <!-- not sure if we can assume that "6 volumes" implies 1-6 -->
+                            <xsl:value-of select="$v_content"/>
+                        </xsl:element>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:when>
             <!-- 310: frequency -->
             <xsl:when test="$v_tag = '310'">
                 <!-- analyse string for controlled vocabulary -->
                 <xsl:variable name="v_frequency">
                     <xsl:choose>
-                        <xsl:when test="matches(., '(نصف .سبوعية|مرتين بال.سبوع|مرتين في ال.سبوع)')">
+                        <xsl:when test="matches($v_content, '(نصف .سبوعية|مرتين بال.سبوع|مرتين في ال.سبوع)')">
                             <xsl:text>biweekly</xsl:text>
                         </xsl:when>
-                        <xsl:when test="matches(., '(نصف شهرية|مرتين بالشهر|مرتين في الشهر|كل .سبوعين مرة)')">
+                        <xsl:when test="matches($v_content, '(نصف شهرية|مرتين بالشهر|مرتين في الشهر|كل .سبوعين مرة)')">
                             <xsl:text>fortnightly</xsl:text>
                         </xsl:when>
-                        <xsl:when test="matches(., '(.ربع مرات في السنة|كل ثلاثة .شهر)')">
+                        <xsl:when test="matches($v_content, '(.ربع مرات في السنة|كل ثلاثة .شهر)')">
                             <xsl:text>quarterly</xsl:text>
                         </xsl:when>
-                        <xsl:when test="matches(., '^سنوية$')">
+                        <xsl:when test="matches($v_content, '^سنوية$')">
                             <xsl:text>anually</xsl:text>
                         </xsl:when>
-                        <xsl:when test="matches(., '(شهرية|مرة في الشهر)')">
+                        <xsl:when test="matches($v_content, '(شهرية|مرة في الشهر)')">
                             <xsl:text>monthly</xsl:text>
                         </xsl:when>
-                        <xsl:when test="matches(., '^.سبوعية$')">
+                        <xsl:when test="matches($v_content, '^.سبوعية$')">
                             <xsl:text>weekly</xsl:text>
                         </xsl:when>
-                        <xsl:when test="matches(., '^يومية$')">
+                        <xsl:when test="matches($v_content, '^يومية$')">
                             <xsl:text>daily</xsl:text>
                         </xsl:when>
                     </xsl:choose>
@@ -429,8 +466,31 @@
                     <xsl:attribute name="oape:frequency" select="$v_frequency"/>
                 </xsl:if>
             </xsl:when>
+            <!-- 5xx: notes -->
+            <xsl:when test="$v_tag = '500'">
+                <xsl:choose>
+                    <xsl:when test="parent::marc:datafield[not(preceding-sibling::marc:datafield[@tag = '500'])]">
+                        <xsl:element name="note">
+                            <xsl:element name="list">
+                                <xsl:element name="item">
+                                    <xsl:value-of select="$v_content"/>
+                                </xsl:element>
+                                <xsl:for-each select="parent::marc:datafield/following-sibling::marc:datafield[@tag = '500']">
+                                    <xsl:apply-templates select="marc:subfield"/>
+                                </xsl:for-each>
+                            </xsl:element>
+                        </xsl:element>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:element name="item">
+                            <xsl:value-of select="$v_content"/>
+                        </xsl:element>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
             <!-- 530: shelfmark -->
             <!-- 530 - ADDITIONAL PHYSICAL FORM AVAILABLE NOTE (R)  -->
+            <!-- 541 acquisition history -->
             <!-- 590: availability -->
             <!-- 773: host item entry -->
             <xsl:when test="$v_tag = '773'">
@@ -460,6 +520,7 @@
                 </xsl:choose>
             </xsl:when>
             <!-- 866: extent of collection -->
+            <!-- at least at AUB, this is treated like a freeform field and should probably be translated into a note -->
             <!-- 936: -->
             <xsl:when test="($v_tag = '936') and ($v_ind1 = 'u') and ($v_ind2 = 'w')">
                 <xsl:choose>
@@ -510,9 +571,15 @@
             >;aar=aa;abk=ab;afr=af;aka=ak;amh=am;ara=ar;arg=an;asm=as;ava=av;ave=ae;aym=ay;aze=az;bak=ba;bam=bm;bel=be;ben=bn;bis=bi;tib=bo;bos=bs;bre=br;bul=bg;cat=ca;cze=cs;cha=ch;che=ce;chu=cu;chv=cv;cor=kw;cos=co;cre=cr;wel=cy;dan=da;ger=de;div=dv;dzo=dz;gre=el;eng=en;epo=eo;est=et;baq=eu;ewe=ee;fao=fo;per=fa;fij=fj;fin=fi;fre=fr;fry=fy;ful=ff;gla=gd;gle=ga;glg=gl;glv=gv;grn=gn;guj=gu;hat=ht;hau=ha;=sh;heb=he;her=hz;hin=hi;hmo=ho;hrv=hr;hun=hu;arm=hy;ibo=ig;ido=io;iii=ii;iku=iu;ile=ie;ina=ia;ind=id;ipk=ik;ice=is;ita=it;jav=jv;jpn=ja;kal=kl;kan=kn;kas=ks;geo=ka;kau=kr;kaz=kk;khm=km;kik=ki;kin=rw;kir=ky;kom=kv;kon=kg;kor=ko;kua=kj;kur=ku;lao=lo;lat=la;lav=lv;lim=li;lin=ln;lit=lt;ltz=lb;lub=lu;lug=lg;mah=mh;mal=ml;mar=mr;mac=mk;mlg=mg;mlt=mt;mon=mn;mao=mi;may=ms;bur=my;nau=na;nav=nv;nbl=nr;nde=nd;ndo=ng;nep=ne;dut=nl;nno=nn;nob=nb;nor=no;nya=ny;oci=oc;oji=oj;ori=or;orm=om;oss=os;pan=pa;pli=pi;pol=pl;por=pt;pus=ps;que=qu;roh=rm;rum=ro;run=rn;rus=ru;sag=sg;san=sa;sin=si;slo=sk;slv=sl;sme=se;smo=sm;sna=sn;snd=sd;som=so;sot=st;spa=es;alb=sq;srd=sc;srp=sr;ssw=ss;sun=su;swa=sw;swe=sv;tah=ty;tam=ta;tat=tt;tel=te;tgk=tg;tgl=tl;tha=th;tir=ti;ton=to;tsn=tn;tso=ts;tuk=tk;tur=tr;twi=tw;uig=ug;ukr=uk;urd=ur;uzb=uz;ven=ve;vie=vi;vol=vo;wln=wa;wol=wo;xho=xh;yid=yi;yor=yo;zha=za;chi=zh;zul=zu</xsl:variable>
         <xsl:value-of select="substring-before(substring-after($var, concat(';', $p_code, '=')), ';')"/>
     </xsl:template>
-    <xsl:template name="t_convert-authority-id">
+    <xsl:template name="t_normalize-authority-id">
         <xsl:param as="xs:string" name="p_input"/>
-        <xsl:variable name="v_auth" select="replace($p_input, '^\((.+)\).+$', '$1')"/>
+        <xsl:variable name="v_error-message">
+            <xsl:text>Couldn't establish the pattern of authority and ID in </xsl:text>
+            <xsl:value-of select="$p_input"/>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="matches($p_input, '^\(.+\).+$')">
+                <xsl:variable name="v_auth" select="replace($p_input, '^\((.+)\).+$', '$1')"/>
         <xsl:variable name="v_id" select="replace($p_input, '^\(.+\)(.+)$', '$1')"/>
         <xsl:choose>
             <!-- GND -->
@@ -523,9 +590,32 @@
             <xsl:when test="$v_auth = 'OCoLC'">
                 <xsl:value-of select="concat('oclc:', $v_id)"/>
             </xsl:when>
-            <!--<xsl:otherwise>
-                <xsl:value-of select="concat($v_auth, ':', $v_id)"/>
-            </xsl:otherwise>-->
+            <xsl:otherwise>
+                <xsl:message>
+                    <xsl:value-of select="$v_error-message"/>
+                </xsl:message>
+            </xsl:otherwise>
+        </xsl:choose>
+            </xsl:when>
+            <xsl:when test="matches($p_input, '^(\D+)(\d+)\s*$')">
+                <xsl:variable name="v_auth" select="replace($p_input, '^(\D+)(\d+)\s*$', '$1')"/>
+                <xsl:variable name="v_id" select="replace($p_input, '^(\D+)(\d+)\s*$', '$2')"/>
+                <xsl:choose>
+                    <xsl:when test="$v_auth = 'ocn'">
+                        <xsl:value-of select="concat('oclc:', $v_id)"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:message>
+                    <xsl:value-of select="$v_error-message"/>
+                </xsl:message>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:message>
+                    <xsl:value-of select="$v_error-message"/>
+                </xsl:message>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 </xsl:stylesheet>
