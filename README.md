@@ -1,7 +1,7 @@
 ---
 title: "Read me: convert_tei-to-bibliographic-data"
 author: Till Grallert
-date: 2021-07-19
+date: 2021-11-16
 ORCID: orcid.org/0000-0002-5739-8094
 ---
 
@@ -30,14 +30,161 @@ This repository contains code to generate a variety of bibliographic metadata fo
         - [convert_tei-to-zotero-rdf_issues.xsl](xslt/convert_tei-to-zotero-rdf_issues.xsl): chains the functions `oape:bibliography-tei-div-to-biblstruct()` and `oape:bibliography-tei-to-zotero-rdf()` to generate one Zotero RDF file per TEI XML file as input with `<bib:{reference-type}>` children for each `<tei:div>`.
     4. TSS XML: **to do**
 
+# to do
+
+- the conversion of name components into plain text strings does not add whitespace between them
+
 # `<tei:biblStruct>`: intermediary / exchange format
 
 - To do:
     + dereference private URI's pointing to authority files instead of relegating this to later conversions
 
+The intermediary/exchange format between all the supported serialisations of bibliographic metadata is a TEI `<biblStruct>` element.
+
+## example
+
+```xml
+<biblStruct>
+   <analytic>
+      <title level="a" xml:lang="ar">حكم وخواطر</title>
+      <author>
+         <persName ref="viaf:73935498 jaraid:pers:1690 oape:pers:242 wiki:Q2474371" xml:lang="ar">
+            <forename xml:lang="ar">شكيب</forename>
+            <surname xml:lang="ar">ارسلان</surname>
+         </persName>
+      </author>
+      <idno type="url">https://github.com/OpenArabicPE/journal_al-muqtabas/blob/master/tei/oclc_4770057679-i_14.TEIP5.xml#div_6.d1e1249</idno>
+      <idno type="url">https://OpenArabicPE.github.io/journal_al-muqtabas/tei/oclc_4770057679-i_14.TEIP5.xml#div_6.d1e1249</idno>
+      <idno type="BibTeX">oclc_4770057679-i_14-div_6.d1e1249</idno>
+   </analytic>
+   <monogr>
+      <title level="j" xml:lang="ar">المقتبس</title>
+      <title level="j" type="sub" xml:lang="ar">مجلة أدبية علمية اجتماعية تصدر ب
+         <placeName xml:lang="ar">القاهرة</placeName>
+         في غرة كل شهر عربي</title>
+      <title level="j" xml:lang="ar-Latn-x-ijmes">al-Muqtabas</title>
+      <title level="j" type="sub" xml:lang="ar-Latn-x-ijmes">Majalla adabiyya ʿilmiyya ijtimāʿiyya tuṣadir bi-l-Qāhira fī gharrat kull shahr ʿarabī</title>
+      <title level="j" xml:lang="fr">Al-Moktabas</title>
+      <title level="j" type="sub" xml:lang="fr">Revue mensuelle, littéraire, scientifique &amp; Sociologique</title>
+      <idno type="OCLC" xml:lang="en">4770057679</idno>
+      <idno type="OCLC" xml:lang="en">79440195</idno>
+      <idno type="aucr" xml:lang="en">07201136864</idno>
+      <idno type="shamela" xml:lang="en">26523</idno>
+      <idno type="zenodo" xml:lang="en">45922152</idno>
+      <idno type="URI">oclc_4770057679-i_14</idno>
+      <textLang mainLang="ar"/>
+      <editor ref="viaf:32272677" xml:lang="en">
+         <persName ref="viaf:32272677 oape:pers:878 wiki:Q3123742" xml:lang="ar">
+            <forename xml:lang="ar">محمد</forename>
+            <surname xml:lang="ar">كرد علي</surname>
+         </persName>
+         <persName ref="viaf:32272677 oape:pers:878 wiki:Q3123742" xml:lang="ar-Latn-x-ijmes">
+            <forename xml:lang="ar-Latn-x-ijmes">Muḥammad</forename>
+            <surname xml:lang="ar-Latn-x-ijmes">Kurd ʿAlī</surname>
+         </persName>
+      </editor>
+      <imprint xml:lang="en">
+         <publisher xml:lang="en">
+            <orgName xml:lang="ar">مطبعة الظاهر</orgName>
+            <orgName xml:lang="ar-Latn-x-ijmes">Maṭbaʿa al-Ẓāhir</orgName>
+         </publisher>
+         <publisher xml:lang="en">
+            <orgName xml:lang="ar">المطبعة العمومية</orgName>
+            <orgName xml:lang="ar-Latn-x-ijmes">al-Maṭbaʿa al-ʿUmūmiyya</orgName>
+         </publisher>
+         <pubPlace xml:lang="en">
+            <placeName ref="oape:place:226 geon:360630" xml:lang="ar">القاهرة</placeName>
+            <placeName ref="oape:place:226 geon:360630" xml:lang="ar-Latn-x-ijmes">al-Qāhira</placeName>
+            <placeName ref="oape:place:226 geon:360630" xml:lang="fr">Caire</placeName>
+            <placeName ref="oape:place:226 geon:360630" xml:lang="en">Cairo</placeName>
+         </pubPlace>
+         <date calendar="#cal_gregorian" datingMethod="#cal_gregorian" type="official" when="1907-03-16" xml:lang="ar-Latn-x-ijmes">16 March 1907</date>
+         <date calendar="#cal_islamic" datingMethod="#cal_islamic" type="computed" when="1907-03-16" when-custom="1325-02-01" xml:lang="ar-Latn-x-ijmes">1 Ṣafār 1325</date>
+      </imprint>
+      <biblScope from="2" to="2" unit="volume" xml:lang="en"/>
+      <biblScope from="2" to="2" unit="issue" xml:lang="en"/>
+      <biblScope from="78" to="82" unit="page">78-82</biblScope>
+   </monogr>
+</biblStruct>
+```
+
 # MODS
 
 The [MODS (Metadata Object Description Schema) standard](http://www.loc.gov/standards/mods/) is expressed in XML and maintained by the [Network Development and MARC Standards Office](http://www.loc.gov/marc/ndmso.html) of the Library of Congress with input from users. Compared to BibTeX MODS has he advantage of being properly standardised, human and machine readable, and much better suited to include all the needed bibliographic information.
+
+## example
+
+```xml
+<mods>
+  <titleInfo>
+     <title xml:lang="ar">حكم وخواطر</title>
+  </titleInfo>
+  <typeOfResource>text</typeOfResource>
+  <genre authority="local" xml:lang="en">journalArticle</genre>
+  <genre authority="marcgt" xml:lang="en">article</genre>
+  <name type="personal" xml:lang="ar" valueURI="https://viaf.org/viaf/73935498">
+     <namePart type="family" xml:lang="ar">ارسلان</namePart>
+     <namePart type="given" xml:lang="ar">شكيب</namePart>
+     <role>
+        <roleTerm authority="marcrelator" type="code">aut</roleTerm>
+     </role>
+  </name>
+  <relatedItem type="host">
+     <titleInfo>
+        <title xml:lang="ar">المقتبس</title>
+        <subTitle xml:lang="ar">مجلة أدبية علمية اجتماعية تصدر بالقاهرة في غرة كل شهر عربي</subTitle>
+     </titleInfo>
+     <genre authority="marcgt">journal</genre>
+     <name type="personal" xml:lang="ar" valueURI="https://viaf.org/viaf/32272677">
+        <namePart type="family" xml:lang="ar">كرد علي</namePart>
+        <namePart type="given" xml:lang="ar">محمد</namePart>
+        <role>
+           <roleTerm authority="marcrelator" type="code">edt</roleTerm>
+        </role>
+     </name>
+     <originInfo>
+        <place>
+           <placeTerm type="text" xml:lang="ar"valueURI="https://www.geonames.org/360630">القاهرة</placeTerm>
+        </place>
+        <publisher xml:lang="ar">مطبعة الظاهر</publisher>
+        <publisher xml:lang="ar-Latn-x-ijmes">Maṭbaʿa al-Ẓāhir</publisher>
+        <publisher xml:lang="ar">المطبعة العمومية</publisher>
+        <publisher xml:lang="ar-Latn-x-ijmes">al-Maṭbaʿa al-ʿUmūmiyya</publisher>
+        <dateIssued encoding="w3cdtf">1907-03-16</dateIssued>
+        <dateOther calendar="islamic">1325-02-01</dateOther>
+        <dateOther>1325-02-01 [1907-03-16]</dateOther>
+        <issuance>continuing</issuance>
+     </originInfo>
+     <part>
+        <detail type="volume">
+           <number>2</number>
+        </detail>
+        <detail type="issue">
+           <number>2</number>
+        </detail>
+        <extent unit="pages">
+           <start>78</start>
+           <end>82</end>
+        </extent>
+     </part>
+     <identifier type="BibTeX">oclc_4770057679-i_14-div_6.d1e1249</identifier>
+     <identifier type="OCLC">4770057679</identifier>
+     <identifier type="OCLC">79440195</identifier>
+     <identifier type="aucr">07201136864</identifier>
+     <identifier type="shamela">26523</identifier>
+     <identifier type="zenodo">45922152</identifier>
+     <identifier type="URI">oclc_4770057679-i_14</identifier>
+  </relatedItem>
+  <accessCondition>http://creativecommons.org/licenses/by-sa/4.0/</accessCondition>
+  <location>
+     <url usage="primary display">https://github.com/OpenArabicPE/journal_al-muqtabas/blob/master/tei/oclc_4770057679-i_14.TEIP5.xml#div_6.d1e1249</url>
+     <url usage="primary display">https://OpenArabicPE.github.io/journal_al-muqtabas/tei/oclc_4770057679-i_14.TEIP5.xml#div_6.d1e1249</url>
+  </location>
+  <language>
+     <languageTerm type="code" authorityURI="http://www.iana.org/assignments/language-subtag-registry/language-subtag-registry">ar</languageTerm>
+  </language>
+</mods>
+```
 
 ## MODS as intermediary format
 
@@ -81,14 +228,135 @@ There are, however, a number of problems with the format:
 [^1]:[Wikipedia](https://en.wikipedia.org/wiki/BibTeX) has a better description than the official website.
 [^2]: Preferably validating against the [OpenArabicPE schema](https://github.com/OpenArabicPE/OpenArabicPE_ODD). All conversion functions work with any `<tei:div>` as input but concrete implementation of conversions is dependent on `@type` attribute values.
 
+## example
+
+```bibtex
+@ARTICLE{oclc_4770057679-i_14-div_6.d1e1249, 
+author = {ارسلان, شكيب}, 
+editor = {كرد علي, محمد}, 
+title = {حكم وخواطر}, 
+journal = {المقتبس: مجلة أدبية علمية اجتماعية تصدر بالقاهرة في غرة كل شهر عربي}, 
+volume = {2}, 
+number = {2}, 
+pages = {78-82}, 
+publisher = {مطبعة الظاهر}, 
+publisher = {المطبعة العمومية}, 
+address = {القاهرة}, 
+language = {ar}, 
+day = {16}, 
+month = {3}, 
+year = {1907}, 
+url = {https://github.com/OpenArabicPE/journal_al-muqtabas/blob/master/tei/oclc_4770057679-i_14.TEIP5.xml#div_6.d1e1249}, 
+annote = {digital TEI edition, 2021}, 
+}
+```
+
 # YAML
 
 A basic conversion to YAML was built by mapping the `<tei:biblStruct>` input to fields using [this example](http://blog.martinfenner.org/2013/07/30/citeproc-yaml-for-bibliographies/), which basically mirrors [CSL JSON]() and should work with [Pandoc]() using the [pandoc-citeproc](https://github.com/jgm/pandoc-citeproc/blob/master/man/pandoc-citeproc.1.md) filter.
+
+## example
+
+```yaml
+- id: 'oclc_4770057679-i_14-div_6.d1e1249'
+  title: ' حكم وخواطر'
+  container-title: 'المقتبس: مجلة أدبية علمية اجتماعية تصدر بالقاهرةفي غرة كل شهر عربي'
+  volume: '2'
+  issue: '2'
+  page: '78-82'
+  URL: 
+  - 'https://github.com/OpenArabicPE/journal_al-muqtabas/blob/master/tei/oclc_4770057679-i_14.TEIP5.xml#div_6.d1e1249'
+  - 'https://OpenArabicPE.github.io/journal_al-muqtabas/tei/oclc_4770057679-i_14.TEIP5.xml#div_6.d1e1249'
+  OCLC: 
+  - '4770057679'
+  - '79440195'
+  author: 
+  - family: 'ارسلان'
+    given: 'شكيب'
+
+  editor: 
+  - family: 'كرد علي'
+    given: 'محمد'
+
+  language: ar
+  type: 
+  issued: '1907-03-16'
+```
 
 # Zotero RDF
 
 - full conversion pipelines have been implemented
 - In order to generate stable cite keys, we make use of Better BibTeX and write our identifiers to the 'Citation Key: ' line in the extra field. Note that this line is deleted when dragging and dropping references between libraries or groups. Therefore, we also added a 'BibTeX: ' line with the same content to the extra field
+
+## example
+
+```xml
+<bib:Article rdf:about="#oclc_4770057679-i_14-div_6.d1e1249">
+      <z:itemType>magazineArticle</z:itemType>
+      <dcterms:isPartOf>
+         <bib:Periodical>
+            <prism:volume>2</prism:volume>
+            <prism:number>2</prism:number>
+            <dc:title>المقتبس: مجلة أدبية علمية اجتماعية تصدر بالقاهرة في غرة كل شهر عربي</dc:title>
+         </bib:Periodical>
+      </dcterms:isPartOf>
+      <dc:title>حكم وخواطر</dc:title>
+      <z:shortTitle>حكم وخواطر</z:shortTitle>
+      <bib:authors>
+         <rdf:Seq>
+            <rdf:li>
+               <foaf:Person>
+                  <foaf:surname>ارسلان</foaf:surname>
+                  <foaf:givenName>شكيب</foaf:givenName>
+               </foaf:Person>
+            </rdf:li>
+         </rdf:Seq>
+      </bib:authors>
+      <bib:editors>
+         <rdf:Seq>
+            <rdf:li>
+               <foaf:Person>
+                  <foaf:surname>كرد علي</foaf:surname>
+                  <foaf:givenName>محمد</foaf:givenName>
+               </foaf:Person>
+            </rdf:li>
+         </rdf:Seq>
+      </bib:editors>
+      <dc:publisher>
+         <foaf:Organization>
+            <vcard:adr>
+               <vcard:Address>
+                  <vcard:locality>القاهرة</vcard:locality>
+               </vcard:Address>
+            </vcard:adr>
+            <foaf:name>مطبعة الظاهر المطبعة العمومية</foaf:name>
+         </foaf:Organization>
+      </dc:publisher>
+      <dc:identifier>
+         <dcterms:URI>
+            <rdf:value>https://github.com/OpenArabicPE/journal_al-muqtabas/blob/master/tei/oclc_4770057679-i_14.TEIP5.xml#div_6.d1e1249</rdf:value>
+         </dcterms:URI>
+      </dc:identifier>
+      <dc:identifier>
+         <dcterms:URI>
+            <rdf:value>https://OpenArabicPE.github.io/journal_al-muqtabas/tei/oclc_4770057679-i_14.TEIP5.xml#div_6.d1e1249</rdf:value>
+         </dcterms:URI>
+      </dc:identifier>
+      <bib:pages>78-82</bib:pages>
+      <dc:date>1907-03-16</dc:date>
+      <dc:date>1907-03-16</dc:date>
+      <dc:description>Citation Key: oclc_4770057679-i_14-div_6.d1e1249
+BibTeX Cite Key: oclc_4770057679-i_14-div_6.d1e1249
+date_hijri: 1325-02-01
+oclc: 4770057679
+zenodo: 45922152
+place: القاهرة
+publisher: مطبعة الظاهر
+publisher: المطبعة العمومية
+</dc:description>
+      <z:language>ar</z:language>
+   </bib:Article>
+```
 
 # Zotero JSON: not implemented
 
