@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<biblStruct xmlns="http://www.tei-c.org/ns/1.0">
+   <analytic>
+      <title level="a" xml:lang="ar"> الرسالة العذراء في موازين البلاغة وأدوات الكتابة</title>
+      <author>
+         <persName xmlns:oape="https://openarabicpe.github.io/ns"
+                   xmlns:tei="http://www.tei-c.org/ns/1.0"
+                   xmlns:xi="http://www.w3.org/2001/XInclude"
+                   ref="oape:pers:3008"
+                   xml:lang="ar">
+            <addName type="kunyah" xml:lang="ar">
+               <nameLink xml:lang="ar">ابو</nameLink>اليسر ابراهيم</addName>
+            <addName type="nasab" xml:lang="ar">
+               <nameLink xml:lang="ar">بن</nameLink>محمد<addName type="nasab" xml:lang="ar">
+                  <nameLink xml:lang="ar">بن</nameLink>المدبر</addName>
+            </addName>
+         </persName>
+      </author>
+      <idno type="url">#div_4.d1e1061</idno>
+      <idno type="BibTeX">oclc_4770057679-i_44-div_4.d1e1061</idno>
+   </analytic>
+   <monogr>
+      <title xmlns:oape="https://openarabicpe.github.io/ns"
+             xmlns:tei="http://www.tei-c.org/ns/1.0"
+             xmlns:xi="http://www.w3.org/2001/XInclude"
+             level="j"
+             xml:lang="ar">المقتبس</title>
+      <title xmlns:oape="https://openarabicpe.github.io/ns"
+             xmlns:tei="http://www.tei-c.org/ns/1.0"
+             xmlns:xi="http://www.w3.org/2001/XInclude"
+             level="j"
+             type="sub"
+             xml:lang="ar">مجلة علمية ادبية اجتماعية</title>
+      <title xmlns:oape="https://openarabicpe.github.io/ns"
+             xmlns:tei="http://www.tei-c.org/ns/1.0"
+             xmlns:xi="http://www.w3.org/2001/XInclude"
+             level="j"
+             type="sub"
+             xml:lang="ar">تصدر كل يوم في 
+              <placeName xml:lang="ar">دمشق</placeName>
+              في كل شهر عربي</title>
+      <title xmlns:oape="https://openarabicpe.github.io/ns"
+             xmlns:tei="http://www.tei-c.org/ns/1.0"
+             xmlns:xi="http://www.w3.org/2001/XInclude"
+             level="j"
+             xml:lang="ar-Latn-x-ijmes">[Majallat] al-Muqtabas</title>
+      <title xmlns:oape="https://openarabicpe.github.io/ns"
+             xmlns:tei="http://www.tei-c.org/ns/1.0"
+             xmlns:xi="http://www.w3.org/2001/XInclude"
+             level="j"
+             type="sub"
+             xml:lang="ar-Latn-x-ijmes">Majalla ʿilmiyya adabiyya ijtimāʿiyya tuṣadir bi-Dimashq fī kull shahr ʿarabī</title>
+      <idno xmlns:oape="https://openarabicpe.github.io/ns"
+            xmlns:tei="http://www.tei-c.org/ns/1.0"
+            xmlns:xi="http://www.w3.org/2001/XInclude"
+            type="OCLC"
+            xml:lang="en">4770057679</idno>
+      <idno xmlns:oape="https://openarabicpe.github.io/ns"
+            xmlns:tei="http://www.tei-c.org/ns/1.0"
+            xmlns:xi="http://www.w3.org/2001/XInclude"
+            type="OCLC"
+            xml:lang="en">79440195</idno>
+      <idno xmlns:oape="https://openarabicpe.github.io/ns"
+            xmlns:tei="http://www.tei-c.org/ns/1.0"
+            xmlns:xi="http://www.w3.org/2001/XInclude"
+            type="aucr"
+            xml:lang="en">07201136864</idno>
+      <idno xmlns:oape="https://openarabicpe.github.io/ns"
+            xmlns:tei="http://www.tei-c.org/ns/1.0"
+            xmlns:xi="http://www.w3.org/2001/XInclude"
+            type="shamela"
+            xml:lang="en">26523</idno>
+      <idno xmlns:oape="https://openarabicpe.github.io/ns"
+            xmlns:tei="http://www.tei-c.org/ns/1.0"
+            xmlns:xi="http://www.w3.org/2001/XInclude"
+            type="zenodo"
+            xml:lang="en">45922152</idno>
+      <tei:idno xmlns:tei="http://www.tei-c.org/ns/1.0" type="URI">oclc_4770057679-i_44</tei:idno>
+      <tei:textLang xmlns:tei="http://www.tei-c.org/ns/1.0" mainLang="ar"/>
+      <editor xmlns:oape="https://openarabicpe.github.io/ns"
+              xmlns:tei="http://www.tei-c.org/ns/1.0"
+              xmlns:xi="http://www.w3.org/2001/XInclude"
+              ref="viaf:32272677"
+              xml:lang="en">
+         <persName ref="viaf:32272677 oape:pers:878 wiki:Q3123742" xml:lang="ar">
+            <forename xml:lang="ar">محمد</forename>
+            <surname xml:lang="ar">كرد علي</surname>
+         </persName>
+         <persName ref="viaf:32272677 oape:pers:878 wiki:Q3123742"
+                   xml:lang="ar-Latn-x-ijmes">
+            <forename xml:lang="ar-Latn-x-ijmes">Muḥammad</forename>
+            <surname xml:lang="ar-Latn-x-ijmes">Kurd ʿAlī</surname>
+         </persName>
+      </editor>
+      <imprint xmlns:oape="https://openarabicpe.github.io/ns"
+               xmlns:tei="http://www.tei-c.org/ns/1.0"
+               xmlns:xi="http://www.w3.org/2001/XInclude"
+               xml:lang="en">
+         <publisher xml:lang="en">
+            <orgName xml:lang="ar">مطبعة المقتبس</orgName>
+            <orgName xml:lang="ar-Latn-x-ijmes">Maṭbaʿa al-Muqtabas</orgName>
+         </publisher>
+         <pubPlace xml:lang="en">
+            <placeName ref="oape:place:61 geon:170654" xml:lang="ar">دمشق</placeName>
+            <placeName ref="oape:place:61 geon:170654" xml:lang="en">Damascus</placeName>
+         </pubPlace>
+         <date calendar="#cal_islamic"
+               datingMethod="#cal_islamic"
+               type="official"
+               when="1909-09-16"
+               when-custom="1327-09-01"
+               xml:lang="ar-Latn-x-ijmes">1 Ram 1327</date>
+      </imprint>
+      <biblScope xmlns:oape="https://openarabicpe.github.io/ns"
+                 xmlns:tei="http://www.tei-c.org/ns/1.0"
+                 xmlns:xi="http://www.w3.org/2001/XInclude"
+                 from="4"
+                 to="4"
+                 unit="volume"
+                 xml:lang="en"/>
+      <biblScope xmlns:oape="https://openarabicpe.github.io/ns"
+                 xmlns:tei="http://www.tei-c.org/ns/1.0"
+                 xmlns:xi="http://www.w3.org/2001/XInclude"
+                 from="9"
+                 to="9"
+                 unit="issue"
+                 xml:lang="en"/>
+      <biblScope unit="page" from="551" to="558">551-558</biblScope>
+   </monogr>
+</biblStruct>
