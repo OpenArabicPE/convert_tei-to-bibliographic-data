@@ -19,4 +19,8 @@
         <xsl:variable name="v_temp" select="tokenize(base-uri(), '/')[last()]"/>
         <xsl:value-of select="replace($v_temp, '^(.+?)(\..*)*$', '$1')"/>
     </xsl:variable>
+    <!-- file IDs -->
+    <xsl:variable name="v_id-file" select="if(tei:TEI/@xml:id) then(tei:TEI/@xml:id) else(substring-before(tokenize(base-uri(),'/')[last()],'.TEIP5'))"/>
+    <xsl:variable name="v_url-file" select="base-uri()"/>
+    <xsl:variable name="v_url-base" select="replace($v_url-file, '^(.+)/([^/]+?)$', '$1')"/>
 </xsl:stylesheet>
