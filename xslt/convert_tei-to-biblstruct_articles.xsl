@@ -23,7 +23,9 @@
             <!-- prevent output for sections of articles -->
             <xsl:when test="ancestor::tei:div[@type='item']"/>
             <xsl:when test="@type = ('section', 'item')">
+                <xsl:result-document href="{$v_base-directory}metadata/{concat($vgFileId,'-',@xml:id)}.biblstruct.TEIP5.xml">
                        <xsl:copy-of select="oape:bibliography-tei-div-to-biblstruct(.)"/>
+                </xsl:result-document>
             </xsl:when>
             <xsl:otherwise/>
         </xsl:choose>
