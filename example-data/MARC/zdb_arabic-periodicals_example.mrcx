@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<searchRetrieveResponse xmlns="http://www.loc.gov/zing/srw/">
+  <version>1.1</version>
+  <numberOfRecords>244</numberOfRecords>
+  <records>
+    <record>
+      <recordSchema>MARC21-xml</recordSchema>
+      <recordPacking>xml</recordPacking>
+      <recordData>
+        <record type="Bibliographic" xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>00000nas a2200000 c 4500</leader>
+          <controlfield tag="001">1244783293</controlfield>
+          <controlfield tag="003">DE-101</controlfield>
+          <controlfield tag="005">20211102074851.0</controlfield>
+          <controlfield tag="007">cr|cn|024|paap</controlfield>
+          <controlfield tag="008">211101d19061914ua u||p|o ||| 0||||1ara c</controlfield>
+          <datafield ind1="7" ind2=" " tag="016">
+            <subfield code="2">DE-101</subfield>
+            <subfield code="a">1244783293</subfield>
+          </datafield>
+          <datafield ind1="7" ind2=" " tag="016">
+            <subfield code="2">DE-600</subfield>
+            <subfield code="a">3099220-5</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(DE-599)ZDB3099220-5</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="a">0003</subfield>
+            <subfield code="b">ger</subfield>
+            <subfield code="c">DE-101</subfield>
+            <subfield code="d">0003</subfield>
+            <subfield code="e">rda</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="041">
+            <subfield code="a">ara</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="044">
+            <subfield code="c">XC-EG</subfield>
+            <subfield code="c">XB-SY</subfield>
+          </datafield>
+          <datafield ind1="7" ind2="4" tag="082">
+            <subfield code="a">070</subfield>
+            <subfield code="q">DE-600</subfield>
+            <subfield code="2">23sdnb</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="090">
+            <subfield code="n">dm</subfield>
+            <subfield code="n">ld</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="245">
+            <subfield code="a">&#152;al-&#156; muqtabas</subfield>
+            <subfield code="b">maǧalla adabīya ʿilmīya iǧtimāʿiya = &#152;al-&#156; moktabas : revue mensuelle, littéraire, scientifique et sociologique</subfield>
+          </datafield>
+          <datafield ind1="1" ind2="1" tag="246">
+            <subfield code="a">&#152;al-&#156; moktabas</subfield>
+            <subfield code="b">revue mensuelle, littéraire, scientifique et sociologique</subfield>
+          </datafield>
+          <datafield ind1="3" ind2="1" tag="264">
+            <subfield code="a">ad-Dimašq</subfield>
+            <subfield code="b">[Verlag nicht ermittelbar]</subfield>
+            <subfield code="c">1906-1914</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="1" tag="264">
+            <subfield code="a">al-Qāhira</subfield>
+            <subfield code="b">[Verlag nicht ermittelbar]</subfield>
+            <subfield code="c">1906-1908</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="336">
+            <subfield code="a">Text</subfield>
+            <subfield code="b">txt</subfield>
+            <subfield code="2">rdacontent</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="337">
+            <subfield code="a">Computermedien</subfield>
+            <subfield code="b">c</subfield>
+            <subfield code="2">rdamedia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="338">
+            <subfield code="a">Online-Ressource</subfield>
+            <subfield code="b">cr</subfield>
+            <subfield code="2">rdacarrier</subfield>
+          </datafield>
+          <datafield ind1="0" ind2=" " tag="362">
+            <subfield code="a">1.1906/07 - 8.1914</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="0" tag="363">
+            <subfield code="8">1.1\x</subfield>
+            <subfield code="a">1</subfield>
+            <subfield code="i">1906/07</subfield>
+          </datafield>
+          <datafield ind1="1" ind2="0" tag="363">
+            <subfield code="8">1.2\x</subfield>
+            <subfield code="a">8</subfield>
+            <subfield code="i">1914</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="500">
+            <subfield code="a">Mehr nicht digitalisiert</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="500">
+            <subfield code="a">Reproduktion</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="530">
+            <subfield code="a"
+              >Online-Ausgabe: Halle, Saale : Universitäts- und Landesbibliothek Sachsen-Anhalt, Jahr. Online-Ressource. (Zeitschriften digital aus der Universitäts- und Landesbibliothek Sachsen-Anhalt, Halle)</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="533">
+            <subfield code="7">d20212021</subfield>
+            <subfield code="a">Online-Ausgabe</subfield>
+            <subfield code="b">Halle, Saale</subfield>
+            <subfield code="c">Universitäts- und Landesbibliothek Sachsen-Anhalt</subfield>
+            <subfield code="e">Online-Ressource</subfield>
+            <subfield code="f">Zeitschriften digital aus der Universitäts- und Landesbibliothek Sachsen-Anhalt, Halle</subfield>
+          </datafield>
+          <datafield ind1="1" ind2=" " tag="583">
+            <subfield code="a">Archivierung/Langzeitarchivierung gewährleistet</subfield>
+            <subfield code="5">DE-3</subfield>
+            <subfield code="2">pdager</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="655">
+            <subfield code="0">(DE-588)4067488-5</subfield>
+            <subfield code="0">https://d-nb.info/gnd/4067488-5</subfield>
+            <subfield code="0">(DE-101)040674886</subfield>
+            <subfield code="a">Zeitschrift</subfield>
+            <subfield code="2">gnd-content</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="8" tag="776">
+            <subfield code="i">Elektronische Reproduktion von</subfield>
+            <subfield code="t">&#152;al-&#156; muqtabas</subfield>
+            <subfield code="d">ad-Dimašq, 1906-1914</subfield>
+            <subfield code="w">(DE-600)1002176-0</subfield>
+            <subfield code="w">(DE-101)015356272</subfield>
+          </datafield>
+          <datafield ind1="4" ind2=" " tag="856">
+            <subfield code="u">https://opendata.uni-halle.de/handle/</subfield>
+            <subfield code="x">Digitalisierung; 1.1906/07 - 8.1914</subfield>
+            <subfield code="z">kostenfrei</subfield>
+          </datafield>
+          <datafield ind1="4" ind2=" " tag="856">
+            <subfield code="u">http://dx.doi.org/</subfield>
+            <subfield code="x">Digitalisierung; 1.1906/07 - 8.1914</subfield>
+            <subfield code="z">kostenfrei</subfield>
+          </datafield>
+        </record>
+      </recordData>
+      <recordPosition>244</recordPosition>
+    </record>
+  </records>
+  <nextRecordPosition>245</nextRecordPosition>
+  <echoedSearchRetrieveRequest>
+    <version>1.1</version>
+    <query>spr=ara and eje&lt;=1908 sortby eje/sort.ascending</query>
+    <xQuery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+    <startRecord>201</startRecord>
+    <maximumRecords>100</maximumRecords>
+    <recordSchema>MARC21-xml</recordSchema>
+  </echoedSearchRetrieveRequest>
+</searchRetrieveResponse>
