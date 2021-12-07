@@ -131,7 +131,7 @@
             <xsl:apply-templates select="$v_record//marc:datafield[@tag = '500'][1]/marc:subfield"/>
             <xsl:apply-templates select="$v_record//marc:datafield[@tag = '866'][@ind2 = '1']/marc:subfield[@code = 'a']" mode="m_notes"/>
             <xsl:apply-templates select="$v_record//marc:datafield[@tag = '362'][@ind1 = '0']/marc:subfield[@code = 'a']" mode="m_notes"/>
-            <xsl:apply-templates select="$v_record//marc:datafield[@tag = '924']/marc:subfield[@code = 'b']" mode="m_notes">
+            <xsl:apply-templates select="$v_record//marc:datafield[@tag = '924'][1]" mode="m_notes">
                 <xsl:with-param name="p_id-record" select="$v_id-record"/>
             </xsl:apply-templates>
         </xsl:element>
@@ -669,6 +669,17 @@
         </xsl:choose>
     </xsl:template>
     
+    <xsl:template match="marc:datafield[@tag = '924']" mode="m_notes">
+        <xsl:element name="note">
+            <xsl:attribute name="type" select="'holdings'"/>
+            <xsl:element name="list">
+                <!-- initial item -->
+                <xsl:apply-templates select="marc:subfield[@code = 'b']" mode="m_notes"/>
+                <!-- following items -->
+                <xsl:apply-templates select="following-sibling::marc:datafield[@tag = '924']/marc:subfield[@code = 'b']" mode="m_notes"/>
+            </xsl:element>
+        </xsl:element>
+    </xsl:template>
     <xsl:template match="marc:subfield" mode="m_notes">
         <xsl:param name="p_id-record">
             <!-- returns an <tei:idno> element -->
@@ -688,26 +699,19 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
+        <!-- AUB catalogue -->
+        <xsl:choose>
+        <xsl:when test="$p_id-record/tei:idno/@type = 'LEAUB'">
         <xsl:element name="note">
             <xsl:attribute name="type" select="'holdings'"/>
             <xsl:element name="list">
                 <xsl:element name="item">
                         <xsl:element name="label">
-                            <!-- AUB catalogue -->
-                    <xsl:if test="$p_id-record/tei:idno/@type = 'LEAUB'">
                             <xsl:element name="rs">
                                 <xsl:attribute name="ref" select="'#hAUB'"/>
                                 <xsl:attribute name="xml:lang" select="'en'"/>
                                 <xsl:text>AUB</xsl:text>
                             </xsl:element>
-                    </xsl:if>
-                            <!-- ZDB catalogue: I have no idea what to test for -->
-                            <xsl:if test="$p_id-record/tei:idno/@type = 'zdb'">
-                            <xsl:element name="rs">
-                                <xsl:attribute name="xml:lang" select="'en'"/>
-                                <xsl:text>ZDB</xsl:text>
-                            </xsl:element>
-                    </xsl:if>
                         </xsl:element>
                         <xsl:text>: </xsl:text>
                     <xsl:element name="ab">
@@ -735,6 +739,15 @@
                 </xsl:element>
             </xsl:element>
         </xsl:element>
+        </xsl:when>
+        </xsl:choose>
+        <!-- ZDB catalogue: I have no idea what to test for -->
+                            <xsl:if test="$p_id-record/tei:idno/@type = 'zdb'">
+                            <xsl:element name="rs">
+                                <xsl:attribute name="xml:lang" select="'en'"/>
+                                <xsl:text>ZDB</xsl:text>
+                            </xsl:element>
+                    </xsl:if>
     </xsl:template>
     
     <xsl:template name="t_convert-lang-codes">
