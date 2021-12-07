@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet 
-    exclude-result-prefixes="#all" version="3.0" 
-    xmlns:marc="http://www.loc.gov/MARC21/slim" 
-    xmlns:oape="https://openarabicpe.github.io/ns"
-    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
-    xmlns:tei="http://www.tei-c.org/ns/1.0" 
-    xmlns="http://www.tei-c.org/ns/1.0" 
-    xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" 
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-    xpath-default-namespace="http://www.tei-c.org/ns/1.0">
+<xsl:stylesheet exclude-result-prefixes="#all" version="3.0" xmlns="http://www.tei-c.org/ns/1.0" xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:oape="https://openarabicpe.github.io/ns"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.tei-c.org/ns/1.0">
     <!-- This stylesheet takes MARC21 records in XML serialisation as input and generates TEI XML as output -->
     <!-- documentation of the MARC21 field codes can be found here: https://marc21.ca/M21/MARC-Field-Codes.html -->
-
     <!-- to do:
         - urgent: establish the level of a title in monogr
         - there is a difference between record and item level but they appear to be mixed in the MARC XML
@@ -39,7 +30,6 @@
     <!-- these parameters are placeholders until I established a way of pulling language information from the source -->
     <xsl:param name="p_lang-1" select="'ar'"/>
     <xsl:param name="p_lang-2" select="'ar-Latn-x-ijmes'"/>
-    
     <!-- individual records: pull approach -->
     <xsl:template match="marc:record">
         <xsl:variable name="v_analytic">
@@ -53,7 +43,7 @@
             </xsl:choose>
         </xsl:variable>
         <xsl:variable name="v_id-record">
-            <xsl:apply-templates select="marc:datafield[@tag = ('016')][@ind1 = '7']/marc:subfield[@code  = 'a']"/>
+            <xsl:apply-templates select="marc:datafield[@tag = ('016')][@ind1 = '7']/marc:subfield[@code = 'a']"/>
         </xsl:variable>
         <!-- variable to potentially pull a record from another URL based on the input record -->
         <xsl:variable name="v_record">
@@ -95,10 +85,10 @@
                 </xsl:if>
                 <!-- IDs -->
                 <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('019', '020', '022', '035', '856')]/marc:subfield"/>
-                <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('084')]/marc:subfield[@code  = 'a']"/>
-                <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('016')][@ind1 = '7']/marc:subfield[@code  = 'a']"/>
-                <!-- AUB record number -->
-                <xsl:apply-templates select="$v_record//marc:datafield[@tag = '776'][@ind2 = '8']/marc:subfield[@code  = 'w']"/>
+                <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('084')]/marc:subfield[@code = 'a']"/>
+                <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('016')][@ind1 = '7']/marc:subfield[@code = 'a']"/>
+                <!-- AUB record number at 776? Nope! this refers to related publications -->
+                <!--<xsl:apply-templates select="$v_record//marc:datafield[@tag = '776'][@ind2 = '8']/marc:subfield[@code = 'w']"/>-->
                 <xsl:if test="$v_analytic = false()">
                     <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('024')]/marc:subfield"/>
                 </xsl:if>
@@ -129,9 +119,12 @@
             <!-- notes -->
             <!-- the infamous field 500: notes -->
             <xsl:apply-templates select="$v_record//marc:datafield[@tag = '500'][1]/marc:subfield"/>
-            <xsl:apply-templates select="$v_record//marc:datafield[@tag = '866'][@ind2 = '1']/marc:subfield[@code = 'a']" mode="m_notes"/>
-            <xsl:apply-templates select="$v_record//marc:datafield[@tag = '362'][@ind1 = '0']/marc:subfield[@code = 'a']" mode="m_notes"/>
-            <xsl:apply-templates select="$v_record//marc:datafield[@tag = '924'][1]" mode="m_notes">
+            <!-- AUB holdings -->
+            <xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '866'][@ind2 = '1']/marc:subfield[@code = 'a']"/>
+            <!-- holdings in ZDB record served over SRU: has been replaced -->
+            <!--<xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '362'][@ind1 = '0']/marc:subfield[@code = 'a']"/>-->
+            <!-- ZDB holding information -->
+            <xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '924'][1]">
                 <xsl:with-param name="p_id-record" select="$v_id-record"/>
             </xsl:apply-templates>
         </xsl:element>
@@ -216,23 +209,23 @@
                 <xsl:variable name="v_auth-id" select="parent::marc:datafield/marc:subfield[@code = '2']"/>
                 <xsl:variable name="v_auth">
                     <xsl:choose>
-                            <xsl:when test="$v_auth-id = 'DE-600'">
-                                <xsl:text>zdb</xsl:text>
-                            </xsl:when>
+                        <xsl:when test="$v_auth-id = 'DE-600'">
+                            <xsl:text>zdb</xsl:text>
+                        </xsl:when>
                         <!-- even though   DE-101 is the GND, these IDs cannot be found in the GND catalogue-->
                         <xsl:otherwise>
                             <xsl:text>NA</xsl:text>
                         </xsl:otherwise>
-                        </xsl:choose>
+                    </xsl:choose>
                 </xsl:variable>
                 <xsl:if test="$v_auth != 'NA'">
                     <xsl:element name="idno">
-                    <xsl:attribute name="type" select="$v_auth"/>
-                    <xsl:value-of select="$v_content"/>
-                </xsl:element>
+                        <xsl:attribute name="type" select="$v_auth"/>
+                        <xsl:value-of select="$v_content"/>
+                    </xsl:element>
                 </xsl:if>
             </xsl:when>
-            <xsl:when test="$v_tag = ( '020', '022', '024') and $v_code = 'a'">
+            <xsl:when test="$v_tag = ('020', '022', '024') and $v_code = 'a'">
                 <xsl:element name="idno">
                     <xsl:attribute name="type">
                         <xsl:choose>
@@ -251,7 +244,7 @@
                     <xsl:value-of select="$v_content"/>
                 </xsl:element>
             </xsl:when>
-            <xsl:when test="($v_tag = ('019', '035') and $v_code = 'a') or ($v_tag = '776' and $v_ind2 = '8' and $v_code = 'w')">
+            <xsl:when test="($v_tag = ('019', '035') and $v_code = 'a') or ($v_tag = ('775', '776') and $v_ind2 = '8' and $v_code = 'w')">
                 <xsl:variable name="v_temp">
                     <xsl:call-template name="t_normalize-authority-id">
                         <xsl:with-param name="p_input" select="$v_content"/>
@@ -292,14 +285,13 @@
 	+ $5 - Institution to which field applies (R) 
 	+ $6 - Linkage (NR) 
 	+ $8 - Field link and sequence number (R)
-                -->
-            </xsl:when>
+                --> </xsl:when>
             <!-- 084: other classification number -->
             <xsl:when test="$v_tag = '084' and $v_code = 'a'">
                 <xsl:element name="idno">
-                        <xsl:attribute name="type">
-                            <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = '2']"/>
-                        </xsl:attribute>
+                    <xsl:attribute name="type">
+                        <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = '2']"/>
+                    </xsl:attribute>
                     <xsl:value-of select="$v_content"/>
                 </xsl:element>
             </xsl:when>
@@ -313,7 +305,6 @@
                     <xsl:value-of select="$v_content"/>
                 </xsl:element>
             </xsl:when>
-            
             <!-- 040: cataloging source
                 - $a - Original cataloging agency (NR)
                 - $b - Language of cataloging (NR)
@@ -583,7 +574,7 @@
             <!-- 541 acquisition history -->
             <!-- 590: availability -->
             <!-- 655 - INDEX TERM-GENRE/FORM -->
-            <xsl:when test="$v_tag = '655' and $v_code = '0'" >
+            <xsl:when test="$v_tag = '655' and $v_code = '0'">
                 <xsl:choose>
                     <xsl:when test="$v_content = 'https://d-nb.info/gnd/4067510-5'">
                         <xsl:attribute name="type" select="'periodical'"/>
@@ -624,6 +615,33 @@
             </xsl:when>
             <!-- 866: extent of collection -->
             <!-- at least at AUB, this is treated like a freeform field and should probably be translated into a note -->
+            <!-- 924: holdings referenced in ZDB -->
+            <xsl:when test="$v_tag = '924'">
+                <xsl:choose>
+                    <xsl:when test="$v_code = ('q', 'v')">
+                        <xsl:element name="date">
+                            <xsl:attribute name="type">
+                                <xsl:choose>
+                                    <xsl:when test="$v_code = 'q'">
+                                        <xsl:text>onset</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="$v_code = 'v'">
+                                        <xsl:text>terminus</xsl:text>
+                                    </xsl:when>
+                                </xsl:choose>
+                            </xsl:attribute>
+                            <xsl:value-of select="$v_content"/>
+                        </xsl:element>
+                    </xsl:when>
+                    <xsl:when test="$v_code = 'g'">
+                        <xsl:element name="idno">
+                            <xsl:attribute name="type" select="'classmark'"/>
+                            <xsl:attribute name="subtype" select="parent::marc:datafield/marc:subfield[@code = 'b']"/>
+                            <xsl:value-of select="$v_content"/>
+                        </xsl:element>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:when>
             <!-- 936: -->
             <xsl:when test="($v_tag = '936') and ($v_ind1 = 'u') and ($v_ind2 = 'w')">
                 <xsl:choose>
@@ -668,28 +686,35 @@
             </xsl:when>
         </xsl:choose>
     </xsl:template>
-    
     <xsl:template match="marc:datafield[@tag = '924']" mode="m_notes">
+        <xsl:param name="p_id-record"/>
         <xsl:element name="note">
             <xsl:attribute name="type" select="'holdings'"/>
             <xsl:element name="list">
                 <!-- initial item -->
-                <xsl:apply-templates select="marc:subfield[@code = 'b']" mode="m_notes"/>
+                <xsl:apply-templates mode="m_notes" select="marc:subfield[@code = 'b']">
+                    <xsl:with-param name="p_id-record" select="$p_id-record"/>
+                </xsl:apply-templates>
                 <!-- following items -->
-                <xsl:apply-templates select="following-sibling::marc:datafield[@tag = '924']/marc:subfield[@code = 'b']" mode="m_notes"/>
+                <xsl:apply-templates mode="m_notes" select="following-sibling::marc:datafield[@tag = '924']/marc:subfield[@code = 'b']">
+                    <xsl:with-param name="p_id-record" select="$p_id-record"/>
+                </xsl:apply-templates>
             </xsl:element>
         </xsl:element>
     </xsl:template>
     <xsl:template match="marc:subfield" mode="m_notes">
         <xsl:param name="p_id-record">
             <!-- returns an <tei:idno> element -->
-            <!-- for other catalogues this field is seemingly used for related publications -->
-            <xsl:apply-templates select="../../marc:datafield[@tag = '776'][@ind2 = '8']/marc:subfield[@code  = 'w']"/>
+            <!-- for other catalogues field 776 is seemingly used for related publications
+                check field 775 -->
+            <xsl:apply-templates select="ancestor::marc:record[1]/marc:datafield[@tag = '776'][@ind2 = '8']/marc:subfield[@code = 'w']"/>
+            <xsl:apply-templates select="ancestor::marc:record[1]/marc:datafield[@tag = '775'][@ind2 = '8']/marc:subfield[@code = 'w']"/>
         </xsl:param>
         <xsl:variable name="v_url-catalogue">
             <xsl:choose>
                 <xsl:when test="$p_id-record/tei:idno/@type = 'LEAUB'">
-                    <xsl:value-of select="concat('https://libcat.aub.edu.lb/record=', substring($p_id-record/tei:idno[@type = 'LEAUB'][1],1, string-length($p_id-record/tei:idno[@type = 'LEAUB'][1])-1))"/>
+                    <xsl:value-of
+                        select="concat('https://libcat.aub.edu.lb/record=', substring($p_id-record/tei:idno[@type = 'LEAUB'][1], 1, string-length($p_id-record/tei:idno[@type = 'LEAUB'][1]) - 1))"/>
                 </xsl:when>
                 <xsl:when test="$p_id-record/tei:idno/@type = 'zdb'">
                     <xsl:value-of select="concat('https://zdb-katalog.de/title.xhtml?', $p_id-record/tei:idno[@type = 'zdb'][1])"/>
@@ -701,55 +726,94 @@
         </xsl:variable>
         <!-- AUB catalogue -->
         <xsl:choose>
-        <xsl:when test="$p_id-record/tei:idno/@type = 'LEAUB'">
-        <xsl:element name="note">
-            <xsl:attribute name="type" select="'holdings'"/>
-            <xsl:element name="list">
-                <xsl:element name="item">
-                        <xsl:element name="label">
-                            <xsl:element name="rs">
-                                <xsl:attribute name="ref" select="'#hAUB'"/>
+            <xsl:when test="$p_id-record/tei:idno/@type = 'LEAUB'">
+                <xsl:element name="note">
+                    <xsl:attribute name="type" select="'holdings'"/>
+                    <xsl:element name="list">
+                        <xsl:element name="item">
+                            <xsl:element name="label">
                                 <xsl:attribute name="xml:lang" select="'en'"/>
-                                <xsl:text>AUB</xsl:text>
+                                <xsl:element name="placeName">
+                                    <xsl:text>Beirut</xsl:text>
+                                </xsl:element>
+                                <xsl:text>, </xsl:text>
+                                <xsl:element name="orgName">
+                                    <xsl:attribute name="ref" select="'#hAUB'"/>
+                                    <xsl:text>AUB</xsl:text>
+                                </xsl:element>
+                            </xsl:element>
+                            <xsl:text>: </xsl:text>
+                            <xsl:element name="ab">
+                                <xsl:attribute name="xml:lang">
+                                    <xsl:choose>
+                                        <xsl:when test="$p_id-record/tei:idno/@type = 'LEAUB'">
+                                            <xsl:text>ar</xsl:text>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:text>und-Latn</xsl:text>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:attribute>
+                                <xsl:apply-templates mode="m_plain-text"/>
+                            </xsl:element>
+                            <xsl:if test="$v_url-catalogue != 'NA'">
+                                <xsl:element name="ab">
+                                    <xsl:attribute name="xml:lang" select="'en'"/>
+                                    <xsl:element name="ref">
+                                        <xsl:attribute name="target" select="$v_url-catalogue"/>
+                                        <xsl:text>catalogue</xsl:text>
+                                    </xsl:element>
+                                </xsl:element>
+                            </xsl:if>
+                        </xsl:element>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:element name="item">
+                    <xsl:if test="$p_id-record/tei:idno/@type = 'zdb'">
+                        <xsl:attribute name="source" select="$v_url-catalogue"/>
+                        <xsl:element name="label">
+                            <!-- institution -->
+                            <!-- location -->
+                            <xsl:element name="placeName">
+                                <xsl:value-of select="parent::marc:datafield/marc:subfield[@code = 'c']"/>
+                            </xsl:element>
+                            <xsl:text>, </xsl:text>
+                            <xsl:element name="orgName">
+                                <xsl:value-of select="parent::marc:datafield/marc:subfield[@code = 'b']"/>
                             </xsl:element>
                         </xsl:element>
-                        <xsl:text>: </xsl:text>
-                    <xsl:element name="ab">
-                        <xsl:attribute name="xml:lang">
-                            <xsl:choose>
-                                <xsl:when test="$p_id-record/tei:idno/@type = 'LEAUB'">
-                                    <xsl:text>ar</xsl:text>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:text>und-Latn</xsl:text>
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </xsl:attribute>
-                        <xsl:apply-templates mode="m_plain-text"/>
-                    </xsl:element>
-                    <xsl:if test="$v_url-catalogue != 'NA'">
+                        <!-- machine readible holding information -->
+                        <xsl:element name="ab">
+                            <xsl:element name="bibl">
+                                <!-- classmark -->
+                                <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'g']"/>
+                                <!-- holding: dates -->
+                                <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'q']"/>
+                                <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'v']"/>
+                            </xsl:element>
+                        </xsl:element>
+                        <!-- source information -->
                         <xsl:element name="ab">
                             <xsl:attribute name="xml:lang" select="'en'"/>
-                        <xsl:element name="ref">
-                            <xsl:attribute name="target" select="$v_url-catalogue"/>
-                            <xsl:text>catalogue</xsl:text>
-                        </xsl:element>
+                            <xsl:text>source: </xsl:text>
+                            <xsl:element name="rs">
+                                <xsl:attribute name="xml:lang" select="'de'"/>
+                                <xsl:text>ZDB</xsl:text>
+                            </xsl:element>
+                            <xsl:text> (</xsl:text>
+                            <xsl:element name="ref">
+                                <xsl:attribute name="target" select="$v_url-catalogue"/>
+                                <xsl:text>catalogue</xsl:text>
+                            </xsl:element>
+                            <xsl:text>)</xsl:text>
                         </xsl:element>
                     </xsl:if>
                 </xsl:element>
-            </xsl:element>
-        </xsl:element>
-        </xsl:when>
+            </xsl:otherwise>
         </xsl:choose>
-        <!-- ZDB catalogue: I have no idea what to test for -->
-                            <xsl:if test="$p_id-record/tei:idno/@type = 'zdb'">
-                            <xsl:element name="rs">
-                                <xsl:attribute name="xml:lang" select="'en'"/>
-                                <xsl:text>ZDB</xsl:text>
-                            </xsl:element>
-                    </xsl:if>
     </xsl:template>
-    
     <xsl:template name="t_convert-lang-codes">
         <xsl:param name="p_code"/>
         <xsl:variable name="v_iso639-2_bcp47"
@@ -765,31 +829,31 @@
         <xsl:choose>
             <xsl:when test="matches($p_input, '^\(.+\).+$')">
                 <xsl:variable name="v_auth" select="replace($p_input, '^\((.+)\).+$', '$1')"/>
-        <xsl:variable name="v_id" select="replace($p_input, '^\(.+\)(.+)$', '$1')"/>
-        <xsl:choose>
-            <!-- GND -->
-            <xsl:when test="$v_auth = 'DE-588'">
-                <xsl:value-of select="concat('gnd:', $v_id)"/>
-            </xsl:when>
-            <xsl:when test="$v_auth = 'DE-599'">
-                <xsl:value-of select="concat('zdb:', $v_id)"/>
-            </xsl:when>
-            <xsl:when test="$v_auth = 'DE-600'">
-                <xsl:value-of select="concat('zdb:', $v_id)"/>
-            </xsl:when>
-            <!-- worldcat -->
-            <xsl:when test="$v_auth = 'OCoLC'">
-                <xsl:value-of select="concat('oclc:', $v_id)"/>
-            </xsl:when>
-            <xsl:when test="$v_auth = 'LEAUB'">
-                <xsl:value-of select="concat($v_auth, ':', $v_id)"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:message>
-                    <xsl:value-of select="$v_error-message"/>
-                </xsl:message>
-            </xsl:otherwise>
-        </xsl:choose>
+                <xsl:variable name="v_id" select="replace($p_input, '^\(.+\)(.+)$', '$1')"/>
+                <xsl:choose>
+                    <!-- GND -->
+                    <xsl:when test="$v_auth = 'DE-588'">
+                        <xsl:value-of select="concat('gnd:', $v_id)"/>
+                    </xsl:when>
+                    <xsl:when test="$v_auth = 'DE-599'">
+                        <xsl:value-of select="concat('zdb:', $v_id)"/>
+                    </xsl:when>
+                    <xsl:when test="$v_auth = 'DE-600'">
+                        <xsl:value-of select="concat('zdb:', $v_id)"/>
+                    </xsl:when>
+                    <!-- worldcat -->
+                    <xsl:when test="$v_auth = 'OCoLC'">
+                        <xsl:value-of select="concat('oclc:', $v_id)"/>
+                    </xsl:when>
+                    <xsl:when test="$v_auth = 'LEAUB'">
+                        <xsl:value-of select="concat($v_auth, ':', $v_id)"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:message>
+                            <xsl:value-of select="$v_error-message"/>
+                        </xsl:message>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
             <xsl:when test="matches($p_input, '^(\D+)(\d+)\s*$')">
                 <xsl:variable name="v_auth" select="replace($p_input, '^(\D+)(\d+)\s*$', '$1')"/>
@@ -800,8 +864,8 @@
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:message>
-                    <xsl:value-of select="$v_error-message"/>
-                </xsl:message>
+                            <xsl:value-of select="$v_error-message"/>
+                        </xsl:message>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
