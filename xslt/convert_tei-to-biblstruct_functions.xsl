@@ -9,6 +9,9 @@
     <xsl:include href="parameters.xsl"/>
     
     <!-- are translators covered? -->
+    <!-- problems
+        - multiple surnames: e.g. Saʿīd al-Khūrī al-Shartūnī
+    -->
     
 <!--    <xsl:param name="p_include-section-titles" select="true()"/>-->
     <!-- this stylesheets takes a <tei:div> as input and generates a <biblStruct> -->

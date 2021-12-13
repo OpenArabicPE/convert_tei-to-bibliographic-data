@@ -24,6 +24,8 @@
             + figure out holding information: field 924, which is not part of the data delivered over SRU
                 - however, 924 is included in MARC XML available at http://ld.zdb-services.de/data/{ZDB ID}.plus-1.mrcx
             + decomposed UTF-8: changed into composed UTF-8 upon writing the output file
+        - HathiTrust
+            + uses field 974 for holding information on individual items/ copies
     -->
     <xsl:include href="functions.xsl"/>
     <xsl:include href="parameters.xsl"/>
