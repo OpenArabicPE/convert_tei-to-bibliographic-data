@@ -55,10 +55,35 @@
       </sourceDesc>
     </fileDesc>
   </teiHeader>
+  <standOff>
+    <listBibl>
+      <biblStruct oape:frequency="fortnightly" subtype="newspaper" type="periodical">
+            <monogr>
+               <title change="#d9e71" level="j" ref="jaraid:bibl:t1r2359 oape:bibl:1489" resp="#xslt" xml:lang="ar">الارزة</title>
+               <title level="j" type="sub" xml:lang="ar">جريدة علمية أدبية فكاهية تصدر مرتين في الشهر</title>
+               <title level="s">Student Magazines, 1899-1934</title>
+               <idno type="AUBNO">AA:4.2.1</idno>
+               <imprint>
+                  <pubPlace> <placeName change="#d9e44" ref="geon:276781 jaraid:place:2 oape:place:26">بيروت</placeName> </pubPlace>
+                  <publisher>الكلية السورية الإنجيلية</publisher>
+                  <date type="onset" when="1907">1907-1908</date>
+                  <date type="terminus" when="1908">1907-1908</date>
+               </imprint>
+            </monogr>
+            <note type="comments"> <list xml:lang="ar">
+               <item>محرريها: سليمان فريحة، راغب عطية، حبيب شحادة، حنا ناصيف، فيليب عضامي</item>
+               <item>الأعداد مكتوبة بخط اليد</item>
+               </list> </note>
+            <note type="holdings"> <list>
+               <item> <label><placeName>Beirut</placeName>,  <orgName ref="jaraid:org:hAUB" xml:lang="en">AUB</orgName> </label> <ab xml:lang="ar"
+                  >في المكتبة : س. 1 ع. 2-6 (1907-1908).</ab><ab><bibl><idno subtype="AUB" type="classmark">AA:4.2.1</idno></bibl></ab> </item>
+               </list> </note>
+         </biblStruct>
+    </listBibl>
+  </standOff>
   <text>
     <body>
-      <pb ed="print" edRef="#edition_1"  n="551" 
-          />
+      <pb ed="print" edRef="#edition_1" n="551"/>
       <div change="#d2e678" subtype="article" type="item" xml:id="div_4.d1e1061" xml:lang="ar">
         <head xml:id="head_3.d1e1065" xml:lang="ar">الرسالة العذراء
           <note change="#d2e678" n="1" place="bottom" xml:id="note_1.d1e1779" xml:lang="ar"
