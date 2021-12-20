@@ -29,11 +29,12 @@
     -->
     <xsl:include href="functions.xsl"/>
     <xsl:include href="parameters.xsl"/>
+    <xsl:include href="../../authority-files/xslt/convert_isil-rdf-to-tei_functions.xsl"/>
     <!-- these parameters are placeholders until I established a way of pulling language information from the source -->
     <xsl:param name="p_lang-1" select="'ar'"/>
     <xsl:param name="p_lang-2" select="'ar-Latn-x-ijmes'"/>
     <!-- individual records: pull approach -->
-    <xsl:template match="marc:record">
+    <xsl:template match="marc:record" mode="m_marc-to-tei">
         <xsl:variable name="v_analytic">
             <xsl:choose>
                 <xsl:when test="marc:datafield[@tag = '773']/marc:subfield[@code = ('i', 'a', 't')]">
@@ -636,9 +637,11 @@
                         </xsl:element>
                     </xsl:when>
                     <xsl:when test="$v_code = 'g'">
+                        <xsl:variable name="v_id-isil" select="parent::marc:datafield/marc:subfield[@code = 'b']"/>
                         <xsl:element name="idno">
                             <xsl:attribute name="type" select="'classmark'"/>
-                            <xsl:attribute name="subtype" select="parent::marc:datafield/marc:subfield[@code = 'b']"/>
+                            <xsl:attribute name="subtype" select="$v_id-isil"/>
+                            <xsl:attribute name="source" select="concat('http://ld.zdb-services.de/data/organisations/', $v_id-isil, '.rdf')"/>
                             <xsl:value-of select="$v_content"/>
                         </xsl:element>
                     </xsl:when>
@@ -774,17 +777,24 @@
             <xsl:otherwise>
                 <xsl:element name="item">
                     <xsl:if test="$p_id-record/tei:idno/@type = 'zdb'">
+                        <!-- we can pull information on holding informations from the ISIL number -->
+                        <xsl:variable name="v_id-isil" select="parent::marc:datafield/marc:subfield[@code = 'b']"/>
+                        <xsl:variable name="v_org">
+                            <xsl:apply-templates select="doc(concat('http://ld.zdb-services.de/data/organisations/', $v_id-isil, '.rdf'))/descendant::rdf:Description" mode="m_isil-to-tei"/>
+                        </xsl:variable>
                         <xsl:attribute name="source" select="$v_url-catalogue"/>
                         <xsl:element name="label">
                             <!-- institution -->
                             <!-- location -->
-                            <xsl:element name="placeName">
+                            <!--<xsl:element name="placeName">
                                 <xsl:value-of select="parent::marc:datafield/marc:subfield[@code = 'c']"/>
-                            </xsl:element>
+                            </xsl:element>-->
+                            <xsl:copy-of select="$v_org/descendant::tei:placeName[1]"/>
                             <xsl:text>, </xsl:text>
-                            <xsl:element name="orgName">
+                            <!--<xsl:element name="orgName">
                                 <xsl:value-of select="parent::marc:datafield/marc:subfield[@code = 'b']"/>
-                            </xsl:element>
+                            </xsl:element>-->
+                            <xsl:copy-of select="$v_org/descendant::tei:orgName[@type = 'short'][1]"/>
                         </xsl:element>
                         <!-- machine readible holding information -->
                         <xsl:element name="ab">
@@ -815,6 +825,35 @@
                 </xsl:element>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    
+    <xsl:template match="marc:record" mode="m_get-holding-institutions">
+        <xsl:variable name="v_id-record">
+            <xsl:apply-templates select="marc:datafield[@tag = ('016')][@ind1 = '7']/marc:subfield[@code = 'a']"/>
+        </xsl:variable>
+        <!-- variable to potentially pull a record from another URL based on the input record -->
+        <xsl:variable name="v_record">
+            <xsl:choose>
+                <xsl:when test="$v_id-record/tei:idno/@type = 'zdb'">
+                    <xsl:variable name="v_url-record" select="concat($v_url-server-zdb-ld, $v_id-record/tei:idno[@type = 'zdb'], '.plus-1.mrcx')"/>
+                    <xsl:copy-of select="doc($v_url-record)/descendant-or-self::marc:record"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:copy-of select="."/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <!-- content -->
+            <xsl:apply-templates select="$v_record/descendant::marc:datafield[@tag = '924']/marc:subfield[@code = 'b']" mode="m_get-holding-institutions"/>
+    </xsl:template>
+    <xsl:template match="marc:datafield[@tag = '924']/marc:subfield[@code = 'b']" mode="m_get-holding-institutions">
+        <xsl:element name="idno">
+            <xsl:attribute name="type" select="'isil'"/>
+            <xsl:value-of select="."/>
+        </xsl:element>
+    </xsl:template>
+    <xsl:template match="tei:idno[@type = 'isil']" mode="m_isil-to-tei">
+        <xsl:apply-templates select="doc(concat('http://ld.zdb-services.de/data/organisations/', ., '.rdf'))/rdf:RDF/rdf:Description" mode="m_isil-to-tei"/>
     </xsl:template>
     <xsl:template name="t_convert-lang-codes">
         <xsl:param name="p_code"/>

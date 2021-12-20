@@ -24,8 +24,17 @@
                 </teiHeader>
                 <standOff>
                     <listBibl>
-                        <xsl:apply-templates select="descendant::marc:record"/>
+                        <xsl:apply-templates select="descendant::marc:record" mode="m_marc-to-tei"/>
                     </listBibl>
+                    <!-- list of holding organisations -->
+                    <listOrg>
+                        <xsl:variable name="v_holding-institutions">
+                            <xsl:apply-templates select="descendant::marc:record" mode="m_get-holding-institutions"/>
+                        </xsl:variable>
+                        <xsl:for-each-group select="$v_holding-institutions/descendant-or-self::tei:idno[@type = 'isil']" group-by=".">
+                           <xsl:apply-templates select="." mode="m_isil-to-tei"/>
+                        </xsl:for-each-group>
+                    </listOrg>
                 </standOff>
             </TEI>
         </xsl:result-document>
