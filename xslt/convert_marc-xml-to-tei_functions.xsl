@@ -140,7 +140,7 @@
         <xsl:variable name="v_ind2" select="parent::marc:datafield/@ind2"/>
         <!-- text fields can have trailing punctuation, which should be removed -->
         <xsl:variable name="v_content">
-            <xsl:value-of select="oape:strings_trim-punctuation-marks(.)"/>
+            <xsl:value-of select="oape:strings_trim-punctuation-marks(normalize-unicode(., 'NFKC'))"/>
             <!--            <xsl:apply-templates mode="m_plain-text"/>-->
         </xsl:variable>
         <!-- languages: can potentially depend on local data or parameters
@@ -722,7 +722,7 @@
                         select="concat('https://libcat.aub.edu.lb/record=', substring($p_id-record/tei:idno[@type = 'LEAUB'][1], 1, string-length($p_id-record/tei:idno[@type = 'LEAUB'][1]) - 1))"/>
                 </xsl:when>
                 <xsl:when test="$p_id-record/tei:idno/@type = 'zdb'">
-                    <xsl:value-of select="concat('https://zdb-katalog.de/title.xhtml?', $p_id-record/tei:idno[@type = 'zdb'][1])"/>
+                    <xsl:value-of select="concat('https://ld.zdb-services.de/resource/', $p_id-record/tei:idno[@type = 'zdb'][1])"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:text>NA</xsl:text>
