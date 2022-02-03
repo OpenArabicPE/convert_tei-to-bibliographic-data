@@ -1,0 +1,706 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://www.loc.gov/MARC21/slim">
+   <record>
+      <leader>00421nas a2200169I  4500</leader>
+      <controlfield tag="001">102659614</controlfield>
+      <controlfield tag="003">MiAaHDL</controlfield>
+      <controlfield tag="005">20200117000000.0</controlfield>
+      <controlfield tag="006">m        d        </controlfield>
+      <controlfield tag="007">cr bn ---auaua</controlfield>
+      <controlfield tag="008">790629u1uuu9999ae ur p  y    0uduf0arard</controlfield>
+      <datafield ind1=" " ind2=" " tag="035">
+         <subfield code="a">sdr-hvd.990001481870203941</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="035">
+         <subfield code="a">(OCoLC)5123187</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="035">
+         <subfield code="z">(MH)Aleph000148187</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="040">
+         <subfield code="a">HUL</subfield>
+         <subfield code="c">HUL</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="043">
+         <subfield code="a">ff-----</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="245">
+         <subfield code="a">[Taqwīm Maghribī.]</subfield>
+      </datafield>
+      <datafield ind1=" " ind2="0" tag="260">
+         <subfield code="a">[al-Jazāʾir?],</subfield>
+         <subfield code="b">[s.n.]</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="300">
+         <subfield code="a">v.</subfield>
+         <subfield code="b">ill., ports.</subfield>
+         <subfield code="c">25 cm.</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="538">
+         <subfield code="a">Mode of access: Internet.</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="CID">
+         <subfield code="a">102659614</subfield>
+      </datafield>
+      <datafield ind1="0" ind2=" " tag="DAT">
+         <subfield code="a">20020606090541.3</subfield>
+         <subfield code="b">20200117000000.0</subfield>
+      </datafield>
+      <datafield ind1="1" ind2=" " tag="DAT">
+         <subfield code="a">20200118090538.0</subfield>
+         <subfield code="b">2020-01-22T19:49:20Z</subfield>
+      </datafield>
+      <datafield ind1="2" ind2=" " tag="DAT">
+         <subfield code="a">2020-01-22T19:00:02Z</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="CAT">
+         <subfield code="a">SDR-HVD</subfield>
+         <subfield code="d">ALMA</subfield>
+         <subfield code="l">prepare.pl-004-008</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="FMT">
+         <subfield code="a">SE</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="HOL">
+         <subfield code="0">sdr-hvd.990001481870203941</subfield>
+         <subfield code="a">hvd</subfield>
+         <subfield code="b">SDR</subfield>
+         <subfield code="c">HVD</subfield>
+         <subfield code="p">hvd.hwr1f4</subfield>
+         <subfield code="s">HVD</subfield>
+         <subfield code="z">ca. 1912</subfield>
+         <subfield code="1">990001481870203941</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="974">
+         <subfield code="b">HVD</subfield>
+         <subfield code="c">HVD</subfield>
+         <subfield code="d">20200122</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">hvd.hwr1f4</subfield>
+         <subfield code="z">ca. 1912</subfield>
+         <subfield code="y">1912</subfield>
+         <subfield code="r">pdus</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date between 1897 and 1927</subfield>
+      </datafield>
+   </record>
+   <record>
+      <leader>014266as a2200361   4500</leader>
+      <controlfield tag="001">009525630</controlfield>
+      <controlfield tag="003">MiAaHDL</controlfield>
+      <controlfield tag="005">20110203000000.0</controlfield>
+      <controlfield tag="006">m        d        </controlfield>
+      <controlfield tag="007">cr bn ---auaua</controlfield>
+      <controlfield tag="008">870617d19861986ua  x        i0uuu 0arard</controlfield>
+      <datafield ind1=" " ind2=" " tag="010">
+         <subfield code="a">sn 87021866</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="012">
+         <subfield code="i">8706</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="035">
+         <subfield code="a">sdr-inu2177302</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="035">
+         <subfield code="a">(OCoLC)15993552</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="040">
+         <subfield code="a">IUL</subfield>
+         <subfield code="c">IUL</subfield>
+         <subfield code="d">DLC</subfield>
+         <subfield code="d">NST</subfield>
+         <subfield code="d">DLC</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="042">
+         <subfield code="a">lcd</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="043">
+         <subfield code="a">ma-----</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="130">
+         <subfield code="a">&amp;#xbf;uq&amp;#xbf;q al-ins&amp;#xbf;n (Arab Organization for Human Rights)</subfield>
+      </datafield>
+      <datafield ind1="1" ind2=" " tag="212">
+         <subfield code="a">&amp;#xbf;uq&amp;#xbf;q al-ins&amp;#xbf;n</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="245">
+         <subfield code="a">&amp;#xbf;uq&amp;#xbf;q al-ins&amp;#xbf;n =</subfield>
+         <subfield code="b">Human rights /</subfield>
+         <subfield code="c">al-Muna&amp;#xbf;&amp;#xbf;amah al-&amp;#xbf;Arab&amp;#xbf;yah li-&amp;#xbf;uq&amp;#xbf;q al-Ins&amp;#xbf;n.</subfield>
+      </datafield>
+      <datafield ind1="1" ind2="3" tag="246">
+         <subfield code="a">&amp;#xbf;uq&amp;#xbf;q al-ins&amp;#xbf;n al-&amp;#xbf;Arab&amp;#xbf;</subfield>
+      </datafield>
+      <datafield ind1="1" ind2="1" tag="246">
+         <subfield code="a">Human rights</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="260">
+         <subfield code="a">[al-J&amp;#xbf;zah] :</subfield>
+         <subfield code="b">al-Muna&amp;#xbf;&amp;#xbf;amah,</subfield>
+         <subfield code="c">1986.</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="300">
+         <subfield code="a">1 v. :</subfield>
+         <subfield code="b">ill. ;</subfield>
+         <subfield code="c">24 cm.</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="310">
+         <subfield code="a">Irregular</subfield>
+      </datafield>
+      <datafield ind1="0" ind2=" " tag="362">
+         <subfield code="a">18 (25 M&amp;#xbf;ris 1986).</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="500">
+         <subfield code="a">Title from cover.</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="538">
+         <subfield code="a">Mode of access: Internet.</subfield>
+      </datafield>
+      <datafield ind1=" " ind2="0" tag="650">
+         <subfield code="a">Civil rights.</subfield>
+      </datafield>
+      <datafield ind1=" " ind2="0" tag="650">
+         <subfield code="a">Arabs</subfield>
+         <subfield code="x">Civil rights.</subfield>
+      </datafield>
+      <datafield ind1=" " ind2="0" tag="650">
+         <subfield code="a">Civil rights</subfield>
+         <subfield code="z">Arab countries.</subfield>
+      </datafield>
+      <datafield ind1="2" ind2=" " tag="710">
+         <subfield code="a">Muna&amp;#xbf;&amp;#xbf;amah al-&amp;#xbf;Arab&amp;#xbf;yah li-&amp;#xbf;uq&amp;#xbf;q al-Ins&amp;#xbf;n.</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="780">
+         <subfield code="t">&amp;#xbf;uq&amp;#xbf;q al-ins&amp;#xbf;n al-&amp;#xbf;Arab&amp;#xbf;</subfield>
+         <subfield code="w">(DLC)   85961355</subfield>
+         <subfield code="w">(OCoLC)15993543</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="785">
+         <subfield code="t">&amp;#xbf;uq&amp;#xbf;q al-ins&amp;#xbf;n f&amp;#xbf; al-Wa&amp;#xbf;an al-&amp;#xbf;Arab&amp;#xbf;</subfield>
+         <subfield code="w">(DLC)sn 87021867</subfield>
+         <subfield code="w">(OCoLC)15993565</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="850">
+         <subfield code="a">InU</subfield>
+         <subfield code="a">NjP</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="CID">
+         <subfield code="a">009525630</subfield>
+      </datafield>
+      <datafield ind1="0" ind2=" " tag="DAT">
+         <subfield code="a">20110203153219.0</subfield>
+         <subfield code="b">20110203000000.0</subfield>
+      </datafield>
+      <datafield ind1="1" ind2=" " tag="DAT">
+         <subfield code="a">20120814114941.0</subfield>
+         <subfield code="b">2020-05-02T17:43:54Z</subfield>
+      </datafield>
+      <datafield ind1="2" ind2=" " tag="DAT">
+         <subfield code="a">2020-05-02T17:30:02Z</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="CAT">
+         <subfield code="a">SDR-INU</subfield>
+         <subfield code="d">UNKNOWN</subfield>
+         <subfield code="l">loader.pl-001-001</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="FMT">
+         <subfield code="a">SE</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="HOL">
+         <subfield code="0">sdr-inu2177302</subfield>
+         <subfield code="a">inu</subfield>
+         <subfield code="b">SDR</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="p">inu.30000125630404</subfield>
+         <subfield code="s">INU</subfield>
+         <subfield code="z">no.18 1986</subfield>
+         <subfield code="1">2177302</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="974">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20200502</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000125630404</subfield>
+         <subfield code="z">no.18 1986</subfield>
+         <subfield code="y">1986</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1927</subfield>
+      </datafield>
+   </record>
+   <record>
+      <leader>012906as a22003255  4500</leader>
+      <controlfield tag="001">009525629</controlfield>
+      <controlfield tag="003">MiAaHDL</controlfield>
+      <controlfield tag="005">20110203000000.0</controlfield>
+      <controlfield tag="006">m        d        </controlfield>
+      <controlfield tag="007">cr bn ---auaua</controlfield>
+      <controlfield tag="008">870617d19841986ua  x        i0uuu 0arard</controlfield>
+      <datafield ind1=" " ind2=" " tag="010">
+         <subfield code="a">   85961355 /NE</subfield>
+         <subfield code="z">sn 87021865</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="012">
+         <subfield code="a">4</subfield>
+         <subfield code="i">8706</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="035">
+         <subfield code="a">sdr-inu2177301</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="035">
+         <subfield code="a">(OCoLC)15993543</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="040">
+         <subfield code="a">IUL</subfield>
+         <subfield code="c">IUL</subfield>
+         <subfield code="d">DLC</subfield>
+         <subfield code="d">NST</subfield>
+         <subfield code="d">DLC</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="042">
+         <subfield code="a">lc</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="043">
+         <subfield code="a">ma-----</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="050">
+         <subfield code="a">PAR</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="245">
+         <subfield code="a">&amp;#xbf;uq&amp;#xbf;q al-ins&amp;#xbf;n al-&amp;#xbf;Arab&amp;#xbf; /</subfield>
+         <subfield code="c">al-Muna&amp;#xbf;&amp;#xbf;amah al-&amp;#xbf;Arab&amp;#xbf;yah li-&amp;#xbf;uq&amp;#xbf;q al-Ins&amp;#xbf;n.</subfield>
+      </datafield>
+      <datafield ind1="1" ind2="3" tag="246">
+         <subfield code="a">Arab human rights</subfield>
+         <subfield code="f">N&amp;#xbf;fimbir 10, 1985-Yan&amp;#xbf;yir 15, 1986</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="260">
+         <subfield code="a">[al-Q&amp;#xbf;hirah] :</subfield>
+         <subfield code="b">al-Muna&amp;#xbf;&amp;#xbf;amah,</subfield>
+         <subfield code="c">[1986-</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="300">
+         <subfield code="a">17 v. :</subfield>
+         <subfield code="b">ill. ;</subfield>
+         <subfield code="c">24 cm.</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="310">
+         <subfield code="a">Irregular</subfield>
+      </datafield>
+      <datafield ind1="0" ind2=" " tag="362">
+         <subfield code="a">   -17 (15 Yan&amp;#xbf;yir 1986).</subfield>
+      </datafield>
+      <datafield ind1="1" ind2=" " tag="362">
+         <subfield code="a">Began in 1984?</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="500">
+         <subfield code="a">Description based on: 2 (Y&amp;#xbf;liy&amp;#xbf; 1984); title from cover.</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="538">
+         <subfield code="a">Mode of access: Internet.</subfield>
+      </datafield>
+      <datafield ind1=" " ind2="0" tag="650">
+         <subfield code="a">Arabs</subfield>
+         <subfield code="x">Civil rights.</subfield>
+      </datafield>
+      <datafield ind1=" " ind2="0" tag="650">
+         <subfield code="a">Civil rights</subfield>
+         <subfield code="z">Arab countries.</subfield>
+      </datafield>
+      <datafield ind1="2" ind2=" " tag="710">
+         <subfield code="a">Muna&amp;#xbf;&amp;#xbf;amah al-&amp;#xbf;Arab&amp;#xbf;yah li-&amp;#xbf;uq&amp;#xbf;q al-Ins&amp;#xbf;n.</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="785">
+         <subfield code="t">&amp;#xbf;uq&amp;#xbf;q al-ins&amp;#xbf;n (Arab Organization for Human Rights)</subfield>
+         <subfield code="w">(DLC)sn 87021866</subfield>
+         <subfield code="w">(OCoLC)15993552</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="850">
+         <subfield code="a">DLC</subfield>
+         <subfield code="a">InU</subfield>
+         <subfield code="a">NjP</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="CID">
+         <subfield code="a">009525629</subfield>
+      </datafield>
+      <datafield ind1="0" ind2=" " tag="DAT">
+         <subfield code="a">20110203153219.0</subfield>
+         <subfield code="b">20110203000000.0</subfield>
+      </datafield>
+      <datafield ind1="1" ind2=" " tag="DAT">
+         <subfield code="a">20120814114941.0</subfield>
+         <subfield code="b">2020-05-02T17:43:54Z</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="CAT">
+         <subfield code="a">SDR-INU</subfield>
+         <subfield code="d">UNKNOWN</subfield>
+         <subfield code="l">loader.pl-001-001</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="FMT">
+         <subfield code="a">SE</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="HOL">
+         <subfield code="0">sdr-inu2177301</subfield>
+         <subfield code="a">inu</subfield>
+         <subfield code="b">SDR</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="p">inu.30000125630412</subfield>
+         <subfield code="s">INU</subfield>
+         <subfield code="z">no.2-7,Inc. 1984</subfield>
+         <subfield code="1">2177301</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="974">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20200502</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000125630412</subfield>
+         <subfield code="z">no.2-7,Inc. 1984</subfield>
+         <subfield code="y">1984</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1927</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="974">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20200502</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000125630420</subfield>
+         <subfield code="z">no.8-13 1985</subfield>
+         <subfield code="y">1985</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1927</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="974">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20200502</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000125630438</subfield>
+         <subfield code="z">no.14-17 1985-1986</subfield>
+         <subfield code="y">1986</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1927</subfield>
+      </datafield>
+   </record>
+   <record>
+      <leader>012906as a22003255  4500</leader>
+      <controlfield tag="001">009525629</controlfield>
+      <controlfield tag="003">MiAaHDL</controlfield>
+      <controlfield tag="005">20110203000000.0</controlfield>
+      <controlfield tag="006">m        d        </controlfield>
+      <controlfield tag="007">cr bn ---auaua</controlfield>
+      <controlfield tag="008">870617d19841986ua  x        i0uuu 0arard</controlfield>
+      <datafield ind1=" " ind2=" " tag="010">
+         <subfield code="a">   85961355 /NE</subfield>
+         <subfield code="z">sn 87021865</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="012">
+         <subfield code="a">4</subfield>
+         <subfield code="i">8706</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="035">
+         <subfield code="a">sdr-inu2177301</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="035">
+         <subfield code="a">(OCoLC)15993543</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="040">
+         <subfield code="a">IUL</subfield>
+         <subfield code="c">IUL</subfield>
+         <subfield code="d">DLC</subfield>
+         <subfield code="d">NST</subfield>
+         <subfield code="d">DLC</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="042">
+         <subfield code="a">lc</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="043">
+         <subfield code="a">ma-----</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="050">
+         <subfield code="a">PAR</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="245">
+         <subfield code="a">&amp;#xbf;uq&amp;#xbf;q al-ins&amp;#xbf;n al-&amp;#xbf;Arab&amp;#xbf; /</subfield>
+         <subfield code="c">al-Muna&amp;#xbf;&amp;#xbf;amah al-&amp;#xbf;Arab&amp;#xbf;yah li-&amp;#xbf;uq&amp;#xbf;q al-Ins&amp;#xbf;n.</subfield>
+      </datafield>
+      <datafield ind1="1" ind2="3" tag="246">
+         <subfield code="a">Arab human rights</subfield>
+         <subfield code="f">N&amp;#xbf;fimbir 10, 1985-Yan&amp;#xbf;yir 15, 1986</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="260">
+         <subfield code="a">[al-Q&amp;#xbf;hirah] :</subfield>
+         <subfield code="b">al-Muna&amp;#xbf;&amp;#xbf;amah,</subfield>
+         <subfield code="c">[1986-</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="300">
+         <subfield code="a">17 v. :</subfield>
+         <subfield code="b">ill. ;</subfield>
+         <subfield code="c">24 cm.</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="310">
+         <subfield code="a">Irregular</subfield>
+      </datafield>
+      <datafield ind1="0" ind2=" " tag="362">
+         <subfield code="a">   -17 (15 Yan&amp;#xbf;yir 1986).</subfield>
+      </datafield>
+      <datafield ind1="1" ind2=" " tag="362">
+         <subfield code="a">Began in 1984?</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="500">
+         <subfield code="a">Description based on: 2 (Y&amp;#xbf;liy&amp;#xbf; 1984); title from cover.</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="538">
+         <subfield code="a">Mode of access: Internet.</subfield>
+      </datafield>
+      <datafield ind1=" " ind2="0" tag="650">
+         <subfield code="a">Arabs</subfield>
+         <subfield code="x">Civil rights.</subfield>
+      </datafield>
+      <datafield ind1=" " ind2="0" tag="650">
+         <subfield code="a">Civil rights</subfield>
+         <subfield code="z">Arab countries.</subfield>
+      </datafield>
+      <datafield ind1="2" ind2=" " tag="710">
+         <subfield code="a">Muna&amp;#xbf;&amp;#xbf;amah al-&amp;#xbf;Arab&amp;#xbf;yah li-&amp;#xbf;uq&amp;#xbf;q al-Ins&amp;#xbf;n.</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="785">
+         <subfield code="t">&amp;#xbf;uq&amp;#xbf;q al-ins&amp;#xbf;n (Arab Organization for Human Rights)</subfield>
+         <subfield code="w">(DLC)sn 87021866</subfield>
+         <subfield code="w">(OCoLC)15993552</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="850">
+         <subfield code="a">DLC</subfield>
+         <subfield code="a">InU</subfield>
+         <subfield code="a">NjP</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="CID">
+         <subfield code="a">009525629</subfield>
+      </datafield>
+      <datafield ind1="0" ind2=" " tag="DAT">
+         <subfield code="a">20110203153219.0</subfield>
+         <subfield code="b">20110203000000.0</subfield>
+      </datafield>
+      <datafield ind1="1" ind2=" " tag="DAT">
+         <subfield code="a">20120814114941.0</subfield>
+         <subfield code="b">2020-05-02T17:43:54Z</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="CAT">
+         <subfield code="a">SDR-INU</subfield>
+         <subfield code="d">UNKNOWN</subfield>
+         <subfield code="l">loader.pl-001-001</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="FMT">
+         <subfield code="a">SE</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="HOL">
+         <subfield code="0">sdr-inu2177301</subfield>
+         <subfield code="a">inu</subfield>
+         <subfield code="b">SDR</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="p">inu.30000125630412</subfield>
+         <subfield code="s">INU</subfield>
+         <subfield code="z">no.2-7,Inc. 1984</subfield>
+         <subfield code="1">2177301</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="974">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20200502</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000125630412</subfield>
+         <subfield code="z">no.2-7,Inc. 1984</subfield>
+         <subfield code="y">1984</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1927</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="974">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20200502</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000125630420</subfield>
+         <subfield code="z">no.8-13 1985</subfield>
+         <subfield code="y">1985</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1927</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="974">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20200502</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000125630438</subfield>
+         <subfield code="z">no.14-17 1985-1986</subfield>
+         <subfield code="y">1986</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1927</subfield>
+      </datafield>
+   </record>
+   <record>
+      <leader>012906as a22003255  4500</leader>
+      <controlfield tag="001">009525629</controlfield>
+      <controlfield tag="003">MiAaHDL</controlfield>
+      <controlfield tag="005">20110203000000.0</controlfield>
+      <controlfield tag="006">m        d        </controlfield>
+      <controlfield tag="007">cr bn ---auaua</controlfield>
+      <controlfield tag="008">870617d19841986ua  x        i0uuu 0arard</controlfield>
+      <datafield ind1=" " ind2=" " tag="010">
+         <subfield code="a">   85961355 /NE</subfield>
+         <subfield code="z">sn 87021865</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="012">
+         <subfield code="a">4</subfield>
+         <subfield code="i">8706</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="035">
+         <subfield code="a">sdr-inu2177301</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="035">
+         <subfield code="a">(OCoLC)102043258</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="040">
+         <subfield code="a">IUL</subfield>
+         <subfield code="c">IUL</subfield>
+         <subfield code="d">DLC</subfield>
+         <subfield code="d">NST</subfield>
+         <subfield code="d">DLC</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="042">
+         <subfield code="a">lc</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="043">
+         <subfield code="a">ma-----</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="050">
+         <subfield code="a">PAR</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="245">
+         <subfield code="a">&amp;#xbf;uq&amp;#xbf;q al-ins&amp;#xbf;n al-&amp;#xbf;Arab&amp;#xbf; /</subfield>
+         <subfield code="c">al-Muna&amp;#xbf;&amp;#xbf;amah al-&amp;#xbf;Arab&amp;#xbf;yah li-&amp;#xbf;uq&amp;#xbf;q al-Ins&amp;#xbf;n.</subfield>
+      </datafield>
+      <datafield ind1="1" ind2="3" tag="246">
+         <subfield code="a">Arab human rights</subfield>
+         <subfield code="f">N&amp;#xbf;fimbir 10, 1985-Yan&amp;#xbf;yir 15, 1986</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="260">
+         <subfield code="a">[al-Q&amp;#xbf;hirah] :</subfield>
+         <subfield code="b">al-Muna&amp;#xbf;&amp;#xbf;amah,</subfield>
+         <subfield code="c">[1986-</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="300">
+         <subfield code="a">17 v. :</subfield>
+         <subfield code="b">ill. ;</subfield>
+         <subfield code="c">24 cm.</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="310">
+         <subfield code="a">Irregular</subfield>
+      </datafield>
+      <datafield ind1="0" ind2=" " tag="362">
+         <subfield code="a">   -17 (15 Yan&amp;#xbf;yir 1986).</subfield>
+      </datafield>
+      <datafield ind1="1" ind2=" " tag="362">
+         <subfield code="a">Began in 1984?</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="500">
+         <subfield code="a">Description based on: 2 (Y&amp;#xbf;liy&amp;#xbf; 1984); title from cover.</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="538">
+         <subfield code="a">Mode of access: Internet.</subfield>
+      </datafield>
+      <datafield ind1=" " ind2="0" tag="650">
+         <subfield code="a">Arabs</subfield>
+         <subfield code="x">Civil rights.</subfield>
+      </datafield>
+      <datafield ind1=" " ind2="0" tag="650">
+         <subfield code="a">Civil rights</subfield>
+         <subfield code="z">Arab countries.</subfield>
+      </datafield>
+      <datafield ind1="2" ind2=" " tag="710">
+         <subfield code="a">Muna&amp;#xbf;&amp;#xbf;amah al-&amp;#xbf;Arab&amp;#xbf;yah li-&amp;#xbf;uq&amp;#xbf;q al-Ins&amp;#xbf;n.</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="785">
+         <subfield code="t">&amp;#xbf;uq&amp;#xbf;q al-ins&amp;#xbf;n (Arab Organization for Human Rights)</subfield>
+         <subfield code="w">(DLC)sn 87021866</subfield>
+         <subfield code="w">(OCoLC)15993552</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="850">
+         <subfield code="a">DLC</subfield>
+         <subfield code="a">InU</subfield>
+         <subfield code="a">NjP</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="CID">
+         <subfield code="a">009525629</subfield>
+      </datafield>
+      <datafield ind1="0" ind2=" " tag="DAT">
+         <subfield code="a">20110203153219.0</subfield>
+         <subfield code="b">20110203000000.0</subfield>
+      </datafield>
+      <datafield ind1="1" ind2=" " tag="DAT">
+         <subfield code="a">20120814114941.0</subfield>
+         <subfield code="b">2020-05-02T17:43:54Z</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="CAT">
+         <subfield code="a">SDR-INU</subfield>
+         <subfield code="d">UNKNOWN</subfield>
+         <subfield code="l">loader.pl-001-001</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="FMT">
+         <subfield code="a">SE</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="HOL">
+         <subfield code="0">sdr-inu2177301</subfield>
+         <subfield code="a">inu</subfield>
+         <subfield code="b">SDR</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="p">inu.30000125630412</subfield>
+         <subfield code="s">INU</subfield>
+         <subfield code="z">no.2-7,Inc. 1984</subfield>
+         <subfield code="1">2177301</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="974">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20200502</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000125630412</subfield>
+         <subfield code="z">no.2-7,Inc. 1984</subfield>
+         <subfield code="y">1984</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1927</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="974">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20200502</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000125630420</subfield>
+         <subfield code="z">no.8-13 1985</subfield>
+         <subfield code="y">1985</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1927</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="974">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20200502</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000125630438</subfield>
+         <subfield code="z">no.14-17 1985-1986</subfield>
+         <subfield code="y">1986</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1927</subfield>
+      </datafield>
+   </record>
+</collection>

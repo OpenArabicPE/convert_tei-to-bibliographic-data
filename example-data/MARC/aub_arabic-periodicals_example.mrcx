@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<marc:collection xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.loc.gov/MARC21/slim http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">
+    <marc:record>
+        <marc:leader>03490cas a2200601 i 4500</marc:leader>
+        <marc:controlfield tag="001">ocn1086411415</marc:controlfield>
+        <marc:controlfield tag="003">OCoLC</marc:controlfield>
+        <marc:controlfield tag="003">OCoLC</marc:controlfield>
+        <marc:controlfield tag="005">20150302</marc:controlfield>
+        <marc:controlfield tag="008">980213d19061917le mr p       0    0ara d</marc:controlfield>
+        <marc:datafield ind1=" " ind2=" " tag="019">
+            <marc:subfield code="a">ocn792755680</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2=" " tag="035">
+            <marc:subfield code="a">(u)2057535</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2=" " tag="040">
+            <marc:subfield code="a">LEAUB</marc:subfield>
+            <marc:subfield code="b">ara</marc:subfield>
+            <marc:subfield code="e">rda</marc:subfield>
+            <marc:subfield code="c">LEAUB</marc:subfield>
+            <marc:subfield code="d">LEAUB</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1="0" ind2="4" tag="082">
+            <marc:subfield code="a">059</marc:subfield>
+            <marc:subfield code="2">22</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2="2" tag="222">
+            <marc:subfield code="a">المقتبس</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1="1" ind2="0" tag="245">
+            <marc:subfield code="6">880-01</marc:subfield>
+            <marc:subfield code="a">المقتبس :</marc:subfield>
+            <marc:subfield code="b">مجلة أدبية علمية إجتماعية.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1="2" ind2=" " tag="246">
+            <marc:subfield code="a">al-Muqtabas :</marc:subfield>
+            <marc:subfield code="b">majallah adabīyah 'ilmīyah ijtmā'īyah.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1="0" ind2="1" tag="246">
+            <marc:subfield code="a">al-Moktabas</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2="1" tag="264">
+            <marc:subfield code="6">880-02</marc:subfield>
+            <marc:subfield code="a">بيروت :</marc:subfield>
+            <marc:subfield code="b">دار صادر،</marc:subfield>
+            <marc:subfield code="c">1992.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2=" " tag="300">
+            <marc:subfield code="a">9 مجلدات ؛</marc:subfield>
+            <marc:subfield code="c">25 سم</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2=" " tag="310">
+            <marc:subfield code="a">شهرية.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2=" " tag="336">
+            <marc:subfield code="a">text</marc:subfield>
+            <marc:subfield code="b">txt</marc:subfield>
+            <marc:subfield code="2">rdacontent</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2=" " tag="337">
+            <marc:subfield code="a">unmediated</marc:subfield>
+            <marc:subfield code="b">n</marc:subfield>
+            <marc:subfield code="2">rdamedia </marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2=" " tag="338">
+            <marc:subfield code="a">volume</marc:subfield>
+            <marc:subfield code="b">nc</marc:subfield>
+            <marc:subfield code="2">rdacarrier</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1="1" ind2=" " tag="362">
+            <marc:subfield code="a">صدر العدد الاول سنة 1906.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2=" " tag="500">
+            <marc:subfield code="a">الكتاب يحتوي على جميع اعداد &quot;مجلة المقتبس&quot; وصدر بطبعتين: الاولى في دمشق عام 1976 ؛ والثانية في بيروت عام 1992.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2=" " tag="500">
+            <marc:subfield code="a">منشئ المجلة محمد كرد علي.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2=" " tag="500">
+            <marc:subfield code="a">تقرر نشر هذا الكتاب بمناسبة ذكرى مرور مئة عام على ولادة الاستاذ الرئيس محمد كرد علي مؤسس المجمع العلمي العربي سنة 1396 هـ - 1976 م.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2=" " tag="500">
+            <marc:subfield code="a">طبع الكتاب بإذن من المجمع العلمي العربي بدمشق.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2=" " tag="500">
+            <marc:subfield code="a">اعادة طبع بالتصوير باشراف : الدكتور محمد يوسف نجم.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2=" " tag="504">
+            <marc:subfield code="a">الجزء التاسع يحتوي خمس فهارس اعداد رياض عبد الحميد مراد.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2=" " tag="534">
+            <marc:subfield code="p"> صدر في الأصل:</marc:subfield>
+            <marc:subfield code="c">القاهرة : محمد كرد علي، 1906-1917.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2=" " tag="515">
+            <marc:subfield code="a">من المقدمة : &quot;تقع مجلة المقتبس في ثمانية مجلدات وعددين، مجموعها ثمانية وتسعون عدداً، صدر العدد الاول منها سنة (1324 هـ / 1906 م)، وصدر العدد الاخير سنة (1335 هـ / 1917 م). ويبدو انها توقفت عن الصدور خلال مرتين : الاولى بعد المجلد السابع لمدة عام واحد، والثانية بعد المجلد الثامن لمدة عامين.&quot;</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2=" " tag="500">
+            <marc:subfield code="a">توقفت عن الصدور.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2="4" tag="650">
+            <marc:subfield code="a">الأدب</marc:subfield>
+            <marc:subfield code="v">دوريات.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2="0" tag="650">
+            <marc:subfield code="a">Literature</marc:subfield>
+            <marc:subfield code="v">Periodicals.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1="1" ind2=" " tag="700">
+            <marc:subfield code="6">880-03</marc:subfield>
+            <marc:subfield code="a">مراد، رياض عبد الحميد،</marc:subfield>
+            <marc:subfield code="e">معد. </marc:subfield>
+            <marc:subfield code="4">com.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1="1" ind2=" " tag="700">
+            <marc:subfield code="6">880-04</marc:subfield>
+            <marc:subfield code="a">كرد علي، محمد،</marc:subfield>
+            <marc:subfield code="d">1876-1953،</marc:subfield>
+            <marc:subfield code="e">مالك. </marc:subfield>
+            <marc:subfield code="4">own.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1="0" ind2="8" tag="775">
+            <marc:subfield code="i">إعادة إصدار (تجسيدة)</marc:subfield>
+            <marc:subfield code="4">http://rdaregistry.info/Elements/m/P30093 :</marc:subfield>
+            <marc:subfield code="t">المقتبس : مجلة ادبية علمية اجتماعية</marc:subfield>
+            <marc:subfield code="w">(LEAUB)b13168691</marc:subfield>
+            <marc:subfield code="w">(OCoLC)792756374</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2=" " tag="852">
+            <marc:subfield code="a">Jafet Library</marc:subfield>
+            <marc:subfield code="e">American University of Beirut, Bliss Street, Beirut, Lebanon.‎</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2="1" tag="866">
+            <marc:subfield code="a">في المكتبة :مج. 1-9 (1906-1917)</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1="1" ind2="0" tag="880">
+            <marc:subfield code="6">245-01/(B</marc:subfield>
+            <marc:subfield code="a">al-Muqtabas :</marc:subfield>
+            <marc:subfield code="b">majallah adabīyah ʻilmīyah ijtmāʻīyah.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2="1" tag="880">
+            <marc:subfield code="6">264-02/(B</marc:subfield>
+            <marc:subfield code="a">Bayrūt :</marc:subfield>
+            <marc:subfield code="b">Dār Ṣādir,</marc:subfield>
+            <marc:subfield code="c">1992.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1="1" ind2=" " tag="880">
+            <marc:subfield code="6">700-03/(B</marc:subfield>
+            <marc:subfield code="a">Murād, Riyāḍ ʻAbd al-Ḥamīd,</marc:subfield>
+            <marc:subfield code="e">compiler.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1="1" ind2=" " tag="880">
+            <marc:subfield code="6">700-04/(B</marc:subfield>
+            <marc:subfield code="a">Kurd ʻAlī, Muḥammad,</marc:subfield>
+            <marc:subfield code="d">1876-1953,</marc:subfield>
+            <marc:subfield code="e">owner.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2=" " tag="907">
+            <marc:subfield code="a">.b12825694</marc:subfield>
+            <marc:subfield code="b">19-10-15</marc:subfield>
+            <marc:subfield code="c">11-05-24</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2=" " tag="998">
+            <marc:subfield code="a">u05</marc:subfield>
+            <marc:subfield code="b">98-02-13</marc:subfield>
+            <marc:subfield code="c">s</marc:subfield>
+            <marc:subfield code="d">s  </marc:subfield>
+            <marc:subfield code="e">-</marc:subfield>
+            <marc:subfield code="f">ara</marc:subfield>
+            <marc:subfield code="g">le </marc:subfield>
+            <marc:subfield code="h">0</marc:subfield>
+            <marc:subfield code="i">10</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2=" " tag="907">
+            <marc:subfield code="a">.b12825694</marc:subfield>
+            <marc:subfield code="b">18-11-14</marc:subfield>
+            <marc:subfield code="c">11-05-24</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2=" " tag="911">
+            <marc:subfield code="a">CEASE</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2=" " tag="915">
+            <marc:subfield code="a">hf42</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2=" " tag="918">
+            <marc:subfield code="a">hf42</marc:subfield>
+            <marc:subfield code="d">2015-03-02</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2=" " tag="919">
+            <marc:subfield code="a">OACIS</marc:subfield>
+        </marc:datafield>
+        <marc:datafield ind1=" " ind2=" " tag="950">
+            <marc:subfield code="a">OCLC</marc:subfield>
+        </marc:datafield>
+    </marc:record>
+</marc:collection>
