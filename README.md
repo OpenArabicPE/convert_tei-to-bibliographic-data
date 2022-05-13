@@ -292,60 +292,60 @@ A basic conversion to YAML was built by mapping the `<tei:biblStruct>` input to 
 
 ```xml
 <bib:Article rdf:about="#oclc_4770057679-i_14-div_6.d1e1249">
-      <z:itemType>magazineArticle</z:itemType>
-      <dcterms:isPartOf>
-         <bib:Periodical>
-            <prism:volume>2</prism:volume>
-            <prism:number>2</prism:number>
-            <dc:title>المقتبس: مجلة أدبية علمية اجتماعية تصدر بالقاهرة في غرة كل شهر عربي</dc:title>
-         </bib:Periodical>
-      </dcterms:isPartOf>
-      <dc:title>حكم وخواطر</dc:title>
-      <z:shortTitle>حكم وخواطر</z:shortTitle>
-      <bib:authors>
-         <rdf:Seq>
-            <rdf:li>
-               <foaf:Person>
-                  <foaf:surname>ارسلان</foaf:surname>
-                  <foaf:givenName>شكيب</foaf:givenName>
-               </foaf:Person>
-            </rdf:li>
-         </rdf:Seq>
-      </bib:authors>
-      <bib:editors>
-         <rdf:Seq>
-            <rdf:li>
-               <foaf:Person>
-                  <foaf:surname>كرد علي</foaf:surname>
-                  <foaf:givenName>محمد</foaf:givenName>
-               </foaf:Person>
-            </rdf:li>
-         </rdf:Seq>
-      </bib:editors>
-      <dc:publisher>
-         <foaf:Organization>
-            <vcard:adr>
-               <vcard:Address>
-                  <vcard:locality>القاهرة</vcard:locality>
-               </vcard:Address>
-            </vcard:adr>
-            <foaf:name>مطبعة الظاهر المطبعة العمومية</foaf:name>
-         </foaf:Organization>
-      </dc:publisher>
-      <dc:identifier>
-         <dcterms:URI>
-            <rdf:value>https://github.com/OpenArabicPE/journal_al-muqtabas/blob/master/tei/oclc_4770057679-i_14.TEIP5.xml#div_6.d1e1249</rdf:value>
-         </dcterms:URI>
-      </dc:identifier>
-      <dc:identifier>
-         <dcterms:URI>
-            <rdf:value>https://OpenArabicPE.github.io/journal_al-muqtabas/tei/oclc_4770057679-i_14.TEIP5.xml#div_6.d1e1249</rdf:value>
-         </dcterms:URI>
-      </dc:identifier>
-      <bib:pages>78-82</bib:pages>
-      <dc:date>1907-03-16</dc:date>
-      <dc:date>1907-03-16</dc:date>
-      <dc:description>Citation Key: oclc_4770057679-i_14-div_6.d1e1249
+   <z:itemType>magazineArticle</z:itemType>
+   <dcterms:isPartOf>
+      <bib:Periodical>
+         <prism:volume>2</prism:volume>
+         <prism:number>2</prism:number>
+         <dc:title>المقتبس: مجلة أدبية علمية اجتماعية تصدر بالقاهرة في غرة كل شهر عربي</dc:title>
+      </bib:Periodical>
+   </dcterms:isPartOf>
+   <dc:title>حكم وخواطر</dc:title>
+   <z:shortTitle>حكم وخواطر</z:shortTitle>
+   <bib:authors>
+      <rdf:Seq>
+         <rdf:li>
+            <foaf:Person>
+               <foaf:surname>ارسلان</foaf:surname>
+               <foaf:givenName>شكيب</foaf:givenName>
+            </foaf:Person>
+         </rdf:li>
+      </rdf:Seq>
+   </bib:authors>
+   <bib:editors>
+      <rdf:Seq>
+         <rdf:li>
+            <foaf:Person>
+               <foaf:surname>كرد علي</foaf:surname>
+               <foaf:givenName>محمد</foaf:givenName>
+            </foaf:Person>
+         </rdf:li>
+      </rdf:Seq>
+   </bib:editors>
+   <dc:publisher>
+      <foaf:Organization>
+         <vcard:adr>
+            <vcard:Address>
+               <vcard:locality>القاهرة</vcard:locality>
+            </vcard:Address>
+         </vcard:adr>
+         <foaf:name>مطبعة الظاهر المطبعة العمومية</foaf:name>
+      </foaf:Organization>
+   </dc:publisher>
+   <dc:identifier>
+      <dcterms:URI>
+         <rdf:value>https://github.com/OpenArabicPE/journal_al-muqtabas/blob/master/tei/oclc_4770057679-i_14.TEIP5.xml#div_6.d1e1249</rdf:value>
+      </dcterms:URI>
+   </dc:identifier>
+   <dc:identifier>
+      <dcterms:URI>
+         <rdf:value>https://OpenArabicPE.github.io/journal_al-muqtabas/tei/oclc_4770057679-i_14.TEIP5.xml#div_6.d1e1249</rdf:value>
+      </dcterms:URI>
+   </dc:identifier>
+   <bib:pages>78-82</bib:pages>
+   <dc:date>1907-03-16</dc:date>
+   <dc:date>1907-03-16</dc:date>
+   <dc:description>Citation Key: oclc_4770057679-i_14-div_6.d1e1249
 BibTeX Cite Key: oclc_4770057679-i_14-div_6.d1e1249
 date_hijri: 1325-02-01
 oclc: 4770057679
@@ -354,8 +354,8 @@ place: القاهرة
 publisher: مطبعة الظاهر
 publisher: المطبعة العمومية
 </dc:description>
-      <z:language>ar</z:language>
-   </bib:Article>
+   <z:language>ar</z:language>
+</bib:Article>
 ```
 
 # Zotero JSON: not implemented
