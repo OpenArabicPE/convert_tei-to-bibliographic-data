@@ -1,25 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet 
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
- xmlns:z="http://www.zotero.org/namespaces/export#"
- xmlns:bib="http://purl.org/net/biblio#"
- xmlns:foaf="http://xmlns.com/foaf/0.1/"
- xmlns:dc="http://purl.org/dc/elements/1.1/"
- xmlns:dcterms="http://purl.org/dc/terms/"
-  xmlns:vcard="http://nwalsh.com/rdf/vCard#"
-  xmlns:tss="http://www.thirdstreetsoftware.com/SenteXML-1.0" 
-  xmlns:tei="http://www.tei-c.org/ns/1.0" 
-  xmlns:html="http://www.w3.org/1999/xhtml"
-  xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/"
-  xmlns:link="http://purl.org/rss/1.0/modules/link/"
-  xmlns:oape="https://openarabicpe.github.io/ns"
-   xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  exclude-result-prefixes="tei tss"
-    version="3.0">
-    
-    <xsl:output method="xml" indent="yes" omit-xml-declaration="no" encoding="UTF-8"/>
-    
+<xsl:stylesheet exclude-result-prefixes="tei tss" version="3.0" xmlns:bib="http://purl.org/net/biblio#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:link="http://purl.org/rss/1.0/modules/link/" xmlns:oape="https://openarabicpe.github.io/ns"
+    xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:tei="http://www.tei-c.org/ns/1.0"
+    xmlns:tss="http://www.thirdstreetsoftware.com/SenteXML-1.0" xmlns:vcard="http://nwalsh.com/rdf/vCard#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:z="http://www.zotero.org/namespaces/export#">
+    <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no"/>
+    <xsl:include href="parameters.xsl"/>
     <!-- plain text output   -->
     <!-- plain text output: beware that heavily marked up nodes will have most whitespace omitted -->
     <!-- add template for persName -->
@@ -30,14 +16,16 @@
         <xsl:value-of select="normalize-space($v_temp)"/>
     </xsl:template>
     <xsl:template match="element()[ancestor::tei:persName]" mode="m_plain-text" priority="2">
-        <xsl:text> </xsl:text><xsl:apply-templates mode="m_plain-text"/><xsl:text> </xsl:text>
+        <xsl:text> </xsl:text>
+        <xsl:apply-templates mode="m_plain-text"/>
+        <xsl:text> </xsl:text>
     </xsl:template>
     <xsl:template match="element()" mode="m_plain-text">
         <xsl:apply-templates mode="m_plain-text"/>
     </xsl:template>
-    <xsl:template match="text()[matches(.,'^\s+$')]" mode="m_plain-text" priority="10"/>
+    <xsl:template match="text()[matches(., '^\s+$')]" mode="m_plain-text" priority="10"/>
     <xsl:template match="text()" mode="m_plain-text">
-<!--        <xsl:value-of select="normalize-space(replace(.,'(\w)[\s|\n]+','$1 '))"/>-->
+        <!--        <xsl:value-of select="normalize-space(replace(.,'(\w)[\s|\n]+','$1 '))"/>-->
         <xsl:value-of select="normalize-space(.)"/>
     </xsl:template>
     <xsl:template match="text()[not(ancestor::tei:choice)][preceding-sibling::node()]" mode="m_plain-text">
@@ -47,15 +35,15 @@
     <!--<xsl:template match="text()[not(ancestor::tei:choice)][following-sibling::node()]" mode="m_plain-text">
         <xsl:value-of select="normalize-space(.)"/>
         <xsl:text> </xsl:text>
-    </xsl:template>-->   
+    </xsl:template>-->
     <!-- choice -->
     <xsl:template match="tei:choice" mode="m_plain-text">
         <xsl:choose>
             <xsl:when test="tei:abbr and tei:expan">
-                <xsl:apply-templates select="tei:expan" mode="m_plain-text"/>
+                <xsl:apply-templates mode="m_plain-text" select="tei:expan"/>
             </xsl:when>
             <xsl:when test="tei:orig">
-                <xsl:apply-templates select="tei:orig" mode="m_plain-text"/>
+                <xsl:apply-templates mode="m_plain-text" select="tei:orig"/>
             </xsl:when>
         </xsl:choose>
     </xsl:template>
@@ -67,15 +55,116 @@
     <xsl:template match="tei:head/tei:note" mode="m_plain-text" priority="100"/>
     <!-- trim trailing and leading punctuation marks -->
     <xsl:function name="oape:strings_trim-punctuation-marks">
-        <xsl:param name="p_input" as="xs:string"/>
+        <xsl:param as="xs:string" name="p_input"/>
         <xsl:variable name="v_punctuation" select="'[,،\.:;\?!\-–—_/]'"/>
-        <xsl:analyze-string select="$p_input" regex="^{$v_punctuation}*\s*(.+)\s*{$v_punctuation}$">
+        <xsl:analyze-string regex="^{$v_punctuation}*\s*(.+)\s*{$v_punctuation}$" select="$p_input">
             <xsl:matching-substring>
                 <xsl:value-of select="normalize-space(regex-group(1))"/>
             </xsl:matching-substring>
             <xsl:non-matching-substring>
-                <xsl:apply-templates select="." mode="m_plain-text"/>
+                <xsl:apply-templates mode="m_plain-text" select="."/>
             </xsl:non-matching-substring>
         </xsl:analyze-string>
     </xsl:function>
+    <xsl:template match="tei:bibl" mode="m_bibl-to-biblStruct">
+        <xsl:variable name="v_source">
+            <xsl:choose>
+                <xsl:when test="@source">
+                    <!-- base-uri() is relative to the current context. if the <bibl> was generated by XSLT, this will be the context -->
+                    <xsl:value-of select="concat(@source, ' ', $v_url-file, '#', @xml:id)"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="concat($v_url-file, '#', @xml:id)"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <!-- publication date of the source file -->
+        <xsl:variable name="v_source-date" select="document($v_url-file)/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/descendant::tei:biblStruct[1]/descendant::tei:date[@when][1]/@when"/>
+        <biblStruct>
+            <xsl:apply-templates mode="m_copy-from-source" select="@*"/>
+            <!-- document source of information -->
+            <xsl:attribute name="source" select="$v_source"/>
+            <xsl:if test="tei:title[@level = 'a']">
+                <analytic>
+                    <xsl:apply-templates mode="m_copy-from-source" select="tei:title[@level = 'a']"/>
+                    <xsl:apply-templates mode="m_copy-from-source" select="tei:author"/>
+                </analytic>
+            </xsl:if>
+            <monogr>
+                <xsl:apply-templates mode="m_copy-from-source" select="tei:title[@level != 'a']"/>
+                <xsl:apply-templates mode="m_copy-from-source" select="tei:idno"/>
+                <xsl:for-each select="tokenize(tei:title[@level != 'a'][@ref][1]/@ref, '\s+')">
+                    <xsl:variable name="v_authority">
+                        <xsl:choose>
+                            <xsl:when test="contains(., 'oclc:')">
+                                <xsl:text>OCLC</xsl:text>
+                            </xsl:when>
+                            <xsl:when test="contains(., 'jaraid:')">
+                                <xsl:text>jaraid</xsl:text>
+                            </xsl:when>
+                            <xsl:when test="contains(., 'oape:')">
+                                <xsl:text>oape</xsl:text>
+                            </xsl:when>
+                        </xsl:choose>
+                    </xsl:variable>
+                    <xsl:variable name="v_local-uri-scheme" select="concat($v_authority, ':bibl:')"/>
+                    <xsl:variable name="v_idno">
+                        <xsl:choose>
+                            <xsl:when test="contains(., 'oclc:')">
+                                <xsl:value-of select="replace(., '.*oclc:(\d+).*', '$1')"/>
+                            </xsl:when>
+                            <xsl:when test="contains(., $v_local-uri-scheme)">
+                                <!-- local IDs in Project Jaraid are not nummeric for biblStructs -->
+                                <xsl:value-of select="replace(., concat('.*', $v_local-uri-scheme, '(\w+).*'), '$1')"/>
+                            </xsl:when>
+                        </xsl:choose>
+                    </xsl:variable>
+                    <idno type="{$v_authority}">
+                        <xsl:value-of select="$v_idno"/>
+                    </idno>
+                </xsl:for-each>
+                <xsl:choose>
+                    <xsl:when test="tei:textLang">
+                        <xsl:apply-templates mode="m_copy-from-source" select="tei:textLang"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <textLang>
+                            <xsl:attribute name="mainLang">
+                                <xsl:choose>
+                                    <xsl:when test="tei:title[@level != 'a']/@xml:lang">
+                                        <xsl:value-of select="tei:title[@level != 'a'][@xml:lang][1]/@xml:lang"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text>ar</xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:attribute>
+                        </textLang>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:if test="tei:title[@level != 'a']">
+                    <xsl:apply-templates mode="m_copy-from-source" select="tei:author"/>
+                </xsl:if>
+                <xsl:apply-templates mode="m_copy-from-source" select="tei:editor"/>
+                <imprint>
+                    <xsl:apply-templates mode="m_copy-from-source" select="tei:date"/>
+                    <!-- add a date at which this bibl was documented in the source file -->
+                    <date type="documented" when="{$v_source-date}"/>
+                    <xsl:apply-templates mode="m_copy-from-source" select="tei:pubPlace"/>
+                    <xsl:apply-templates mode="m_copy-from-source" select="tei:publisher"/>
+                </imprint>
+                <xsl:apply-templates mode="m_copy-from-source" select="tei:biblScope"/>
+            </monogr>
+        </biblStruct>
+    </xsl:template>
+    <!-- do not copy certain attributes from one file to another -->
+    <xsl:template match="@xml:id | @change | @next | @prev" mode="m_copy-from-source"/>
+    <xsl:template match="node() | @*" mode="m_copy-from-source">
+        <xsl:copy>
+            <xsl:apply-templates mode="m_copy-from-source" select="@* | node()"/>
+        </xsl:copy>
+    </xsl:template>
+    <xsl:template match="text()" mode="m_copy-from-source" priority="10">
+        <xsl:value-of select="normalize-space(.)"/>
+    </xsl:template>
 </xsl:stylesheet>

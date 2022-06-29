@@ -13,9 +13,9 @@
     
     <!-- date conversion functions -->
 <!--    <xsl:include href="https://tillgrallert.github.io/xslt-calendar-conversion/functions/date-functions.xsl"/>-->
-    <xsl:include href="https://www.sitzextase.de/xslt-calendar-conversion/functions/date-functions.xsl"/>
+    <xsl:include href="https://tillgrallert.github.io/xslt-calendar-conversion/functions/date-functions.xsl"/>
 <!--     <xsl:include href="../../../xslt-calendar-conversion/date-functions.xsl"/> -->
-    <xsl:include href="functions.xsl"/>
+    <xsl:import href="functions.xsl"/>
     
     <!-- this needs to be adopted to work with any periodical and not just al-Muqtabas -->
     <xsl:variable name="v_schema" select="'http://www.loc.gov/standards/mods/mods-3-7.xsd'"/>
@@ -32,6 +32,21 @@
             - date last accessed
             - edition
         -->
+        <xsl:variable name="v_biblStruct">
+            <xsl:choose>
+                <xsl:when test="$p_input/local-name() = 'bibl'">
+                    <xsl:apply-templates select="$p_input" mode="m_bibl-to-biblStruct"/>
+                </xsl:when>
+                <xsl:when test="$p_input/local-name() = 'biblStruct'">
+                    <xsl:apply-templates select="$p_input" mode="m_copy-from-source"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:message>
+                        <xsl:text>Input is neither bibl nor biblStruct</xsl:text>
+                    </xsl:message>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
         <!-- variables -->
         <xsl:variable name="v_originInfo">
             <originInfo>
@@ -43,38 +58,38 @@
                     <xsl:value-of select="normalize-space($v_plain)"/>
                 </edition>-->
                 <place>
-                    <xsl:apply-templates select="$p_input/descendant::tei:pubPlace/tei:placeName[@xml:lang = $p_lang]" mode="m_tei-to-mods"/>
+                    <xsl:apply-templates select="$v_biblStruct/descendant::tei:pubPlace/tei:placeName[@xml:lang = $p_lang]" mode="m_tei-to-mods"/>
                 </place>
-                <xsl:apply-templates select="$p_input/descendant::tei:publisher" mode="m_tei-to-mods"/>
+                <xsl:apply-templates select="$v_biblStruct/descendant::tei:publisher" mode="m_tei-to-mods"/>
                 <dateIssued>
                     <xsl:choose>
-                        <xsl:when test="$p_input/descendant::tei:date/@when!=''">
+                        <xsl:when test="$v_biblStruct/descendant::tei:date/@when!=''">
                             <xsl:attribute name="encoding" select="'w3cdtf'"/>
-                            <xsl:value-of select="$p_input/descendant::tei:date[@when][1]/@when"/>
+                            <xsl:value-of select="$v_biblStruct/descendant::tei:date[@when][1]/@when"/>
                         </xsl:when>
-                        <xsl:when test="$p_input/descendant::tei:date[@from]">
+                        <xsl:when test="$v_biblStruct/descendant::tei:date[@from]">
                              <xsl:attribute name="encoding" select="'w3cdtf'"/>
-                            <xsl:value-of select="$p_input/descendant::tei:date[@from][1]/@from"/>
+                            <xsl:value-of select="$v_biblStruct/descendant::tei:date[@from][1]/@from"/>
                         </xsl:when>
                     </xsl:choose>
                 </dateIssued>
                 <!-- add hijri dates -->
-                <xsl:if test="$p_input/descendant::tei:date/@calendar='#cal_islamic'">
+                <xsl:if test="$v_biblStruct/descendant::tei:date/@calendar='#cal_islamic'">
                     <!-- v3.7 added @calendar (xs:string) -->
                     <dateOther calendar="islamic">
-                        <xsl:value-of select="$p_input/descendant::tei:date[@calendar = '#cal_islamic']/@when-custom"/>
+                        <xsl:value-of select="$v_biblStruct/descendant::tei:date[@calendar = '#cal_islamic']/@when-custom"/>
                     </dateOther>
                     <!-- this still needs work -->
                     <dateOther>
-                        <xsl:value-of select="$p_input/descendant::tei:date[@calendar = '#cal_islamic']/@when-custom"/>
+                        <xsl:value-of select="$v_biblStruct/descendant::tei:date[@calendar = '#cal_islamic']/@when-custom"/>
                         <!-- provide Gregorian dates in brackets behind the Islamic date -->
                         <xsl:text> [</xsl:text>
                         <xsl:choose>
-                            <xsl:when test="$p_input/descendant::tei:date[@calendar = '#cal_islamic'][@when-custom]/@when">
-                                <xsl:value-of select="$p_input/descendant::tei:date[@calendar = '#cal_islamic'][@when-custom]/@when"/>
+                            <xsl:when test="$v_biblStruct/descendant::tei:date[@calendar = '#cal_islamic'][@when-custom]/@when">
+                                <xsl:value-of select="$v_biblStruct/descendant::tei:date[@calendar = '#cal_islamic'][@when-custom]/@when"/>
                             </xsl:when>
-                            <xsl:when test="$p_input/descendant::tei:date[@calendar = '#cal_islamic'][@when-custom]">
-                                <xsl:analyze-string select="$p_input/descendant::tei:date[@calendar = '#cal_islamic'][@when-custom][1]/@when-custom" regex="(\d{{4}})$|(\d{{4}}-\d{{2}}-\d{{2}})$">
+                            <xsl:when test="$v_biblStruct/descendant::tei:date[@calendar = '#cal_islamic'][@when-custom]">
+                                <xsl:analyze-string select="$v_biblStruct/descendant::tei:date[@calendar = '#cal_islamic'][@when-custom][1]/@when-custom" regex="(\d{{4}})$|(\d{{4}}-\d{{2}}-\d{{2}})$">
                                     <xsl:matching-substring>
                                         <xsl:if test="regex-group(1)">
                                              <xsl:value-of select="oape:date-convert-islamic-year-to-gregorian(regex-group(1))"/>
@@ -84,7 +99,7 @@
                                         </xsl:if>
                                     </xsl:matching-substring>
                                     <xsl:non-matching-substring>
-                                        <xsl:value-of select="$p_input/descendant::tei:date[@calendar = '#cal_islamic']/@when-custom"/>
+                                        <xsl:value-of select="$v_biblStruct/descendant::tei:date[@calendar = '#cal_islamic']/@when-custom"/>
                                     </xsl:non-matching-substring>
                                 </xsl:analyze-string>
                             </xsl:when>
@@ -93,24 +108,24 @@
                     </dateOther>
                 </xsl:if>
                 <!-- add julian dates -->
-                <xsl:if test="$p_input/descendant::tei:date/@calendar='#cal_julian'">
+                <xsl:if test="$v_biblStruct/descendant::tei:date/@calendar='#cal_julian'">
                     <!-- v3.7 added @calendar (xs:string) -->
                     <dateOther calendar="julian">
-                        <xsl:value-of select="$p_input/descendant::tei:date[@calendar = '#cal_julian']/@when-custom"/>
+                        <xsl:value-of select="$v_biblStruct/descendant::tei:date[@calendar = '#cal_julian']/@when-custom"/>
                     </dateOther>
                     <!-- this still needs work -->
                     <dateOther>
-                        <xsl:value-of select="$p_input/descendant::tei:date[@calendar = '#cal_julian']/@when-custom"/>
+                        <xsl:value-of select="$v_biblStruct/descendant::tei:date[@calendar = '#cal_julian']/@when-custom"/>
                         <!-- add regularised Gregorian date -->
                         <xsl:text> [</xsl:text>
                         <xsl:choose>
                             <!-- test if Gregorian date is already available in the source -->
-                            <xsl:when test="$p_input/descendant::tei:date[@calendar = '#cal_julian'][@when-custom]/@when">
-                                <xsl:value-of select="$p_input/descendant::tei:date[@calendar = '#cal_julian'][@when-custom]/@when"/>
+                            <xsl:when test="$v_biblStruct/descendant::tei:date[@calendar = '#cal_julian'][@when-custom]/@when">
+                                <xsl:value-of select="$v_biblStruct/descendant::tei:date[@calendar = '#cal_julian'][@when-custom]/@when"/>
                             </xsl:when>
                             <!-- generate normalised date -->
-                            <xsl:when test="$p_input/descendant::tei:date[@calendar = '#cal_julian'][@when-custom]">
-                                <xsl:analyze-string select="$p_input/descendant::tei:date[@calendar = '#cal_julian'][@when-custom]/@when-custom" regex="(\d{{4}})$|(\d{{4}}-\d{{2}}-\d{{2}})$">
+                            <xsl:when test="$v_biblStruct/descendant::tei:date[@calendar = '#cal_julian'][@when-custom]">
+                                <xsl:analyze-string select="$v_biblStruct/descendant::tei:date[@calendar = '#cal_julian'][@when-custom]/@when-custom" regex="(\d{{4}})$|(\d{{4}}-\d{{2}}-\d{{2}})$">
                                     <xsl:matching-substring>
                                         <xsl:if test="regex-group(1)">
                                             <xsl:value-of select="regex-group(1)"/>
@@ -120,7 +135,7 @@
                                         </xsl:if>
                                     </xsl:matching-substring>
                                     <xsl:non-matching-substring>
-                                        <xsl:value-of select="$p_input/descendant::tei:date[@calendar = '#cal_julian']/@when-custom"/>
+                                        <xsl:value-of select="$v_biblStruct/descendant::tei:date[@calendar = '#cal_julian']/@when-custom"/>
                                     </xsl:non-matching-substring>
                                 </xsl:analyze-string>
                             </xsl:when>
@@ -129,24 +144,24 @@
                     </dateOther>
                 </xsl:if>
                     <!-- add mali dates -->
-                <xsl:if test="$p_input/descendant::tei:date/@calendar='#cal_ottomanfiscal'">
+                <xsl:if test="$v_biblStruct/descendant::tei:date/@calendar='#cal_ottomanfiscal'">
                     <!-- v3.7 added @calendar (xs:string) -->
                     <dateOther calendar="ottoman-fiscal">
-                        <xsl:value-of select="$p_input/descendant::tei:date[@calendar = '#cal_ottomanfiscal']/@when-custom"/>
+                        <xsl:value-of select="$v_biblStruct/descendant::tei:date[@calendar = '#cal_ottomanfiscal']/@when-custom"/>
                     </dateOther>
                     <!-- this still needs work -->
                     <dateOther>
-                        <xsl:value-of select="$p_input/descendant::tei:date[@calendar = '#cal_ottomanfiscal']/@when-custom"/>
+                        <xsl:value-of select="$v_biblStruct/descendant::tei:date[@calendar = '#cal_ottomanfiscal']/@when-custom"/>
                         <!-- add regularised Gregorian date -->
                         <xsl:text> [</xsl:text>
                         <xsl:choose>
                             <!-- test if Gregorian date is already available in the source -->
-                            <xsl:when test="$p_input/descendant::tei:date[@calendar = '#cal_ottomanfiscal'][@when-custom]/@when">
-                                <xsl:value-of select="$p_input/descendant::tei:date[@calendar = '#cal_ottomanfiscal'][@when-custom]/@when"/>
+                            <xsl:when test="$v_biblStruct/descendant::tei:date[@calendar = '#cal_ottomanfiscal'][@when-custom]/@when">
+                                <xsl:value-of select="$v_biblStruct/descendant::tei:date[@calendar = '#cal_ottomanfiscal'][@when-custom]/@when"/>
                             </xsl:when>
                             <!-- generate normalised date -->
-                            <xsl:when test="$p_input/descendant::tei:date[@calendar = '#cal_ottomanfiscal'][@when-custom]">
-                                <xsl:analyze-string select="$p_input/descendant::tei:date[@calendar = '#cal_ottomanfiscal'][@when-custom]/@when-custom" regex="(\d{{4}})$|(\d{{4}}-\d{{2}}-\d{{2}})$">
+                            <xsl:when test="$v_biblStruct/descendant::tei:date[@calendar = '#cal_ottomanfiscal'][@when-custom]">
+                                <xsl:analyze-string select="$v_biblStruct/descendant::tei:date[@calendar = '#cal_ottomanfiscal'][@when-custom]/@when-custom" regex="(\d{{4}})$|(\d{{4}}-\d{{2}}-\d{{2}})$">
                                     <xsl:matching-substring>
                                         <xsl:if test="regex-group(1)">
                                             <xsl:value-of select="oape:date-convert-ottoman-fiscal-year-to-gregorian(regex-group(1))"/>
@@ -156,7 +171,7 @@
                                         </xsl:if>
                                     </xsl:matching-substring>
                                     <xsl:non-matching-substring>
-                                        <xsl:value-of select="$p_input/descendant::tei:date[@calendar = '#cal_julian']/@when-custom"/>
+                                        <xsl:value-of select="$v_biblStruct/descendant::tei:date[@calendar = '#cal_julian']/@when-custom"/>
                                     </xsl:non-matching-substring>
                                 </xsl:analyze-string>
                             </xsl:when>
@@ -166,10 +181,10 @@
                 </xsl:if>
                 <issuance>
                     <xsl:choose>
-                        <xsl:when test="$p_input/descendant::tei:title[@level=('a','j')]">                        
+                        <xsl:when test="$v_biblStruct/descendant::tei:title[@level=('a','j')]">                        
                             <xsl:text>continuing</xsl:text>
                         </xsl:when>
-                        <xsl:when test="$p_input/descendant::tei:title[@level='m']">
+                        <xsl:when test="$v_biblStruct/descendant::tei:title[@level='m']">
                             <xsl:text>monographic</xsl:text>
                         </xsl:when>
                     </xsl:choose>
@@ -178,39 +193,39 @@
         </xsl:variable>
         <xsl:variable name="v_part">
             <part>
-                <xsl:apply-templates select="$p_input/descendant::tei:biblScope" mode="m_tei-to-mods"/>
+                <xsl:apply-templates select="$v_biblStruct/descendant::tei:biblScope" mode="m_tei-to-mods"/>
             </part>
         </xsl:variable>
         <xsl:variable name="v_editor">
             <!-- pull in information on editor -->
-            <xsl:apply-templates select="$p_input/descendant::tei:editor/tei:persName[@xml:lang = $p_lang]" mode="m_tei-to-mods"/>
+            <xsl:apply-templates select="$v_biblStruct/descendant::tei:editor/tei:persName[@xml:lang = $p_lang]" mode="m_tei-to-mods"/>
         </xsl:variable>
         <!-- construct output -->
         <mods>
             <!-- what is this ID? -->
             <!-- The variable is declared in parameters.xsl, which is always loaded together with the current XSLT -->
-                <xsl:if test="$vgFileId !='' and $p_input/@xml:id !=''">
+                <xsl:if test="$vgFileId !='' and $v_biblStruct/@xml:id !=''">
                     <xsl:attribute name="ID">
-                        <xsl:value-of select="concat($vgFileId,'-',$p_input/@xml:id,'-mods')"/>
+                        <xsl:value-of select="concat($vgFileId,'-',$v_biblStruct/@xml:id,'-mods')"/>
                     </xsl:attribute>
                 </xsl:if>
             <titleInfo>
                     <xsl:choose>
                         <!-- test for analytical titles in target language -->
-                        <xsl:when test="$p_input/descendant::tei:title[@level='a'][@xml:lang=$p_lang]">
-                            <xsl:apply-templates select="$p_input/descendant::tei:title[@level='a'][@xml:lang=$p_lang]" mode="m_tei-to-mods"/>
+                        <xsl:when test="$v_biblStruct/descendant::tei:title[@level='a'][@xml:lang=$p_lang]">
+                            <xsl:apply-templates select="$v_biblStruct/descendant::tei:title[@level='a'][@xml:lang=$p_lang]" mode="m_tei-to-mods"/>
                         </xsl:when>
                         <!-- test for analytical titles in any language -->
-                        <xsl:when test="$p_input/descendant::tei:title[@level='a']">
-                            <xsl:apply-templates select="$p_input/descendant::tei:title[@level='a']" mode="m_tei-to-mods"/>
+                        <xsl:when test="$v_biblStruct/descendant::tei:title[@level='a']">
+                            <xsl:apply-templates select="$v_biblStruct/descendant::tei:title[@level='a']" mode="m_tei-to-mods"/>
                         </xsl:when>
                         <!-- test for other titles in target language -->
-                        <xsl:when test="$p_input/descendant::tei:title[not(@level='a')][@xml:lang=$p_lang]">
-                            <xsl:apply-templates select="$p_input/descendant::tei:title[@xml:lang=$p_lang][not(@level='a')]" mode="m_tei-to-mods"/>
+                        <xsl:when test="$v_biblStruct/descendant::tei:title[not(@level='a')][@xml:lang=$p_lang]">
+                            <xsl:apply-templates select="$v_biblStruct/descendant::tei:title[@xml:lang=$p_lang][not(@level='a')]" mode="m_tei-to-mods"/>
                         </xsl:when>
                         <!-- fall back: other title in any language -->
                         <xsl:otherwise>
-                            <xsl:apply-templates select="$p_input/descendant::tei:title[not(@level='a')]" mode="m_tei-to-mods"/>
+                            <xsl:apply-templates select="$v_biblStruct/descendant::tei:title[not(@level='a')]" mode="m_tei-to-mods"/>
                         </xsl:otherwise>
                     </xsl:choose>
             </titleInfo>
@@ -223,34 +238,34 @@
                 <xsl:text>text</xsl:text>
             </typeOfResource>
             <xsl:choose>
-                <xsl:when test="$p_input/descendant::tei:title[@level='a']">                        
+                <xsl:when test="$v_biblStruct/descendant::tei:title[@level='a']">                        
                     <genre authority="local" xml:lang="en">journalArticle</genre>
                     <genre authority="marcgt" xml:lang="en">article</genre>
                 </xsl:when>
-                <xsl:when test="$p_input/descendant::tei:title[@level='m']">
+                <xsl:when test="$v_biblStruct/descendant::tei:title[@level='m']">
                     <genre authority="local">book</genre>
                     <genre authority="marcgt">book</genre>
                 </xsl:when>
-                <xsl:when test="$p_input/descendant::tei:title[@level='j']">
+                <xsl:when test="$v_biblStruct/descendant::tei:title[@level='j']">
                     <genre authority="local">periodical</genre>
                     <genre authority="marcgt">periodical</genre>
                 </xsl:when>
             </xsl:choose>
             <!-- for each author -->
-            <xsl:apply-templates select="$p_input/descendant::tei:author/tei:persName" mode="m_tei-to-mods"/>
+            <xsl:apply-templates select="$v_biblStruct/descendant::tei:author/tei:persName" mode="m_tei-to-mods"/>
            
             <xsl:choose>
-                <xsl:when test="$p_input/descendant::tei:title[@level='a']">
+                <xsl:when test="$v_biblStruct/descendant::tei:title[@level='a']">
             <relatedItem type="host">
                 <titleInfo>
                      <xsl:choose>
                         <!-- test for monogr titles in target language -->
-                        <xsl:when test="$p_input/descendant::tei:title[not(@level='a')][@xml:lang=$p_lang]">
-                            <xsl:apply-templates select="$p_input/descendant::tei:title[not(@level='a')][@xml:lang=$p_lang]" mode="m_tei-to-mods"/>
+                        <xsl:when test="$v_biblStruct/descendant::tei:title[not(@level='a')][@xml:lang=$p_lang]">
+                            <xsl:apply-templates select="$v_biblStruct/descendant::tei:title[not(@level='a')][@xml:lang=$p_lang]" mode="m_tei-to-mods"/>
                         </xsl:when>
                          <!-- fallback: monogr titles in any language -->
                          <xsl:otherwise>
-                             <xsl:apply-templates select="$p_input/descendant::tei:title[not(@level='a')]" mode="m_tei-to-mods"/>
+                             <xsl:apply-templates select="$v_biblStruct/descendant::tei:title[not(@level='a')]" mode="m_tei-to-mods"/>
                          </xsl:otherwise>
                      </xsl:choose>
                 </titleInfo>
@@ -259,7 +274,7 @@
                 <xsl:copy-of select="$v_originInfo"/>
                 <xsl:copy-of select="$v_part"/>
                 <!-- IDs: but not URL -->
-                <xsl:apply-templates select="$p_input/descendant::tei:idno[not(@type='url')]" mode="m_tei-to-mods"/>
+                <xsl:apply-templates select="$v_biblStruct/descendant::tei:idno[not(@type='url')]" mode="m_tei-to-mods"/>
             </relatedItem>
                 </xsl:when>
                 <xsl:otherwise>
@@ -273,17 +288,17 @@
                 <!-- for the time being I use a fixed variable -->
                 <xsl:value-of select="$v_license"/>
             </accessCondition>
-            <xsl:if test="$p_input/descendant::tei:idno[@type='url']">
+            <xsl:if test="$v_biblStruct/descendant::tei:idno[@type='url']">
                 <!-- MODS allows for more than one URL! -->
                 <location>
-                    <xsl:apply-templates select="$p_input/descendant::tei:idno[@type='url']" mode="m_tei-to-mods"/>
+                    <xsl:apply-templates select="$v_biblStruct/descendant::tei:idno[@type='url']" mode="m_tei-to-mods"/>
                     <!--<url dateLastAccessed="{$p_date-accessed}" usage="primary display">-->
                 </location>
             </xsl:if>
             <!-- language information -->
             <xsl:choose>
-                <xsl:when test="$p_input/descendant::tei:textLang">
-                    <xsl:apply-templates select="$p_input/descendant::tei:textLang" mode="m_tei-to-mods"/>
+                <xsl:when test="$v_biblStruct/descendant::tei:textLang">
+                    <xsl:apply-templates select="$v_biblStruct/descendant::tei:textLang" mode="m_tei-to-mods"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:variable name="v_lang">
@@ -296,7 +311,7 @@
                 </xsl:otherwise>
             </xsl:choose>
             <!-- notes, tags etc. -->
-            <xsl:apply-templates select="$p_input/descendant::tei:note" mode="m_tei-to-mods"/>
+            <xsl:apply-templates select="$v_biblStruct/descendant::tei:note" mode="m_tei-to-mods"/>
         </mods>
     </xsl:function>
 

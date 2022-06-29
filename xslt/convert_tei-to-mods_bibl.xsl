@@ -29,6 +29,7 @@
         <xsl:result-document href="../metadata/{$vgFileId}-bibl.MODS.xml">
             <xsl:value-of select="concat('&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;',$p_url-boilerplate,'&quot;?&gt;')" disable-output-escaping="yes"/>
             <modsCollection xsi:schemaLocation="{$v_schema}">
+                <xsl:apply-templates select=".//tei:standOff//tei:biblStruct"/>
                 <!--<xsl:apply-templates select=".//tei:body//tei:bibl[contains(ancestor::tei:div/tei:head/text(),$pg_head-section)]"/>-->
                 <xsl:apply-templates select=".//tei:body//tei:bibl[descendant::tei:title] | .//tei:body//tei:biblStruct"/>
                 <!-- apply to the works listed in the particDesc -->
