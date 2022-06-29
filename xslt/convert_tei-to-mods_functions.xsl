@@ -402,17 +402,55 @@
     <!-- IDs -->
     <xsl:template match="tei:idno" mode="m_tei-to-mods">
         <identifier type="{@type}">
-            <xsl:variable name="v_plain">
-                <xsl:apply-templates mode="m_plain-text" select="."/>
-            </xsl:variable>
-            <xsl:value-of select="normalize-space($v_plain)"/>
+            <xsl:apply-templates mode="m_plain-text" select="text()"/>
         </identifier>
     </xsl:template>
-    <xsl:template match="tei:idno[@type = 'url']" mode="m_tei-to-mods">
-        <url usage="primary display">
-            <xsl:value-of select="."/>
-        </url>
+    <xsl:template match="tei:idno[@type = 'classmark']" mode="m_tei-to-mods">
+        <location>
+            <!-- the actual location of the physical copy -->
+            <physicalLocation>
+                <xsl:choose>
+                    <xsl:when test="ancestor::tei:item[1]/tei:label/tei:orgName">
+                        <xsl:variable name="v_org" select="ancestor::tei:item[1]/tei:label/tei:orgName"/>
+                        <xsl:choose>
+                            <xsl:when test="matches($v_org/@ref, 'isil:')">
+                                <xsl:attribute name="authority" select="'isil'"/>
+                                <xsl:value-of select="replace($v_org/@ref, '^.*isil:([^\s]+).*$', '$1')"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:apply-templates select="$v_org" mode="m_plain-text"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:when>
+                    <xsl:when test="@source">
+                        <xsl:apply-templates select="@source" mode="m_plain-text"/>
+                    </xsl:when>
+                </xsl:choose>
+            </physicalLocation>
+            <shelfLocator><xsl:apply-templates mode="m_plain-text" select="text()"/></shelfLocator>
+            <!-- url for this resource -->
+            <url/>
+        </location>
     </xsl:template>
+    <!-- this is invalid encoding according to the specs, even though Zotero handles it this way -->
+    <!--<xsl:template match="tei:idno[@type = 'classmark']" mode="m_tei-to-mods">
+        <classification>
+            <xsl:apply-templates mode="m_plain-text" select="text()"/>
+        </classification>
+    </xsl:template>-->
+    <!--<xsl:template match="tei:idno[@type = ('url', 'URI')]" mode="m_tei-to-mods">
+        <location>
+            <url usage="primary display">
+                <xsl:apply-templates mode="m_plain-text" select="text()"/>
+            </url>
+            <xsl:apply-templates mode="m_tei-to-mods" select="following-sibling::tei:idno[@type = ('url', 'URI')]"/>
+        </location>
+    </xsl:template>
+    <xsl:template match="tei:idno[@type = ('url', 'URI')][preceding-sibling::tei:idno[@type = ('url', 'URI')]]" mode="m_tei-to-mods">
+        <url usage="primary display">
+            <xsl:apply-templates mode="m_plain-text" select="text()"/>
+        </url>
+    </xsl:template>-->
     <!-- source languages -->
     <xsl:template match="tei:textLang" mode="m_tei-to-mods">
         <language>
