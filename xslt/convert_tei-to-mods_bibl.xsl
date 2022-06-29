@@ -13,7 +13,6 @@
     <xsl:preserve-space elements="tei:head tei:bibl"/>
 
     <xsl:include href="convert_tei-to-mods_functions.xsl"/>
-    <xsl:include href="parameters.xsl"/>
     
     <!-- this parameter is currently not used -->
 <!--    <xsl:param name="pg_head-section" select="'مخطوطات ومطبوعات'"/>-->
