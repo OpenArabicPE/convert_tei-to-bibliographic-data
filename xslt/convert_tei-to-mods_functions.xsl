@@ -203,9 +203,9 @@
         <mods>
             <!-- what is this ID? -->
             <!-- The variable is declared in parameters.xsl, which is always loaded together with the current XSLT -->
-            <xsl:if test="$v_id-file != '' and $v_biblStruct/@xml:id != ''">
+            <xsl:if test="$v_id-file != '' and $v_biblStruct/tei:biblStruct/@xml:id != ''">
                 <xsl:attribute name="ID">
-                    <xsl:value-of select="concat($v_id-file, '-', $v_biblStruct/@xml:id, '-mods')"/>
+                    <xsl:value-of select="concat($v_id-file, '-', $v_biblStruct/tei:biblStruct/@xml:id, '-mods')"/>
                 </xsl:attribute>
             </xsl:if>
             <titleInfo>
@@ -429,7 +429,13 @@
             </physicalLocation>
             <shelfLocator><xsl:apply-templates mode="m_plain-text" select="text()"/></shelfLocator>
             <!-- url for this resource -->
-            <url/>
+            <url>
+                <xsl:choose>
+                    <xsl:when test="@source = 'hathi'">
+                        <xsl:value-of select="concat('https://hdl.handle.net/2027/', .)"/>
+                    </xsl:when>
+                </xsl:choose>
+            </url>
         </location>
     </xsl:template>
     <!-- this is invalid encoding according to the specs, even though Zotero handles it this way -->
