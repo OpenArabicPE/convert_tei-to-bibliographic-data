@@ -59,7 +59,14 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </place>
-                <xsl:apply-templates mode="m_tei-to-mods" select="$v_imprint/tei:publisher"/>
+                <xsl:choose>
+                    <xsl:when test="$v_imprint/tei:publisher/child::node()[@xml:lang = $p_lang]">
+                        <xsl:apply-templates mode="m_tei-to-mods" select="$v_imprint/tei:publisher/child::node()[@xml:lang = $p_lang]"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates mode="m_tei-to-mods" select="$v_imprint/tei:publisher"/>
+                    </xsl:otherwise>
+                </xsl:choose>
                 <dateIssued>
                     <xsl:choose>
                         <xsl:when test="$v_imprint/tei:date/@when != ''">
