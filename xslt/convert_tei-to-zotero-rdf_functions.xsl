@@ -19,7 +19,7 @@
     
     <xsl:output method="xml" indent="yes" omit-xml-declaration="no" encoding="UTF-8"/>
     
-    <xsl:include href="functions.xsl"/>
+    <xsl:import href="functions.xsl"/>
     
     <!-- this stylesheet translates <tei:biblStruct> to Zotero RDF -->
     <!-- to do:

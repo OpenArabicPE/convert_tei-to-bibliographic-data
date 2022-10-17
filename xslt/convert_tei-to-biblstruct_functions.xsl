@@ -6,7 +6,7 @@
     xpath-default-namespace="http://www.tei-c.org/ns/1.0">
     <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no" version="1.0" name="xml"/>
     
-    <xsl:include href="parameters.xsl"/>
+    <xsl:import href="parameters.xsl"/>
     
     <!-- are translators covered? -->
     <!-- problems

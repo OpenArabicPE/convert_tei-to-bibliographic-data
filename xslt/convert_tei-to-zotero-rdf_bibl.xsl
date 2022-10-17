@@ -19,8 +19,8 @@
     <xsl:output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no" version="1.0"/>
     <xsl:preserve-space elements="tei:head tei:bibl"/>
 
-    <xsl:include href="convert_tei-to-zotero-rdf_functions.xsl"/>
-    <xsl:include href="parameters.xsl"/>
+    <xsl:import href="convert_tei-to-zotero-rdf_functions.xsl"/>
+    <xsl:import href="parameters.xsl"/>
     
     <!-- it doesn't matter if one applies the transformation to bibl or biblStruct -->
     <xsl:template match="tei:bibl | tei:biblStruct">

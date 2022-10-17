@@ -8,9 +8,9 @@
     <!-- this stylesheet translates <tei:biblStruct>s to  csv -->
     <!-- toggle debugging messages -->
     <!-- this XSLT is already imported through chained XSLT -->
-    <!--    <xsl:include href="../../oxygen-project/OpenArabicPE_parameters.xsl"/>-->
+    <!--    <xsl:import href="../../oxygen-project/OpenArabicPE_parameters.xsl"/>-->
     <!-- import functions -->
-    <!--    <xsl:include href="../../tools/xslt/openarabicpe_functions.xsl"/>-->
+    <!--    <xsl:import href="../../tools/xslt/openarabicpe_functions.xsl"/>-->
     <xsl:import href="../../authority-files/xslt/functions.xsl"/>
     <xsl:variable name="v_new-line" select="'&#x0A;'"/>
     <xsl:variable name="v_quot" select="'&quot;'"/>

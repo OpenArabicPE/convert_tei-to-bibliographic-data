@@ -28,9 +28,9 @@
             + uses a LOT of non-nummeric tags, which supposedly are custom extensions of MARC
             + uses field 974 for holding information on individual items/ copies
     -->
-    <xsl:include href="functions.xsl"/>
-    <xsl:include href="parameters.xsl"/>
-    <xsl:include href="../../authority-files/xslt/convert_isil-rdf-to-tei_functions.xsl"/>
+    <xsl:import href="functions.xsl"/>
+    <xsl:import href="parameters.xsl"/>
+    <xsl:import href="../../authority-files/xslt/convert_isil-rdf-to-tei_functions.xsl"/>
     <xsl:import href="../../authority-files/xslt/functions.xsl"/>
     <!-- these parameters are placeholders until I established a way of pulling language information from the source -->
     <xsl:param name="p_lang-1" select="'ar'"/>

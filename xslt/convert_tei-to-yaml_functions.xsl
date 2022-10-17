@@ -11,7 +11,7 @@
     <!-- this stylesheet translates <tei:biblStruct>s to  YAML -->
     
     <!-- toggle debugging messages -->
-<!--    <xsl:include href="../../oxygen-project/OpenArabicPE_parameters.xsl"/>-->
+<!--    <xsl:import href="../../oxygen-project/OpenArabicPE_parameters.xsl"/>-->
     
     <xsl:variable name="v_new-line" select="'&#x0A;'"/>
     <xsl:variable name="v_quot" select="'&apos;''"/>

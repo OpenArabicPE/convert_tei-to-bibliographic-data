@@ -12,7 +12,7 @@
     <xsl:output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no" version="1.0"/>
     <!-- this stylesheet translates <mods:mods> to <tei:biblStruct> -->
     
-    <xsl:include href="convert_mods-to-tei_functions.xsl"/>
+    <xsl:import href="convert_mods-to-tei_functions.xsl"/>
     
     <!-- debugging -->
     <xsl:template match="/">

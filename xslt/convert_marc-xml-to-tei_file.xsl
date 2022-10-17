@@ -4,7 +4,7 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.tei-c.org/ns/1.0">
     <!-- This stylesheet takes MARC21 records in XML serialisation as input and generates TEI XML as output -->
     <!-- documentation of the MARC21 field codes can be found here: https://marc21.ca/M21/MARC-Field-Codes.html -->
-    <xsl:include href="convert_marc-xml-to-tei_functions.xsl"/>
+    <xsl:import href="convert_marc-xml-to-tei_functions.xsl"/>
     <!-- output: everything is wrapped in a listBibl -->
     <xsl:template match="/">
         <xsl:result-document href="{$v_base-directory}metadata/{$v_file-name_input}.TEIP5.xml" method="xml">
