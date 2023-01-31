@@ -16,6 +16,10 @@
     <xsl:variable name="v_key-value-sep" select="': '"/>
     <xsl:variable name="v_comma" select="','"/>
     <xsl:variable name="v_tab" select="'  '"/>
+    <xsl:variable name="v_tab-2" select="concat($v_tab, $v_tab)"/>
+    <xsl:variable name="v_tab-3" select="concat($v_tab-2, $v_tab)"/>
+    <xsl:variable name="v_tab-4" select="concat($v_tab-3, $v_tab)"/>
+    <xsl:variable name="v_tab-5" select="concat($v_tab-4, $v_tab)"/>
     
     <!-- testing -->
     <xsl:template match="/">
@@ -118,25 +122,10 @@
         <xsl:value-of select="$v_key-value-sep"/><xsl:apply-templates select="text()" mode="m_tei-to-yaml"/>
         <xsl:value-of select="$v_new-line"/>
         <!-- level of indention? -->
-        <xsl:value-of select="$v_tab"/><xsl:value-of select="$v_tab"/><xsl:value-of select="$v_tab"/>
+        <xsl:value-of select="$v_tab-3"/>
         <xsl:text>lang</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:apply-templates select="@xml:lang" mode="m_tei-to-yaml"/>
     </xsl:template>
-    <xsl:template match="tei:placeName" mode="m_tei-to-yaml">
-        <xsl:choose>
-            <xsl:when test="@ref != 'NA'">
-                <xsl:variable name="v_name" select="oape:query-gazetteer(., $v_gazetteer, $p_local-authority, 'name', 'en')"/>
-                <xsl:variable name="v_url-geon" select="oape:query-gazetteer(., $v_gazetteer, $p_local-authority, 'url-geon', '')"/>
-                <xsl:text>- </xsl:text><xsl:text>name</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:value-of select="$v_quot"/><xsl:value-of select="$v_name"/><xsl:value-of select="$v_quot"/>
-                <xsl:if test="$v_url-geon != 'NA'">
-                    <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab"/><xsl:value-of select="$v_tab"/><xsl:value-of select="$v_tab"/>
-                    <xsl:text>GeoNames</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:value-of select="$v_url-geon"/>
-                </xsl:if>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="text()" mode="m_tei-to-yaml"/>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
+    
     <xsl:template match="tei:idno" mode="m_tei-to-yaml">
         <xsl:text>- </xsl:text><xsl:value-of select="@type"/><xsl:value-of select="$v_key-value-sep"/>
         <xsl:value-of select="$v_quot"/>
@@ -172,25 +161,37 @@
     </xsl:template>
     
     <xsl:template match="tei:persName" mode="m_tei-to-yaml" priority="10">
-        <xsl:text>- </xsl:text><xsl:text>name</xsl:text><xsl:value-of select="$v_key-value-sep"/>
         <xsl:choose>
             <xsl:when test="@ref != 'NA'">
-                <xsl:variable name="v_name" select="oape:query-personography(., $v_personography, $p_local-authority, 'name', 'en')"/>
+                <xsl:variable name="v_name-latn" select="oape:query-personography(., $v_personography, $p_local-authority, 'name-tei', 'en')"/>
+                <xsl:variable name="v_name-ar" select="oape:query-personography(., $v_personography, $p_local-authority, 'name-tei', 'ar')"/>
                 <xsl:variable name="v_url-viaf" select="oape:query-personography(., $v_personography, $p_local-authority, 'url-viaf', '')"/>
                 <xsl:variable name="v_url-wiki" select="oape:query-personography(., $v_personography, $p_local-authority, 'url-wiki', '')"/>
                 <xsl:variable name="v_id-local" select="oape:query-personography(., $v_personography, $p_local-authority, 'id-local', '')"/>
-                <xsl:value-of select="$v_quot"/><xsl:value-of select="$v_name"/><xsl:value-of select="$v_quot"/>
-                <xsl:if test="$v_url-viaf != 'NA'">
-                    <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab"/><xsl:value-of select="$v_tab"/><xsl:value-of select="$v_tab"/>
-                    <xsl:text>VIAF</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:value-of select="$v_quot"/><xsl:value-of select="$v_url-viaf"/><xsl:value-of select="$v_quot"/>
+                <!-- identifier -->
+                <xsl:text>- </xsl:text><xsl:value-of select="$p_local-authority"/><xsl:value-of select="$v_key-value-sep"/><xsl:value-of select="$v_quot"/><xsl:value-of select="$v_id-local"/><xsl:value-of select="$v_quot"/>
+                <!-- names -->
+                <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab-3"/><xsl:text>name</xsl:text><xsl:value-of select="$v_key-value-sep"/>
+                <!-- Arabic string if any -->
+                <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab-4"/><xsl:text>- value</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:value-of select="concat($v_quot, $v_name-ar, $v_quot)"/>
+                <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab-5"/><xsl:text>lang</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:value-of select="concat($v_quot, $v_name-ar/descendant-or-self::tei:persName/@xml:lang, $v_quot)"/>
+                <!-- other languages -->
+                <xsl:if test="$v_name-latn !=  $v_name-ar">
+                   <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab-4"/><xsl:text>- value</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:value-of select="concat($v_quot, $v_name-latn, $v_quot)"/>
+                   <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab-5"/><xsl:text>lang</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:value-of select="concat($v_quot, $v_name-latn/@xml:lang, $v_quot)"/>
                 </xsl:if>
-                <xsl:if test="$v_url-wiki != 'NA'">
-                    <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab"/><xsl:value-of select="$v_tab"/><xsl:value-of select="$v_tab"/>
-                    <xsl:text>Wikidata</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:value-of select="$v_quot"/><xsl:value-of select="$v_url-wiki"/><xsl:value-of select="$v_quot"/>
-                </xsl:if>
-                <xsl:if test="$v_id-local != 'NA'">
-                    <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab"/><xsl:value-of select="$v_tab"/><xsl:value-of select="$v_tab"/>
-                    <xsl:value-of select="$p_local-authority"/><xsl:value-of select="$v_key-value-sep"/><xsl:value-of select="$v_quot"/><xsl:value-of select="$v_id-local"/><xsl:value-of select="$v_quot"/>
+                <!-- authority -->
+                <xsl:if test="($v_url-viaf | $v_url-wiki) != 'NA'">
+                    <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab-3"/>
+                        <xsl:text>authority</xsl:text><xsl:value-of select="$v_key-value-sep"/>
+                        <xsl:choose>
+                            <xsl:when test="$v_url-viaf != 'NA'">
+                               <xsl:value-of select="concat($v_quot, $v_url-viaf, $v_quot)"/>
+                            </xsl:when>
+                            <xsl:when test="$v_url-wiki != 'NA'">
+                                <xsl:value-of select="concat($v_quot, $v_url-wiki, $v_quot)"/>
+                            </xsl:when>
+                        </xsl:choose>
                 </xsl:if>
             </xsl:when>
             <xsl:otherwise>
@@ -198,11 +199,43 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <xsl:template match="tei:placeName" mode="m_tei-to-yaml" priority="10">
+        <xsl:choose>
+            <xsl:when test="@ref != 'NA'">
+                <xsl:variable name="v_name-latn" select="oape:query-gazetteer(., $v_gazetteer, $p_local-authority, 'name-tei', 'en')"/>
+                <xsl:variable name="v_name-ar" select="oape:query-gazetteer(., $v_gazetteer, $p_local-authority, 'name-tei', 'ar')"/>
+                <xsl:variable name="v_url-geon" select="oape:query-gazetteer(., $v_gazetteer, $p_local-authority, 'url-geon', '')"/>
+<!--                <xsl:variable name="v_url-wiki" select="oape:query-gazetteer(., $v_gazetteer, $p_local-authority, 'url-wiki', '')"/>-->
+                <xsl:variable name="v_id-local" select="oape:query-gazetteer(., $v_gazetteer, $p_local-authority, 'id-local', '')"/>
+                <!-- identifier -->
+                <xsl:text>- </xsl:text><xsl:value-of select="$p_local-authority"/><xsl:value-of select="$v_key-value-sep"/><xsl:value-of select="$v_quot"/><xsl:value-of select="$v_id-local"/><xsl:value-of select="$v_quot"/>
+                <!-- names -->
+                <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab-3"/><xsl:text>name</xsl:text><xsl:value-of select="$v_key-value-sep"/>
+                <xsl:if test="$v_name-ar != 'NA'">
+                   <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab-4"/><xsl:text>- value</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:value-of select="concat($v_quot, $v_name-ar, $v_quot)"/>
+                   <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab-5"/><xsl:text>lang</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:value-of select="concat($v_quot, $v_name-ar/descendant-or-self::tei:placeName/@xml:lang, $v_quot)"/>
+                </xsl:if>
+                <xsl:if test="$v_name-latn != 'NA'">
+                   <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab-4"/><xsl:text>- value</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:value-of select="concat($v_quot, $v_name-latn, $v_quot)"/>
+                   <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab-5"/><xsl:text>lang</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:value-of select="concat($v_quot, $v_name-latn/descendant-or-self::tei:placeName/@xml:lang, $v_quot)"/>
+                </xsl:if>
+                <!-- authority -->
+                <xsl:if test="$v_url-geon != 'NA'">
+                    <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab-3"/>
+                    <xsl:text>authority</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:value-of select="concat($v_quot, $v_url-geon, $v_quot)"/>
+                </xsl:if>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="text()" mode="m_tei-to-yaml"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
     <xsl:template match="tei:author | tei:editor" mode="m_tei-to-yaml">
         <xsl:text>- </xsl:text><xsl:apply-templates select="text()" mode="m_tei-to-yaml"/><xsl:value-of select="$v_key-value-sep"/>
         <xsl:value-of select="$v_new-line"/>
         <!-- level of indention? -->
-        <xsl:value-of select="$v_tab"/><xsl:value-of select="$v_tab"/><xsl:value-of select="$v_tab"/>
+        <xsl:value-of select="$v_tab-3"/>
         <xsl:text>lang</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:apply-templates select="@xml:lang" mode="m_tei-to-yaml"/>
     </xsl:template>
     <xsl:template match="tei:persName" mode="m_tei-to-yaml">
@@ -221,7 +254,7 @@
         <xsl:text>family: </xsl:text><xsl:value-of select="$v_quot"/><xsl:apply-templates select="." mode="m_plain-text"/><xsl:value-of select="$v_quot"/><xsl:value-of select="$v_new-line"/>
     </xsl:template>
     <xsl:template match="tei:forename" mode="m_tei-to-yaml">
-        <xsl:value-of select="$v_tab"/><xsl:value-of select="$v_tab"/><xsl:text>given: </xsl:text><xsl:value-of select="$v_quot"/><xsl:apply-templates select="." mode="m_plain-text"/><xsl:value-of select="$v_quot"/><xsl:value-of select="$v_new-line"/>
+        <xsl:value-of select="$v_tab-2"/><xsl:text>given: </xsl:text><xsl:value-of select="$v_quot"/><xsl:apply-templates select="." mode="m_plain-text"/><xsl:value-of select="$v_quot"/><xsl:value-of select="$v_new-line"/>
     </xsl:template>
     
     <xsl:template match="tei:biblScope" mode="m_tei-to-yaml">
