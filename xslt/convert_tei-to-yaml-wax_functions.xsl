@@ -45,14 +45,16 @@
         <!-- titles -->
         <xsl:value-of select="$v_new-line"/>
         <xsl:text>title</xsl:text><xsl:value-of select="$v_key-value-sep"/>
-        <xsl:for-each select="$p_biblstruct/tei:monogr/tei:title[not(@type = 'sub')]">
+        <xsl:for-each-group select="$p_biblstruct/tei:monogr/tei:title[not(@type = 'sub')]" group-by="@xml:lang">
             <xsl:apply-templates select="." mode="m_tei-to-yaml"/>
-        </xsl:for-each>
+        </xsl:for-each-group>
+        <!--<xsl:value-of select="$v_new-line"/>
+        <xsl:value-of select="$v_tab"/><xsl:text>- value</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:apply-templates mode="m_tei-to-yaml" select="oape:query-biblstruct($p_biblstruct, 'title', 'ar', '', $p_local-authority)"/>-->
         <xsl:value-of select="$v_new-line"/>
         <xsl:text>subtitle</xsl:text><xsl:value-of select="$v_key-value-sep"/>
-        <xsl:for-each select="$p_biblstruct/tei:monogr/tei:title[@type = 'sub']">
+        <xsl:for-each-group select="$p_biblstruct/tei:monogr/tei:title[@type = 'sub']" group-by="@xml:lang">
             <xsl:apply-templates select="." mode="m_tei-to-yaml"/>
-        </xsl:for-each>
+        </xsl:for-each-group>
         <!--<xsl:for-each-group select="$p_biblstruct/tei:monogr/tei:title[not(@type = 'sub')]" group-by=".">
             <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab"/>
             <xsl:text>- </xsl:text><xsl:apply-templates select="text()" mode="m_tei-to-yaml"/><xsl:value-of select="$v_key-value-sep"/>
@@ -115,7 +117,6 @@
     <xsl:template match="text() | @*" mode="m_tei-to-yaml">
         <xsl:value-of select="$v_quot"/><xsl:value-of select="normalize-space(.)"/><xsl:value-of select="$v_quot"/>
     </xsl:template>
-    
     <xsl:template match="tei:title" mode="m_tei-to-yaml">
         <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab-2"/>
         <xsl:text>- value</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:apply-templates select="text()" mode="m_tei-to-yaml"/>
