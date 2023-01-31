@@ -28,6 +28,9 @@
         <!--</xsl:result-document>-->
     </xsl:template>  
     <xsl:template match="tei:biblStruct" mode="m_tei-to-yaml">
+        <xsl:message>
+            <xsl:text>Converting </xsl:text><xsl:value-of select="$p_local-authority"/><xsl:text> </xsl:text><xsl:value-of select="tei:monogr[1]/tei:idno[@type = $p_local-authority][1]"/><xsl:text> from TEI to YAML</xsl:text>
+        </xsl:message>
         <xsl:copy-of select="oape:bibliography-tei-to-wax(., 'ar')"/>
     </xsl:template>
     
