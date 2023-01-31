@@ -44,9 +44,13 @@
         <xsl:text>label</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:apply-templates select="$p_biblstruct/descendant::tei:title[parent::tei:monogr][not(@type)][@xml:lang = $p_biblstruct/descendant::tei:textLang[1]/@mainLang][1]/text()" mode="m_tei-to-yaml"/>
         <!-- titles -->
         <xsl:value-of select="$v_new-line"/>
-        <xsl:text>titles</xsl:text><xsl:value-of select="$v_key-value-sep"/>
-        <xsl:for-each select="$p_biblstruct/tei:monogr/tei:title[not(@type)]">
-            <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab"/>
+        <xsl:text>title</xsl:text><xsl:value-of select="$v_key-value-sep"/>
+        <xsl:for-each select="$p_biblstruct/tei:monogr/tei:title[not(@type = 'sub')]">
+            <xsl:apply-templates select="." mode="m_tei-to-yaml"/>
+        </xsl:for-each>
+        <xsl:value-of select="$v_new-line"/>
+        <xsl:text>subtitle</xsl:text><xsl:value-of select="$v_key-value-sep"/>
+        <xsl:for-each select="$p_biblstruct/tei:monogr/tei:title[@type = 'sub']">
             <xsl:apply-templates select="." mode="m_tei-to-yaml"/>
         </xsl:for-each>
         <!--<xsl:for-each-group select="$p_biblstruct/tei:monogr/tei:title[not(@type = 'sub')]" group-by=".">
@@ -55,7 +59,9 @@
             <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab"/>
             <xsl:value-of select="$v_tab"/><xsl:text>lang</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:apply-templates select="@xml:lang" mode="m_tei-to-yaml"/>
         </xsl:for-each-group>-->
-        <!-- volume, issue, pages -->
+        <!-- type -->
+        <xsl:value-of select="$v_new-line"/>
+        <xsl:text>type</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:apply-templates select="oape:query-biblstruct($p_biblstruct, 'subtype', '', '', $p_local-authority)" mode="m_tei-to-yaml"/>
         <!-- language -->
         <xsl:value-of select="$v_new-line"/>
         <xsl:text>lang</xsl:text><xsl:value-of select="$v_key-value-sep"/>
@@ -69,15 +75,16 @@
         <xsl:value-of select="$v_new-line"/>
         <xsl:text>editor</xsl:text><xsl:value-of select="$v_key-value-sep"/>
         <xsl:for-each select="$p_biblstruct/tei:monogr/tei:editor">
-            <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab"/>
+            <xsl:value-of select="$v_new-line"/>
+            <xsl:value-of select="$v_tab"/>
             <xsl:choose>
-            <xsl:when test="tei:persName[@ref != 'NA']">
-                <xsl:apply-templates select="tei:persName[@ref != 'NA'][1]" mode="m_tei-to-yaml"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="tei:persName[1]" mode="m_tei-to-yaml"/>
-            </xsl:otherwise>
-        </xsl:choose>
+                <xsl:when test="tei:persName[@ref != 'NA']">
+                    <xsl:apply-templates select="tei:persName[@ref != 'NA'][1]" mode="m_tei-to-yaml"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="tei:persName[1]" mode="m_tei-to-yaml"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:for-each>
         <!-- imprint -->
   <!-- dates: potentially multiple -->
@@ -110,19 +117,10 @@
     </xsl:template>
     
     <xsl:template match="tei:title" mode="m_tei-to-yaml">
-        <xsl:text>- </xsl:text>
-        <xsl:choose>
-            <xsl:when test="@type = 'sub'">
-                <xsl:text>subtitle</xsl:text>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:text>title</xsl:text>
-            </xsl:otherwise>
-        </xsl:choose>
-        <xsl:value-of select="$v_key-value-sep"/><xsl:apply-templates select="text()" mode="m_tei-to-yaml"/>
-        <xsl:value-of select="$v_new-line"/>
+        <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab-2"/>
+        <xsl:text>- value</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:apply-templates select="text()" mode="m_tei-to-yaml"/>
         <!-- level of indention? -->
-        <xsl:value-of select="$v_tab-3"/>
+        <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab-3"/>
         <xsl:text>lang</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:apply-templates select="@xml:lang" mode="m_tei-to-yaml"/>
     </xsl:template>
     
@@ -163,7 +161,7 @@
     <xsl:template match="tei:persName" mode="m_tei-to-yaml" priority="10">
         <xsl:choose>
             <xsl:when test="@ref != 'NA'">
-                <xsl:variable name="v_name-latn" select="oape:query-personography(., $v_personography, $p_local-authority, 'name-tei', 'en')"/>
+                <xsl:variable name="v_name-latn" select="oape:query-personography(., $v_personography, $p_local-authority, 'name-tei', 'ar-Latn-x-ijmes')"/>
                 <xsl:variable name="v_name-ar" select="oape:query-personography(., $v_personography, $p_local-authority, 'name-tei', 'ar')"/>
                 <xsl:variable name="v_url-viaf" select="oape:query-personography(., $v_personography, $p_local-authority, 'url-viaf', '')"/>
                 <xsl:variable name="v_url-wiki" select="oape:query-personography(., $v_personography, $p_local-authority, 'url-wiki', '')"/>
@@ -173,12 +171,12 @@
                 <!-- names -->
                 <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab-3"/><xsl:text>name</xsl:text><xsl:value-of select="$v_key-value-sep"/>
                 <!-- Arabic string if any -->
-                <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab-4"/><xsl:text>- value</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:value-of select="concat($v_quot, $v_name-ar, $v_quot)"/>
-                <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab-5"/><xsl:text>lang</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:value-of select="concat($v_quot, $v_name-ar/descendant-or-self::tei:persName/@xml:lang, $v_quot)"/>
+                <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab-4"/><xsl:text>- value</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:apply-templates select="oape:string-parse-names($v_name-ar)" mode="m_tei-to-yaml"/>
+                <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab-5"/><xsl:text>lang</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:apply-templates select="$v_name-ar/@xml:lang" mode="m_tei-to-yaml"/>
                 <!-- other languages -->
                 <xsl:if test="$v_name-latn !=  $v_name-ar">
-                   <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab-4"/><xsl:text>- value</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:value-of select="concat($v_quot, $v_name-latn, $v_quot)"/>
-                   <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab-5"/><xsl:text>lang</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:value-of select="concat($v_quot, $v_name-latn/@xml:lang, $v_quot)"/>
+                   <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab-4"/><xsl:text>- value</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:apply-templates select="oape:string-parse-names($v_name-latn)" mode="m_tei-to-yaml"/>
+                   <xsl:value-of select="$v_new-line"/><xsl:value-of select="$v_tab-5"/><xsl:text>lang</xsl:text><xsl:value-of select="$v_key-value-sep"/><xsl:apply-templates select="$v_name-latn/@xml:lang" mode="m_tei-to-yaml"/>
                 </xsl:if>
                 <!-- authority -->
                 <xsl:if test="($v_url-viaf | $v_url-wiki) != 'NA'">
