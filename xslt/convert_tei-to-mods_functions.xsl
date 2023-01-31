@@ -21,6 +21,7 @@
             - date last accessed
             - edition
         -->
+        <!-- input variables -->
         <xsl:variable name="v_biblStruct">
             <xsl:choose>
                 <xsl:when test="$p_input/local-name() = 'bibl'">
@@ -39,7 +40,7 @@
         <xsl:variable name="v_analytic" select="$v_biblStruct/tei:biblStruct/tei:analytic"/>
         <xsl:variable name="v_monogr" select="$v_biblStruct/tei:biblStruct/tei:monogr"/>
         <xsl:variable name="v_imprint" select="$v_monogr/tei:imprint"/>
-        <!-- variables -->
+        <!-- output variables -->
         <xsl:variable name="v_originInfo">
             <originInfo>
                 <!-- information on the edition: it would be weird to mix data of the original source and the digital edition -->
@@ -59,7 +60,14 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </place>
-                <xsl:apply-templates mode="m_tei-to-mods" select="$v_imprint/tei:publisher"/>
+                <xsl:choose>
+                    <xsl:when test="$v_imprint/tei:publisher/child::node()[@xml:lang = $p_lang]">
+                        <xsl:apply-templates mode="m_tei-to-mods" select="$v_imprint/tei:publisher/child::node()[@xml:lang = $p_lang]"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates mode="m_tei-to-mods" select="$v_imprint/tei:publisher"/>
+                    </xsl:otherwise>
+                </xsl:choose>
                 <dateIssued>
                     <xsl:choose>
                         <xsl:when test="$v_imprint/tei:date/@when != ''">
@@ -251,6 +259,7 @@
                 </xsl:when>
             </xsl:choose>
             <!-- for each author -->
+            <xsl:apply-templates mode="m_tei-to-mods" select="$v_analytic/tei:author/tei:persName"/>
             <xsl:apply-templates mode="m_tei-to-mods" select="$v_monogr/tei:author/tei:persName"/>
             <xsl:choose>
                 <xsl:when test="$v_analytic/tei:title[@level = 'a']">
