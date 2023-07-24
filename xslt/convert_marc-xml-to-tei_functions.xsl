@@ -28,9 +28,8 @@
             + uses a LOT of non-nummeric tags, which supposedly are custom extensions of MARC
             + uses field 974 for holding information on individual items/ copies
     -->
-    <xsl:include href="functions.xsl"/>
-    <xsl:include href="parameters.xsl"/>
-    <xsl:include href="../../authority-files/xslt/convert_isil-rdf-to-tei_functions.xsl"/>
+    <xsl:import href="functions.xsl"/>
+    <xsl:import href="../../authority-files/xslt/convert_isil-rdf-to-tei_functions.xsl"/>
     <xsl:import href="../../authority-files/xslt/functions.xsl"/>
     <!-- these parameters are placeholders until I established a way of pulling language information from the source -->
     <xsl:param name="p_lang-1" select="'ar'"/>
@@ -1158,4 +1157,60 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <!-- 
+        this function allows to query a given MARC XML file for various bits of information.
+        currently, only the query for holding information is implemented
+    -->
+    <xsl:function name="oape:query-marcx">
+        <xsl:param as="node()" name="p_marcx-record"/>
+        <xsl:param as="xs:string" name="p_output-mode"/>
+        <xsl:variable name="v_record" select="$p_marcx-record"/>
+        <xsl:choose>
+            <xsl:when test="$p_output-mode = 'holdings'">
+                <!-- zdb holdings -->
+                <xsl:variable name="v_id-record">
+                    <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('016')][@ind1 = '7']/marc:subfield[@code = 'a']"/>
+                </xsl:variable>
+                <xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '924'][1]">
+                    <xsl:with-param name="p_id-record" select="$v_id-record"/>
+                </xsl:apply-templates>
+                <!-- Hathi: holding information -->
+                <!--<xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = 'HOL']">
+                <xsl:with-param name="p_id-record" select="$v_id-record"/>
+            </xsl:apply-templates>-->
+                <!-- Hathi: digitised items -->
+                <xsl:if test="$v_record//marc:datafield[@tag = '974']">
+                    <xsl:variable name="v_id-record">
+                        <!-- returns an <tei:idno> element -->
+                        <xsl:apply-templates select="$v_record//marc:datafield[@tag = 'CID']/marc:subfield[@code = 'a']"/>
+                    </xsl:variable>
+                    <xsl:element name="note">
+                        <xsl:attribute name="type" select="'holdings'"/>
+                        <xsl:element name="list">
+                            <!-- group by holding institution -->
+                            <xsl:for-each-group group-by="marc:subfield[@code = 'b']" select="$v_record//marc:datafield[@tag = '974']">
+                                <xsl:element name="item">
+                                    <xsl:attribute name="source" select="concat('https://catalog.hathitrust.org/Record/', $v_id-record/tei:idno[@type = 'ht_bib_key'])"/>
+                                    <xsl:element name="label">
+                                        <xsl:apply-templates select="current-group()[1]/marc:subfield[@code = 'b']"/>
+                                    </xsl:element>
+                                    <xsl:element name="ab">
+                                        <!-- machine-readible holding information -->
+                                        <xsl:apply-templates mode="m_notes" select="current-group()"/>
+                                    </xsl:element>
+                                </xsl:element>
+                            </xsl:for-each-group>
+                        </xsl:element>
+                    </xsl:element>
+                </xsl:if>
+            </xsl:when>
+            <!-- fallback -->
+            <xsl:otherwise>
+                <xsl:message>
+                    <xsl:text>Unkown output mode: </xsl:text>
+                    <xsl:value-of select="$p_output-mode"/>
+                </xsl:message>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
 </xsl:stylesheet>
