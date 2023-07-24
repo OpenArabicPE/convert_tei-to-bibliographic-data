@@ -7,6 +7,7 @@
     <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no" version="1.0" name="xml"/>
     
     <xsl:include href="parameters.xsl"/>
+    <xsl:import href="../../authority-files/xslt/functions.xsl"/>
     
     <!-- are translators covered? -->
     <!-- problems
@@ -206,11 +207,11 @@
                 </xsl:analyze-string>
     </xsl:function>
     
-    <xsl:template match="node() | @*" mode="m_replicate">
+    <xsl:template match="node()" mode="m_replicate">
         <xsl:copy>
             <xsl:apply-templates select="@*" mode="m_replicate"/>
             <!-- add missing language information -->
-            <xsl:if test="not(@xml:lang)">
+            <xsl:if test="not(@xml:lang) and ancestor::node()[@xml:lang != ''][1]/@xml:lang">
                 <xsl:attribute name="xml:lang" select="ancestor::node()[@xml:lang != ''][1]/@xml:lang"/>
             </xsl:if>
             <xsl:apply-templates select="node()" mode="m_replicate"/>
@@ -317,6 +318,104 @@
                 <xsl:apply-templates mode="m_replicate" select="tei:biblScope"/>
             </monogr>
         </biblStruct>
+    </xsl:template>
+    <!-- produce simple derivates of tei:biblStruct -->
+    <xsl:template match="tei:biblStruct" mode="m_simple">
+        <xsl:copy>
+            <!-- select attributes -->
+            <xsl:apply-templates select="@* | node()" mode="m_simple"/>
+        </xsl:copy>
+    </xsl:template>
+    <!-- excluded attributes  -->
+    <xsl:template match="@change | @resp | @xml:id  | @xml:lang[parent::tei:biblScope | parent::tei:biblStruct |parent::tei:date | parent::tei:editor | parent::tei:publisher | parent::tei:pubPlace] | @source[parent::tei:idno | parent::tei:monogr | parent::tei:orgName | parent::tei:persName] | tei:editor/@ref  | tei:persName/@type" mode="m_simple"/>
+    <!-- excluded nodes -->
+    <xsl:template match="tei:biblStruct/tei:note | tei:monogr/tei:respStmt" mode="m_simple"/>
+    <!-- reduce nodes to machine readability -->
+    <xsl:template match="tei:date" mode="m_simple">
+        <xsl:copy>
+            <xsl:choose>
+                <xsl:when test="@when | @notBefore | @notAfter">
+                    <xsl:apply-templates select="@*" mode="m_simple"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="@* | node()" mode="m_simple"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:copy>
+    </xsl:template>
+    <xsl:template match="tei:biblScope" mode="m_simple">
+        <xsl:copy>
+            <xsl:choose>
+                <xsl:when test="@unit and @from and @to">
+                    <xsl:apply-templates select="@*" mode="m_simple"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="@* | node()" mode="m_simple"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:copy>
+    </xsl:template>
+    <!-- reduce children -->
+    <xsl:template match="tei:monogr" mode="m_simple">
+        <xsl:copy>
+            <xsl:apply-templates select="@*" mode="m_simple"/>
+            <xsl:apply-templates select="tei:title" mode="m_simple"/>
+            <xsl:apply-templates select="tei:idno" mode="m_simple">
+                <xsl:sort select="@type"/>
+                <xsl:sort select="."/>
+            </xsl:apply-templates>
+            <xsl:apply-templates select="tei:textLang" mode="m_simple"/>
+            <xsl:apply-templates select="tei:editor" mode="m_simple"/>
+            <xsl:apply-templates select="tei:imprint" mode="m_simple"/>
+            <xsl:apply-templates select="tei:biblScope" mode="m_simple"/>
+        </xsl:copy>
+    </xsl:template>
+    <xsl:template match="tei:imprint" mode="m_simple">
+        <xsl:copy>
+            <!-- date -->
+            <xsl:choose>
+                <xsl:when test="tei:date[@when | @notAfter | @notBefore]/@type = 'onset'">
+                    <xsl:apply-templates select="tei:date[@when | @notAfter | @notBefore][@type = 'onset']" mode="m_simple"/>
+                </xsl:when>
+                <xsl:when test="tei:date[@type = 'onset']">
+                    <xsl:apply-templates select="tei:date[@type = 'onset']" mode="m_simple"/>
+                </xsl:when>
+            </xsl:choose>
+            <xsl:apply-templates select="tei:pubPlace[1] | tei:publisher[1]" mode="m_simple"/>
+        </xsl:copy>
+    </xsl:template>
+    <xsl:template match="tei:pubPlace[tei:placeName[@ref][@ref != 'NA']]" mode="m_simple">
+        <xsl:copy>
+            <xsl:apply-templates select="@*" mode="m_simple"/>
+            <!-- generate two toponyms from the authority file -->
+            <xsl:copy-of select="oape:query-gazetteer(tei:placeName[@ref][1], $v_gazetteer, $p_local-authority, 'name-tei', 'ar')"/>
+            <xsl:copy-of select="oape:query-gazetteer(tei:placeName[@ref][1], $v_gazetteer, $p_local-authority, 'name-tei', 'en')"/>
+        </xsl:copy>
+    </xsl:template>
+    <xsl:template match="tei:editor[tei:persName[@ref][@ref != 'NA']]" mode="m_simple">
+        <xsl:copy>
+            <xsl:apply-templates select="@*" mode="m_simple"/>
+            <!-- generate two toponyms from the authority file -->
+            <xsl:apply-templates select="oape:query-personography(tei:persName[@ref][1], $v_personography, $p_local-authority, 'name-tei', 'ar')" mode="m_simple"/>
+            <xsl:apply-templates select="oape:query-personography(tei:persName[@ref][1], $v_personography, $p_local-authority, 'name-tei', 'ar-Latn-x-ijmes')" mode="m_simple"/>
+        </xsl:copy>
+    </xsl:template>
+    <xsl:template match="tei:surname" mode="m_simple">
+        <xsl:copy>
+            <xsl:apply-templates select="@*" mode="m_simple"/>
+            <xsl:apply-templates select="text()" mode="m_simple"/>
+        </xsl:copy>
+    </xsl:template>
+    <!-- replicate everything that has not been excluded -->
+    <xsl:template match="node()" mode="m_simple">
+        <xsl:copy>
+            <xsl:apply-templates select="@* | node()" mode="m_simple"/>
+        </xsl:copy>
+    </xsl:template>
+    <xsl:template match="@*" mode="m_simple m_replicate">
+            <xsl:if test="string-length(.)!=0">
+                <xsl:copy/>
+            </xsl:if>
     </xsl:template>
     
     
