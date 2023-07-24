@@ -797,7 +797,7 @@
                     <xsl:when test="$v_code = 'u'">
                         <xsl:element name="idno">
                             <xsl:attribute name="type" select="'classmark'"/>
-                            <xsl:attribute name="source" select="'hathi'"/>
+                            <xsl:attribute name="source" select="'#hathi'"/>
                             <xsl:value-of select="$v_content"/>
                         </xsl:element>
                         <xsl:element name="idno">
