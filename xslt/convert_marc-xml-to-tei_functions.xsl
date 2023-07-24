@@ -62,130 +62,157 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-        <xsl:element name="biblStruct">
-            <!-- frequency -->
-            <xsl:apply-templates select="$v_record//marc:datafield[@tag = '310']/marc:subfield"/>
-            <!-- @type, @subtype -->
-            <xsl:apply-templates select="$v_record//marc:datafield[@tag = '655'][@ind2 = '7']/marc:subfield"/>
-            <xsl:if test="$v_analytic = true()">
-                <xsl:element name="analytic">
-                    <!-- titles: 245, 246. 246 can contain a plethora of alternative, related etc. titles and should not be used at this stage -->
-                    <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('245')]/marc:subfield[@code = ('a', 'b')]"/>
-                    <!-- main contributors -->
-                    <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('100', '101')]/marc:subfield[@code = '4']"/>
-                    <!-- text lang -->
-                    <xsl:apply-templates select="$v_record//marc:datafield[@tag = '041']/marc:subfield[@code = 'a'][1]"/>
-                    <!-- IDs -->
-                    <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('024')]/marc:subfield"/>
-                </xsl:element>
-            </xsl:if>
-            <xsl:element name="monogr">
+        <xsl:variable name="v_biblStruct">
+            <xsl:element name="biblStruct">
+                <!-- frequency -->
+                <xsl:apply-templates select="$v_record//marc:datafield[@tag = '310']/marc:subfield"/>
+                <!-- @type, @subtype -->
+                <xsl:apply-templates select="$v_record//marc:datafield[@tag = '655'][@ind2 = '7']/marc:subfield"/>
                 <xsl:if test="$v_analytic = true()">
-                    <xsl:apply-templates select="$v_record//marc:datafield[@tag = '773']/marc:subfield[@code = ('a', 't')]"/>
+                    <xsl:element name="analytic">
+                        <!-- titles: 245, 246. 246 can contain a plethora of alternative, related etc. titles and should not be used at this stage -->
+                        <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('245')]/marc:subfield[@code = ('a', 'b')]"/>
+                        <!-- main contributors -->
+                        <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('100', '101')]/marc:subfield[@code = '4']"/>
+                        <!-- text lang -->
+                        <xsl:apply-templates select="$v_record//marc:datafield[@tag = '041']/marc:subfield[@code = 'a'][1]"/>
+                        <!-- IDs -->
+                        <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('024')]/marc:subfield"/>
+                    </xsl:element>
                 </xsl:if>
-                <xsl:if test="$v_analytic = false()">
-                    <!-- titles: 245, 246. 246 can contain a plethora of alternative, related etc. titles and should not be used at this stage -->
-                    <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('245')]/marc:subfield[@code = ('a', 'b')]"/>
-                    <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('246')][@ind1 = '3'][@ind2 = '3']/marc:subfield[@code = 'a']"/>
-                </xsl:if>
-                <!-- IDs -->
-                <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('010', '019', '020', '022', '035', '856')]/marc:subfield"/>
-                <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('084')]/marc:subfield[@code = 'a']"/>
-                <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('016')][@ind1 = '7']/marc:subfield[@code = 'a']"/>
-                <!-- Hathi: non-nummeric Marc tags -->
-                <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('CID')]/marc:subfield[@code = 'a']"/>
-                <!-- AUB record number at 776? Nope! this refers to related publications -->
-                <!--<xsl:apply-templates select="$v_record//marc:datafield[@tag = '776'][@ind2 = '8']/marc:subfield[@code = 'w']"/>-->
-                <xsl:if test="$v_analytic = false()">
-                    <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('024')]/marc:subfield"/>
-                </xsl:if>
-                <xsl:if test="$v_analytic = false()">
-                    <!-- main contributors -->
-                    <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('100', '101')]/marc:subfield[@code = '4']"/>
-                    <xsl:choose>
-                        <xsl:when test="$v_record//marc:datafield[@tag = '700']/marc:subfield[@code = '4']">
-                            <xsl:apply-templates select="$v_record//marc:datafield[@tag = '700']/marc:subfield[@code = '4']"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:apply-templates select="$v_record//marc:datafield[@tag = '700']/marc:subfield[@code = 'a']"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                    <!-- text lang -->
-                    <xsl:choose>
-                        <xsl:when test="$v_record//marc:datafield[@tag = '041']/marc:subfield[@code = 'a']">
-                            <xsl:apply-templates select="$v_record//marc:datafield[@tag = '041']/marc:subfield[@code = 'a'][1]"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:element name="textLang">
-                                <xsl:attribute name="mainLang">
-                                    <xsl:call-template name="t_convert-lang-codes">
-                                        <xsl:with-param name="p_code" select="substring($v_record//marc:controlfield[@tag = '008'], 36, 3)"/>
-                                    </xsl:call-template>
-                                </xsl:attribute>
-                            </xsl:element>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:if>
-                <!-- editors: 264 shouldn't have been used for the editor -->
-                <!--<xsl:apply-templates select="$v_record//marc:datafield[@tag = '264']/marc:subfield[@code = 'b']"/>-->
-                <!-- imprint -->
-                <xsl:element name="imprint">
-                    <!-- full imprint in one field -->
-                    <!-- Hathi uses 260 for publication place -->
-                    <!-- problem: the publisher might be the editor in our understanding -->
-                    <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('260', '264')]/marc:subfield"/>
+                <xsl:element name="monogr">
                     <xsl:if test="$v_analytic = true()">
-                        <xsl:apply-templates select="$v_record//marc:datafield[@tag = '773']/marc:subfield[@code = 'd']"/>
+                        <xsl:apply-templates select="$v_record//marc:datafield[@tag = '773']/marc:subfield[@code = ('a', 't')]"/>
                     </xsl:if>
-                    <!-- normalized dates -->
-                    <xsl:apply-templates select="$v_record//marc:datafield[@tag = '363']/marc:subfield[@code = 'i']"/>
+                    <xsl:if test="$v_analytic = false()">
+                        <!-- titles: 245, 246. 246 can contain a plethora of alternative, related etc. titles and should not be used at this stage -->
+                        <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('245')]/marc:subfield[@code = ('a', 'b')]"/>
+                        <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('246')][@ind1 = '3'][@ind2 = '3']/marc:subfield[@code = 'a']"/>
+                    </xsl:if>
+                    <!-- IDs -->
+                    <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('010', '019', '020', '022', '035', '856')]/marc:subfield"/>
+                    <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('084')]/marc:subfield[@code = 'a']"/>
+                    <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('016')][@ind1 = '7']/marc:subfield[@code = 'a']"/>
+                    <!-- Hathi: non-nummeric Marc tags -->
+                    <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('CID')]/marc:subfield[@code = 'a']"/>
+                    <!-- AUB record number at 776? Nope! this refers to related publications -->
+                    <!--<xsl:apply-templates select="$v_record//marc:datafield[@tag = '776'][@ind2 = '8']/marc:subfield[@code = 'w']"/>-->
+                    <xsl:if test="$v_analytic = false()">
+                        <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('024')]/marc:subfield"/>
+                    </xsl:if>
+                    <xsl:if test="$v_analytic = false()">
+                        <!-- main contributors -->
+                        <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('100', '101')]/marc:subfield[@code = '4']"/>
+                        <xsl:choose>
+                            <xsl:when test="$v_record//marc:datafield[@tag = '700']/marc:subfield[@code = '4']">
+                                <xsl:apply-templates select="$v_record//marc:datafield[@tag = '700']/marc:subfield[@code = '4']"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:apply-templates select="$v_record//marc:datafield[@tag = '700']/marc:subfield[@code = 'a']"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <!-- text lang -->
+                        <xsl:choose>
+                            <xsl:when test="$v_record//marc:datafield[@tag = '041']/marc:subfield[@code = 'a']">
+                                <xsl:apply-templates select="$v_record//marc:datafield[@tag = '041']/marc:subfield[@code = 'a'][1]"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:element name="textLang">
+                                    <xsl:attribute name="mainLang">
+                                        <xsl:call-template name="t_convert-lang-codes">
+                                            <xsl:with-param name="p_code" select="substring($v_record//marc:controlfield[@tag = '008'], 36, 3)"/>
+                                        </xsl:call-template>
+                                    </xsl:attribute>
+                                </xsl:element>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:if>
+                    <!-- editors: 264 shouldn't have been used for the editor -->
+                    <!--<xsl:apply-templates select="$v_record//marc:datafield[@tag = '264']/marc:subfield[@code = 'b']"/>-->
+                    <!-- imprint -->
+                    <xsl:element name="imprint">
+                        <!-- full imprint in one field -->
+                        <!-- Hathi uses 260 for publication place -->
+                        <!-- problem: the publisher might be the editor in our understanding -->
+                        <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('260', '264')]/marc:subfield"/>
+                        <xsl:if test="$v_analytic = true()">
+                            <xsl:apply-templates select="$v_record//marc:datafield[@tag = '773']/marc:subfield[@code = 'd']"/>
+                        </xsl:if>
+                        <!-- normalized dates -->
+                        <xsl:apply-templates select="$v_record//marc:datafield[@tag = '363']/marc:subfield[@code = 'i']"/>
+                    </xsl:element>
+                    <!-- name/number of sections of a work (biblScope) -->
+                    <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('245', '246')]/marc:subfield[@code = ('n')]"/>
+                    <xsl:apply-templates select="$v_record//marc:datafield[@tag = '936']/marc:subfield[@code = ('d', 'e', 'h')]"/>
+                    <xsl:apply-templates select="$v_record//marc:datafield[@tag = '300']/marc:subfield[@code = ('a')]"/>
                 </xsl:element>
-                <!-- name/number of sections of a work (biblScope) -->
-                <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('245', '246')]/marc:subfield[@code = ('n')]"/>
-                <xsl:apply-templates select="$v_record//marc:datafield[@tag = '936']/marc:subfield[@code = ('d', 'e', 'h')]"/>
-                <xsl:apply-templates select="$v_record//marc:datafield[@tag = '300']/marc:subfield[@code = ('a')]"/>
-            </xsl:element>
-            <!-- notes -->
-            <!-- the infamous field 500: notes -->
-            <xsl:apply-templates select="$v_record//marc:datafield[@tag = '500'][1]/marc:subfield"/>
-            <!-- AUB holdings -->
-            <xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '866'][@ind2 = '1']/marc:subfield[@code = 'a']"/>
-            <!-- holdings in ZDB record served over SRU: has been replaced -->
-            <!--<xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '362'][@ind1 = '0']/marc:subfield[@code = 'a']"/>-->
-            <!-- ZDB holding information -->
-            <xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '924'][1]">
-                <xsl:with-param name="p_id-record" select="$v_id-record"/>
-            </xsl:apply-templates>
-            <!-- Hathi: holding information -->
-            <!--<xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = 'HOL']">
+                <!-- notes -->
+                <!-- the infamous field 500: notes -->
+                <xsl:apply-templates select="$v_record//marc:datafield[@tag = '500'][1]/marc:subfield"/>
+                <!-- AUB holdings -->
+                <xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '866'][@ind2 = '1']/marc:subfield[@code = 'a']"/>
+                <!-- holdings in ZDB record served over SRU: has been replaced -->
+                <!--<xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '362'][@ind1 = '0']/marc:subfield[@code = 'a']"/>-->
+                <!-- ZDB holding information -->
+                <xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '924'][1]">
+                    <xsl:with-param name="p_id-record" select="$v_id-record"/>
+                </xsl:apply-templates>
+                <!-- Hathi: holding information -->
+                <!--<xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = 'HOL']">
                 <xsl:with-param name="p_id-record" select="$v_id-record"/>
             </xsl:apply-templates>-->
-            <!-- Hathi: digitised items -->
-            <xsl:if test="$v_record//marc:datafield[@tag = '974']">
-                <xsl:variable name="v_id-record">
-                    <!-- returns an <tei:idno> element -->
-                    <xsl:apply-templates select="$v_record//marc:datafield[@tag = 'CID']/marc:subfield[@code = 'a']"/>
-                </xsl:variable>
-                <xsl:element name="note">
-                    <xsl:attribute name="type" select="'holdings'"/>
-                    <xsl:element name="list">
-                        <!-- group by holding institution -->
-                        <xsl:for-each-group group-by="marc:subfield[@code = 'b']" select="$v_record//marc:datafield[@tag = '974']">
-                            <xsl:element name="item">
-                                <xsl:attribute name="source" select="concat('https://catalog.hathitrust.org/Record/', $v_id-record/tei:idno[@type = 'ht_bib_key'])"/>
-                                <xsl:element name="label">
-                                    <xsl:apply-templates select="current-group()[1]/marc:subfield[@code = 'b']"/>
+                <!-- Hathi: digitised items -->
+                <xsl:if test="$v_record//marc:datafield[@tag = '974']">
+                    <xsl:variable name="v_id-record">
+                        <!-- returns an <tei:idno> element -->
+                        <xsl:apply-templates select="$v_record//marc:datafield[@tag = 'CID']/marc:subfield[@code = 'a']"/>
+                    </xsl:variable>
+                    <xsl:element name="note">
+                        <xsl:attribute name="type" select="'holdings'"/>
+                        <xsl:element name="list">
+                            <!-- group by holding institution -->
+                            <xsl:for-each-group group-by="marc:subfield[@code = 'b']" select="$v_record//marc:datafield[@tag = '974']">
+                                <xsl:element name="item">
+                                    <xsl:attribute name="source" select="concat('https://catalog.hathitrust.org/Record/', $v_id-record/tei:idno[@type = 'ht_bib_key'])"/>
+                                    <xsl:element name="label">
+                                        <xsl:apply-templates select="current-group()[1]/marc:subfield[@code = 'b']"/>
+                                    </xsl:element>
+                                    <xsl:element name="ab">
+                                        <!-- machine-readible holding information -->
+                                        <xsl:apply-templates mode="m_notes" select="current-group()"/>
+                                    </xsl:element>
                                 </xsl:element>
-                                <xsl:element name="ab">
-                                    <!-- machine-readible holding information -->
-                                    <xsl:apply-templates mode="m_notes" select="current-group()"/>
-                                </xsl:element>
-                            </xsl:element>
-                        </xsl:for-each-group>
+                            </xsl:for-each-group>
+                        </xsl:element>
                     </xsl:element>
-                </xsl:element>
+                </xsl:if>
+            </xsl:element>
+        </xsl:variable>
+        <xsl:apply-templates mode="m_postprocess" select="$v_biblStruct"/>
+    </xsl:template>
+    <xsl:template match="node()[self::tei:*] | @*[parent::tei:*]" mode="m_postprocess">
+        <xsl:copy>
+            <xsl:apply-templates mode="m_postprocess" select="@* | node()"/>
+        </xsl:copy>
+    </xsl:template>
+    <xsl:template match="tei:title[not(@level)]" mode="m_postprocess" priority="2">
+        <xsl:copy>
+            <xsl:apply-templates mode="m_postprocess" select="@*"/>
+            <xsl:if test="ancestor::tei:biblStruct/@type">
+                <xsl:attribute name="level">
+                    <xsl:choose>
+                        <xsl:when test="ancestor::tei:biblStruct/@type = 'periodical'">
+                            <xsl:value-of select="'j'"/>
+                        </xsl:when>
+                        <xsl:when test="ancestor::tei:biblStruct/@type = 'book'">
+                            <xsl:value-of select="'m'"/>
+                        </xsl:when>
+                        <!-- no fall back -->
+                    </xsl:choose>
+                </xsl:attribute>
             </xsl:if>
-        </xsl:element>
+            <xsl:apply-templates mode="m_postprocess"/>
+        </xsl:copy>
     </xsl:template>
     <!-- one template to convert marc:subfields into TEI -->
     <xsl:template match="marc:subfield">
