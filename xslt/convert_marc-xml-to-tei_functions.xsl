@@ -1213,4 +1213,11 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>
+     <!-- template to add adequate namespace to marc records -->
+    <xsl:template match="element()" mode="m_marc-add-ns">
+        <xsl:element name="{local-name()}" namespace="http://www.loc.gov/MARC21/slim">
+            <xsl:apply-templates mode="m_identity-transform" select="@*"/>
+            <xsl:apply-templates mode="m_marc-add-ns" select="node()"/>
+        </xsl:element>
+    </xsl:template>
 </xsl:stylesheet>
