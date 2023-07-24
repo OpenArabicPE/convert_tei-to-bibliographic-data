@@ -176,6 +176,7 @@
                                     <xsl:element name="label">
                                         <xsl:apply-templates select="current-group()[1]/marc:subfield[@code = 'b']"/>
                                     </xsl:element>
+                                    <!-- this should be converted to listBibl -->
                                     <xsl:element name="ab">
                                         <!-- machine-readible holding information -->
                                         <xsl:apply-templates mode="m_notes" select="current-group()"/>
@@ -976,7 +977,7 @@
                                     <xsl:text>AUB</xsl:text>
                                 </xsl:element>
                             </xsl:element>
-                            <xsl:text>: </xsl:text>
+                            <!-- this should be converted to listBibl -->
                             <xsl:element name="ab">
                                 <xsl:attribute name="xml:lang">
                                     <xsl:choose>
@@ -1025,6 +1026,7 @@
                         <xsl:copy-of select="$v_org/descendant::tei:orgName[@type = 'short'][1]"/>
                     </xsl:element>
                     <!-- machine readible holding information -->
+                    <!-- this should be converted to listBibl -->
                     <xsl:element name="ab">
                         <xsl:element name="bibl">
                             <!-- classmark -->
@@ -1035,7 +1037,8 @@
                         </xsl:element>
                     </xsl:element>
                     <!-- source information -->
-                    <xsl:element name="ab">
+                    <!-- this is already encoded in the @source attribute on the parent node -->
+                    <!--<xsl:element name="ab">
                         <xsl:attribute name="xml:lang" select="'en'"/>
                         <xsl:text>source: </xsl:text>
                         <xsl:element name="rs">
@@ -1048,7 +1051,7 @@
                             <xsl:text>catalogue</xsl:text>
                         </xsl:element>
                         <xsl:text>)</xsl:text>
-                    </xsl:element>
+                    </xsl:element>-->
                 </xsl:element>
             </xsl:when>
             <xsl:when test="$v_catalogue = 'hathi'">
