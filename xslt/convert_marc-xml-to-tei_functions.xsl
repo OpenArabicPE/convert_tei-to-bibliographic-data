@@ -176,11 +176,8 @@
                                     <xsl:element name="label">
                                         <xsl:apply-templates select="current-group()[1]/marc:subfield[@code = 'b']"/>
                                     </xsl:element>
-                                    <!-- this should be converted to listBibl -->
-                                    <xsl:element name="ab">
-                                        <!-- machine-readible holding information -->
-                                        <xsl:apply-templates mode="m_notes" select="current-group()"/>
-                                    </xsl:element>
+                                    <!-- machine-readible holding information -->
+                                    <xsl:apply-templates mode="m_notes" select="current-group()"/>
                                 </xsl:element>
                             </xsl:for-each-group>
                         </xsl:element>
@@ -1014,16 +1011,14 @@
                     <xsl:attribute name="source" select="$v_url-catalogue"/>
                     <xsl:element name="label">
                         <!-- location -->
-                        <!-- institution -->
-                        <!--<xsl:element name="placeName">
-                                <xsl:value-of select="parent::marc:datafield/marc:subfield[@code = 'c']"/>
-                            </xsl:element>-->
-                        <xsl:copy-of select="$v_org/descendant::tei:placeName[1]"/>
+                        <xsl:copy-of select="oape:query-org($v_org/descendant-or-self::tei:org, 'location-tei', 'en', $p_local-authority)"/>
                         <xsl:text>, </xsl:text>
-                        <!--<xsl:element name="orgName">
-                                <xsl:value-of select="parent::marc:datafield/marc:subfield[@code = 'b']"/>
-                            </xsl:element>-->
-                        <xsl:copy-of select="$v_org/descendant::tei:orgName[@type = 'short'][1]"/>
+                        <!-- institution -->
+                        <xsl:element name="orgName">
+                            <xsl:attribute name="ref"
+                                select="oape:query-organizationography($v_org/descendant::tei:orgName[@type = 'short'][1], $v_organizationography, $p_local-authority, 'tei-ref', '')"/>
+                            <xsl:value-of select="oape:query-org($v_org/descendant-or-self::tei:org, 'name', 'en', $p_local-authority)"/>
+                        </xsl:element>
                     </xsl:element>
                     <!-- machine readible holding information -->
                     <!-- this should be converted to listBibl -->
@@ -1038,33 +1033,19 @@
                     </xsl:element>
                     <!-- source information -->
                     <!-- this is already encoded in the @source attribute on the parent node -->
-                    <!--<xsl:element name="ab">
-                        <xsl:attribute name="xml:lang" select="'en'"/>
-                        <xsl:text>source: </xsl:text>
-                        <xsl:element name="rs">
-                            <xsl:attribute name="xml:lang" select="'de'"/>
-                            <xsl:text>ZDB</xsl:text>
-                        </xsl:element>
-                        <xsl:text> (</xsl:text>
-                        <xsl:element name="ref">
-                            <xsl:attribute name="target" select="$v_url-catalogue"/>
-                            <xsl:text>catalogue</xsl:text>
-                        </xsl:element>
-                        <xsl:text>)</xsl:text>
-                    </xsl:element>-->
                 </xsl:element>
             </xsl:when>
+            <!-- I think this is actually called! -->
             <xsl:when test="$v_catalogue = 'hathi'">
-                <!--                    <xsl:attribute name="source" select="$v_url-catalogue"/>-->
                 <!-- machine readible holding information -->
-                <xsl:element name="bibl">
-                    <!-- classmark -->
-                    <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'u']"/>
-                    <!-- holding: dates -->
-                    <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'y']"/>
-                    <!-- biblscope -->
-                    <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'z']"/>
-                </xsl:element>
+                    <xsl:element name="bibl">
+                        <!-- classmark -->
+                        <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'u']"/>
+                        <!-- holding: dates -->
+                        <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'y']"/>
+                        <!-- biblscope -->
+                        <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'z']"/>
+                    </xsl:element>
             </xsl:when>
             <!-- fallback? -->
             <xsl:otherwise> </xsl:otherwise>
@@ -1197,6 +1178,7 @@
                                     <xsl:element name="label">
                                         <xsl:apply-templates select="current-group()[1]/marc:subfield[@code = 'b']"/>
                                     </xsl:element>
+                                    <!-- this should be converted to listBibl -->
                                     <xsl:element name="ab">
                                         <!-- machine-readible holding information -->
                                         <xsl:apply-templates mode="m_notes" select="current-group()"/>
@@ -1216,7 +1198,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>
-     <!-- template to add adequate namespace to marc records -->
+    <!-- template to add adequate namespace to marc records -->
     <xsl:template match="element()" mode="m_marc-add-ns">
         <xsl:element name="{local-name()}" namespace="http://www.loc.gov/MARC21/slim">
             <xsl:apply-templates mode="m_identity-transform" select="@*"/>
