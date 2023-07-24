@@ -167,6 +167,7 @@
                         <xsl:apply-templates select="$v_record//marc:datafield[@tag = 'CID']/marc:subfield[@code = 'a']"/>
                     </xsl:variable>
                     <xsl:element name="note">
+                        <xsl:attribute name="resp" select="'#xslt'"/>
                         <xsl:attribute name="type" select="'holdings'"/>
                         <xsl:element name="list">
                             <!-- group by holding institution -->
@@ -896,9 +897,11 @@
             </xsl:when>
         </xsl:choose>
     </xsl:template>
+    <!-- when and from where is this called? -->
     <xsl:template match="marc:datafield[@tag = ('924')]" mode="m_notes">
         <xsl:param name="p_id-record"/>
         <xsl:element name="note">
+            <xsl:attribute name="resp" select="'#xslt'"/>
             <xsl:attribute name="type" select="'holdings'"/>
             <xsl:element name="list">
                 <!-- initial item -->
@@ -960,6 +963,7 @@
         <xsl:choose>
             <xsl:when test="$v_catalogue = 'aub'">
                 <xsl:element name="note">
+                    <xsl:attribute name="resp" select="'#xslt'"/>
                     <xsl:attribute name="type" select="'holdings'"/>
                     <xsl:element name="list">
                         <xsl:element name="item">
@@ -1024,6 +1028,8 @@
                     <!-- this should be converted to listBibl -->
                     <xsl:element name="ab">
                         <xsl:element name="bibl">
+                            <xsl:attribute name="resp" select="'#xslt'"/>
+                            <xsl:attribute name="source" select="concat('#', $v_catalogue)"/>
                             <!-- classmark -->
                             <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'g']"/>
                             <!-- holding: dates -->
@@ -1039,6 +1045,8 @@
             <xsl:when test="$v_catalogue = 'hathi'">
                 <!-- machine readible holding information -->
                     <xsl:element name="bibl">
+                        <xsl:attribute name="resp" select="'#xslt'"/>
+                        <xsl:attribute name="source" select="concat('#', $v_catalogue)"/>
                         <!-- classmark -->
                         <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'u']"/>
                         <!-- holding: dates -->
@@ -1169,6 +1177,7 @@
                         <xsl:apply-templates select="$v_record//marc:datafield[@tag = 'CID']/marc:subfield[@code = 'a']"/>
                     </xsl:variable>
                     <xsl:element name="note">
+                        <xsl:attribute name="resp" select="'#xslt'"/>
                         <xsl:attribute name="type" select="'holdings'"/>
                         <xsl:element name="list">
                             <!-- group by holding institution -->
