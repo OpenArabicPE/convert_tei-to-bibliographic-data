@@ -8,7 +8,7 @@
     <!-- output: everything is wrapped in a listBibl -->
     <xsl:template match="/">
         <xsl:result-document href="{$v_base-directory}metadata/{$v_file-name_input}.TEIP5.xml" method="xml">
-            <TEI>
+            <TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
                 <teiHeader>
                     <fileDesc>
                         <titleStmt>
@@ -22,7 +22,7 @@
                         </sourceDesc>
                     </fileDesc>
                 </teiHeader>
-                <standOff>
+                <tei:standOff>
                     <listBibl>
                         <xsl:apply-templates select="descendant::marc:record" mode="m_marc-to-tei"/>
                     </listBibl>
@@ -35,7 +35,7 @@
                            <xsl:apply-templates select="." mode="m_isil-to-tei"/>
                         </xsl:for-each-group>
                     </listOrg>
-                </standOff>
+                </tei:standOff>
             </TEI>
         </xsl:result-document>
     </xsl:template>

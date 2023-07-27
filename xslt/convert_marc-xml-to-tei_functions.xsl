@@ -9,24 +9,22 @@
         - there is a difference between record and item level but they appear to be mixed in the MARC XML
         - figure out IDs from the AUB source
             + according to https://libcat.aub.edu.lb there are
-            + **done** Call Number
+            + [x] Call Number
                 - the call number "Mic-NA:000452" from the MARC XML needs to be converted to "Mic-NA:0452" for searching the catalogue
             + Class Number
             + NLM Call Number
             + Standard Number
-            + **done** record number: it seems that one has to reliably strip the last digit from the number found in the MARC XML
+            + [x] record number: it seems that one has to reliably strip the last digit from the number found in the MARC XML
                 - https://libcat.aub.edu.lb/record=b1281806
                 - <marc:datafield ind1="0" ind2="8" tag="776"><marc:subfield code="w">(LEAUB)b12818069</marc:subfield></marc:datafield>
                 - <marc:datafield ind1=" " ind2=" " tag="907">
             <marc:subfield code="a">.b12818069</marc:subfield></marc:datafield>
          - ZDB
             + use field 515 for establishing frequency
-            + figure out holding information: field 924, which is not part of the data delivered over SRU
-                - however, 924 is included in MARC XML available at http://ld.zdb-services.de/data/{ZDB ID}.plus-1.mrcx
-            + decomposed UTF-8: changed into composed UTF-8 upon writing the output file
+            + [x] decomposed UTF-8: changed into composed UTF-8 upon writing the output file
         - HathiTrust
-            + uses a LOT of non-nummeric tags, which supposedly are custom extensions of MARC
-            + uses field 974 for holding information on individual items/ copies
+            + [x] uses a LOT of non-nummeric tags, which supposedly are custom extensions of MARC
+            + [x] uses field 974 for holding information on individual items/ copies
     -->
     <xsl:import href="functions.xsl"/>
     <xsl:import href="../../authority-files/xslt/convert_isil-rdf-to-tei_functions.xsl"/>
@@ -186,31 +184,7 @@
                 </xsl:if>
             </xsl:element>
         </xsl:variable>
-        <xsl:apply-templates mode="m_postprocess" select="$v_biblStruct"/>
-    </xsl:template>
-    <xsl:template match="node()[self::tei:*] | @*[parent::tei:*]" mode="m_postprocess">
-        <xsl:copy>
-            <xsl:apply-templates mode="m_postprocess" select="@* | node()"/>
-        </xsl:copy>
-    </xsl:template>
-    <xsl:template match="tei:title[not(@level)]" mode="m_postprocess" priority="2">
-        <xsl:copy>
-            <xsl:apply-templates mode="m_postprocess" select="@*"/>
-            <xsl:if test="ancestor::tei:biblStruct/@type">
-                <xsl:attribute name="level">
-                    <xsl:choose>
-                        <xsl:when test="ancestor::tei:biblStruct/@type = 'periodical'">
-                            <xsl:value-of select="'j'"/>
-                        </xsl:when>
-                        <xsl:when test="ancestor::tei:biblStruct/@type = 'book'">
-                            <xsl:value-of select="'m'"/>
-                        </xsl:when>
-                        <!-- no fall back -->
-                    </xsl:choose>
-                </xsl:attribute>
-            </xsl:if>
-            <xsl:apply-templates mode="m_postprocess"/>
-        </xsl:copy>
+        <xsl:apply-templates mode="m_postprocess" select="$v_biblStruct/descendant-or-self::tei:biblStruct"/>
     </xsl:template>
     <!-- one template to convert marc:subfields into TEI -->
     <xsl:template match="marc:subfield">
@@ -580,15 +554,14 @@
                     <xsl:when test="$v_code = 'b'">
                         <xsl:element name="publisher">
                             <!-- we should not assume an orgName as additional wrapper! -->
-                            <xsl:value-of select="$v_content"/>
+                            <xsl:element name="orgName">
+                                <xsl:value-of select="$v_content"/>
+                            </xsl:element>
                         </xsl:element>
                     </xsl:when>
                     <!-- $c - Date of production, publication, distribution, manufacture, or copyright notice (R)  -->
                     <xsl:when test="$v_code = 'c'">
                         <xsl:element name="date">
-                            <xsl:if test="matches($v_content, '^\d{4}$')">
-                                <xsl:attribute name="when" select="$v_content"/>
-                            </xsl:if>
                             <xsl:value-of select="$v_content"/>
                         </xsl:element>
                     </xsl:when>
@@ -735,7 +708,7 @@
             </xsl:when>
             <!-- 866: extent of collection -->
             <!-- at least at AUB, this is treated like a freeform field and should probably be translated into a note -->
-            <!-- 924: holdings referenced in ZDB -->
+            <!-- 924: holdings referenced in ZDB and Hathi, even though this is not called for Hathi holding data. -->
             <xsl:when test="$v_tag = '924'">
                 <xsl:choose>
                     <xsl:when test="$v_code = ('q', 'v')">
@@ -759,6 +732,13 @@
                             <xsl:attribute name="type" select="'classmark'"/>
                             <xsl:attribute name="subtype" select="$v_id-isil"/>
                             <xsl:attribute name="source" select="concat('http://ld.zdb-services.de/data/organisations/', $v_id-isil, '.rdf')"/>
+                            <xsl:value-of select="$v_content"/>
+                        </xsl:element>
+                    </xsl:when>
+                    <!-- free-form field with comments on holdings -->
+                    <xsl:when test="$v_code = 'z'">
+                        <xsl:element name="biblScope">
+                            <!-- in the case of ZDB, the conte is freeform and would need a lot of heuristics to actually parse in structured form. This can be relegated to postprocessing -->
                             <xsl:value-of select="$v_content"/>
                         </xsl:element>
                     </xsl:when>
@@ -817,43 +797,13 @@
                     </xsl:when>
                     <xsl:when test="$v_code = 'z'">
                         <xsl:element name="biblScope">
-                            <!-- the field holds unstructured content. Trying to find machine-actionable data could be relegated to another step of processing -->
-                            <xsl:choose>
-                                <xsl:when test="matches($v_content, '^no\.\s*(\d+)-?(\d+)?.*$')">
-                                    <xsl:attribute name="unit" select="'issue'"/>
-                                    <xsl:attribute name="from" select="replace($v_content, '^no\.\s*(\d+)-?(\d+)?.*$', '$1')"/>
-                                    <xsl:attribute name="to">
-                                        <xsl:choose>
-                                            <xsl:when test="matches($v_content, '^no\.\s*(\d+)-(\d+).*$')">
-                                                <xsl:value-of select="replace($v_content, '^no\.\s*(\d+)-(\d+).*$', '$2')"/>
-                                            </xsl:when>
-                                            <xsl:otherwise>
-                                                <xsl:value-of select="replace($v_content, '^no\.\s*(\d+)-?(\d+)?.*$', '$1')"/>
-                                            </xsl:otherwise>
-                                        </xsl:choose>
-                                    </xsl:attribute>
-                                </xsl:when>
-                                <xsl:when test="matches($v_content, '^v\.\s*(\d+)-?(\d+)?.*$')">
-                                    <xsl:attribute name="unit" select="'volume'"/>
-                                    <xsl:attribute name="from" select="replace($v_content, '^v\.\s*(\d+)-?(\d+)?.*$', '$1')"/>
-                                    <xsl:attribute name="to">
-                                        <xsl:choose>
-                                            <xsl:when test="matches($v_content, '^v\.\s*(\d+)-(\d+).*$')">
-                                                <xsl:value-of select="replace($v_content, '^v\.\s*(\d+)-(\d+).*$', '$2')"/>
-                                            </xsl:when>
-                                            <xsl:otherwise>
-                                                <xsl:value-of select="replace($v_content, '^v\.\s*(\d+)-?(\d+)?.*$', '$1')"/>
-                                            </xsl:otherwise>
-                                        </xsl:choose>
-                                    </xsl:attribute>
-                                </xsl:when>
-                            </xsl:choose>
                             <xsl:value-of select="$v_content"/>
                         </xsl:element>
                     </xsl:when>
                 </xsl:choose>
             </xsl:when>
             <!-- 936: -->
+            <!-- probably move some heuristics to post-processing -->
             <xsl:when test="($v_tag = '936') and ($v_ind1 = 'u') and ($v_ind2 = 'w')">
                 <xsl:choose>
                     <xsl:when test="$v_code = ('d', 'e', 'h')">
@@ -871,14 +821,6 @@
                                     </xsl:when>
                                 </xsl:choose>
                             </xsl:attribute>
-                            <xsl:if test="matches($v_content, '^\d+$')">
-                                <xsl:attribute name="from" select="$v_content"/>
-                                <xsl:attribute name="to" select="$v_content"/>
-                            </xsl:if>
-                            <xsl:if test="matches($v_content, '^\d+\-\d+$')">
-                                <xsl:attribute name="from" select="substring-before($v_content, '-')"/>
-                                <xsl:attribute name="to" select="substring-after($v_content, '-')"/>
-                            </xsl:if>
                             <!-- content -->
                             <xsl:value-of select="$v_content"/>
                         </xsl:element>
@@ -887,9 +829,6 @@
                     <!-- date of publication -->
                     <xsl:when test="$v_code = 'j'">
                         <xsl:element name="date">
-                            <xsl:if test="matches($v_content, '^\d{4}$')">
-                                <xsl:attribute name="when" select="$v_content"/>
-                            </xsl:if>
                             <xsl:value-of select="$v_content"/>
                         </xsl:element>
                     </xsl:when>
@@ -915,7 +854,7 @@
             </xsl:element>
         </xsl:element>
     </xsl:template>
-    <!-- this will need to be changed to group Hathi holdings by institution -->
+    <!-- this has beeen changed to group Hathi holdings by institution -->
     <xsl:template match="marc:datafield[@tag = ('974')]" mode="m_notes" priority="2">
         <xsl:apply-templates mode="m_notes" select="marc:subfield[@code = 'b']"/>
     </xsl:template>
@@ -1035,6 +974,9 @@
                             <!-- holding: dates -->
                             <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'q']"/>
                             <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'v']"/>
+                            <!-- create a note inside the bibl for information on the extent of holdings. Despite its highly unstructured form, I'll write the information to a biblScope element -->
+                            <!-- in HathiTrust this information is more structured -->
+                            <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'z']"/>
                         </xsl:element>
                     </xsl:element>
                     <!-- source information -->
@@ -1044,16 +986,16 @@
             <!-- I think this is actually called! -->
             <xsl:when test="$v_catalogue = 'hathi'">
                 <!-- machine readible holding information -->
-                    <xsl:element name="bibl">
-                        <xsl:attribute name="resp" select="'#xslt'"/>
-                        <xsl:attribute name="source" select="concat('#', $v_catalogue)"/>
-                        <!-- classmark -->
-                        <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'u']"/>
-                        <!-- holding: dates -->
-                        <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'y']"/>
-                        <!-- biblscope -->
-                        <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'z']"/>
-                    </xsl:element>
+                <xsl:element name="bibl">
+                    <xsl:attribute name="resp" select="'#xslt'"/>
+                    <xsl:attribute name="source" select="concat('#', $v_catalogue)"/>
+                    <!-- classmark -->
+                    <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'u']"/>
+                    <!-- holding: dates -->
+                    <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'y']"/>
+                    <!-- biblscope -->
+                    <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'z']"/>
+                </xsl:element>
             </xsl:when>
             <!-- fallback? -->
             <xsl:otherwise> </xsl:otherwise>
@@ -1213,5 +1155,154 @@
             <xsl:apply-templates mode="m_identity-transform" select="@*"/>
             <xsl:apply-templates mode="m_marc-add-ns" select="node()"/>
         </xsl:element>
+    </xsl:template>
+    <!-- do some post processing of TEI nodes -->
+    <xsl:template match="node()[self::tei:*] | @*[parent::tei:*]" mode="m_postprocess">
+        <xsl:copy>
+            <xsl:apply-templates mode="m_postprocess" select="@* | node()"/>
+        </xsl:copy>
+    </xsl:template>
+    <xsl:template match="tei:title[not(@level)]" mode="m_postprocess" priority="2">
+        <xsl:copy>
+            <xsl:apply-templates mode="m_postprocess" select="@*"/>
+            <xsl:if test="ancestor::tei:biblStruct/@type">
+                <xsl:attribute name="level">
+                    <xsl:choose>
+                        <xsl:when test="ancestor::tei:biblStruct/@type = 'periodical'">
+                            <xsl:value-of select="'j'"/>
+                        </xsl:when>
+                        <xsl:when test="ancestor::tei:biblStruct/@type = 'book'">
+                            <xsl:value-of select="'m'"/>
+                        </xsl:when>
+                        <!-- fallback: x -->
+                        <xsl:otherwise>
+                            <xsl:value-of select="'x'"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:apply-templates mode="m_postprocess"/>
+        </xsl:copy>
+    </xsl:template>
+    <xsl:template match="tei:listBibl[ancestor::tei:note/@type = 'holdings']" mode="m_postprocess">
+        <xsl:copy>
+            <xsl:apply-templates mode="m_postprocess" select="@*"/>
+            <xsl:apply-templates mode="m_postprocess" select="node()">
+                <xsl:sort select="tei:bibl/descendant::tei:biblScope[@unit = 'volume'][1]/@from"/>
+                <xsl:sort select="tei:bibl/descendant::tei:biblScope[@unit = 'issue'][1]/@from"/>
+                <xsl:sort select="tei:bibl/descendant::tei:date[@when][1]/@when"/>
+            </xsl:apply-templates>
+        </xsl:copy>
+    </xsl:template>
+    <xsl:template match="tei:bibl[ancestor::tei:note/@type = 'holdings']" mode="m_postprocess" priority="2">
+        <xsl:copy>
+            <xsl:apply-templates mode="m_identity-transform" select="@*"/>
+            <xsl:attribute name="corresp">
+                <xsl:value-of select="oape:query-biblstruct(ancestor::tei:biblStruct[1], 'tei-ref', '', '', $p_local-authority)"/>
+            </xsl:attribute>
+            <xsl:apply-templates mode="m_postprocess" select="node()"/>
+        </xsl:copy>
+    </xsl:template>
+    <xsl:template match="tei:biblScope" mode="m_postprocess" priority="2">
+        <xsl:choose>
+            <!-- the field holds unstructured content. Trying to find machine-actionable data could be relegated to another step of processing -->
+            <!-- 1. element needs to be split into multiple biblScope -->
+            <!-- volume and issue  -->
+            <!-- 1:1-48  -->
+            <xsl:when test="matches(., '\d+:\d+-\d+')">
+                <xsl:copy>
+                    <xsl:apply-templates mode="m_identity-transform" select="@*"/>
+                    <xsl:attribute name="unit">
+                        <xsl:value-of select="'volume'"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="from">
+                        <xsl:value-of select="replace(., '^.*(\d+):\d+-\d+.*$', '$1')"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="to">
+                        <xsl:value-of select="replace(., '^.*(\d+):\d+-\d+.*$', '$1')"/>
+                    </xsl:attribute>
+                    <xsl:apply-templates mode="m_identity-transform"/>
+                </xsl:copy>
+                <xsl:copy>
+                    <xsl:apply-templates mode="m_identity-transform" select="@*"/>
+                    <xsl:attribute name="unit">
+                        <xsl:value-of select="'issue'"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="from">
+                        <xsl:value-of select="replace(., '^.*\d+:(\d+)-\d+.*$', '$1')"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="to">
+                        <xsl:value-of select="replace(., '^.*\d+:\d+-(\d+).*$', '$1')"/>
+                    </xsl:attribute>
+                    <xsl:apply-templates mode="m_identity-transform"/>
+                </xsl:copy>
+            </xsl:when>
+            <!-- 2. element does NOT need to be split -->
+            <xsl:otherwise>
+                <xsl:copy>
+                    <xsl:apply-templates mode="m_identity-transform" select="@*"/>
+                    <xsl:choose>
+                        <xsl:when test="matches(., '^no\.\s*(\d+)-?(\d+)?.*$')">
+                            <xsl:attribute name="unit" select="'issue'"/>
+                            <xsl:attribute name="from" select="replace(., '^no\.\s*(\d+)-?(\d+)?.*$', '$1')"/>
+                            <xsl:attribute name="to">
+                                <xsl:choose>
+                                    <xsl:when test="matches(., '^no\.\s*(\d+)-(\d+).*$')">
+                                        <xsl:value-of select="replace(., '^no\.\s*(\d+)-(\d+).*$', '$2')"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="replace(., '^no\.\s*(\d+)-?(\d+)?.*$', '$1')"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:attribute>
+                        </xsl:when>
+                        <!-- volume information -->
+                        <xsl:when test="matches(., '^v\.\s*(\d+)-?(\d+)?.*$')">
+                            <xsl:attribute name="unit" select="'volume'"/>
+                            <xsl:attribute name="from" select="replace(., '^v\.\s*(\d+)-?(\d+)?.*$', '$1')"/>
+                            <xsl:attribute name="to">
+                                <xsl:choose>
+                                    <xsl:when test="matches(., '^v\.\s*(\d+)-(\d+).*$')">
+                                        <xsl:value-of select="replace(., '^v\.\s*(\d+)-(\d+).*$', '$2')"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="replace(., '^v\.\s*(\d+)-?(\d+)?.*$', '$1')"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:attribute>
+                        </xsl:when>
+                        <xsl:when test="matches(., 'vol\.\s*\d+')">
+                            <xsl:attribute name="unit" select="'volume'"/>
+                            <xsl:attribute name="from">
+                                <xsl:value-of select="replace(., '^.*vol\.\s*(\d+).*$', '$1')"/>
+                            </xsl:attribute>
+                            <xsl:attribute name="to">
+                                <xsl:choose>
+                                    <xsl:when test="matches(., '\d+\s*-\s*\d+')">
+                                        <xsl:value-of select="replace(., '^.*\d+\s*-\s*(\d+).*$', '$1')"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="replace(., '^.*vol\.\s*(\d+).*$', '$1')"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:attribute>
+                        </xsl:when>
+                        <xsl:when test="matches(., '^\d+$')">
+                            <xsl:attribute name="from" select="."/>
+                            <xsl:attribute name="to" select="."/>
+                        </xsl:when>
+                        <xsl:when test="matches(., '^\d+\-\d+$')">
+                            <xsl:attribute name="from" select="substring-before(., '-')"/>
+                            <xsl:attribute name="to" select="substring-after(., '-')"/>
+                        </xsl:when>
+                    </xsl:choose>
+                    <!-- content -->
+                    <xsl:apply-templates mode="m_postprocess"/>
+                </xsl:copy>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="tei:date" mode="m_postprocess" priority="2">
+        <xsl:copy-of select="oape:date-add-attributes(., $p_id-change)"/>
     </xsl:template>
 </xsl:stylesheet>
