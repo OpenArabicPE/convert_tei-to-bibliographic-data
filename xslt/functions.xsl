@@ -5,7 +5,7 @@
     xmlns:tss="http://www.thirdstreetsoftware.com/SenteXML-1.0" xmlns:vcard="http://nwalsh.com/rdf/vCard#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:z="http://www.zotero.org/namespaces/export#">
     <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no"/>
-    <xsl:include href="parameters.xsl"/>
+    <xsl:import href="parameters.xsl"/>
     <!-- plain text output   -->
     <!-- plain text output: beware that heavily marked up nodes will have most whitespace omitted -->
     <!-- add template for persName -->
