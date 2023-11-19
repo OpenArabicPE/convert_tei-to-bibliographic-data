@@ -463,6 +463,7 @@ The proprietary JSON to directly communicate with the Zotero database / servers 
 "version": 3238
 }
 ```
+
 ### XML (conversion: oXygen)
 
 ```xml
