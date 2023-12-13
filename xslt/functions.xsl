@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet exclude-result-prefixes="tei tss" version="3.0" xmlns:bib="http://purl.org/net/biblio#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/"
+<xsl:stylesheet exclude-result-prefixes="#all" version="3.0" xmlns="http://www.tei-c.org/ns/1.0" xmlns:bib="http://purl.org/net/biblio#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/"
     xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:link="http://purl.org/rss/1.0/modules/link/" xmlns:oape="https://openarabicpe.github.io/ns"
     xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:tei="http://www.tei-c.org/ns/1.0"
     xmlns:tss="http://www.thirdstreetsoftware.com/SenteXML-1.0" xmlns:vcard="http://nwalsh.com/rdf/vCard#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -149,7 +149,9 @@
                 <imprint>
                     <xsl:apply-templates mode="m_copy-from-source" select="tei:date"/>
                     <!-- add a date at which this bibl was documented in the source file -->
-                    <date type="documented" when="{$v_source-date}"/>
+                    <xsl:if test="empty($v_source-date) = false()">
+                        <date type="documented" when="{$v_source-date}"/>
+                    </xsl:if>
                     <xsl:apply-templates mode="m_copy-from-source" select="tei:pubPlace"/>
                     <xsl:apply-templates mode="m_copy-from-source" select="tei:publisher"/>
                 </imprint>
