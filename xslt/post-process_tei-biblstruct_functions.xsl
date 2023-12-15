@@ -13,9 +13,14 @@
             <xsl:apply-templates mode="m_post-process"/>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="node() | @*" mode="m_post-process">
+    <xsl:template match="node()" mode="m_post-process">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@* | node()"/>
+        </xsl:copy>
+    </xsl:template>
+    <xsl:template match="@*" mode="m_post-process">
+        <xsl:copy>
+            <xsl:value-of select="translate(., $v_alphabet-arabic, $v_alphabet-latin)"/>
         </xsl:copy>
     </xsl:template>
     <!-- this is expensive -->
@@ -270,7 +275,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <xsl:template match="tei:bibl[ancestor::tei:note/@type = 'holdings']" mode="m_post-process" priority="2">
+    <xsl:template match="tei:bibl[ancestor::tei:note/@type = 'holdings']" mode="m_off" priority="2">
         <xsl:copy>
             <xsl:apply-templates mode="m_identity-transform" select="@*"/>
             <xsl:attribute name="corresp">
@@ -279,27 +284,67 @@
             <xsl:apply-templates mode="m_post-process" select="node()"/>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="tei:biblScope" mode="m_post-process">
+    <!-- [parent::tei:bibl/tei:idno[@type = 'barcode']] is only needed for USJ -->
+    <xsl:template match="tei:biblScope[not(@unit)][ancestor::tei:note[@type = 'holdings']][parent::tei:bibl/tei:idno[@type = 'barcode']]" mode="m_post-process" priority="2">
         <xsl:variable name="v_content" select="normalize-space(.)"/>
-        <xsl:call-template name="t_test-for-dates">
+        <!--<xsl:call-template name="t_test-for-dates">
             <xsl:with-param name="p_input" select="$v_content"/>
-        </xsl:call-template>
+        </xsl:call-template>-->
+        <!-- unfortunately, one cannot change the value of a variable as the result of an iff condition -->
         <xsl:choose>
+            <xsl:when test="matches($v_content, '(vol\.*|السنة)\s*(\d+)', 'i')">
+                <xsl:variable name="v_value" select="replace($v_content, '^.*(vol\.*|السنة)\s*(\d+).*$', '$2', 'i')"/>
+                <xsl:element name="biblScope">
+                    <xsl:attribute name="unit" select="'volume'"/>
+                    <xsl:attribute name="from" select="$v_value"/>
+                    <xsl:attribute name="to" select="$v_value"/>
+                </xsl:element>
+                <xsl:variable name="v_content" select="replace($v_content, '^(.*)(vol\.*|السنة)\s*\d+(.*)$', '$1$3', 'i')"/>
+                <xsl:copy>
+                    <xsl:apply-templates mode="m_post-process" select="@*"/>
+                    <xsl:apply-templates mode="m_post-process" select="$v_content"/>
+                </xsl:copy>
+            </xsl:when>
+            <xsl:when test="matches($v_content, '(no\.*\s*)(\d+)', 'i')">
+                <xsl:variable name="v_value" select="replace($v_content, '^.*(no\.*\s*)(\d+).*$', '$2', 'i')"/>
+                <xsl:element name="biblScope">
+                    <xsl:attribute name="unit" select="'issue'"/>
+                    <xsl:attribute name="from" select="$v_value"/>
+                    <xsl:attribute name="to" select="$v_value"/>
+                </xsl:element>
+                <xsl:variable name="v_content" select="replace($v_content, '^(.*)no\.*\s*\d+(.*)$', '$1$2', 'i')"/>
+                <xsl:copy>
+                    <xsl:apply-templates mode="m_post-process" select="@*"/>
+                    <xsl:apply-templates mode="m_post-process" select="$v_content"/>
+                </xsl:copy>
+            </xsl:when>
+            <xsl:when test="matches($v_content, '\(\s*\d{4}\s*\)', 'i')">
+                <xsl:variable name="v_value" select="replace($v_content, '^.*(\(\s*)(\d{4})(\s*\)).*$', '$2', 'i')"/>
+                <xsl:element name="date">
+                    <xsl:attribute name="when" select="$v_value"/>
+                    <xsl:value-of select="$v_value"/>
+                </xsl:element>
+                <xsl:variable name="v_content" select="replace($v_content, '^(.*)\(\s*\d{4}\s*\)(.*)$', '$1$2', 'i')"/>
+                <xsl:copy>
+                    <xsl:apply-templates mode="m_post-process" select="@*"/>
+                    <xsl:apply-templates mode="m_post-process" select="$v_content"/>
+                </xsl:copy>
+            </xsl:when>
+
+            <xsl:otherwise>
+                <xsl:copy>
+                    <xsl:apply-templates mode="m_post-process" select="@* | node()"/>
+                </xsl:copy>
+            </xsl:otherwise>
+        </xsl:choose>
+        <!--<xsl:choose>
             <xsl:when test="contains($v_content, '#')">
                 <xsl:element name="biblScope">
                     <xsl:attribute name="unit" select="'issue'"/>
                     <xsl:value-of select="substring-after($v_content, '#')"/>
                 </xsl:element>
             </xsl:when>
-            <!--<xsl:otherwise>
-                <xsl:copy>
-                    <xsl:apply-templates select="@* | node()"/>
-                </xsl:copy>
-            </xsl:otherwise>-->
-        </xsl:choose>
-        <xsl:copy>
-            <xsl:apply-templates select="@* | node()"/>
-        </xsl:copy>
+        </xsl:choose>-->
     </xsl:template>
     <!-- notes -->
     <xsl:template match="tei:item[ancestor::tei:note/@type = 'holdings'] | tei:listBibl[ancestor::tei:note/@type = 'holdings']" mode="m_off">
@@ -334,26 +379,26 @@
             </xsl:when>
         </xsl:choose>
     </xsl:template>
-    <xsl:template match="tei:persName[contains(.,'،')]" mode="m_post-process">
+    <xsl:template match="tei:persName[contains(., '،')]" mode="m_post-process">
         <xsl:copy>
-            <xsl:apply-templates select="@*" mode="m_post-process"/>
+            <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:element name="forename">
-                <xsl:value-of select="normalize-space(substring-after(.,'،'))"/>
+                <xsl:value-of select="normalize-space(substring-after(., '،'))"/>
             </xsl:element>
             <xsl:text> </xsl:text>
             <xsl:element name="surname">
-                <xsl:value-of select="normalize-space(substring-before(.,'،'))"/>
+                <xsl:value-of select="normalize-space(substring-before(., '،'))"/>
             </xsl:element>
         </xsl:copy>
     </xsl:template>
-     <xsl:template match="tei:placeName[not(contains(.,']'))][contains(.,'،')]" mode="m_post-process">
+    <xsl:template match="tei:placeName[not(contains(., ']'))][contains(., '،')]" mode="m_post-process">
         <xsl:copy>
-            <xsl:apply-templates select="@*" mode="m_post-process"/>
-            <xsl:value-of select="normalize-space(substring-before(.,'،'))"/>
+            <xsl:apply-templates mode="m_post-process" select="@*"/>
+            <xsl:value-of select="normalize-space(substring-before(., '،'))"/>
         </xsl:copy>
-         <xsl:text> </xsl:text>
-         <xsl:element name="country">
-             <xsl:value-of select="normalize-space(substring-after(.,'،'))"/>
-         </xsl:element>
+        <xsl:text> </xsl:text>
+        <xsl:element name="country">
+            <xsl:value-of select="normalize-space(substring-after(., '،'))"/>
+        </xsl:element>
     </xsl:template>
 </xsl:stylesheet>

@@ -7,7 +7,7 @@
     <!-- use @mode = 'm_off' to toggle templates off -->
     <!-- add templates specific to this particular input -->
     <!-- switch off post processing for notes -->
-    <xsl:template match="tei:note" mode="m_post-process">
+    <xsl:template match="tei:note" mode="m_off">
         <xsl:copy-of select="."/>
     </xsl:template>
     <!-- postprocessing specific to KOHA -->
@@ -36,8 +36,8 @@
             <xsl:value-of select="replace(., '^(.+\s)*\[(.+)\]$', '$2')"/>
         </note>
     </xsl:template>
-    <!-- remove existing holding information -->
-    <xsl:template match="tei:note[@type = 'holdings']" mode="m_post-process">
+    <!-- remove existing holding information and add information directly from MARCXML source -->
+    <xsl:template match="tei:note[@type = 'holdings']" mode="m_off">
         <!-- get MARCXML from source -->
         <xsl:variable name="v_url-catalogue" select="concat($v_koha-url-record-web, parent::tei:biblStruct/tei:monogr/tei:idno[@type = 'biblio_id'])"/>
         <xsl:variable name="v_marc" select="document(concat($v_koha-url-record-marcxml, parent::tei:biblStruct/tei:monogr/tei:idno[@type = 'biblio_id']))"/>
