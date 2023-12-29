@@ -64,8 +64,12 @@
         </xsl:variable>
         <xsl:variable name="v_catalogue">
             <xsl:choose>
+                <!-- the sequence of these tests matters -->
                 <xsl:when test="$v_id-record/tei:idno/@type = 'LEAUB'">
                     <xsl:text>aub</xsl:text>
+                </xsl:when>
+                <xsl:when test="$v_id-record/tei:idno/@type = 'ht_bib_key'">
+                    <xsl:text>hathi</xsl:text>
                 </xsl:when>
                 <xsl:when test="$v_id-record/tei:idno/@type = 'zdb'">
                     <xsl:text>zdb</xsl:text>
@@ -102,7 +106,8 @@
         <!-- variable to potentially pull a record from another URL based on the input record -->
         <xsl:variable name="v_record">
             <xsl:choose>
-                <xsl:when test="$v_id-record/tei:idno/@type = 'zdb'">
+                <!-- this test will cause to load ZDB data for Hathitrust data sets: $v_id-record/tei:idno/@type = 'zdb'  -->
+                <xsl:when test="$v_catalogue = 'zdb'">
                     <xsl:variable name="v_url-record" select="concat($v_url-server-zdb-ld, $v_id-record/tei:idno[@type = 'zdb'][1], '.plus-1.mrcx')"/>
                     <xsl:copy-of select="doc($v_url-record)/descendant-or-self::marc:record"/>
                 </xsl:when>
@@ -263,8 +268,11 @@
                                             <xsl:element name="label">
                                                 <xsl:apply-templates select="current-group()[1]/marc:subfield[@code = 'b']"/>
                                             </xsl:element>
-                                            <!-- machine-readible holding information -->
-                                            <xsl:apply-templates mode="m_notes" select="current-group()"/>
+                                            <xsl:element name="listBibl">
+                                                <xsl:attribute name="source" select="$v_url-catalogue"/>
+                                                <!-- machine-readible holding information for each item -->
+                                                <xsl:apply-templates mode="m_notes" select="current-group()"/>
+                                            </xsl:element>
                                         </xsl:element>
                                     </xsl:for-each-group>
                                 </xsl:when>
@@ -529,7 +537,7 @@
             <!-- 100: contributor -->
             <!-- 100 - MAIN ENTRY-\-PERSONAL NAME (NR) -->
             <!-- 110 - MAIN ENTRY-\-CORPORATE NAME (NR)  -->
-            <!-- 700: added entry, personal name -->
+            <!-- 700: added entry, personal name: https://www.loc.gov/marc/bibliographic/bd700.html -->
             <xsl:when test="$v_tag = ('100', '700')">
                 <xsl:choose>
                     <!-- code 4 is not as ubiquotous as I thought -->
@@ -984,7 +992,7 @@
                     <xsl:when test="$v_code = 'u'">
                         <xsl:element name="idno">
                             <xsl:attribute name="type" select="'classmark'"/>
-                            <xsl:attribute name="source" select="'#hathi'"/>
+                            <xsl:attribute name="source" select="'oape:org:417'"/>
                             <xsl:value-of select="$v_content"/>
                         </xsl:element>
                         <xsl:element name="idno">
@@ -1114,9 +1122,9 @@
                                         <xsl:attribute name="type" select="'url'"/>
                                         <xsl:value-of select="concat($v_koha-url-record-web, $v_id-record)"/>
                                     </xsl:element>
-                                     <xsl:element name="idno">
+                                    <xsl:element name="idno">
                                         <xsl:attribute name="type" select="'url'"/>
-                                         <xsl:attribute name="subtype" select="'MARCXML'"/>
+                                        <xsl:attribute name="subtype" select="'MARCXML'"/>
                                         <xsl:value-of select="concat($v_koha-url-record-marcxml, $v_id-record)"/>
                                     </xsl:element>
                                 </xsl:element>
@@ -1124,8 +1132,9 @@
                         </xsl:element>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:message terminate="yes">
-                            <xsl:text>WARNING: could not establish the catalogue / library system</xsl:text>
+                        <xsl:message terminate="no">
+                            <xsl:text>WARNING: not implemented for this catalogue / library system: </xsl:text>
+                            <xsl:value-of select="$p_catalogue"/>
                         </xsl:message>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -1268,7 +1277,9 @@
             <xsl:when test="$v_catalogue = 'hathi'">
                 <!-- machine readible holding information -->
                 <xsl:element name="bibl">
-                    <xsl:attribute name="source" select="concat('#', $v_catalogue)"/>
+                    <xsl:attribute name="source" select="'oape:org:417'"/>
+                    <!-- latest rights change: "d" -->
+                    <!-- copyright: "p"  -->
                     <!-- classmark -->
                     <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'u']"/>
                     <!-- holding: dates -->
@@ -1475,7 +1486,7 @@
             <xsl:apply-templates mode="m_postprocess"/>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="tei:listBibl[ancestor::tei:note/@type = 'holdings']" mode="m_postprocess">
+    <xsl:template match="tei:listBibl[ancestor::tei:note/@type = 'holdings']" mode="m_postprocess" priority="2">
         <xsl:copy>
             <xsl:apply-templates mode="m_postprocess" select="@*"/>
             <xsl:apply-templates mode="m_postprocess" select="node()">

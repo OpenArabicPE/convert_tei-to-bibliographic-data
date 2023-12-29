@@ -7,6 +7,7 @@
     <xsl:param name="p_source" select="'oape:org:567'"/>
     <xsl:variable name="v_alphabet-arabic" select="'اأإبتثحخجدذرزسشصضطظعغفقكلمنهوؤيئىةء٠١٢٣٤٥٦٧٨٩'"/>
     <xsl:variable name="v_alphabet-latin" select="'0123456789abcdefghijklmnopqrstuvwxyz'"/>
+    <xsl:variable name="v_alphabet-arabic-ijmes" select="'āīūḍġḥṣṭʼʿʾ'"/>
     <!-- use @mode = 'm_off' to toggle templates off -->
     <xsl:template match="/" priority="20">
         <xsl:copy>
@@ -24,7 +25,7 @@
         </xsl:copy>
     </xsl:template>
     <!-- this is expensive -->
-    <xsl:template match="text()" mode="m_post-process" priority="2">
+    <xsl:template match="text()" mode="m_post-process" priority="20">
         <xsl:value-of select="normalize-unicode(., 'NFKC')"/>
     </xsl:template>
     <xsl:template match="text()[ancestor::tei:monogr][not(parent::tei:persName)]" mode="m_post-process" priority="10">
@@ -45,27 +46,33 @@
     <!-- remove all orgs which are already part of the organizationography -->
     <xsl:template match="tei:org[parent::tei:listOrg][tei:orgName[@ref]]" mode="m_off"/>
     <!-- establish language based on script -->
-    <xsl:template match="element()[ancestor::tei:biblStruct][text()][@xml:lang = 'und' or not(@xml:lang)]" mode="m_off" priority="5">
-        <xsl:variable name="v_string-test" select="substring(., 1, 1)"/>
+    <xsl:template match="element()[ancestor::tei:biblStruct][text()][@xml:lang = 'und'  or not(@xml:lang)]" mode="m_off" priority="5">
+        <xsl:variable name="v_self">
+            <xsl:apply-templates select="text()" mode="m_plain-text"/>
+        </xsl:variable>
+        <xsl:variable name="v_self" select="normalize-space($v_self)"/>
+        <xsl:variable name="v_string-test" select="substring($v_self, 1, 1)"/>
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
-            <xsl:attribute name="xml:lang">
+            
                 <xsl:choose>
                     <xsl:when test="contains($v_alphabet-arabic, $v_string-test) and (ancestor::tei:biblStruct//tei:textLang/@mainLang = 'ar')">
-                        <xsl:value-of select="'ar'"/>
+                        <xsl:attribute name="xml:lang" select="'ar'"/>
                     </xsl:when>
                     <xsl:when test="contains($v_alphabet-arabic, $v_string-test) and (ancestor::tei:biblStruct//tei:textLang/@mainLang = 'ota')">
-                        <xsl:value-of select="'ota'"/>
+                        <xsl:attribute name="xml:lang" select="'ota'"/>
                     </xsl:when>
                     <xsl:when test="contains($v_alphabet-arabic, $v_string-test) and (ancestor::tei:biblStruct//tei:textLang/@mainLang = 'fa')">
-                        <xsl:value-of select="'fa'"/>
+                        <xsl:attribute name="xml:lang" select="'fa'"/>
+                    </xsl:when>
+                    <xsl:when test="matches($v_self, concat('[', $v_alphabet-arabic-ijmes, ']'))">
+                        <xsl:attribute name="xml:lang" select="'ar-Latn-x-ijmes'"/>
                     </xsl:when>
                     <!-- this assumes we only deal with Arabic and Latin scripts -->
                     <xsl:otherwise>
-                        <xsl:value-of select="'und-Latn'"/>
+<!--                        <xsl:value-of select="'und-Latn'"/>-->
                     </xsl:otherwise>
                 </xsl:choose>
-            </xsl:attribute>
             <xsl:apply-templates mode="m_post-process"/>
         </xsl:copy>
     </xsl:template>
@@ -379,26 +386,78 @@
             </xsl:when>
         </xsl:choose>
     </xsl:template>
-    <xsl:template match="tei:persName[contains(., '،')]" mode="m_post-process">
+    <xsl:template match="tei:persName[matches(., '[،,]')]" mode="m_post-process" priority="2">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:element name="forename">
-                <xsl:value-of select="normalize-space(substring-after(., '،'))"/>
+                <xsl:value-of select="normalize-space(replace(., '^(.+?)[،,](.+?)$', '$2'))"/>
             </xsl:element>
             <xsl:text> </xsl:text>
             <xsl:element name="surname">
-                <xsl:value-of select="normalize-space(substring-before(., '،'))"/>
+                <xsl:value-of select="normalize-space(replace(., '^(.+?)[،,](.+?)$', '$1'))"/>
             </xsl:element>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="tei:placeName[not(contains(., ']'))][contains(., '،')]" mode="m_post-process">
+    <xsl:template match="tei:placeName[not(contains(., ']'))][matches(., '[،,]')]" mode="m_post-process" priority="2">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
-            <xsl:value-of select="normalize-space(substring-before(., '،'))"/>
+            <xsl:value-of select="normalize-space(replace(., '^(.+?)[،,](.+?)$', '$1'))"/>
         </xsl:copy>
         <xsl:text> </xsl:text>
         <xsl:element name="country">
-            <xsl:value-of select="normalize-space(substring-after(., '،'))"/>
+            <xsl:value-of select="normalize-space(replace(., '^(.+?)[،,](.+?)$', '$2'))"/>
         </xsl:element>
     </xsl:template>
+    <xsl:function name="oape:transpose-digits">
+        <xsl:param name="p_input"/>
+        <xsl:param name="p_from"/>
+        <xsl:param name="p_to"/>
+        <xsl:variable name="v_digits-arabic" select="'٠١٢٣٤٥٦٧٨٩'"/>
+        <xsl:variable name="v_digits-persian" select="'٠١٢٣۴۵۶٧٨٩'"/>
+        <xsl:variable name="v_digits-urdu" select="'۰۱۲۳۴۵۶۷۸۹'"/>
+        <xsl:variable name="v_digits-western" select="'0123456789'"/>
+        <xsl:variable name="v_from">
+            <xsl:choose>
+                <xsl:when test="$p_from = 'arabic'">
+                    <xsl:value-of select="$v_digits-arabic"/>
+                </xsl:when>
+                <xsl:when test="$p_from = 'persian'">
+                    <xsl:value-of select="$v_digits-persian"/>
+                </xsl:when>
+                <xsl:when test="$p_from = 'urdu'">
+                    <xsl:value-of select="$v_digits-urdu"/>
+                </xsl:when>
+                <xsl:when test="$p_from = 'western'">
+                    <xsl:value-of select="$v_digits-western"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:message terminate="yes">
+                        <xsl:text>Value for $p_from not available</xsl:text>
+                    </xsl:message>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="v_to">
+            <xsl:choose>
+                <xsl:when test="$p_to = 'arabic'">
+                    <xsl:value-of select="$v_digits-arabic"/>
+                </xsl:when>
+                <xsl:when test="$p_to = 'persian'">
+                    <xsl:value-of select="$v_digits-persian"/>
+                </xsl:when>
+                <xsl:when test="$p_to = 'urdu'">
+                    <xsl:value-of select="$v_digits-urdu"/>
+                </xsl:when>
+                <xsl:when test="$p_to = 'western'">
+                    <xsl:value-of select="$v_digits-western"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:message terminate="yes">
+                        <xsl:text>Value for $p_to not available</xsl:text>
+                    </xsl:message>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:value-of select="translate($p_input, $v_from, $v_to)"/>
+    </xsl:function>
 </xsl:stylesheet>
