@@ -282,6 +282,27 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <xsl:template match="tei:imprint" mode="m_off" priority="2">
+        <xsl:copy>
+            <xsl:apply-templates mode="m_post-process" select="@*"/>
+            <xsl:apply-templates mode="m_post-process" select="tei:pubPlace | tei:publisher | tei:date"/>
+            <!-- add dates based on holdings -->
+            <xsl:if test="parent::tei:monogr/following-sibling::tei:note[@type = 'holdings']/descendant::tei:date[@when]">
+                <xsl:variable name="v_onset" select="min(parent::tei:monogr/following-sibling::tei:note[@type = 'holdings']/descendant::tei:date[@when]/number(@when))"/>
+                <xsl:variable name="v_terminus" select="max(parent::tei:monogr/following-sibling::tei:note[@type = 'holdings']/descendant::tei:date[@when]/number(@when))"/>
+                <xsl:element name="date">
+                    <xsl:attribute name="type" select="'onset'"/>
+                    <xsl:attribute name="when" select="$v_onset"/>
+                    <xsl:attribute name="cert" select="'low'"/>
+                </xsl:element>
+                <xsl:element name="date">
+                    <xsl:attribute name="type" select="'terminus'"/>
+                    <xsl:attribute name="when" select="$v_terminus"/>
+                    <xsl:attribute name="cert" select="'low'"/>
+                </xsl:element>
+            </xsl:if>
+        </xsl:copy>
+    </xsl:template>
     <xsl:template match="tei:bibl[ancestor::tei:note/@type = 'holdings']" mode="m_off" priority="2">
         <xsl:copy>
             <xsl:apply-templates mode="m_identity-transform" select="@*"/>
@@ -386,7 +407,7 @@
             </xsl:when>
         </xsl:choose>
     </xsl:template>
-    <xsl:template match="tei:persName[matches(., '[،,]')]" mode="m_post-process" priority="2">
+    <xsl:template match="tei:persName[matches(., '[،,]')]" mode="m_off" priority="2">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:element name="forename">
