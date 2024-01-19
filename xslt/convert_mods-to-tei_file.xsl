@@ -19,15 +19,11 @@
         <xsl:result-document href="{substring-before(base-uri(.),'.')}.TEIP5.xml">
             <TEI xmlns="http://www.tei-c.org/ns/1.0">
                 <xsl:copy-of select="$v_teiHeader"/>
-                <text>
-                   <body>
-                       <div>
+                <standOff>
                             <listBibl>
-                                <xsl:apply-templates select="descendant::mods:mods" mode="m_mods-to-tei"/>
+                                <xsl:apply-templates select="descendant::mods:mods[not(ancestor::mods:extension)]" mode="m_mods-to-tei"/>
                             </listBibl>
-                       </div>
-                   </body>
-                </text>
+                </standOff>
             </TEI>
         </xsl:result-document>
     </xsl:template>
