@@ -4,6 +4,7 @@
     xpath-default-namespace="http://www.tei-c.org/ns/1.0">
     <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no" version="1.0"/>
     <xsl:import href="functions.xsl"/>
+    <xsl:import href="../../oxygen-project/OpenArabicPE_parameters.xsl"/>
     <!-- this stylesheet translates <mods:mods> to <tei:biblStruct> -->
     <!-- to do
         - [x] normalise language codes
@@ -458,5 +459,32 @@
         <!--        <xsl:text> </xsl:text>-->
         <xsl:value-of select="normalize-space(.)"/>
         <!--        <xsl:text> </xsl:text>-->
+    </xsl:template>
+    <!-- holding institutions -->
+    <xsl:template mode="m_get-holding-institutions" match="mods:mods">
+        <org>
+            <xsl:apply-templates mode="m_get-holding-institutions" select="mods:location"/>
+            <xsl:if test="mods:recordInfo/mods:recordIdentifier[@source = 'UkMaC']">
+                <xsl:apply-templates mode="m_get-holding-institutions" select="mods:recordInfo/mods:recordIdentifier[not(@source = 'UkMaC')]"/>
+            </xsl:if>
+        </org>
+    </xsl:template>
+    <xsl:template mode="m_get-holding-institutions" match="mods:location">
+        <xsl:apply-templates mode="m_get-holding-institutions" select="mods:physicalLocation"/>
+    </xsl:template>
+    <xsl:template mode="m_get-holding-institutions" match="mods:physicalLocation">
+        <orgName><xsl:apply-templates select="." mode="m_plain-text"/></orgName>
+    </xsl:template>
+    <xsl:template mode="m_get-holding-institutions" match="mods:physicalLocation[@authority = 'UkMaC']">
+        <idno type="{@authority}">
+            <xsl:apply-templates mode="m_plain-text" select="."/>
+        </idno>
+    </xsl:template>
+    <xsl:template mode="m_get-holding-institutions" match="mods:recordIdentifier">
+        <idno type="isil">
+            <xsl:if test="parent::mods:recordInfo/mods:recordIdentifier[not(@source = 'UkMaC')]">
+                <xsl:value-of select="concat('GB-', @source)"/>
+            </xsl:if>
+        </idno>
     </xsl:template>
 </xsl:stylesheet>
