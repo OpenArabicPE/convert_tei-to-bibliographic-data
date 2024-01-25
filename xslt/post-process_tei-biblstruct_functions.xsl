@@ -14,6 +14,7 @@
             <xsl:apply-templates mode="m_post-process"/>
         </xsl:copy>
     </xsl:template>
+    <!-- identity transform -->
     <xsl:template match="node()" mode="m_post-process">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@* | node()"/>
@@ -24,12 +25,10 @@
             <xsl:value-of select="translate(., $v_alphabet-arabic, $v_alphabet-latin)"/>
         </xsl:copy>
     </xsl:template>
-    <!-- this is expensive -->
+    <xsl:template match="@*[. = '']" mode="m_post-process" priority="20"/>
+    <!-- this is expensive: Unicode normalization -->
     <xsl:template match="text()" mode="m_post-process" priority="20">
         <xsl:value-of select="normalize-unicode(., 'NFKC')"/>
-    </xsl:template>
-    <xsl:template match="text()[ancestor::tei:monogr][not(parent::tei:persName)]" mode="m_post-process" priority="10">
-        <xsl:value-of select="replace(., '(\s*[,|;|:|،|؛]\s*)$', '')"/>
     </xsl:template>
     <!-- the sorting instruction is expensive  -->
     <xsl:template match="tei:listBibl" mode="m_off">
@@ -41,20 +40,24 @@
             <xsl:apply-templates select="tei:bibl"/>
         </xsl:copy>
     </xsl:template>
+    <!-- remove trailing punctuation  -->
+    <xsl:template match="text()[ancestor::tei:monogr][not(parent::tei:persName)]" mode="m_post-process" priority="10">
+        <xsl:value-of select="replace(., '(\s*[,|;|:|،|؛]\s*)$', '')"/>
+    </xsl:template>
     <!-- information to be removed as I do not further process it -->
     <xsl:template match="tei:biblStruct/@xml:lang | tei:monogr/@xml:lang | tei:imprint/@xml:lang | tei:publisher/@xml:lang | tei:pubPlace/@xml:lang | tei:idno/@xml:lang" mode="m_post-process"/>
     <!-- remove all orgs which are already part of the organizationography -->
     <xsl:template match="tei:org[parent::tei:listOrg][tei:orgName[@ref]]" mode="m_off"/>
     <!-- establish language based on script -->
-    <xsl:template match="element()[ancestor::tei:biblStruct][text()][@xml:lang = 'und'  or not(@xml:lang)]" mode="m_off" priority="5">
+    <xsl:template match="element()[ancestor::tei:biblStruct][text()][@xml:lang = 'und' or not(@xml:lang)]" mode="m_post-process" priority="5">
         <xsl:variable name="v_self">
-            <xsl:apply-templates select="text()" mode="m_plain-text"/>
+            <xsl:apply-templates mode="m_plain-text" select="text()"/>
         </xsl:variable>
         <xsl:variable name="v_self" select="normalize-space($v_self)"/>
-        <xsl:variable name="v_string-test" select="substring($v_self, 1, 1)"/>
+        <xsl:variable name="v_string-test" select="substring($v_self, 4, 1)"/>
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
-            
+            <xsl:if test="$v_string-test != ''">
                 <xsl:choose>
                     <xsl:when test="contains($v_alphabet-arabic, $v_string-test) and (ancestor::tei:biblStruct//tei:textLang/@mainLang = 'ar')">
                         <xsl:attribute name="xml:lang" select="'ar'"/>
@@ -70,9 +73,9 @@
                     </xsl:when>
                     <!-- this assumes we only deal with Arabic and Latin scripts -->
                     <xsl:otherwise>
-<!--                        <xsl:value-of select="'und-Latn'"/>-->
-                    </xsl:otherwise>
+                        <!--                        <xsl:value-of select="'und-Latn'"/>--> </xsl:otherwise>
                 </xsl:choose>
+            </xsl:if>
             <xsl:apply-templates mode="m_post-process"/>
         </xsl:copy>
     </xsl:template>
@@ -277,7 +280,7 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:copy>
-                    <xsl:apply-templates select="@* | node()"/>
+                    <xsl:apply-templates mode="m_post-process" select="@* | node()"/>
                 </xsl:copy>
             </xsl:otherwise>
         </xsl:choose>
@@ -358,7 +361,6 @@
                     <xsl:apply-templates mode="m_post-process" select="$v_content"/>
                 </xsl:copy>
             </xsl:when>
-
             <xsl:otherwise>
                 <xsl:copy>
                     <xsl:apply-templates mode="m_post-process" select="@* | node()"/>
@@ -481,4 +483,34 @@
         </xsl:variable>
         <xsl:value-of select="translate($p_input, $v_from, $v_to)"/>
     </xsl:function>
+    <xsl:template match="@oape:frequency" mode="m_post-process" priority="2">
+        <xsl:variable name="v_canonical-values" select="'annual|annually|biweekly|daily|fortnightly|irregular|monthly|quarterly|semimonthly|semiweekly|weekly'"/>
+        <xsl:variable name="v_value" select="lower-case(normalize-space(.))"/>
+        <xsl:choose>
+            <xsl:when test="matches($v_value, $v_canonical-values)">
+                <xsl:attribute name="oape:frequency">
+                    <xsl:choose>
+                        <xsl:when test="$v_value = 'annual'">
+                            <xsl:value-of select="'annually'"/>
+                        </xsl:when>
+                        <xsl:when test="$v_value = 'semiweekly'">
+                            <xsl:value-of select="'biweekly'"/>
+                        </xsl:when>
+                        <xsl:when test="$v_value = 'semimonthly'">
+                            <xsl:value-of select="'fortnightly'"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="$v_value"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:attribute>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:message terminate="no">
+                    <xsl:value-of select="$v_value"/>
+                    <xsl:text> is not in the list of canonical values for @oape:frequency</xsl:text>
+                </xsl:message>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
 </xsl:stylesheet>

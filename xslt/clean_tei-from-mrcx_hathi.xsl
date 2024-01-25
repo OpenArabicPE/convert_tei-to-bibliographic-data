@@ -39,34 +39,4 @@
             <xsl:apply-templates mode="m_post-process"/>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="@oape:frequency" mode="m_post-process" priority="2">
-        <xsl:variable name="v_canonical-values" select="'annual|annually|biweekly|daily|fortnightly|irregular|monthly|quarterly|semimonthly|semiweekly|weekly'"/>
-        <xsl:variable name="v_value" select="lower-case(normalize-space(.))"/>
-        <xsl:choose>
-            <xsl:when test="matches($v_value, $v_canonical-values)">
-                <xsl:attribute name="oape:frequency">
-                <xsl:choose>
-                    <xsl:when test="$v_value = 'annual'">
-                        <xsl:value-of select="'annually'"/>
-                    </xsl:when>
-                    <xsl:when test="$v_value = 'semiweekly'">
-                        <xsl:value-of select="'biweekly'"/>
-                    </xsl:when>
-                    <xsl:when test="$v_value = 'semimonthly'">
-                        <xsl:value-of select="'fortnightly'"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="$v_value"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-                </xsl:attribute>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:message terminate="no">
-                    <xsl:value-of select="$v_value"/>
-                    <xsl:text> is not in the list of canonical values for @oape:frequency</xsl:text>
-                </xsl:message>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
 </xsl:stylesheet>

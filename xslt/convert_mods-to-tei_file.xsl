@@ -37,6 +37,7 @@
                             <xsl:apply-templates select="descendant::mods:mods[ancestor::mods:extension]" mode="m_get-holding-institutions"/>
                         </xsl:variable>
                         <xsl:for-each-group select="$v_holding-institutions/tei:org" group-by="tei:orgName[1]">
+                            <xsl:sort select="current-grouping-key()"/>
                             <xsl:apply-templates select="."/>
                         </xsl:for-each-group>
                         <!--<xsl:for-each-group select="$v_holding-institutions/descendant-or-self::tei:idno[@type = 'isil']" group-by=".">

@@ -26,7 +26,7 @@
             + [x] uses a LOT of non-nummeric tags, which supposedly are custom extensions of MARC
             + [x] uses field 974 for holding information on individual items/ copies
     -->
-<!--    <xsl:import href="parameters.xsl"/>-->
+    <!--    <xsl:import href="parameters.xsl"/>-->
     <xsl:import href="functions.xsl"/>
     <xsl:import href="../../authority-files/xslt/convert_isil-rdf-to-tei_functions.xsl"/>
     <xsl:import href="../../authority-files/xslt/functions.xsl"/>
@@ -307,15 +307,11 @@
         <xsl:variable name="v_lang-item">
             <xsl:choose>
                 <xsl:when test="ancestor::marc:record/marc:datafield[@tag = '041']/marc:subfield[@code = 'a']">
-                    <xsl:call-template name="t_convert-lang-codes">
-                        <xsl:with-param name="p_code" select="ancestor::marc:record/marc:datafield[@tag = '041']/marc:subfield[@code = 'a'][1]"/>
-                    </xsl:call-template>
+                    <xsl:value-of select="oape:string-convert-lang-codes(ancestor::marc:record/marc:datafield[@tag = '041']/marc:subfield[@code = 'a'][1])"/>
                 </xsl:when>
                 <!-- language code at 36 -->
                 <xsl:when test="substring(ancestor::marc:record[1]/marc:controlfield[@tag = '008'], 36, 3) != '   '">
-                    <xsl:call-template name="t_convert-lang-codes">
-                        <xsl:with-param name="p_code" select="substring(ancestor::marc:record[1]/marc:controlfield[@tag = '008'], 36, 3)"/>
-                    </xsl:call-template>
+                    <xsl:value-of select="oape:string-convert-lang-codes(substring(ancestor::marc:record[1]/marc:controlfield[@tag = '008'], 36, 3))"/>
                 </xsl:when>
                 <!-- fallback: undefined -->
                 <xsl:otherwise>
@@ -326,9 +322,7 @@
         <xsl:variable name="v_lang-catalogue">
             <xsl:choose>
                 <xsl:when test="ancestor::marc:record/marc:datafield[@tag = '040']/marc:subfield[@code = 'b']">
-                    <xsl:call-template name="t_convert-lang-codes">
-                        <xsl:with-param name="p_code" select="ancestor::marc:record/marc:datafield[@tag = '040']/marc:subfield[@code = 'b'][1]"/>
-                    </xsl:call-template>
+                    <xsl:value-of select="oape:string-convert-lang-codes(ancestor::marc:record/marc:datafield[@tag = '040']/marc:subfield[@code = 'b'][1])"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:value-of select="'und'"/>
@@ -515,19 +509,11 @@
             <xsl:when test="$v_tag = '041'">
                 <xsl:choose>
                     <xsl:when test="$v_code = 'a' and preceding-sibling::marc:subfield[@code = 'a']">
-                        <xsl:attribute name="otherLangs">
-                            <xsl:call-template name="t_convert-lang-codes">
-                                <xsl:with-param name="p_code" select="$v_content"/>
-                            </xsl:call-template>
-                        </xsl:attribute>
+                        <xsl:attribute name="otherLangs" select="oape:string-convert-lang-codes($v_content)"/>
                     </xsl:when>
                     <xsl:when test="$v_code = 'a'">
                         <xsl:element name="textLang">
-                            <xsl:attribute name="mainLang">
-                                <xsl:call-template name="t_convert-lang-codes">
-                                    <xsl:with-param name="p_code" select="$v_content"/>
-                                </xsl:call-template>
-                            </xsl:attribute>
+                            <xsl:attribute name="mainLang" select="oape:string-convert-lang-codes($v_content)"/>
                             <xsl:apply-templates select="following-sibling::marc:subfield[@code = 'a']"/>
                         </xsl:element>
                     </xsl:when>
@@ -1331,7 +1317,6 @@
     <xsl:template match="tei:idno[@type = 'isil']" mode="m_isil-to-tei">
         <xsl:apply-templates mode="m_isil-to-tei" select="doc(concat('http://ld.zdb-services.de/data/organisations/', ., '.rdf'))/rdf:RDF/rdf:Description"/>
     </xsl:template>
-    
     <xsl:template name="t_normalize-authority-id">
         <xsl:param as="xs:string" name="p_input"/>
         <xsl:variable name="v_error-message">
