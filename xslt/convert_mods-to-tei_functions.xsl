@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet exclude-result-prefixes="#all" version="3.0" xmlns="http://www.tei-c.org/ns/1.0" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:oape="https://openarabicpe.github.io/ns"
-    xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:zot="https://zotero.org"
+    xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:zot="https://zotero.org" xmlns:cpc="http://copac.ac.uk/schemas/mods-copac/v1"
     xpath-default-namespace="http://www.tei-c.org/ns/1.0">
     <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no" version="1.0"/>
+    <xsl:import href="functions.xsl"/>
     <!-- this stylesheet translates <mods:mods> to <tei:biblStruct> -->
     <!-- to do
-        - normalise language codes
+        - [x] normalise language codes
+        - [x] editors
+        - [ ] date ranges are wrongly paresed
     -->
     <!-- debugging -->
     <!-- <xsl:template match="/">
@@ -41,28 +44,32 @@
                             <!-- frequency -->
                             <xsl:apply-templates mode="m_mods-to-tei" select="$v_originInfo//mods:frequency"/>
                             <monogr>
-                                 <!-- titles -->
-                            <xsl:apply-templates mode="m_mods-to-tei" select="$p_input/mods:titleInfo"/>
-                             <xsl:apply-templates mode="m_mods-to-tei" select="$p_input/mods:language"/>
+                                <!-- titles -->
+                                <xsl:apply-templates mode="m_mods-to-tei" select="$p_input/mods:titleInfo"/>
+                                <xsl:apply-templates mode="m_mods-to-tei" select="$p_input/mods:extension/cpc:nonLatin/mods:titleInfo"/>
+                                <xsl:apply-templates mode="m_mods-to-tei" select="$p_input/mods:language"/>
                                 <!-- IDs -->
                                 <xsl:apply-templates mode="m_mods-to-tei" select="$p_input/mods:recordInfo"/>
+                                <xsl:apply-templates mode="m_mods-to-tei" select="$p_input/mods:identifier"/>
                                 <!-- url -->
                                 <xsl:apply-templates mode="m_mods-to-tei" select="$p_input/mods:location[mods:url]"/>
                                 <xsl:apply-templates mode="m_mods-to-tei" select="$p_input/mods:name"/>
+                                <xsl:apply-templates mode="m_mods-to-tei" select="$p_input/mods:extension/cpc:nonLatin/mods:name"/>
                                 <!-- imprint -->
                                 <xsl:apply-templates mode="m_mods-to-tei" select="$v_originInfo"/>
                             </monogr>
                             <!-- notes -->
-                            <xsl:apply-templates select="$p_input/mods:note" mode="m_mods-to-tei"/>
+                            <xsl:apply-templates mode="m_mods-to-tei" select="$p_input/mods:note"/>
                             <xsl:if test="$p_input/mods:extension//mods:mods">
-                                <note type='holdings'>
+                                <note type="holdings">
                                     <list>
-                                        <xsl:apply-templates select="$p_input/mods:extension//mods:mods" mode="m_holdings"/>
+                                        <xsl:apply-templates mode="m_holdings" select="$p_input/mods:extension//mods:mods"/>
                                     </list>
                                 </note>
                             </xsl:if>
                         </biblStruct>
                     </xsl:when>
+                    <!-- old code -->
                     <xsl:otherwise>
                         <biblStruct>
                             <xsl:attribute name="zot:genre" select="$p_input/mods:genre[@authority = 'local']"/>
@@ -125,10 +132,28 @@
         </monogr>
     </xsl:template>
     <xsl:template match="mods:language" mode="m_mods-to-tei">
-        <xsl:apply-templates mode="m_mods-to-tei"/>
+        <xsl:choose>
+            <xsl:when test="mods:languageTerm[@authority = 'iso639-2b']">
+                <xsl:apply-templates mode="m_mods-to-tei" select="mods:languageTerm[@authority = 'iso639-2b']"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates mode="m_mods-to-tei"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="mods:languageTerm" mode="m_mods-to-tei">
-        <textLang mainLang="{.}"/>
+        <textLang>
+            <xsl:attribute name="mainLang">
+                <xsl:choose>
+                    <xsl:when test="@authority = 'iso639-2b'">
+                        <xsl:value-of select="oape:string-convert-lang-codes(.)"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="."/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
+        </textLang>
     </xsl:template>
     <!-- identifiers -->
     <xsl:template match="mods:identifier" mode="m_mods-to-tei">
@@ -200,7 +225,8 @@
                     </xsl:choose>
                 </xsl:attribute>
             </xsl:if>
-            <xsl:choose>
+            <!-- we leave parsing of dates to the post-processing step -->
+            <!--<xsl:choose>
                 <xsl:when test="matches(., '\d{4}-\d{2}-\d{2}')">
                     <xsl:attribute name="when" select="."/>
                 </xsl:when>
@@ -214,7 +240,7 @@
                         <xsl:text>" has the wrong format for automated parsing.</xsl:text>
                     </xsl:message>
                 </xsl:otherwise>
-            </xsl:choose>
+            </xsl:choose>-->
             <xsl:apply-templates mode="m_plain-text"/>
         </date>
     </xsl:template>
@@ -300,8 +326,24 @@
                     <xsl:apply-templates mode="m_name" select="."/>
                 </author>
             </xsl:when>
+            <xsl:when test="mods:role/mods:roleTerm = 'creator'">
+                <author>
+                    <xsl:apply-templates select="@xml:lang"/>
+                    <xsl:apply-templates mode="m_name" select="."/>
+                </author>
+            </xsl:when>
         </xsl:choose>
     </xsl:template>
+    <xsl:template match="mods:name[@type = 'corporate']" mode="m_mods-to-tei">
+        <editor>
+            <orgName>
+                <xsl:apply-templates select="@valueURI | @xml:lang"/>
+                <xsl:apply-templates mode="m_mods-to-tei" select="mods:namePart"/>
+            </orgName>
+        </editor>
+    </xsl:template>
+    <!-- omit all other types of names from output -->
+    <xsl:template match="mods:name" mode="m_mods-to-tei"/>
     <xsl:template match="mods:name" mode="m_name">
         <persName>
             <xsl:apply-templates select="@valueURI | @xml:lang"/>
@@ -356,14 +398,14 @@
             <xsl:apply-templates mode="m_plain-text" select="."/>
         </idno>
     </xsl:template>
-    <xsl:template mode="m_mods-to-tei" match="mods:note">
+    <xsl:template match="mods:note" mode="m_mods-to-tei">
         <note>
             <xsl:attribute name="type" select="'comments'"/>
             <xsl:apply-templates mode="m_mods-to-tei"/>
         </note>
     </xsl:template>
     <!-- holdings -->
-    <xsl:template mode="m_holdings" match="mods:mods">
+    <xsl:template match="mods:mods" mode="m_holdings">
         <item>
             <!-- institution -->
             <label>
@@ -372,9 +414,10 @@
             <listBibl>
                 <bibl>
                     <!-- IDs -->
-                    <xsl:apply-templates select="mods:recordInfo" mode="m_mods-to-tei"/>
+                    <xsl:apply-templates mode="m_mods-to-tei" select="mods:recordInfo"/>
+                    <xsl:apply-templates mode="m_mods-to-tei" select="mods:identifier"/>
                     <!-- extent of holdings -->
-                    <xsl:apply-templates select="mods:location/mods:holdingSimple/mods:copyInformation" mode="m_mods-to-tei"/>
+                    <xsl:apply-templates mode="m_mods-to-tei" select="mods:location/mods:holdingSimple/mods:copyInformation"/>
                 </bibl>
             </listBibl>
             <!-- format -->
@@ -384,18 +427,20 @@
         </item>
     </xsl:template>
     <xsl:template match="mods:physicalLocation" mode="m_mods-to-tei">
-        <orgName><xsl:apply-templates mode="m_plain-text" select="."/></orgName>
+        <orgName>
+            <xsl:apply-templates mode="m_plain-text" select="."/>
+        </orgName>
     </xsl:template>
     <xsl:template match="mods:physicalLocation[@authority = 'UkMaC']" mode="m_mods-to-tei"/>
     <xsl:template match="mods:copyInformation" mode="m_mods-to-tei">
-        <xsl:apply-templates select="mods:shelfLocator | mods:enumerationAndChronology" mode="m_mods-to-tei"/>
+        <xsl:apply-templates mode="m_mods-to-tei" select="mods:shelfLocator | mods:enumerationAndChronology"/>
     </xsl:template>
-    <xsl:template mode="m_mods-to-tei" match="mods:shelfLocator">
+    <xsl:template match="mods:shelfLocator" mode="m_mods-to-tei">
         <idno type="classmark">
             <xsl:apply-templates mode="m_plain-text" select="."/>
         </idno>
     </xsl:template>
-    <xsl:template mode="m_mods-to-tei" match="mods:enumerationAndChronology">
+    <xsl:template match="mods:enumerationAndChronology" mode="m_mods-to-tei">
         <biblScope>
             <xsl:apply-templates mode="m_plain-text" select="."/>
         </biblScope>
