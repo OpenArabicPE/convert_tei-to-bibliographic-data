@@ -14,6 +14,7 @@
         </xsl:choose>
     </xsl:variable>
     
+    <xsl:param name="p_today-iso" select="format-date(current-date(), '[Y0001]-[M01]-[D01]')"/>
     <xsl:variable name="vgFileId" select="substring-before(tokenize(base-uri(),'/')[last()],'.TEIP5')"/>
     <xsl:variable name="v_file-name_input">
         <xsl:variable name="v_temp" select="tokenize(base-uri(), '/')[last()]"/>
