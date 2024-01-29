@@ -9,7 +9,9 @@
     <!-- to do
         - [x] normalise language codes
         - [x] editors
-        - [ ] date ranges are wrongly paresed
+        - [ ] date ranges are wrongly parsed
+        - [ ] relatedItem frequently carries OCLC IDs (OCoLC)
+        - [ ] check nonSort and the lack of trailing white space
     -->
     <!-- debugging -->
     <!-- <xsl:template match="/">

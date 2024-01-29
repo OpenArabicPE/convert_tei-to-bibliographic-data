@@ -34,6 +34,10 @@
             </xsl:choose>
         </xsl:copy>
     </xsl:template>
+    <!-- transcription:
+           - initial hamza
+           - ʻ for ʿayn
+    -->
     <!-- correct level -->
     <xsl:template match="tei:monogr/tei:title[@level = 'a']" mode="m_post-process">
         <xsl:copy>
