@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet exclude-result-prefixes="#all" version="3.0" xmlns="http://www.tei-c.org/ns/1.0" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:oape="https://openarabicpe.github.io/ns"
-    xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.tei-c.org/ns/1.0">
+<xsl:stylesheet exclude-result-prefixes="#all" version="3.0" xmlns="http://www.tei-c.org/ns/1.0" xmlns:dhq="http://www.digitalhumanities.org/ns/dhq" xmlns:mods="http://www.loc.gov/mods/v3"
+    xmlns:oape="https://openarabicpe.github.io/ns" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.tei-c.org/ns/1.0">
     <xsl:output encoding="UTF-8" indent="yes" method="xml" name="xml" omit-xml-declaration="no" version="1.0"/>
     <xsl:include href="parameters.xsl"/>
     <xsl:import href="../../authority-files/xslt/functions.xsl"/>
@@ -8,8 +9,7 @@
     <!-- problems
         - multiple surnames: e.g. Saʿīd al-Khūrī al-Shartūnī
     -->
-    
-<!--    <xsl:param name="p_include-section-titles" select="true()"/>-->
+    <!--    <xsl:param name="p_include-section-titles" select="true()"/>-->
     <!-- this stylesheets takes a <tei:div> as input and generates a <biblStruct> -->
     <xsl:function name="oape:bibliography-tei-div-to-biblstruct">
         <xsl:param name="p_div"/>
@@ -382,7 +382,7 @@
                     </xsl:copy>
                 </xsl:for-each>
             </xsl:variable>
-            <xsl:apply-templates select="$v_onset/descendant-or-self::tei:date[. = min(xs:date(.))][1]" mode="m_simple"/>
+            <xsl:apply-templates mode="m_simple" select="$v_onset/descendant-or-self::tei:date[. = min(xs:date(.))][1]"/>
             <!-- documented -->
             <xsl:choose>
                 <xsl:when test="tei:date[@when | @notAfter | @notBefore]/@type = 'documented'">
@@ -414,9 +414,9 @@
                     </xsl:copy>
                 </xsl:for-each>
             </xsl:variable>
-            <xsl:apply-templates select="$v_terminus/descendant-or-self::tei:date[. = max(xs:date(.))][1]" mode="m_simple"/>
+            <xsl:apply-templates mode="m_simple" select="$v_terminus/descendant-or-self::tei:date[. = max(xs:date(.))][1]"/>
             <xsl:if test="not(tei:date[@type])">
-                <xsl:apply-templates select="tei:date[1]" mode="m_simple"/>
+                <xsl:apply-templates mode="m_simple" select="tei:date[1]"/>
             </xsl:if>
             <!-- select only the first publisher and location -->
             <xsl:apply-templates mode="m_simple" select="tei:pubPlace[1] | tei:publisher[1]"/>
@@ -426,16 +426,24 @@
         <xsl:copy>
             <xsl:apply-templates mode="m_simple" select="@*"/>
             <!-- generate two toponyms from the authority file -->
-            <xsl:copy-of select="oape:query-gazetteer(tei:placeName[@ref][1], $v_gazetteer, $p_local-authority, 'name-tei', if(ancestor::tei:monogr/tei:textLang[1]/@mainLang) then(ancestor::tei:monogr/tei:textLang[1]/@mainLang) else('en'))"/>
-<!--            <xsl:copy-of select="oape:query-gazetteer(tei:placeName[@ref][1], $v_gazetteer, $p_local-authority, 'name-tei', 'en')"/>-->
+            <xsl:copy-of select="
+                    oape:query-gazetteer(tei:placeName[@ref][1], $v_gazetteer, $p_local-authority, 'name-tei', if (ancestor::tei:monogr/tei:textLang[1]/@mainLang) then
+                        (ancestor::tei:monogr/tei:textLang[1]/@mainLang)
+                    else
+                        ('en'))"/>
+            <!--            <xsl:copy-of select="oape:query-gazetteer(tei:placeName[@ref][1], $v_gazetteer, $p_local-authority, 'name-tei', 'en')"/>-->
         </xsl:copy>
     </xsl:template>
     <xsl:template match="tei:editor[tei:persName[@ref][@ref != 'NA']]" mode="m_simple">
         <xsl:copy>
             <xsl:apply-templates mode="m_simple" select="@*"/>
             <!-- generate two toponyms from the authority file -->
-            <xsl:apply-templates mode="m_simple" select="oape:query-personography(tei:persName[@ref][1], $v_personography, $p_local-authority, 'name-tei', if(ancestor::tei:monogr/tei:textLang[1]/@mainLang) then(ancestor::tei:monogr/tei:textLang[1]/@mainLang) else('en'))"/>
-<!--            <xsl:apply-templates mode="m_simple" select="oape:query-personography(tei:persName[@ref][1], $v_personography, $p_local-authority, 'name-tei', 'ar-Latn-x-ijmes')"/>-->
+            <xsl:apply-templates mode="m_simple" select="
+                    oape:query-personography(tei:persName[@ref][1], $v_personography, $p_local-authority, 'name-tei', if (ancestor::tei:monogr/tei:textLang[1]/@mainLang) then
+                        (ancestor::tei:monogr/tei:textLang[1]/@mainLang)
+                    else
+                        ('en'))"/>
+            <!--            <xsl:apply-templates mode="m_simple" select="oape:query-personography(tei:persName[@ref][1], $v_personography, $p_local-authority, 'name-tei', 'ar-Latn-x-ijmes')"/>-->
         </xsl:copy>
     </xsl:template>
     <!-- this is the culprit!!! -->
@@ -475,5 +483,102 @@
         <xsl:if test="string-length(.) != 0">
             <xsl:copy/>
         </xsl:if>
+    </xsl:template>
+    <!-- conversion of information from fileDesc -->
+    <xsl:template match="tei:fileDesc" mode="m_fileDesc-to-biblStruct">
+        <xsl:choose>
+            <xsl:when test="tei:publicationStmt[descendant::tei:biblStruct or descendant::tei:bibl]"> </xsl:when>
+            <xsl:otherwise>
+                <xsl:variable name="v_publicationStmt" select="tei:publicationStmt"/>
+                <xsl:variable name="v_titleStmt" select="tei:titleStmt"/>
+                <biblStruct>
+                    <analytic>
+                        <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="$v_titleStmt/tei:title"/>
+                        <xsl:choose>
+                            <xsl:when test="$v_titleStmt/tei:author">
+                                <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="$v_titleStmt/tei:author"/>
+                            </xsl:when>
+                            <!-- dealing with DHQ files -->
+                            <xsl:when test="$v_titleStmt/descendant::dhq:author_name">
+                                <xsl:apply-templates mode="m_dhq-to-biblStruct" select="$v_titleStmt/descendant::dhq:author_name"/>
+                            </xsl:when>
+                        </xsl:choose>
+                        <!-- language -->
+                        <textLang mainLang="{following-sibling::tei:profileDesc/tei:langUsage/tei:language/@ident}"/>
+                        <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="$v_publicationStmt/tei:idno[@type = ('DHQarticle-id')]"/>
+                    </analytic>
+                    <monogr>
+                        <!-- add missing journal title for DHQ -->
+                        <xsl:if test="$v_publicationStmt/tei:idno[@type = 'DHQarticle-id']">
+                            <title level="j" xml:lang="en">Digital Humanities Quarterly</title>
+                        </xsl:if>
+                        <imprint>
+                            <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="$v_publicationStmt/tei:publisher"/>
+                            <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="$v_publicationStmt/tei:date"/>
+                        </imprint>
+                        <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="$v_publicationStmt/tei:idno[@type = ('volume', 'issue')]"/>
+                    </monogr>
+                </biblStruct>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="tei:idno[@type = ('volume', 'issue')]" mode="m_fileDesc-to-biblStruct">
+        <biblScope unit="{@type}">
+            <xsl:choose>
+                <xsl:when test="number(.)">
+                    <xsl:attribute name="from" select="format-number(., '1')"/>
+                    <xsl:attribute name="to" select="format-number(., '1')"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="."/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </biblScope>
+    </xsl:template>
+     <xsl:template match="tei:idno[@type = 'DHQarticle-id']" mode="m_fileDesc-to-biblStruct">
+         <xsl:variable name="v_id" select="normalize-space(.)"/>
+        <idno>
+            <xsl:apply-templates mode="m_identity-transform" select="@type"/>
+            <xsl:value-of select="$v_id"/>
+        </idno>
+         <xsl:variable name="v_base-url" select="concat('https://digitalhumanities.org/dhq/vol/',following-sibling::tei:idno[@type = 'volume'], '/', normalize-space(following-sibling::tei:idno[@type = 'issue']), '/', $v_id, '/', $v_id)"/>
+         <idno type="URI">
+             <xsl:value-of select="concat($v_base-url, '.html')"/>
+         </idno>
+         <idno type="URI">
+             <xsl:value-of select="concat($v_base-url, '.xml')"/>
+         </idno>
+    </xsl:template>
+    <xsl:template match="dhq:author_name" mode="m_dhq-to-biblStruct">
+        <author>
+            <persName>
+                <xsl:variable name="v_name">
+                    <xsl:apply-templates mode="m_plain-text" select="text()"/>
+                </xsl:variable>
+                <forename>
+                    <xsl:value-of select="normalize-space($v_name)"/>
+                </forename>
+                <xsl:text> </xsl:text>
+                <xsl:apply-templates mode="m_dhq-to-biblStruct" select="dhq:family"/>
+            </persName>
+        </author>
+    </xsl:template>
+    <xsl:template match="dhq:family" mode="m_dhq-to-biblStruct">
+        <xsl:variable name="v_name">
+            <xsl:apply-templates mode="m_plain-text" select="text()"/>
+        </xsl:variable>
+        <surname>
+            <xsl:value-of select="normalize-space($v_name)"/>
+        </surname>
+    </xsl:template>
+    <xsl:template match="tei:titleStmt/tei:title" mode="m_fileDesc-to-biblStruct">
+        <title level="a">
+            <xsl:apply-templates select="@xml:lang" mode="m_identity-transform"/>
+            <!--<xsl:apply-templates mode="m_identity-transform"/>-->
+            <xsl:apply-templates mode="m_plain-text" select="."/>
+        </title>
+    </xsl:template>
+    <xsl:template match="tei:author | tei:date | tei:idno | tei:publisher | tei:title" mode="m_fileDesc-to-biblStruct">
+        <xsl:apply-templates mode="m_identity-transform" select="."/>
     </xsl:template>
 </xsl:stylesheet>
