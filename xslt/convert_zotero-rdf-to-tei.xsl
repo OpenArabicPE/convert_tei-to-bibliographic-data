@@ -222,11 +222,21 @@
     </xsl:template>
         <xsl:template match="z:presenters">
         <xsl:for-each select="descendant::foaf:Person">
+            <!-- full conversion -->
             <respStmt>
                 <resp>Presenter</resp>
                 <xsl:apply-templates select="."/>
             </respStmt>
+            <!-- maybe add an author element for easier conversion into other formats -->
+            <author>
+                <xsl:apply-templates select="."/>
+            </author>
         </xsl:for-each>
+    </xsl:template>
+    <xsl:template match="z:shortTitle">
+        <title type="short">
+            <xsl:apply-templates/>
+        </title>
     </xsl:template>
     
 </xsl:stylesheet>
