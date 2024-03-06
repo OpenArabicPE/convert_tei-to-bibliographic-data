@@ -21,13 +21,11 @@
     
     <xsl:template match="/rdf:RDF">
         <listBibl>
-            <head>Works Cited</head>
             <xsl:apply-templates/>
         </listBibl>
     </xsl:template>
     
     <xsl:template match="bib:Memo"/>
-    <xsl:template match="z:Attachment"/>
     
     <xsl:template match="bib:Book">
         <xsl:variable name="cl-id">
@@ -80,6 +78,12 @@
     
     <xsl:template match="bib:BookSection"/>
     
+    <xsl:template match="bib:ConferenceProceedings">
+        <bibl>
+            <xsl:apply-templates/>
+        </bibl>
+    </xsl:template>
+    
     <xsl:template match="rdf:Description">
         <xsl:choose>
             <xsl:when test="z:itemType = 'conferencePaper'">
@@ -97,20 +101,11 @@
         </xsl:choose>
     </xsl:template>
     
-    <xsl:template match="z:Collection"/>
-    
     <xsl:template match="bib:authors | bib:editors">
         <xsl:for-each select="rdf:Seq/rdf:li">
             <xsl:element name="{substring-before(local-name(../..),'s')}">
                 <xsl:attribute name="n"><xsl:value-of select="count(preceding-sibling::rdf:li)+1"/></xsl:attribute>
-                <persName>
-                    <surname>
-                        <xsl:value-of select="foaf:Person/foaf:surname"/>
-                    </surname>
-                    <forename>
-                        <xsl:value-of select="foaf:Person/foaf:givenname"/>
-                    </forename>
-                </persName>
+                <xsl:apply-templates select="foaf:Person"/>
             </xsl:element>
         </xsl:for-each>
     </xsl:template>
@@ -123,10 +118,12 @@
         </xsl:for-each>
         <xsl:for-each select="foaf:name">
             <publisher>
-                <xsl:value-of select="."/>
+                <orgName>
+                    <xsl:apply-templates/>
+                </orgName>
             </publisher>
         </xsl:for-each>
-    </xsl:template>   
+    </xsl:template> 
     
     <xsl:template match="bib:pages">
         <note type="pageCount"><xsl:value-of select="."/></note>
@@ -150,10 +147,18 @@
         </series>
     </xsl:template>
     
-    <xsl:template match="dc:subject">
-        <note type="subject"><xsl:value-of select="."/></note>
+    <xsl:template match="dc:date">
+        <date>
+            <xsl:choose>
+                <xsl:when test="matches(., '^\d{4}-\d{2}-\d{2}')">
+                    <xsl:attribute name="when" select="."/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </date>
     </xsl:template>
-    
    <xsl:template match="dc:identifier[contains(., 'ISBN')]">
         <idno type="ISBN"><xsl:value-of select="normalize-space(substring-after(., 'ISBN'))"/></idno>
     </xsl:template>
@@ -161,10 +166,38 @@
     <xsl:template match="dc:identifier[dcterms:URI]">
         <xsl:for-each select="tokenize(dcterms:URI/rdf:value, ',')">
             <xsl:variable name="saneuri"><xsl:value-of select="normalize-space(.)"/></xsl:variable>
-            <xsl:element name="ptr">
-                <xsl:attribute name="target"><xsl:value-of select="normalize-space($saneuri)"/></xsl:attribute>
-            </xsl:element>
+            <idno type="URI">
+                <xsl:value-of select="normalize-space($saneuri)"/>
+            </idno>
         </xsl:for-each>
+    </xsl:template>
+    
+        <xsl:template match="dc:subject">
+        <note type="subject"><xsl:value-of select="."/></note>
+    </xsl:template>
+    <xsl:template match="dc:title">
+        <title>
+            <!-- find a way to establish the level of a title -->
+            <xsl:apply-templates/>
+        </title>
+    </xsl:template>
+    
+    <xsl:template match="dcterms:abstract"/>
+    
+    <xsl:template match="foaf:Person">
+        <persName>
+            <xsl:apply-templates/>
+        </persName>
+    </xsl:template>
+    <xsl:template match="foaf:surname">
+        <surname>
+            <xsl:apply-templates/>
+        </surname>
+    </xsl:template>
+    <xsl:template match="foaf:givenName">
+        <forename>
+            <xsl:apply-templates/>
+        </forename>
     </xsl:template>
     
     <xsl:template match="prism:volume">
@@ -173,6 +206,27 @@
             <xsl:message>possible missing "virtual" series information for short title <xsl:value-of select="ancestor::bib:Book/z:shortTitle"/></xsl:message>
             <biblScope type="volume"><xsl:value-of select="."/></biblScope>
         </xsl:if>
+    </xsl:template>
+    
+    <xsl:template match="z:Attachment"/>
+       <xsl:template match="z:Collection"/>
+    <xsl:template match="z:language">
+        <textLang>
+            <xsl:apply-templates/>
+        </textLang>
+    </xsl:template>
+    <xsl:template match="z:meetingName">
+        <title level="s">
+            <xsl:apply-templates/>
+        </title>
+    </xsl:template>
+        <xsl:template match="z:presenters">
+        <xsl:for-each select="descendant::foaf:Person">
+            <respStmt>
+                <resp>Presenter</resp>
+                <xsl:apply-templates select="."/>
+            </respStmt>
+        </xsl:for-each>
     </xsl:template>
     
 </xsl:stylesheet>
