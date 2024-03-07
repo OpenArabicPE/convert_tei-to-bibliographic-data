@@ -224,6 +224,7 @@
             <xsl:apply-templates mode="m_replicate" select="@*"/>
             <!-- document source of information -->
             <xsl:attribute name="source" select="$v_source"/>
+            <!--<xsl:attribute name="change" select="concat('#', $p_id-change)"/>-->
             <xsl:if test="tei:title[@level = 'a']">
                 <analytic>
                     <xsl:apply-templates mode="m_replicate" select="tei:title[@level = 'a']"/>
@@ -271,6 +272,7 @@
                         <textLang>
                             <xsl:attribute name="mainLang">
                                 <xsl:choose>
+                                    <!-- chose the language of the title -->
                                     <xsl:when test="tei:title[@level != 'a']/@xml:lang">
                                         <xsl:value-of select="tei:title[@level != 'a'][@xml:lang][1]/@xml:lang"/>
                                     </xsl:when>
@@ -294,12 +296,16 @@
                 <imprint>
                     <xsl:apply-templates mode="m_replicate" select="descendant::tei:date"/>
                     <!-- add a date at which this bibl was documented in the source file -->
-                    <date type="documented" when="{$v_source-date}"/>
+                    <xsl:if test="$v_source-date != ''">
+                        <date type="documented" when="{$v_source-date}" source="{$v_source}"/>
+                    </xsl:if>
                     <xsl:apply-templates mode="m_replicate" select="tei:pubPlace"/>
                     <xsl:apply-templates mode="m_replicate" select="tei:publisher"/>
                 </imprint>
                 <xsl:apply-templates mode="m_replicate" select="tei:biblScope"/>
             </monogr>
+            <!-- retain all potential notes  -->
+            <xsl:apply-templates select="tei:note" mode="m_replicate"/>
         </biblStruct>
     </xsl:template>
     <!-- produce simple derivates of tei:biblStruct -->
