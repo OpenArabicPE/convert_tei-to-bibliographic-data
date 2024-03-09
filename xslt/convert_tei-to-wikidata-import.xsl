@@ -2,6 +2,7 @@
 <xsl:stylesheet exclude-result-prefixes="#all" version="3.0" xmlns="http://www.tei-c.org/ns/1.0" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:oape="https://openarabicpe.github.io/ns"
     xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.wikidata.org/">
     <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no" version="1.0"/>
+    <xsl:import href="functions.xsl"/>
     <xsl:template match="node() | @*">
         <xsl:copy>
             <xsl:apply-templates select="@*[not(name() = 'source')]"/>
@@ -251,18 +252,13 @@
     <!-- this template is currently unused and not necessary -->
     <xsl:template name="t_reconcile-lang">
         <xsl:param name="p_lang"/>
-        <xsl:choose>
-            <xsl:when test="$p_lang = ''">
-                <xsl:call-template name="t_QItem">
-                    <xsl:with-param name="p_input" select=""/>
-                </xsl:call-template>
-            </xsl:when>
-            <xsl:otherwise>
-                <string>
-                    <xsl:value-of select="$p_lang"/>
-                </string>
-            </xsl:otherwise>
-        </xsl:choose>
+        <!-- idea convert to ISO 639-2 and write value to P219 -->
+        <P219>
+            <xsl:value-of select="oape:string-convert-lang-codes($p_lang, 'bcp47', 'iso639-2')"/>
+        </P219>
+        <string>
+            <xsl:value-of select="$p_lang"/>
+        </string>
     </xsl:template>
     <xsl:template match="tei:title">
         <P1476>
