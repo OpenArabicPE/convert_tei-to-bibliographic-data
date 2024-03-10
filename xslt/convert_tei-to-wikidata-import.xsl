@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet exclude-result-prefixes="#all" version="3.0" xmlns="http://www.tei-c.org/ns/1.0" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:oape="https://openarabicpe.github.io/ns"
+<xsl:stylesheet exclude-result-prefixes="#all" version="3.0" xmlns="http://www.wikidata.org/" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:oape="https://openarabicpe.github.io/ns"
     xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.wikidata.org/">
     <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no" version="1.0"/>
     <xsl:import href="functions.xsl"/>
@@ -10,8 +10,15 @@
             <xsl:apply-templates select="node()"/>
         </xsl:copy>
     </xsl:template>
+    <xsl:template match="/">
+        <items>
+            <xsl:apply-templates select="descendant::tei:biblStruct"/>
+        </items>
+    </xsl:template>
     <!--  remove attributes  -->
     <xsl:template match="@xml:id | tei:monogr/@xml:lang | tei:title/@level | tei:title/@ref"/>
+    <!-- remove nodes -->
+    <xsl:template match="tei:date[@type = 'documented']"/>
     <!-- convert textual content to a string node -->
     <xsl:template name="t_string-value">
         <xsl:param name="p_input"/>
@@ -67,7 +74,7 @@
             <xsl:if test="descendant::tei:idno[@type = 'wiki']">
                 <xsl:attribute name="xml:id" select="descendant::tei:idno[@type = 'wiki'][1]"/>
             </xsl:if>
-            <xsl:apply-templates select="@type | @subtype | node()"/>
+            <xsl:apply-templates select="@oape:frequency | @type | @subtype | node()"/>
         </item>
     </xsl:template>
     <xsl:template match="tei:biblStruct/@subtype | tei:biblStruct/@type">
@@ -88,29 +95,79 @@
     </xsl:template>
     <xsl:template match="tei:date[@type = 'onset']">
         <P571>
-            <xsl:call-template name="t_source">
-                <xsl:with-param name="p_input" select="."/>
-            </xsl:call-template>
-            <xsl:if test="@when">
-                <string>
-                    <xsl:value-of select="@when"/>
-                </string>
+            <xsl:apply-templates mode="m_date-when" select="."/>
+            <!-- notBefore: currently there is no property for earlies start date -->
+            <!-- notAfter: P8555, latest start date -->
+            <xsl:if test="@notAfter">
+                <P8555>
+                    <date>
+                        <xsl:value-of select="@notAfter"/>
+                    </date>
+                </P8555>
             </xsl:if>
-            <!-- notBefore -->
-            <!-- notAfter -->
         </P571>
+        <!-- start time -->
+        <P580>
+            <xsl:apply-templates mode="m_date-when" select="."/>
+        </P580>
+    </xsl:template>
+    <xsl:template match="tei:date[@type = 'terminus']">
+        <!-- end time -->
+        <P582>
+            <xsl:apply-templates mode="m_date-when" select="."/>
+            <!-- notBefore: P8554, earliest end date -->
+            <xsl:if test="@notBefore">
+                <P8554>
+                    <date>
+                        <xsl:value-of select="@notBefore"/>
+                    </date>
+                </P8554>
+            </xsl:if>
+            <!-- notAfter: P12506, latest end date -->
+            <xsl:if test="@notAfter">
+                <P12506>
+                    <date>
+                        <xsl:value-of select="@notAfter"/>
+                    </date>
+                </P12506>
+            </xsl:if>
+        </P582>
+    </xsl:template>
+    <xsl:template match="tei:date" mode="m_date-when">
+        <xsl:call-template name="t_source">
+            <xsl:with-param name="p_input" select="."/>
+        </xsl:call-template>
+        <xsl:if test="@when">
+            <date>
+                <xsl:value-of select="@when"/>
+            </date>
+        </xsl:if>
     </xsl:template>
     <xsl:template match="tei:editor">
         <!-- converting to a reconciled Wikidata item! -->
         <xsl:choose>
-            <xsl:when test="tei:persName[matches(@ref, 'wiki:Q\d+')]">
+            <xsl:when test="tei:persName[matches(@ref, 'wiki:Q\d+|viaf:\d+')]">
                 <P98>
                     <xsl:call-template name="t_source">
-                        <xsl:with-param name="p_input" select="tei:persName[matches(@ref, 'wiki:Q\d+')]"/>
+                        <xsl:with-param name="p_input" select="tei:persName[matches(@ref, 'wiki:Q\d+|viaf:\d+')]"/>
                     </xsl:call-template>
-                    <xsl:call-template name="t_QItem">
-                        <xsl:with-param name="p_input" select="replace(tei:persName[matches(@ref, 'wiki:Q\d+')][1]/@ref, '^.*wiki:(Q\d+).*$', '$1')"/>
-                    </xsl:call-template>
+                    <xsl:choose>
+                        <!-- linked to Wikidata -->
+                        <xsl:when test="tei:persName[matches(@ref, 'wiki:Q\d+')]">
+                            <xsl:call-template name="t_QItem">
+                                <xsl:with-param name="p_input" select="replace(tei:persName[matches(@ref, 'wiki:Q\d+')][1]/@ref, '^.*wiki:(Q\d+).*$', '$1')"/>
+                            </xsl:call-template>
+                        </xsl:when>
+                        <!-- linked to Geonames -->
+                        <xsl:when test="tei:persName[matches(@ref, 'viaf:\d+')]">
+                            <xsl:call-template name="t_string-value">
+                                <xsl:with-param name="p_input" select="tei:persName[matches(@ref, 'viaf:\d+')][1]"/>
+                            </xsl:call-template>
+                            <P214>
+                                <xsl:value-of select="replace(tei:persName[matches(@ref, 'viaf:\d+')][1]/@ref, '^.*viaf:(\d+).*$', '$1')"/>
+                            </P214>
+                        </xsl:when>
+                    </xsl:choose>
                 </P98>
             </xsl:when>
             <xsl:otherwise>
@@ -120,45 +177,24 @@
     </xsl:template>
     <xsl:template match="tei:editor/tei:persName" mode="m_name-string">
         <P2093>
-            <!--            <xsl:apply-templates select="@*"/>-->
-            <xsl:call-template name="t_source">
-                <xsl:with-param name="p_input" select="parent::element()"/>
-            </xsl:call-template>
-            <xsl:call-template name="t_string-value">
-                <xsl:with-param name="p_input" select="."/>
-            </xsl:call-template>
+            <xsl:apply-templates mode="m_string" select="."/>
         </P2093>
     </xsl:template>
     <xsl:template match="tei:idno">
         <xsl:choose>
             <xsl:when test="@type = 'ht_bib_key'">
                 <P1844>
-                    <xsl:call-template name="t_source">
-                        <xsl:with-param name="p_input" select="."/>
-                    </xsl:call-template>
-                    <xsl:call-template name="t_string-value">
-                        <xsl:with-param name="p_input" select="."/>
-                    </xsl:call-template>
+                    <xsl:apply-templates mode="m_string" select="."/>
                 </P1844>
             </xsl:when>
             <xsl:when test="@type = 'OCLC'">
                 <P243>
-                    <xsl:call-template name="t_source">
-                        <xsl:with-param name="p_input" select="."/>
-                    </xsl:call-template>
-                    <xsl:call-template name="t_string-value">
-                        <xsl:with-param name="p_input" select="."/>
-                    </xsl:call-template>
+                    <xsl:apply-templates mode="m_string" select="."/>
                 </P243>
             </xsl:when>
             <xsl:when test="@type = 'VIAF'">
                 <P214>
-                    <xsl:call-template name="t_source">
-                        <xsl:with-param name="p_input" select="."/>
-                    </xsl:call-template>
-                    <xsl:call-template name="t_string-value">
-                        <xsl:with-param name="p_input" select="."/>
-                    </xsl:call-template>
+                    <xsl:apply-templates mode="m_string" select="."/>
                 </P214>
             </xsl:when>
             <xsl:when test="@type = 'wiki'">
@@ -168,12 +204,7 @@
             </xsl:when>
             <xsl:when test="@type = 'zdb'">
                 <P1042>
-                    <xsl:call-template name="t_source">
-                        <xsl:with-param name="p_input" select="."/>
-                    </xsl:call-template>
-                    <xsl:call-template name="t_string-value">
-                        <xsl:with-param name="p_input" select="."/>
-                    </xsl:call-template>
+                    <xsl:apply-templates mode="m_string" select="."/>
                 </P1042>
             </xsl:when>
         </xsl:choose>
@@ -182,7 +213,7 @@
         <xsl:apply-templates/>
     </xsl:template>
     <xsl:template match="tei:monogr">
-        <xsl:apply-templates/>
+        <xsl:apply-templates select="@oape:frequency | node()"/>
     </xsl:template>
     <xsl:template match="tei:publisher">
         <!-- converting to a reconciled Wikidata item! -->
@@ -244,31 +275,54 @@
             <xsl:call-template name="t_source">
                 <xsl:with-param name="p_input" select="."/>
             </xsl:call-template>
-            <xsl:call-template name="t_reconcile-lang">
-                <xsl:with-param name="p_lang" select="@mainLang"/>
-            </xsl:call-template>
+            <xsl:choose>
+                <xsl:when test="oape:string-convert-lang-codes(@mainLang, 'bcp47', 'wikidata') != 'NA'">
+                    <QItem>
+                        <xsl:value-of select="oape:string-convert-lang-codes(@mainLang, 'bcp47', 'wikidata')"/>
+                    </QItem>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="t_reconcile-lang">
+                        <xsl:with-param name="p_lang" select="@mainLang"/>
+                    </xsl:call-template>
+                </xsl:otherwise>
+            </xsl:choose>
         </P407>
     </xsl:template>
     <!-- this template is currently unused and not necessary -->
     <xsl:template name="t_reconcile-lang">
         <xsl:param name="p_lang"/>
-        <!-- idea convert to ISO 639-2 and write value to P219 -->
         <P219>
             <xsl:value-of select="oape:string-convert-lang-codes($p_lang, 'bcp47', 'iso639-2')"/>
         </P219>
-        <string>
-            <xsl:value-of select="$p_lang"/>
-        </string>
     </xsl:template>
     <xsl:template match="tei:title">
         <P1476>
-            <!--            <xsl:apply-templates select="@*[not(name() = 'source')]"/>-->
+            <xsl:apply-templates mode="m_string" select="."/>
+        </P1476>
+    </xsl:template>
+    <xsl:template match="tei:title[@type = 'sub']">
+        <P1680>
+            <xsl:apply-templates mode="m_string" select="."/>
+        </P1680>
+    </xsl:template>
+    <xsl:template match="@oape:frequency">
+        <P2896>
             <xsl:call-template name="t_source">
                 <xsl:with-param name="p_input" select="."/>
             </xsl:call-template>
-            <xsl:call-template name="t_string-value">
-                <xsl:with-param name="p_input" select="."/>
-            </xsl:call-template>
-        </P1476>
+            <!-- this needs further converting into "amount" and "unit", i.e. "weekly" into 1 week -->
+            <string>
+                <xsl:value-of select="."/>
+            </string>
+        </P2896>
+    </xsl:template>
+    <xsl:template match="@* | node()" mode="m_string">
+        <xsl:call-template name="t_source">
+            <xsl:with-param name="p_input" select="."/>
+        </xsl:call-template>
+        <xsl:call-template name="t_string-value">
+            <xsl:with-param name="p_input" select="."/>
+        </xsl:call-template>
     </xsl:template>
 </xsl:stylesheet>
