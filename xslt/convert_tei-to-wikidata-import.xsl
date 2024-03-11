@@ -10,6 +10,7 @@
         - [ ] resolve orgs in @ref
         - idno/@type: not yet converted
             - [ ] url
+            - [ ] DOI
     -->
     <!-- identity transform -->
     <xsl:template match="node() | @*">
@@ -54,42 +55,63 @@
                     ($p_input/@source)
                 else
                     (ancestor::node()[@source][1]/@source)"/>
-        <xsl:for-each select="tokenize($v_source, '\s+')">
+        <xsl:for-each-group select="tokenize($v_source, '\s+')" group-by=".">
+            <xsl:variable name="v_source" select="current-grouping-key()"/>
             <!-- reference URL: P854 -->
             <xsl:choose>
-                <xsl:when test="starts-with(., 'http')">
+                <xsl:when test="starts-with($v_source, 'http')">
                     <P854>
-                        <xsl:value-of select="."/>
+                        <xsl:value-of select="$v_source"/>
                     </P854>
                 </xsl:when>
                 <!-- local URLs need to be resolved or omitted -->
-                <xsl:when test="starts-with(., '../')">
+                <xsl:when test="starts-with($v_source, '../')">
                     <P854>
                         <xsl:choose>
-                            <xsl:when test="matches(., 'oclc_618896732/|oclc_165855925/')">
-                                <xsl:value-of select="replace(., '^(\.\./)+TEI/', 'https://tillgrallert.github.io/')"/>
+                            <xsl:when test="matches($v_source, 'oclc_618896732/|oclc_165855925/')">
+                                <xsl:value-of select="replace($v_source, '^(\.\./)+TEI/', 'https://tillgrallert.github.io/')"/>
                             </xsl:when>
-                            <xsl:when test="matches(., '/OpenArabicPE/')">
-                                <xsl:value-of select="replace(., '^^(\.\./)+OpenArabicPE/', 'https://openarabicpe.github.io/')"/>
+                            <xsl:when test="matches($v_source, '/OpenArabicPE/')">
+                                <xsl:value-of select="replace($v_source, '^^(\.\./)+OpenArabicPE/', 'https://openarabicpe.github.io/')"/>
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:message>
                                     <xsl:text>WARNING: </xsl:text>
-                                    <xsl:value-of select="."/>
+                                    <xsl:value-of select="$v_source"/>
                                     <xsl:text> could not be resolved</xsl:text>
                                 </xsl:message>
                             </xsl:otherwise>
                         </xsl:choose>
                     </P854>
                 </xsl:when>
+                <xsl:when test="starts-with($v_source, concat($p_local-authority, ':org:'))">
+                    <xsl:variable name="v_orgName">
+                        <tei:orgName ref="{$v_source}"/>
+                    </xsl:variable>
+                    <!-- query the organisationography -->
+                    <xsl:variable name="v_url" select="oape:query-organizationography($v_orgName/descendant-or-self::tei:orgName, $v_organizationography, $p_local-authority, 'url', 'en')"/>
+                    <xsl:choose>
+                        <xsl:when test="$v_url != 'NA'">
+                            <P854>
+                                <xsl:value-of select="$v_url"/>
+                            </P854>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:message>
+                                <xsl:text>WARNING: no URL for </xsl:text>
+                                <xsl:value-of select="$v_source"/>
+                            </xsl:message>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
                 <!-- stated in: P248, requires a QItem -->
                 <xsl:otherwise>
                     <P248>
-                        <xsl:value-of select="."/>
+                        <xsl:value-of select="$v_source"/>
                     </P248>
                 </xsl:otherwise>
             </xsl:choose>
-        </xsl:for-each>
+        </xsl:for-each-group>
     </xsl:template>
     <!-- nodes to be converted -->
     <xsl:template match="tei:biblScope"/>
@@ -167,12 +189,12 @@
                         <xsl:text> و </xsl:text>
                         <xsl:value-of select="$v_terminus"/>
                     </xsl:when>
-                     <xsl:when test="$v_onset != 'NA' and $v_terminus = 'NA'">
-                         <xsl:text>من سنة </xsl:text>
+                    <xsl:when test="$v_onset != 'NA' and $v_terminus = 'NA'">
+                        <xsl:text>من سنة </xsl:text>
                         <xsl:value-of select="$v_onset"/>
-                     </xsl:when>
+                    </xsl:when>
                     <xsl:when test="$v_onset = 'NA' and $v_terminus != 'NA'">
-                         <xsl:text>حتى سنة </xsl:text>
+                        <xsl:text>حتى سنة </xsl:text>
                         <xsl:value-of select="$v_terminus"/>
                     </xsl:when>
                 </xsl:choose>
@@ -329,6 +351,11 @@
             <xsl:when test="@type = 'URI'">
                 <P953>
                     <xsl:apply-templates mode="m_string" select="."/>
+                </P953>
+            </xsl:when>
+            <xsl:when test="@type = 'jid'">
+                <P953>
+                    <xsl:apply-templates mode="m_string" select="concat($p_url-resolve-jid, .)"/>
                 </P953>
             </xsl:when>
             <xsl:otherwise>
@@ -510,7 +537,7 @@
                 <xsl:when test="matches(., '-Latn-TR')">
                     <xsl:text>tr</xsl:text>
                 </xsl:when>
-                 <xsl:when test="matches(., '-Latn')">
+                <xsl:when test="matches(., '-Latn')">
                     <xsl:text>en</xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
