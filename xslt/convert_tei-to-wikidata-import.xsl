@@ -10,7 +10,6 @@
         - [ ] resolve orgs in @ref
         - idno/@type: not yet converted
             - [ ] url
-            - [ ] URI
     -->
     <!-- identity transform -->
     <xsl:template match="node() | @*">
@@ -93,6 +92,7 @@
         </xsl:for-each>
     </xsl:template>
     <!-- nodes to be converted -->
+    <xsl:template match="tei:biblScope"/>
     <xsl:template match="tei:biblStruct">
         <item>
             <xsl:choose>
@@ -280,7 +280,15 @@
                 </P98>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates mode="m_name-string" select="tei:persName"/>
+                <!-- select based on the main language -->
+                <xsl:choose>
+                    <xsl:when test="tei:persName/@xml:lang = ancestor::tei:monogr[1]/tei:textLang/@mainLang">
+                        <xsl:apply-templates mode="m_name-string" select="tei:persName[@xml:lang = ancestor::tei:monogr[1]/tei:textLang/@mainLang][1]"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates mode="m_name-string" select="tei:persName[1]"/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -317,6 +325,12 @@
                 </P1042>
             </xsl:when>
             <xsl:when test="@type = ('jaraid', 'oape')"/>
+            <!-- URIs and URLs -->
+            <xsl:when test="@type = 'URI'">
+                <P953>
+                    <xsl:apply-templates mode="m_string" select="."/>
+                </P953>
+            </xsl:when>
             <xsl:otherwise>
                 <xsl:message>
                     <xsl:text>WARNING: idno of type "</xsl:text>
@@ -495,6 +509,9 @@
                 </xsl:when>
                 <xsl:when test="matches(., '-Latn-TR')">
                     <xsl:text>tr</xsl:text>
+                </xsl:when>
+                 <xsl:when test="matches(., '-Latn')">
+                    <xsl:text>en</xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:value-of select="."/>
