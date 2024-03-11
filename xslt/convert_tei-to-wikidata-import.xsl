@@ -2,7 +2,16 @@
 <xsl:stylesheet exclude-result-prefixes="#all" version="3.0" xmlns="http://www.wikidata.org/" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:oape="https://openarabicpe.github.io/ns"
     xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.wikidata.org/">
     <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no" version="1.0"/>
+    <xsl:import href="../../authority-files/xslt/functions.xsl"/>
     <xsl:import href="functions.xsl"/>
+    <!-- This stylesheets transform bibliographic data from TEI/XML to a custom Wikidata XML format, which utilises Property IDs as element names for easy import and reconciliation with OpenRefine -->
+    <!-- to do
+        - [x] Wikidata does not know about transliterations. Therefore, we have to translate BCP47 language-script codes to simpler ISO 629-2 codes
+        - idno/@type: not yet converted
+            - [ ] url
+            - [ ] URI
+    -->
+    <!-- identity transform -->
     <xsl:template match="node() | @*">
         <xsl:copy>
             <xsl:apply-templates select="@*[not(name() = 'source')]"/>
@@ -56,7 +65,21 @@
                 <!-- local URLs need to be resolved or omitted -->
                 <xsl:when test="starts-with(., '../')">
                     <P854>
-                        <xsl:value-of select="."/>
+                        <xsl:choose>
+                            <xsl:when test="matches(., 'oclc_618896732/|oclc_165855925/')">
+                                <xsl:value-of select="replace(., '^(\.\./)+TEI/', 'https://tillgrallert.github.io/')"/>
+                            </xsl:when>
+                            <xsl:when test="matches(., '/OpenArabicPE/')">
+                                <xsl:value-of select="replace(., '^^(\.\./)+OpenArabicPE/', 'https://openarabicpe.github.io/')"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:message>
+                                    <xsl:text>WARNING: </xsl:text>
+                                    <xsl:value-of select="."/>
+                                    <xsl:text> could not be resolved</xsl:text>
+                                </xsl:message>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </P854>
                 </xsl:when>
                 <!-- stated in: P248, requires a QItem -->
@@ -71,9 +94,88 @@
     <!-- nodes to be converted -->
     <xsl:template match="tei:biblStruct">
         <item>
-            <xsl:if test="descendant::tei:idno[@type = 'wiki']">
-                <xsl:attribute name="xml:id" select="descendant::tei:idno[@type = 'wiki'][1]"/>
-            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="descendant::tei:idno[@type = 'wiki']">
+                    <xsl:attribute name="xml:id" select="descendant::tei:idno[@type = 'wiki'][1]"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:attribute name="xml:id" select="concat($p_local-authority, '_', descendant::tei:idno[@type = $p_local-authority][1])"/>
+                </xsl:otherwise>
+            </xsl:choose>
+            <!-- add label and description -->
+            <xsl:variable name="v_onset" select="oape:query-biblstruct(., 'year-onset', '', $v_gazetteer, $p_local-authority)"/>
+            <xsl:variable name="v_terminus" select="oape:query-biblstruct(., 'year-terminus', '', $v_gazetteer, $p_local-authority)"/>
+            <label xml:lang="en">
+                <xsl:value-of select="oape:query-biblstruct(., 'title', 'ar-Latn-x-ijmes', $v_gazetteer, $p_local-authority)"/>
+            </label>
+            <description xml:lang="en">
+                <xsl:choose>
+                    <xsl:when test="@subtype = 'journal'">
+                        <xsl:text>magazine</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="@subtype = 'newspaper'">
+                        <xsl:value-of select="@subtype"/>
+                    </xsl:when>
+                    <xsl:when test="@type = 'periodical'">
+                        <xsl:value-of select="@type"/>
+                    </xsl:when>
+                </xsl:choose>
+                <xsl:text> published in </xsl:text>
+                <xsl:value-of select="oape:query-biblstruct(., 'pubPlace', 'en', $v_gazetteer, $p_local-authority)"/>
+                <xsl:text> </xsl:text>
+                <xsl:choose>
+                    <xsl:when test="$v_onset != 'NA' and $v_terminus != 'NA'">
+                        <xsl:text>between </xsl:text>
+                        <xsl:value-of select="$v_onset"/>
+                        <xsl:text> and </xsl:text>
+                        <xsl:value-of select="$v_terminus"/>
+                    </xsl:when>
+                    <xsl:when test="$v_onset != 'NA' and $v_terminus = 'NA'">
+                        <xsl:text>from </xsl:text>
+                        <xsl:value-of select="$v_onset"/>
+                        <xsl:text> onwards</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="$v_onset = 'NA' and $v_terminus != 'NA'">
+                        <xsl:text>until </xsl:text>
+                        <xsl:value-of select="$v_terminus"/>
+                    </xsl:when>
+                </xsl:choose>
+            </description>
+            <label xml:lang="ar">
+                <xsl:value-of select="oape:query-biblstruct(., 'title', 'ar', $v_gazetteer, $p_local-authority)"/>
+            </label>
+            <description xml:lang="ar">
+                <xsl:choose>
+                    <xsl:when test="@subtype = 'journal'">
+                        <xsl:text>مجلة</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="@subtype = 'newspaper'">
+                        <xsl:text>جريدة</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="@type = 'periodical'">
+                        <xsl:text>دورية</xsl:text>
+                    </xsl:when>
+                </xsl:choose>
+                <xsl:text> تصدر في </xsl:text>
+                <xsl:value-of select="oape:query-biblstruct(., 'pubPlace', 'ar', $v_gazetteer, $p_local-authority)"/>
+                <xsl:text> </xsl:text>
+                <xsl:choose>
+                    <xsl:when test="$v_onset != 'NA' and $v_terminus != 'NA'">
+                        <xsl:text>بين سنة </xsl:text>
+                        <xsl:value-of select="$v_onset"/>
+                        <xsl:text> و </xsl:text>
+                        <xsl:value-of select="$v_terminus"/>
+                    </xsl:when>
+                     <xsl:when test="$v_onset != 'NA' and $v_terminus = 'NA'">
+                         <xsl:text>من سنة </xsl:text>
+                        <xsl:value-of select="$v_onset"/>
+                     </xsl:when>
+                    <xsl:when test="$v_onset = 'NA' and $v_terminus != 'NA'">
+                         <xsl:text>حتى سنة </xsl:text>
+                        <xsl:value-of select="$v_terminus"/>
+                    </xsl:when>
+                </xsl:choose>
+            </description>
             <xsl:apply-templates select="@oape:frequency | @type | @subtype | node()"/>
         </item>
     </xsl:template>
@@ -143,28 +245,31 @@
             </date>
         </xsl:if>
     </xsl:template>
-    <xsl:template match="tei:editor">
+    <xsl:template match="tei:editor[tei:orgName]"/>
+    <xsl:template match="tei:editor[tei:persName]">
         <!-- converting to a reconciled Wikidata item! -->
+        <xsl:variable name="v_id-wiki" select="oape:query-personography(tei:persName[1], $v_personography, $p_local-authority, 'id-wiki', '')"/>
+        <xsl:variable name="v_id-viaf" select="oape:query-personography(tei:persName[1], $v_personography, $p_local-authority, 'id-viaf', '')"/>
         <xsl:choose>
-            <xsl:when test="tei:persName[matches(@ref, 'wiki:Q\d+|viaf:\d+')]">
+            <xsl:when test="$v_id-wiki != 'NA' or $v_id-viaf != 'NA'">
                 <P98>
                     <xsl:call-template name="t_source">
-                        <xsl:with-param name="p_input" select="tei:persName[matches(@ref, 'wiki:Q\d+|viaf:\d+')]"/>
+                        <xsl:with-param name="p_input" select="tei:persName[1]"/>
                     </xsl:call-template>
                     <xsl:choose>
                         <!-- linked to Wikidata -->
-                        <xsl:when test="tei:persName[matches(@ref, 'wiki:Q\d+')]">
+                        <xsl:when test="$v_id-wiki != 'NA'">
                             <xsl:call-template name="t_QItem">
-                                <xsl:with-param name="p_input" select="replace(tei:persName[matches(@ref, 'wiki:Q\d+')][1]/@ref, '^.*wiki:(Q\d+).*$', '$1')"/>
+                                <xsl:with-param name="p_input" select="$v_id-wiki"/>
                             </xsl:call-template>
                         </xsl:when>
-                        <!-- linked to Geonames -->
-                        <xsl:when test="tei:persName[matches(@ref, 'viaf:\d+')]">
+                        <!-- linked to VIAF -->
+                        <xsl:when test="$v_id-viaf != 'NA'">
                             <xsl:call-template name="t_string-value">
-                                <xsl:with-param name="p_input" select="tei:persName[matches(@ref, 'viaf:\d+')][1]"/>
+                                <xsl:with-param name="p_input" select="tei:persName[1]"/>
                             </xsl:call-template>
                             <P214>
-                                <xsl:value-of select="replace(tei:persName[matches(@ref, 'viaf:\d+')][1]/@ref, '^.*viaf:(\d+).*$', '$1')"/>
+                                <xsl:value-of select="$v_id-viaf"/>
                             </P214>
                         </xsl:when>
                     </xsl:choose>
@@ -207,6 +312,14 @@
                     <xsl:apply-templates mode="m_string" select="."/>
                 </P1042>
             </xsl:when>
+            <xsl:when test="@type = ('jaraid', 'oape')"/>
+            <xsl:otherwise>
+                <xsl:message>
+                    <xsl:text>WARNING: idno of type "</xsl:text>
+                    <xsl:value-of select="@type"/>
+                    <xsl:text>" is not converted</xsl:text>
+                </xsl:message>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     <xsl:template match="tei:imprint">
@@ -230,8 +343,10 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:message>
-                    <xsl:text>Unidentified publisher: </xsl:text>
+                    <xsl:text>WARNING: </xsl:text>
+                    <xsl:text>publisher "</xsl:text>
                     <xsl:value-of select="tei:orgName[1]"/>
+                    <xsl:text>" has not been identified in authority files.</xsl:text>
                 </xsl:message>
             </xsl:otherwise>
         </xsl:choose>
@@ -312,10 +427,76 @@
                 <xsl:with-param name="p_input" select="."/>
             </xsl:call-template>
             <!-- this needs further converting into "amount" and "unit", i.e. "weekly" into 1 week -->
-            <string>
-                <xsl:value-of select="."/>
-            </string>
+            <xsl:choose>
+                <xsl:when test=". = 'annually'">
+                    <amount>1</amount>
+                    <unit>year</unit>
+                </xsl:when>
+                <xsl:when test=". = 'annually'">
+                    <amount>2</amount>
+                    <unit>year</unit>
+                </xsl:when>
+                <xsl:when test=". = 'biweekly'">
+                    <amount>2</amount>
+                    <unit>week</unit>
+                </xsl:when>
+                <xsl:when test=". = 'daily'">
+                    <amount>1</amount>
+                    <unit>day</unit>
+                </xsl:when>
+                <xsl:when test=". = 'fortnightly'">
+                    <amount>2</amount>
+                    <unit>month</unit>
+                </xsl:when>
+                <xsl:when test=". = 'monthly'">
+                    <amount>1</amount>
+                    <unit>month</unit>
+                </xsl:when>
+                <xsl:when test=". = 'quarterly'">
+                    <amount>4</amount>
+                    <unit>year</unit>
+                </xsl:when>
+                <xsl:when test=". = 'triweekly'">
+                    <amount>3</amount>
+                    <unit>week</unit>
+                </xsl:when>
+                <xsl:when test=". = 'weekly'">
+                    <amount>1</amount>
+                    <unit>week</unit>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:message>
+                        <xsl:text>WARNING: </xsl:text>
+                        <xsl:value-of select="."/>
+                        <xsl:text> cannot be converted</xsl:text>
+                    </xsl:message>
+                </xsl:otherwise>
+            </xsl:choose>
         </P2896>
+    </xsl:template>
+    <xsl:template match="@xml:lang">
+        <xsl:attribute name="xml:lang">
+            <xsl:choose>
+                <xsl:when test="matches(., '-Arab-')">
+                    <xsl:text>ar</xsl:text>
+                </xsl:when>
+                <xsl:when test="matches(., '-Latn-x-ijmes|ar-Latn-EN')">
+                    <xsl:text>en</xsl:text>
+                </xsl:when>
+                <xsl:when test="matches(., '-Latn-x-dmg|ar-Latn-DE')">
+                    <xsl:text>de</xsl:text>
+                </xsl:when>
+                <xsl:when test="matches(., '-Latn-FR')">
+                    <xsl:text>fr</xsl:text>
+                </xsl:when>
+                <xsl:when test="matches(., '-Latn-TR')">
+                    <xsl:text>tr</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="."/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:attribute>
     </xsl:template>
     <xsl:template match="@* | node()" mode="m_string">
         <xsl:call-template name="t_source">
