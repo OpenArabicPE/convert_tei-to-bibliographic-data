@@ -7,6 +7,7 @@
     <!-- This stylesheets transform bibliographic data from TEI/XML to a custom Wikidata XML format, which utilises Property IDs as element names for easy import and reconciliation with OpenRefine -->
     <!-- to do
         - [x] Wikidata does not know about transliterations. Therefore, we have to translate BCP47 language-script codes to simpler ISO 629-2 codes
+        - [ ] resolve orgs in @ref
         - idno/@type: not yet converted
             - [ ] url
             - [ ] URI
@@ -181,6 +182,9 @@
     </xsl:template>
     <xsl:template match="tei:biblStruct/@subtype | tei:biblStruct/@type">
         <P31>
+            <xsl:call-template name="t_source">
+                <xsl:with-param name="p_input" select="."/>
+            </xsl:call-template>
             <xsl:choose>
                 <xsl:when test=". = 'journal'">
                     <!-- mapped to "magazine" -->
