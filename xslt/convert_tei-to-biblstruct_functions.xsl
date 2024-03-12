@@ -355,7 +355,7 @@
             <xsl:apply-templates mode="m_simple" select="tei:title"/>
             <xsl:apply-templates mode="m_simple" select="tei:idno">
                 <xsl:sort select="@type"/>
-                <xsl:sort select="."/>
+                <xsl:sort select="replace(., '[^\d]', '')" data-type="number"/>
             </xsl:apply-templates>
             <xsl:apply-templates mode="m_simple" select="tei:textLang"/>
             <xsl:apply-templates mode="m_simple" select="tei:editor"/>
