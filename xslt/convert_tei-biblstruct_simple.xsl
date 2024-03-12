@@ -6,9 +6,11 @@
     <!-- the resulting dataset can also be used for all the linking purposes in our OpenArabicPE, Jarāʾid and Sihafa contexts, as it keeps the relevant information and simplifies everything with a focus on machine-actionability, while removing unnecessary notes -->
     <xsl:include href="convert_tei-to-biblstruct_functions.xsl"/>
     <xsl:template match="/">
-        <xsl:copy>
-            <xsl:apply-templates mode="m_replicate"/>
-        </xsl:copy>
+        <xsl:result-document href="{$v_url-base}/{$v_file-name_input}_simple.TEIP5.xml">
+            <xsl:copy>
+                <xsl:apply-templates mode="m_replicate"/>
+            </xsl:copy>
+        </xsl:result-document>
     </xsl:template>
     <xsl:template match="tei:biblStruct" mode="m_replicate" priority="10">
         <xsl:copy>
