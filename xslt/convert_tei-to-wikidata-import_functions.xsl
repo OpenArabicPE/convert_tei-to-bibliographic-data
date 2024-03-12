@@ -7,7 +7,9 @@
     <!-- This stylesheets transform bibliographic data from TEI/XML to a custom Wikidata XML format, which utilises Property IDs as element names for easy import and reconciliation with OpenRefine -->
     <!-- to do
         - [x] Wikidata does not know about transliterations. Therefore, we have to translate BCP47 language-script codes to simpler ISO 629-2 codes
-        - [ ] resolve orgs in @ref
+        - [x] resolve orgs in @ref
+        - [ ] date[@type = 'documented']
+        - periodicals published in Istanbul
         - idno/@type: not yet converted
             - [ ] url
             - [ ] DOI
@@ -256,6 +258,11 @@
             </xsl:if>
         </P582>
     </xsl:template>
+    <xsl:template match="tei:date[ancestor::tei:biblStruct][1]/tei:monogr/tei:title[@level = 'm']">
+        <P577>
+            <xsl:apply-templates mode="m_date-when" select="."/>
+        </P577>
+    </xsl:template>
     <xsl:template match="tei:date" mode="m_date-when">
         <xsl:call-template name="t_source">
             <xsl:with-param name="p_input" select="."/>
@@ -346,7 +353,7 @@
                     <xsl:apply-templates mode="m_string" select="."/>
                 </P1844>
             </xsl:when>
-            <xsl:when test="@type = 'LLCN'">
+            <xsl:when test="@type = 'LCCN'">
                 <P1144>
                     <xsl:apply-templates mode="m_string" select="."/>
                 </P1144>
