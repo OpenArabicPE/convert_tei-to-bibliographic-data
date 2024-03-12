@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet exclude-result-prefixes="#all" version="3.0" xmlns="http://www.wikidata.org/" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:oape="https://openarabicpe.github.io/ns"
-    xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.wikidata.org/">
+<xsl:stylesheet exclude-result-prefixes="#all" version="3.0" xmlns="http://www.wikidata.org/"  xmlns:oape="https://openarabicpe.github.io/ns"
+    xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.wikidata.org/">
     <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no" version="1.0"/>
     <xsl:import href="../../authority-files/xslt/functions.xsl"/>
     <xsl:import href="functions.xsl"/>
@@ -22,6 +22,7 @@
             <xsl:apply-templates select="node()"/>
         </xsl:copy>
     </xsl:template>
+    <xsl:template match="element()[not(attribute())][not(text())][not(element())]" priority="2"/>
     <!--  remove attributes  -->
     <xsl:template match="@xml:id | tei:monogr/@xml:lang | tei:title/@level | tei:title/@ref"/>
     <!-- remove nodes -->
@@ -416,6 +417,7 @@
     <xsl:template match="tei:monogr">
         <xsl:apply-templates select="@oape:frequency | node()"/>
     </xsl:template>
+    <xsl:template match="tei:monogr[@type = 'reprint']"/>
     <xsl:template match="tei:publisher">
         <!-- converting to a reconciled Wikidata item! -->
         <xsl:choose>
