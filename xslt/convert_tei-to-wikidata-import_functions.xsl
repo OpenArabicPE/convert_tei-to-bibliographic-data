@@ -20,11 +20,6 @@
             <xsl:apply-templates select="node()"/>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="/">
-        <items>
-            <xsl:apply-templates select="descendant::tei:biblStruct"/>
-        </items>
-    </xsl:template>
     <!--  remove attributes  -->
     <xsl:template match="@xml:id | tei:monogr/@xml:lang | tei:title/@level | tei:title/@ref"/>
     <!-- remove nodes -->
@@ -55,7 +50,7 @@
                     ($p_input/@source)
                 else
                     (ancestor::node()[@source][1]/@source)"/>
-        <xsl:for-each-group select="tokenize($v_source, '\s+')" group-by=".">
+        <xsl:for-each-group group-by="." select="tokenize($v_source, '\s+')">
             <xsl:variable name="v_source" select="current-grouping-key()"/>
             <!-- reference URL: P854 -->
             <xsl:choose>
@@ -321,10 +316,40 @@
     </xsl:template>
     <xsl:template match="tei:idno">
         <xsl:choose>
+            <xsl:when test="@type = 'ISBN'">
+                <xsl:choose>
+                    <xsl:when test="matches(., '^\d{13}$')">
+                        <P212>
+                            <xsl:apply-templates mode="m_string" select="."/>
+                        </P212>
+                    </xsl:when>
+                    <xsl:when test="matches(., '^\d{10}$')">
+                        <P957>
+                            <xsl:apply-templates mode="m_string" select="."/>
+                        </P957>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:message>
+                            <xsl:text>WARNING: unexpectedly formatted ISBN: </xsl:text>
+                            <xsl:value-of select="."/>
+                        </xsl:message>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:when test="@type = 'ISSN'">
+                <P236>
+                    <xsl:apply-templates mode="m_string" select="."/>
+                </P236>
+            </xsl:when>
             <xsl:when test="@type = 'ht_bib_key'">
                 <P1844>
                     <xsl:apply-templates mode="m_string" select="."/>
                 </P1844>
+            </xsl:when>
+            <xsl:when test="@type = 'LLCN'">
+                <P1144>
+                    <xsl:apply-templates mode="m_string" select="."/>
+                </P1144>
             </xsl:when>
             <xsl:when test="@type = 'OCLC'">
                 <P243>
@@ -346,7 +371,13 @@
                     <xsl:apply-templates mode="m_string" select="."/>
                 </P1042>
             </xsl:when>
-            <xsl:when test="@type = ('jaraid', 'oape')"/>
+            <xsl:when test="@type = 'zenodo'">
+                <P4901>
+                    <xsl:apply-templates mode="m_string" select="."/>
+                </P4901>
+            </xsl:when>
+            <!-- Identifiers that should be skipped -->
+            <xsl:when test="@type = ('jaraid', 'oape', 'AUBNO', 'aub', 'classmark', 'eap', 'epub','fid', 'LEAUB')"/>
             <!-- URIs and URLs -->
             <xsl:when test="@type = 'URI'">
                 <P953>
@@ -356,6 +387,11 @@
             <xsl:when test="@type = 'jid'">
                 <P953>
                     <xsl:apply-templates mode="m_string" select="concat($p_url-resolve-jid, .)"/>
+                </P953>
+            </xsl:when>
+            <xsl:when test="@type = 'shamela'">
+                <P953>
+                    <xsl:apply-templates mode="m_string" select="concat($p_url-resolve-shamela, .)"/>
                 </P953>
             </xsl:when>
             <xsl:otherwise>
