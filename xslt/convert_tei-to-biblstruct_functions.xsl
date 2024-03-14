@@ -335,12 +335,12 @@
             </xsl:choose>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="@when[parent::tei:date/@cert = 'low']" mode="m_simple">
+    <xsl:template match="@when[parent::tei:date/@cert = 'low'][xs:date(.)]" mode="m_simple">
         <xsl:attribute name="when">
             <xsl:value-of select="year-from-date(.)"/>
         </xsl:attribute>
     </xsl:template>
-    <xsl:template match="tei:date/@cert" mode="m_simple"/>
+    <!--<xsl:template match="tei:date/@cert" mode="m_simple"/>-->
     <xsl:template match="tei:biblScope" mode="m_simple">
         <xsl:copy>
             <xsl:choose>
@@ -373,13 +373,14 @@
         <xsl:copy>
             <!-- date -->
             <!-- onset -->
-            <xsl:apply-templates mode="m_simple" select="oape:query-biblstruct(ancestor::tei:biblStruct[1], 'date-onset', '', '', '')"/>
-            <!--<xsl:variable name="v_onset">
+<!--            <xsl:apply-templates mode="m_simple" select="oape:query-biblstruct(ancestor::tei:biblStruct[1], 'date-onset', '', '', '')"/>-->
+            <xsl:variable name="v_onset">
                 <xsl:for-each select="tei:date[@type = 'onset']">
+<!--                <xsl:for-each select="tei:date[not(@type = ('documented', 'terminus'))]">-->
                     <xsl:variable name="v_date" select="oape:date-get-onset(.)"/>
                     <xsl:copy>
-                        <xsl:apply-templates mode="m_replicate" select="@*"/>
-                        <!-\- test for year only, which is not an ISO date -\->
+                        <xsl:apply-templates mode="m_identity-transform" select="@*"/>
+                        <!-- test for year only, which is not an ISO date -->
                         <xsl:choose>
                             <xsl:when test="matches($v_date, '^\d{4}$')">
                                 <xsl:value-of select="concat($v_date, '-01-01')"/>
@@ -387,15 +388,15 @@
                             <xsl:when test="matches($v_date, '^\d{4}-\d{2}-\d{2}$')">
                                 <xsl:value-of select="$v_date"/>
                             </xsl:when>
-                            <!-\- set fallback: ISO date that will not be selected as onset -\->
+                            <!-- set fallback: ISO date that will not be selected as onset -->
                             <xsl:otherwise>
-                                <xsl:value-of select="'2200-01-01'"/>
+                                <xsl:value-of select="'NA'"/>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:copy>
                 </xsl:for-each>
-            </xsl:variable>-->
-<!--            <xsl:apply-templates mode="m_simple" select="$v_onset/descendant-or-self::tei:date[. = min(xs:date(.))][1]"/>-->
+            </xsl:variable>
+            <xsl:apply-templates mode="m_simple" select="$v_onset/descendant-or-self::tei:date[. != 'NA'][. = min(xs:date(.))][1]"/>
             <!-- documented -->
             <xsl:choose>
                 <xsl:when test="tei:date[@when | @notAfter | @notBefore]/@type = 'documented'">
@@ -406,13 +407,14 @@
                 </xsl:when>
             </xsl:choose>
             <!-- terminus  -->
-            <xsl:apply-templates mode="m_simple" select="oape:query-biblstruct(ancestor::tei:biblStruct[1], 'date-terminus', '', '', '')"/>
-            <!--<xsl:variable name="v_terminus">
+<!--            <xsl:apply-templates mode="m_simple" select="oape:query-biblstruct(ancestor::tei:biblStruct[1], 'date-terminus', '', '', '')"/>-->
+            <xsl:variable name="v_terminus">
                 <xsl:for-each select="tei:date[@type = 'terminus']">
+<!--                <xsl:for-each select="tei:date[not(@type = ('documented', 'onset'))]">-->
                     <xsl:variable name="v_date" select="oape:date-get-terminus(.)"/>
                     <xsl:copy>
-                        <xsl:apply-templates mode="m_replicate" select="@*"/>
-                        <!-\- test for year only, which is not an ISO date -\->
+                        <xsl:apply-templates mode="m_identity-transform" select="@*"/>
+                        <!-- test for year only, which is not an ISO date -->
                         <xsl:choose>
                             <xsl:when test="matches($v_date, '^\d{4}$')">
                                 <xsl:value-of select="concat($v_date, '-12-31')"/>
@@ -420,15 +422,15 @@
                             <xsl:when test="matches($v_date, '^\d{4}-\d{2}-\d{2}$')">
                                 <xsl:value-of select="$v_date"/>
                             </xsl:when>
-                            <!-\- set fallback: ISO date that will not be selected as terminus -\->
+                            <!-- set fallback: ISO date that will not be selected as terminus -->
                             <xsl:otherwise>
-                                <xsl:value-of select="'0001-01-01'"/>
+                                <xsl:value-of select="'NA'"/>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:copy>
                 </xsl:for-each>
-            </xsl:variable>-->
-            <!--<xsl:apply-templates mode="m_simple" select="$v_terminus/descendant-or-self::tei:date[. = max(xs:date(.))][1]"/>-->
+            </xsl:variable>
+            <xsl:apply-templates mode="m_simple" select="$v_terminus/descendant-or-self::tei:date[. != 'NA'][. = max(xs:date(.))][1]"/>
             <xsl:if test="not(tei:date[@type])">
                 <xsl:apply-templates mode="m_simple" select="tei:date[1]"/>
             </xsl:if>
