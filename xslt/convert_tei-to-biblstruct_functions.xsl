@@ -297,7 +297,7 @@
                     <xsl:apply-templates mode="m_replicate" select="descendant::tei:date"/>
                     <!-- add a date at which this bibl was documented in the source file -->
                     <xsl:if test="$v_source-date != ''">
-                        <date type="documented" when="{$v_source-date}" source="{$v_source}"/>
+                        <date source="{$v_source}" type="documented" when="{$v_source-date}"/>
                     </xsl:if>
                     <xsl:apply-templates mode="m_replicate" select="tei:pubPlace"/>
                     <xsl:apply-templates mode="m_replicate" select="tei:publisher"/>
@@ -305,7 +305,7 @@
                 <xsl:apply-templates mode="m_replicate" select="tei:biblScope"/>
             </monogr>
             <!-- retain all potential notes  -->
-            <xsl:apply-templates select="tei:note" mode="m_replicate"/>
+            <xsl:apply-templates mode="m_replicate" select="tei:note"/>
         </biblStruct>
     </xsl:template>
     <!-- produce simple derivates of tei:biblStruct -->
@@ -361,7 +361,7 @@
             <xsl:apply-templates mode="m_simple" select="tei:title"/>
             <xsl:apply-templates mode="m_simple" select="tei:idno">
                 <xsl:sort select="@type"/>
-                <xsl:sort select="replace(., '[^\d]', '')" data-type="number"/>
+                <xsl:sort data-type="number" select="replace(., '[^\d]', '')"/>
             </xsl:apply-templates>
             <xsl:apply-templates mode="m_simple" select="tei:textLang"/>
             <xsl:apply-templates mode="m_simple" select="tei:editor"/>
@@ -372,11 +372,25 @@
     <xsl:template match="tei:imprint" mode="m_simple">
         <xsl:copy>
             <!-- date -->
+            <!-- exclude all dates that originated from library catalongues -->
+            <xsl:variable name="v_dates">
+                <xsl:for-each select="tei:date">
+                    <xsl:choose>
+                        <xsl:when test="not(@source)">
+                            <xsl:apply-templates mode="m_identity-transform" select="."/>
+                        </xsl:when>
+                        <xsl:when test="matches(@source, '^(oape:org:\d+\s*)+$')"/>
+                        <xsl:otherwise>
+                            <xsl:apply-templates mode="m_identity-transform" select="."/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:for-each>
+            </xsl:variable>
             <!-- onset -->
-<!--            <xsl:apply-templates mode="m_simple" select="oape:query-biblstruct(ancestor::tei:biblStruct[1], 'date-onset', '', '', '')"/>-->
+            <!--            <xsl:apply-templates mode="m_simple" select="oape:query-biblstruct(ancestor::tei:biblStruct[1], 'date-onset', '', '', '')"/>-->
             <xsl:variable name="v_onset">
-                <xsl:for-each select="tei:date[@type = 'onset']">
-<!--                <xsl:for-each select="tei:date[not(@type = ('documented', 'terminus'))]">-->
+                <xsl:for-each select="$v_dates/descendant-or-self::tei:date[@type = 'onset']">
+                    <!--                <xsl:for-each select="tei:date[not(@type = ('documented', 'terminus'))]">-->
                     <xsl:variable name="v_date" select="oape:date-get-onset(.)"/>
                     <xsl:copy>
                         <xsl:apply-templates mode="m_identity-transform" select="@*"/>
@@ -399,18 +413,18 @@
             <xsl:apply-templates mode="m_simple" select="$v_onset/descendant-or-self::tei:date[. != 'NA'][. = min(xs:date(.))][1]"/>
             <!-- documented -->
             <xsl:choose>
-                <xsl:when test="tei:date[@when | @notAfter | @notBefore]/@type = 'documented'">
-                    <xsl:apply-templates mode="m_simple" select="tei:date[@when | @notAfter | @notBefore][@type = 'documented']"/>
+                <xsl:when test="$v_dates/descendant-or-self::tei:date[@when | @notAfter | @notBefore]/@type = 'documented'">
+                    <xsl:apply-templates mode="m_simple" select="$v_dates/descendant-or-self::tei:date[@when | @notAfter | @notBefore][@type = 'documented']"/>
                 </xsl:when>
-                <xsl:when test="tei:date[@type = 'documented']">
-                    <xsl:apply-templates mode="m_simple" select="tei:date[@type = 'documented']"/>
+                <xsl:when test="$v_dates/descendant-or-self::tei:date[@type = 'documented']">
+                    <xsl:apply-templates mode="m_simple" select="$v_dates/descendant-or-self::tei:date[@type = 'documented']"/>
                 </xsl:when>
             </xsl:choose>
             <!-- terminus  -->
-<!--            <xsl:apply-templates mode="m_simple" select="oape:query-biblstruct(ancestor::tei:biblStruct[1], 'date-terminus', '', '', '')"/>-->
+            <!--            <xsl:apply-templates mode="m_simple" select="oape:query-biblstruct(ancestor::tei:biblStruct[1], 'date-terminus', '', '', '')"/>-->
             <xsl:variable name="v_terminus">
-                <xsl:for-each select="tei:date[@type = 'terminus']">
-<!--                <xsl:for-each select="tei:date[not(@type = ('documented', 'onset'))]">-->
+                <xsl:for-each select="$v_dates/descendant-or-self::tei:date[@type = 'terminus']">
+                    <!--                <xsl:for-each select="tei:date[not(@type = ('documented', 'onset'))]">-->
                     <xsl:variable name="v_date" select="oape:date-get-terminus(.)"/>
                     <xsl:copy>
                         <xsl:apply-templates mode="m_identity-transform" select="@*"/>
@@ -431,8 +445,8 @@
                 </xsl:for-each>
             </xsl:variable>
             <xsl:apply-templates mode="m_simple" select="$v_terminus/descendant-or-self::tei:date[. != 'NA'][. = max(xs:date(.))][1]"/>
-            <xsl:if test="not(tei:date[@type])">
-                <xsl:apply-templates mode="m_simple" select="tei:date[1]"/>
+            <xsl:if test="not($v_dates/descendant-or-self::tei:date[@type])">
+                <xsl:apply-templates mode="m_simple" select="$v_dates/descendant-or-self::tei:date[1]"/>
             </xsl:if>
             <!-- select only the first publisher and location -->
             <xsl:apply-templates mode="m_simple" select="tei:pubPlace[1] | tei:publisher[1]"/>
@@ -551,19 +565,20 @@
             </xsl:choose>
         </biblScope>
     </xsl:template>
-     <xsl:template match="tei:idno[@type = 'DHQarticle-id']" mode="m_fileDesc-to-biblStruct">
-         <xsl:variable name="v_id" select="normalize-space(.)"/>
+    <xsl:template match="tei:idno[@type = 'DHQarticle-id']" mode="m_fileDesc-to-biblStruct">
+        <xsl:variable name="v_id" select="normalize-space(.)"/>
         <idno>
             <xsl:apply-templates mode="m_identity-transform" select="@type"/>
             <xsl:value-of select="$v_id"/>
         </idno>
-         <xsl:variable name="v_base-url" select="concat('https://digitalhumanities.org/dhq/vol/',following-sibling::tei:idno[@type = 'volume'], '/', normalize-space(following-sibling::tei:idno[@type = 'issue']), '/', $v_id, '/', $v_id)"/>
-         <idno type="URI">
-             <xsl:value-of select="concat($v_base-url, '.html')"/>
-         </idno>
-         <idno type="URI">
-             <xsl:value-of select="concat($v_base-url, '.xml')"/>
-         </idno>
+        <xsl:variable name="v_base-url"
+            select="concat('https://digitalhumanities.org/dhq/vol/', following-sibling::tei:idno[@type = 'volume'], '/', normalize-space(following-sibling::tei:idno[@type = 'issue']), '/', $v_id, '/', $v_id)"/>
+        <idno type="URI">
+            <xsl:value-of select="concat($v_base-url, '.html')"/>
+        </idno>
+        <idno type="URI">
+            <xsl:value-of select="concat($v_base-url, '.xml')"/>
+        </idno>
     </xsl:template>
     <xsl:template match="dhq:author_name" mode="m_dhq-to-biblStruct">
         <author>
@@ -589,7 +604,7 @@
     </xsl:template>
     <xsl:template match="tei:titleStmt/tei:title" mode="m_fileDesc-to-biblStruct">
         <title level="a">
-            <xsl:apply-templates select="@xml:lang" mode="m_identity-transform"/>
+            <xsl:apply-templates mode="m_identity-transform" select="@xml:lang"/>
             <!--<xsl:apply-templates mode="m_identity-transform"/>-->
             <xsl:apply-templates mode="m_plain-text" select="."/>
         </title>
@@ -597,5 +612,5 @@
     <xsl:template match="tei:author | tei:date | tei:idno | tei:publisher | tei:title" mode="m_fileDesc-to-biblStruct">
         <xsl:apply-templates mode="m_identity-transform" select="."/>
     </xsl:template>
-    <xsl:template match="text()[. = 'NA']" mode="m_simple"/>
+    <xsl:template match="text()[. = 'NA'] | tei:title/@ref | tei:title/@resp" mode="m_simple"/>
 </xsl:stylesheet>
