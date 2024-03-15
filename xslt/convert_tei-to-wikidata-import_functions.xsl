@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet exclude-result-prefixes="#all" version="3.0" xmlns="http://www.wikidata.org/"  xmlns:oape="https://openarabicpe.github.io/ns"
-    xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.wikidata.org/">
+<xsl:stylesheet exclude-result-prefixes="#all" version="3.0" xmlns="http://www.wikidata.org/" xmlns:oape="https://openarabicpe.github.io/ns" xmlns:tei="http://www.tei-c.org/ns/1.0"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.wikidata.org/">
     <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no" version="1.0"/>
     <xsl:import href="../../authority-files/xslt/functions.xsl"/>
     <xsl:import href="functions.xsl"/>
@@ -102,6 +102,7 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:when>
+                <xsl:when test="starts-with($v_source, '@')"/>
                 <!-- stated in: P248, requires a QItem -->
                 <xsl:otherwise>
                     <P248>
@@ -281,27 +282,23 @@
         <xsl:variable name="v_id-viaf" select="oape:query-personography(tei:persName[1], $v_personography, $p_local-authority, 'id-viaf', '')"/>
         <xsl:choose>
             <xsl:when test="$v_id-wiki != 'NA' or $v_id-viaf != 'NA'">
+                <!-- P112: founded by -->
+                <xsl:if test="@type = 'owner'">
+                    <P112>
+                        <xsl:call-template name="t_editors">
+                            <xsl:with-param name="p_persName" select="tei:persName[1]"/>
+                            <xsl:with-param name="p_id-wiki" select="$v_id-wiki"/>
+                            <xsl:with-param name="p_id-viaf" select="$v_id-viaf"/>
+                        </xsl:call-template>
+                    </P112>
+                </xsl:if>
+                <!-- P98: editor -->
                 <P98>
-                    <xsl:call-template name="t_source">
-                        <xsl:with-param name="p_input" select="tei:persName[1]"/>
+                    <xsl:call-template name="t_editors">
+                        <xsl:with-param name="p_persName" select="tei:persName[1]"/>
+                        <xsl:with-param name="p_id-wiki" select="$v_id-wiki"/>
+                        <xsl:with-param name="p_id-viaf" select="$v_id-viaf"/>
                     </xsl:call-template>
-                    <xsl:choose>
-                        <!-- linked to Wikidata -->
-                        <xsl:when test="$v_id-wiki != 'NA'">
-                            <xsl:call-template name="t_QItem">
-                                <xsl:with-param name="p_input" select="$v_id-wiki"/>
-                            </xsl:call-template>
-                        </xsl:when>
-                        <!-- linked to VIAF -->
-                        <xsl:when test="$v_id-viaf != 'NA'">
-                            <xsl:call-template name="t_string-value">
-                                <xsl:with-param name="p_input" select="tei:persName[1]"/>
-                            </xsl:call-template>
-                            <P214>
-                                <xsl:value-of select="$v_id-viaf"/>
-                            </P214>
-                        </xsl:when>
-                    </xsl:choose>
                 </P98>
             </xsl:when>
             <xsl:otherwise>
@@ -315,6 +312,31 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template name="t_editors">
+        <xsl:param name="p_persName"/>
+        <xsl:param name="p_id-wiki"/>
+        <xsl:param name="p_id-viaf"/>
+        <xsl:call-template name="t_source">
+            <xsl:with-param name="p_input" select="."/>
+        </xsl:call-template>
+        <xsl:choose>
+            <!-- linked to Wikidata -->
+            <xsl:when test="$p_id-wiki != 'NA'">
+                <xsl:call-template name="t_QItem">
+                    <xsl:with-param name="p_input" select="$p_id-wiki"/>
+                </xsl:call-template>
+            </xsl:when>
+            <!-- linked to VIAF -->
+            <xsl:when test="$p_id-viaf != 'NA'">
+                <xsl:call-template name="t_string-value">
+                    <xsl:with-param name="p_input" select="$p_persName"/>
+                </xsl:call-template>
+                <P214>
+                    <xsl:value-of select="$p_id-viaf"/>
+                </P214>
+            </xsl:when>
         </xsl:choose>
     </xsl:template>
     <xsl:template match="tei:editor/tei:persName" mode="m_name-string">
@@ -385,7 +407,7 @@
                 </P4901>
             </xsl:when>
             <!-- Identifiers that should be skipped -->
-            <xsl:when test="@type = ('jaraid', 'oape', 'AUBNO', 'aub', 'classmark', 'eap', 'epub','fid', 'LEAUB')"/>
+            <xsl:when test="@type = ('jaraid', 'oape', 'AUBNO', 'aub', 'classmark', 'eap', 'epub', 'fid', 'LEAUB')"/>
             <!-- URIs and URLs -->
             <xsl:when test="@type = 'URI'">
                 <P953>
