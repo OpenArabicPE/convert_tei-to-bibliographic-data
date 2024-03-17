@@ -102,12 +102,39 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:when>
-                <xsl:when test="starts-with($v_source, '@')"/>
+                <!-- local bibliographies -->
+                <xsl:when test="matches($v_source, ':bibl:')">
+                    <xsl:variable name="v_title">
+                        <tei:title ref="{$v_source}"/>
+                    </xsl:variable>
+                    <xsl:variable name="v_id-wiki" select="oape:query-bibliography($v_title/tei:title, $v_bibliography, '', $p_local-authority, 'id-wiki', '')"/>
+                    <xsl:choose>
+                        <xsl:when test="$v_id-wiki != 'NA'">
+                            <P248>
+                                <xsl:value-of select="$v_id-wiki"/>
+                            </P248>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>WARNING: could not find a QID for "</xsl:text>
+                            <xsl:value-of select="$v_source"/>
+                            <xsl:text>" in our bibliography</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
                 <!-- stated in: P248, requires a QItem -->
-                <xsl:otherwise>
+                <xsl:when test="matches($v_source, 'Q\d+')">
                     <P248>
-                        <xsl:value-of select="$v_source"/>
+                        <xsl:value-of select="replace($v_source, '^.*(Q\d+).*$', '$1')"/>
                     </P248>
+                </xsl:when>
+                <!-- remove pandoc references -->
+                <xsl:when test="starts-with($v_source, '@')"/>
+                <xsl:otherwise>
+                    <xsl:message>
+                        <xsl:text>WARNING: the source "</xsl:text>
+                        <xsl:value-of select="$v_source"/>
+                        <xsl:text>" is not yet supported</xsl:text>
+                    </xsl:message>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:for-each-group>
