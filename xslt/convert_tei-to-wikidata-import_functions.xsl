@@ -366,7 +366,7 @@
             </xsl:when>
         </xsl:choose>
     </xsl:template>
-    <xsl:template match="tei:editor/tei:persName" mode="m_name-string">
+    <xsl:template match="tei:persName[tei:editor]" mode="m_name-string">
         <P2093>
             <xsl:apply-templates mode="m_string" select="."/>
         </P2093>
@@ -639,6 +639,46 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:attribute>
+    </xsl:template>
+    <xsl:template match="tei:person">
+        <xsl:variable name="v_id-wiki" select="descendant::tei:idno[@type = 'wiki'][1]"/>
+        <xsl:variable name="v_id-viaf" select="descendant::tei:idno[@type = 'VIAF'][1]"/>
+        <item>
+            <xsl:choose>
+                <xsl:when test="descendant::tei:idno[@type = 'wiki']">
+                    <xsl:attribute name="xml:id" select="descendant::tei:idno[@type = 'wiki'][1]"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:attribute name="xml:id" select="concat($p_local-authority, '_', descendant::tei:idno[@type = $p_local-authority][1])"/>
+                </xsl:otherwise>
+            </xsl:choose>
+            <P31>Q5</P31>
+            <!-- names -->
+            <xsl:apply-templates select="oape:query-person(.,'name-tei','ar', $p_local-authority)"/>
+            <!-- life dates -->
+            <!-- identifiers -->
+            <xsl:apply-templates select="tei:idno"/>
+            <!-- occupation -->
+            <xsl:apply-templates select="tei:occupation"/>
+        </item>
+    </xsl:template>
+    <xsl:template match="tei:persName">
+        <P2561>
+            <xsl:apply-templates select="@xml:lang"/>
+            <xsl:apply-templates select="." mode="m_string"/>
+        </P2561>
+    </xsl:template>
+    <xsl:template match="tei:occupation">
+        <P106>
+            <xsl:call-template name="t_source">
+                <xsl:with-param name="p_input" select="."/>
+            </xsl:call-template>
+            <!-- journal editor -->
+            <QItem>Q124634459</QItem>
+            <!-- journal  -->
+            <QItem>Q1930187</QItem>
+        </P106>
+        <!-- location of work -->
     </xsl:template>
     <xsl:template match="@* | node()" mode="m_string">
         <xsl:call-template name="t_source">
