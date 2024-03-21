@@ -5,14 +5,19 @@
     <xsl:template match="/">
         <xsl:result-document href="{$v_base-directory}refine/{$v_file-name_input}.Wikidata.xml">
             <collection>
+                <!-- bibliographic entries -->
                 <items>
-                    <xsl:apply-templates select="descendant::tei:biblStruct[@type = 'periodical'][descendant::tei:idno/@type = 'wiki']"/>
+                    <xsl:apply-templates select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical'][descendant::tei:idno/@type = 'wiki']"/>
                 </items>
                 <items>
-                    <xsl:apply-templates select="descendant::tei:biblStruct[@type = 'periodical'][not(descendant::tei:idno/@type = 'wiki')]"/>
+                    <xsl:apply-templates select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical'][not(descendant::tei:idno/@type = 'wiki')]"/>
                 </items>
                 <items>
-                    <xsl:apply-templates select="descendant::tei:biblStruct[not(@type = 'periodical')]"/>
+                    <xsl:apply-templates select="descendant::tei:standOff/descendant::tei:biblStruct[not(@type = 'periodical')]"/>
+                </items>
+                <!--  -->
+                <items>
+                    <xsl:apply-templates select="descendant::tei:standOff/descendant::tei:person[tei:occupation]"/>
                 </items>
             </collection>
         </xsl:result-document>
