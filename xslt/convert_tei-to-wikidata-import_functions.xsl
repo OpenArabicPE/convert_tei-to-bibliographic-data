@@ -309,8 +309,8 @@
         <xsl:variable name="v_id-viaf" select="oape:query-personography(tei:persName[1], $v_personography, $p_local-authority, 'id-viaf', '')"/>
         <xsl:choose>
             <xsl:when test="$v_id-wiki != 'NA' or $v_id-viaf != 'NA'">
-                <!-- P112: founded by -->
                 <xsl:if test="@type = 'owner'">
+                    <!-- P112: founded by -->
                     <P112>
                         <xsl:call-template name="t_editors">
                             <xsl:with-param name="p_persName" select="tei:persName[1]"/>
@@ -318,6 +318,14 @@
                             <xsl:with-param name="p_id-viaf" select="$v_id-viaf"/>
                         </xsl:call-template>
                     </P112>
+                    <!-- P127: owned by -->
+                    <P127>
+                         <xsl:call-template name="t_editors">
+                            <xsl:with-param name="p_persName" select="tei:persName[1]"/>
+                            <xsl:with-param name="p_id-wiki" select="$v_id-wiki"/>
+                            <xsl:with-param name="p_id-viaf" select="$v_id-viaf"/>
+                        </xsl:call-template>
+                    </P127>
                 </xsl:if>
                 <!-- P98: editor -->
                 <P98>
