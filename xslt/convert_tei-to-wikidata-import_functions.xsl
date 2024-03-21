@@ -660,6 +660,18 @@
                     <xsl:attribute name="xml:id" select="concat($p_local-authority, '_', descendant::tei:idno[@type = $p_local-authority][1])"/>
                 </xsl:otherwise>
             </xsl:choose>
+            <!-- add label and description -->
+            <label xml:lang="en">
+                <xsl:value-of select="oape:query-person(., 'name', 'en', $p_local-authority)"/>
+            </label>
+            <label xml:lang="ar">
+                <xsl:value-of select="oape:query-person(., 'name', 'ar', $p_local-authority)"/>
+            </label>
+            <description xml:lang="en">
+            </description>
+            <description xml:lang="ar">
+            </description>
+            <!-- instance of: human -->
             <P31>Q5</P31>
             <!-- names -->
             <xsl:apply-templates select="oape:query-person(.,'name-tei','ar', $p_local-authority)"/>
@@ -683,7 +695,7 @@
             </xsl:call-template>
             <!-- journal editor -->
             <QItem>Q124634459</QItem>
-            <!-- journal  -->
+            <!-- journalist  -->
             <QItem>Q1930187</QItem>
         </P106>
         <!-- location of work -->
