@@ -334,7 +334,7 @@
                     </P112>
                     <!-- P127: owned by -->
                     <P127>
-                         <xsl:call-template name="t_editors">
+                        <xsl:call-template name="t_editors">
                             <xsl:with-param name="p_persName" select="tei:persName[1]"/>
                             <xsl:with-param name="p_id-wiki" select="$v_id-wiki"/>
                             <xsl:with-param name="p_id-viaf" select="$v_id-viaf"/>
@@ -682,13 +682,33 @@
                 <xsl:value-of select="oape:query-person(., 'name', 'ar', $p_local-authority)"/>
             </label>
             <description xml:lang="en">
+                <xsl:text>Editor of </xsl:text>
+                <xsl:for-each select="tei:occupation/descendant::tei:title[@level = 'j']">
+                    <xsl:text>"</xsl:text>
+                    <xsl:value-of select="oape:query-bibliography(., $v_bibliography, $v_gazetteer, $p_local-authority, 'title', 'Latn')"/>
+                    <xsl:text>" published in </xsl:text>
+                    <xsl:value-of select="oape:query-bibliography(., $v_bibliography, $v_gazetteer, $p_local-authority, 'pubPlace', 'en')"/>
+                    <xsl:if test="ancestor::tei:occupation[1]/following-sibling::tei:occupation[descendant::tei:title]">
+                        <xsl:text>, </xsl:text>
+                    </xsl:if>
+                </xsl:for-each>
             </description>
             <description xml:lang="ar">
+                 <xsl:text>محرر لدورية </xsl:text>
+                <xsl:for-each select="tei:occupation/descendant::tei:title[@level = 'j']">
+                    <xsl:text>"</xsl:text>
+                    <xsl:value-of select="oape:query-bibliography(., $v_bibliography, $v_gazetteer, $p_local-authority, 'title', 'ar')"/>
+                    <xsl:text>" تصدر في </xsl:text>
+                    <xsl:value-of select="oape:query-bibliography(., $v_bibliography, $v_gazetteer, $p_local-authority, 'pubPlace', 'ar')"/>
+                    <xsl:if test="ancestor::tei:occupation[1]/following-sibling::tei:occupation[descendant::tei:title]">
+                        <xsl:text> و</xsl:text>
+                    </xsl:if>
+                </xsl:for-each>
             </description>
             <!-- instance of: human -->
             <P31>Q5</P31>
             <!-- names -->
-            <xsl:apply-templates select="oape:query-person(.,'name-tei','ar', $p_local-authority)"/>
+            <xsl:apply-templates select="oape:query-person(., 'name-tei', 'ar', $p_local-authority)"/>
             <!-- life dates -->
             <!-- identifiers -->
             <xsl:apply-templates select="tei:idno"/>
@@ -699,7 +719,7 @@
     <xsl:template match="tei:persName">
         <P2561>
             <xsl:apply-templates select="@xml:lang"/>
-            <xsl:apply-templates select="." mode="m_string"/>
+            <xsl:apply-templates mode="m_string" select="."/>
         </P2561>
     </xsl:template>
     <xsl:template match="tei:occupation">
