@@ -39,6 +39,20 @@
             <xsl:apply-templates select="$p_input/@xml:lang"/>
             <xsl:value-of select="normalize-space($v_text)"/>
         </string>
+        <!-- provide transliterations, if possible in P2440 -->
+        <!--<xsl:if test="$p_input/@xml:lang = 'ar' and $p_input/parent::node()/child::node()[local-name() = current()/local-name()][contains(@xml:lang, 'ar-Latn')]">
+            <xsl:if test="$p_debug = true()">
+                <xsl:message>
+                    <xsl:text>P2440</xsl:text>
+                </xsl:message>
+            </xsl:if>
+            <!-\- this will only reliably work for title -\->
+            <xsl:for-each select="$p_input/parent::node()/child::node()[local-name() = current()/local-name()][contains(@xml:lang, 'ar-Latn')]">
+                <P2440>
+                    <xsl:value-of select="."/>
+                </P2440>
+            </xsl:for-each>
+        </xsl:if>-->
     </xsl:template>
     <xsl:template name="t_QItem">
         <xsl:param name="p_input"/>
