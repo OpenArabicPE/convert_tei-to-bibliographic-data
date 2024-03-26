@@ -681,9 +681,15 @@
             <label xml:lang="ar">
                 <xsl:value-of select="oape:query-person(., 'name', 'ar', $p_local-authority)"/>
             </label>
+            <!-- descriptions have a maximum length, that is easily breached by multiple entries hier. -->
+            <xsl:variable name="v_first-title" select="tei:occupation[descendant::tei:title[@level = 'j']][1]/descendant::tei:title[@level = 'j'][1]"/>
             <description xml:lang="en">
                 <xsl:text>Editor of </xsl:text>
-                <xsl:for-each select="tei:occupation/descendant::tei:title[@level = 'j']">
+                <xsl:text>"</xsl:text>
+                <xsl:value-of select="oape:query-bibliography($v_first-title, $v_bibliography, $v_gazetteer, $p_local-authority, 'title', 'Latn')"/>
+                <xsl:text>" published in </xsl:text>
+                <xsl:value-of select="oape:query-bibliography($v_first-title, $v_bibliography, $v_gazetteer, $p_local-authority, 'pubPlace', 'en')"/>
+                <!-- <xsl:for-each select="tei:occupation/descendant::tei:title[@level = 'j']">
                     <xsl:text>"</xsl:text>
                     <xsl:value-of select="oape:query-bibliography(., $v_bibliography, $v_gazetteer, $p_local-authority, 'title', 'Latn')"/>
                     <xsl:text>" published in </xsl:text>
@@ -691,11 +697,15 @@
                     <xsl:if test="ancestor::tei:occupation[1]/following-sibling::tei:occupation[descendant::tei:title]">
                         <xsl:text>, </xsl:text>
                     </xsl:if>
-                </xsl:for-each>
+                </xsl:for-each>-->
             </description>
             <description xml:lang="ar">
-                 <xsl:text>محرر لدورية </xsl:text>
-                <xsl:for-each select="tei:occupation/descendant::tei:title[@level = 'j']">
+                <xsl:text>محرر لدورية </xsl:text>
+                <xsl:text>"</xsl:text>
+                <xsl:value-of select="oape:query-bibliography($v_first-title, $v_bibliography, $v_gazetteer, $p_local-authority, 'title', 'ar')"/>
+                <xsl:text>" تصدر في </xsl:text>
+                <xsl:value-of select="oape:query-bibliography($v_first-title, $v_bibliography, $v_gazetteer, $p_local-authority, 'pubPlace', 'ar')"/>
+                <!--<xsl:for-each select="tei:occupation/descendant::tei:title[@level = 'j']">
                     <xsl:text>"</xsl:text>
                     <xsl:value-of select="oape:query-bibliography(., $v_bibliography, $v_gazetteer, $p_local-authority, 'title', 'ar')"/>
                     <xsl:text>" تصدر في </xsl:text>
@@ -703,7 +713,7 @@
                     <xsl:if test="ancestor::tei:occupation[1]/following-sibling::tei:occupation[descendant::tei:title]">
                         <xsl:text> و</xsl:text>
                     </xsl:if>
-                </xsl:for-each>
+                </xsl:for-each>-->
             </description>
             <!-- instance of: human -->
             <P31>Q5</P31>
@@ -722,14 +732,26 @@
             <xsl:apply-templates mode="m_string" select="."/>
         </P2561>
     </xsl:template>
-    <xsl:template match="tei:occupation">
+    <xsl:template match="tei:occupation[descendant::tei:bibl |  descendant::tei:title]">
+        <xsl:variable name="v_id-wiki-title" select="oape:query-bibliography(descendant::tei:title[@level = 'j'][1], $v_bibliography, $v_gazetteer, $p_local-authority, 'id-wiki', '')"/>
+        <!-- journal editor -->
         <P106>
             <xsl:call-template name="t_source">
                 <xsl:with-param name="p_input" select="."/>
             </xsl:call-template>
-            <!-- journal editor -->
             <QItem>Q124634459</QItem>
-            <!-- journalist  -->
+            <!-- qualifier: employer. Note that this is more of a work-around -->
+            <xsl:if test="$v_id-wiki-title != 'NA'">
+                <P108>
+                    <xsl:value-of select="$v_id-wiki-title"/>
+                </P108>
+            </xsl:if>
+        </P106>
+        <!-- journalist  -->
+        <P106>
+            <xsl:call-template name="t_source">
+                <xsl:with-param name="p_input" select="."/>
+            </xsl:call-template>
             <QItem>Q1930187</QItem>
         </P106>
         <!-- location of work -->
