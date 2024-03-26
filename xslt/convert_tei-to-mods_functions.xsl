@@ -259,8 +259,8 @@
                 </xsl:when>
             </xsl:choose>
             <!-- for each author -->
-            <xsl:apply-templates mode="m_tei-to-mods" select="$v_analytic/tei:author/tei:persName"/>
-            <xsl:apply-templates mode="m_tei-to-mods" select="$v_monogr/tei:author/tei:persName"/>
+            <xsl:apply-templates mode="m_tei-to-mods" select="$v_analytic/tei:author"/>
+            <xsl:apply-templates mode="m_tei-to-mods" select="$v_monogr/tei:author"/>
             <xsl:choose>
                 <xsl:when test="$v_analytic/tei:title[@level = 'a']">
                     <relatedItem type="host">
@@ -324,7 +324,25 @@
         </mods>
     </xsl:function>
     <!-- transform TEI names to MODS -->
-    <xsl:template match="tei:surname | tei:persName" mode="m_tei-to-mods">
+    <xsl:template match="tei:persName" mode="m_tei-to-mods">
+        <xsl:choose>
+            <xsl:when test="tei:surname">
+                <xsl:apply-templates mode="m_tei-to-mods" select="tei:surname"/>
+                <xsl:apply-templates mode="m_tei-to-mods" select="tei:forename"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- what should happen if there is neither surname nor forename? -->
+                <!-- there should still be a wrapper node -->
+                <namePart>
+                    <xsl:variable name="v_plain">
+                        <xsl:apply-templates mode="m_plain-text" select="."/>
+                    </xsl:variable>
+                    <xsl:value-of select="normalize-space($v_plain)"/>
+                </namePart>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="tei:surname" mode="m_tei-to-mods">
         <namePart type="family" xml:lang="{@xml:lang}">
             <xsl:variable name="v_plain">
                 <xsl:apply-templates mode="m_plain-text" select="."/>
@@ -427,16 +445,18 @@
                                 <xsl:value-of select="replace($v_org/@ref, '^.*isil:([^\s]+).*$', '$1')"/>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:apply-templates select="$v_org" mode="m_plain-text"/>
+                                <xsl:apply-templates mode="m_plain-text" select="$v_org"/>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:when>
                     <xsl:when test="@source">
-                        <xsl:apply-templates select="@source" mode="m_plain-text"/>
+                        <xsl:apply-templates mode="m_plain-text" select="@source"/>
                     </xsl:when>
                 </xsl:choose>
             </physicalLocation>
-            <shelfLocator><xsl:apply-templates mode="m_plain-text" select="text()"/></shelfLocator>
+            <shelfLocator>
+                <xsl:apply-templates mode="m_plain-text" select="text()"/>
+            </shelfLocator>
             <!-- url for this resource -->
             <url>
                 <xsl:choose>
@@ -530,40 +550,38 @@
         </extent>
     </xsl:template>
     <!-- contributors -->
-    <xsl:template match="tei:editor/tei:persName | tei:author/tei:persName" mode="m_tei-to-mods" priority="10">
+    <xsl:template match="tei:editor | tei:author" mode="m_tei-to-mods" priority="10">
         <name type="personal" xml:lang="{@xml:lang}">
             <!-- add references to authority files -->
             <xsl:choose>
-                <xsl:when test="matches(parent::tei:editor/@ref, 'viaf:\d+')">
-                    <xsl:apply-templates mode="m_authority" select="parent::tei:editor"/>
-                </xsl:when>
-                <!--<xsl:when test="matches(@ref, 'viaf:\d+')">
-                                <xsl:apply-templates select="." mode="m_authority"/>
-                            </xsl:when>-->
-                <xsl:otherwise>
+                <xsl:when test="matches(@ref, 'viaf:\d+')">
                     <xsl:apply-templates mode="m_authority" select="."/>
-                </xsl:otherwise>
+                </xsl:when>
+                <xsl:when test="tei:persName[@ref]">
+                    <xsl:apply-templates mode="m_authority" select="tei:persName[@ref][1]"/>
+                </xsl:when>
             </xsl:choose>
+            <!-- sometimes the contents are not wrapped in persName -->
             <xsl:choose>
-                <xsl:when test="tei:surname">
-                    <xsl:apply-templates mode="m_tei-to-mods" select="tei:surname"/>
-                    <xsl:apply-templates mode="m_tei-to-mods" select="tei:forename"/>
+                <xsl:when test="tei:persName">
+                    <xsl:apply-templates mode="m_tei-to-mods" select="tei:persName"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <!-- what should happen if there is neither surname nor forename? -->
-                    <!-- there should still be a wrapper node -->
                     <namePart>
-                        <xsl:apply-templates mode="m_plain-text" select="self::tei:persName"/>
+                        <xsl:variable name="v_plain">
+                            <xsl:apply-templates mode="m_plain-text" select="."/>
+                        </xsl:variable>
+                        <xsl:value-of select="normalize-space($v_plain)"/>
                     </namePart>
                 </xsl:otherwise>
             </xsl:choose>
             <role>
                 <roleTerm authority="marcrelator" type="code">
                     <xsl:choose>
-                        <xsl:when test="parent::tei:editor">
+                        <xsl:when test="local-name() = 'editor'">
                             <xsl:text>edt</xsl:text>
                         </xsl:when>
-                        <xsl:when test="parent::tei:author">
+                        <xsl:when test="local-name() = 'author'">
                             <xsl:text>aut</xsl:text>
                         </xsl:when>
                     </xsl:choose>
