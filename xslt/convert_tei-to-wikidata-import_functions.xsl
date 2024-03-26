@@ -719,6 +719,30 @@
             <P31>Q5</P31>
             <!-- names -->
             <xsl:apply-templates select="oape:query-person(., 'name-tei', 'ar', $p_local-authority)"/>
+            <xsl:apply-templates select="oape:query-person(., 'name-tei', 'en', $p_local-authority)"/>
+            <!-- languages -->
+            <xsl:for-each select="tei:occupation/descendant::tei:title[@level = 'j']">
+                <xsl:variable name="v_langs">
+                    <xsl:copy-of select="oape:query-bibliography(., $v_bibliography, $v_gazetteer, $p_local-authority, 'langs', '')"/>
+                </xsl:variable>
+                <xsl:variable name="v_id-wiki" select="oape:query-bibliography(., $v_bibliography, $v_gazetteer, $p_local-authority, 'id-wiki', '')"/>
+                <xsl:for-each select="$v_langs/tei:lang">
+                    <!-- language spoken, written etc. -->
+                    <P1412>
+                        <QItem>
+                            <xsl:value-of select="oape:string-convert-lang-codes(., 'bcp47', 'wikidata')"/>
+                        </QItem>
+                        <!-- inferred from -->
+                        <xsl:if test="$v_id-wiki != 'NA'">
+                            <P3452>
+                                <QItem>
+                                    <xsl:value-of select="$v_id-wiki"/>
+                                </QItem>
+                            </P3452>
+                        </xsl:if>
+                    </P1412>
+                </xsl:for-each>
+            </xsl:for-each>
             <!-- life dates -->
             <!-- identifiers -->
             <xsl:apply-templates select="tei:idno"/>
@@ -732,10 +756,12 @@
             <xsl:apply-templates mode="m_string" select="."/>
         </P2561>
     </xsl:template>
-    <xsl:template match="tei:occupation[descendant::tei:bibl |  descendant::tei:title]">
+    <xsl:template match="tei:occupation"/>
+    <xsl:template match="tei:occupation[descendant::tei:bibl | descendant::tei:title]">
         <xsl:variable name="v_id-wiki-title" select="oape:query-bibliography(descendant::tei:title[@level = 'j'][1], $v_bibliography, $v_gazetteer, $p_local-authority, 'id-wiki', '')"/>
         <!-- journal editor -->
         <P106>
+            <!-- this produces far too many sources (due to how @source on occupation came about) -->
             <xsl:call-template name="t_source">
                 <xsl:with-param name="p_input" select="."/>
             </xsl:call-template>
