@@ -582,6 +582,7 @@
             <xsl:apply-templates mode="m_string" select="."/>
         </P1680>
     </xsl:template>
+    <xsl:template match="tei:title[@type = 'alt']"/>
     <xsl:template match="@oape:frequency">
         <P2896>
             <xsl:call-template name="t_source">
