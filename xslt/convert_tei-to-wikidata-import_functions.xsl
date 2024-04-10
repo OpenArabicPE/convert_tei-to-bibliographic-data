@@ -575,8 +575,20 @@
     <xsl:template match="tei:title">
         <P1476>
             <xsl:apply-templates mode="m_string" select="."/>
+            <!-- add qualifier for transcriptions? Problem: we have no explicit linking between an Arabic string and its various transcriptions  -->
+            <xsl:if test="@xml:lang = 'ar' and parent::node()/tei:title[not(@type)]/@xml:lang = 'ar-Latn-x-ijmes'">
+                <xsl:for-each-group select="parent::node()/tei:title[not(@type)][@xml:lang = 'ar-Latn-x-ijmes']" group-by="lower-case(.)">
+                    <P8991>
+                        <string>
+                            <xsl:apply-templates mode="m_plain-text" select="current-grouping-key()"/>
+                        </string>
+                    </P8991>
+                </xsl:for-each-group>
+            </xsl:if>
         </P1476>
     </xsl:template>
+    <!-- in consequence I should exclude all transcribed titles -->
+    <xsl:template match="tei:title[not(@type)][@xml:lang = 'ar-Latn-x-ijmes']/parent::node()/tei:title[not(@type)][@xml:lang = 'ar']/"></xsl:template>
     <xsl:template match="tei:title[@type = 'sub']">
         <P1680>
             <xsl:apply-templates mode="m_string" select="."/>
