@@ -795,6 +795,15 @@
         </P106>
         <!-- location of work -->
     </xsl:template>
+    <!-- holdings -->
+    <xsl:template match="tei:note[@type = 'holdings']">
+        <xsl:apply-templates select="descendant::tei:idno[@subtype = 'self']" mode="m_tei2wikidata"/>
+    </xsl:template>
+    <xsl:template match="tei:idno[@type = ('URI', 'url')][@subtype = 'self']" mode="m_tei2wikidata">
+        <P953>
+            <xsl:apply-templates select="." mode="m_string"/>
+        </P953>
+    </xsl:template>
     <xsl:template match="@* | node()" mode="m_string">
         <xsl:call-template name="t_source">
             <xsl:with-param name="p_input" select="."/>
