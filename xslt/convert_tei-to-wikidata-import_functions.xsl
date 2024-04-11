@@ -155,7 +155,7 @@
     </xsl:template>
     <!-- nodes to be converted -->
     <xsl:template match="tei:biblScope"/>
-    <xsl:template match="tei:biblStruct">
+    <xsl:template match="tei:biblStruct" mode="m_tei2wikidata">
         <item>
             <xsl:choose>
                 <xsl:when test="descendant::tei:idno[@type = 'wiki']">
@@ -240,6 +240,21 @@
                 </xsl:choose>
             </description>
             <xsl:apply-templates select="@oape:frequency | @type | @subtype | node()"/>
+        </item>
+    </xsl:template>
+    <xsl:template match="tei:biblStruct" mode="m_tei2wikidata_holdings">
+        <item>
+            <xsl:choose>
+                <xsl:when test="descendant::tei:idno[@type = 'wiki']">
+                    <xsl:attribute name="xml:id" select="descendant::tei:idno[@type = 'wiki'][1]"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:attribute name="xml:id" select="concat($p_local-authority, '_', descendant::tei:idno[@type = $p_local-authority][1])"/>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:apply-templates select="tei:monogr/tei:idno[@type = $p_acronym-wikidata]"/>
+            <!-- holdings -->
+            <xsl:apply-templates mode="m_tei2wikidata" select="tei:note[@type = 'holdings']"/>
         </item>
     </xsl:template>
     <xsl:template match="tei:biblStruct/@subtype | tei:biblStruct/@type">
@@ -577,7 +592,7 @@
             <xsl:apply-templates mode="m_string" select="."/>
             <!-- add qualifier for transcriptions? Problem: we have no explicit linking between an Arabic string and its various transcriptions  -->
             <xsl:if test="@xml:lang = 'ar' and parent::node()/tei:title[not(@type)]/@xml:lang = 'ar-Latn-x-ijmes'">
-                <xsl:for-each-group select="parent::node()/tei:title[not(@type)][@xml:lang = 'ar-Latn-x-ijmes']" group-by="lower-case(.)">
+                <xsl:for-each-group group-by="lower-case(.)" select="parent::node()/tei:title[not(@type)][@xml:lang = 'ar-Latn-x-ijmes']">
                     <P8991>
                         <string>
                             <xsl:apply-templates mode="m_plain-text" select="current-grouping-key()"/>
@@ -588,7 +603,7 @@
         </P1476>
     </xsl:template>
     <!-- in consequence I should exclude all transcribed titles -->
-    <xsl:template match="tei:title[not(@type)][@xml:lang = 'ar-Latn-x-ijmes']/parent::node()/tei:title[not(@type)][@xml:lang = 'ar']/"></xsl:template>
+    <xsl:template match="tei:title[not(@type)][@xml:lang = 'ar-Latn-x-ijmes'][parent::node()/tei:title[not(@type)][@xml:lang = 'ar']]"/>
     <xsl:template match="tei:title[@type = 'sub']">
         <P1680>
             <xsl:apply-templates mode="m_string" select="."/>
@@ -796,12 +811,58 @@
         <!-- location of work -->
     </xsl:template>
     <!-- holdings -->
-    <xsl:template match="tei:note[@type = 'holdings']">
-        <xsl:apply-templates select="descendant::tei:idno[@subtype = 'self']" mode="m_tei2wikidata"/>
+    <xsl:template match="tei:note[@type = 'holdings']" mode="m_tei2wikidata">
+        <!-- all holdings -->
+        <xsl:apply-templates mode="m_tei2wikidata" select="tei:list/tei:item"/>
+        <!-- all digitised copies -->
+        <xsl:apply-templates mode="m_tei2wikidata" select="descendant::tei:idno[@subtype = 'self']"/>
+    </xsl:template>
+    <xsl:template match="tei:item[parent::tei:list/parent::tei:note[@type = 'holdings']][tei:label/tei:orgName]" mode="m_tei2wikidata">
+        <!-- get all refs -->
+        <xsl:variable name="v_refs" select="oape:query-organizationography(tei:label/tei:orgName, $v_organizationography, $p_local-authority, 'tei-ref', '')"/>
+        <!-- collection -->
+        <P195>
+            <xsl:call-template name="t_source">
+                <xsl:with-param name="p_input" select="."/>
+            </xsl:call-template>
+            <string>
+                <xsl:value-of select="oape:query-organizationography(tei:label/tei:orgName, $v_organizationography, $p_local-authority, 'name', 'en')"/>
+            </string>
+            <xsl:choose>
+                <xsl:when test="matches($v_refs, concat($p_acronym-wikidata, ':'))">
+                    <QItem>
+                        <xsl:value-of select="oape:query-organizationography(tei:label/tei:orgName, $v_organizationography, $p_local-authority, 'id-wiki', '')"/>
+                    </QItem>
+                </xsl:when>
+                <xsl:when test="matches($v_refs, 'isil:')">
+                    <!-- ISIL codes are part recorded in P791 -->
+                    <P791>
+                        <xsl:value-of select="oape:query-organizationography(tei:label/tei:orgName, $v_organizationography, $p_local-authority, 'id-isil', '')"/>
+                    </P791>
+                </xsl:when>
+                <xsl:when test="matches($v_refs, 'viaf:')">
+                    <P214>
+                        <xsl:value-of select="oape:query-organizationography(tei:label/tei:orgName, $v_organizationography, $p_local-authority, 'id-viaf', '')"/>
+                    </P214>
+                </xsl:when>
+            </xsl:choose>
+            <!-- aggregate data on the entire collection -->
+            <!-- P577: publication date -->
+            <!-- P478: volume -->
+            <!-- full work available at URL -->
+        </P195>
     </xsl:template>
     <xsl:template match="tei:idno[@type = ('URI', 'url')][@subtype = 'self']" mode="m_tei2wikidata">
+        <!-- full work available at URL -->
         <P953>
-            <xsl:apply-templates select="." mode="m_string"/>
+            <xsl:apply-templates mode="m_string" select="."/>
+            <!-- add qualifiers -->
+            <!-- P577: publication date -->
+            <!-- P478: volume -->
+            <xsl:if test="ancestor::tei:bibl[1]/tei:biblScope[@unit = 'volume']">
+                <P478/>
+            </xsl:if>
+            <!-- date of retrieval: I do not track this date in my data -->
         </P953>
     </xsl:template>
     <xsl:template match="@* | node()" mode="m_string">
