@@ -548,9 +548,33 @@
                         </imprint>
                         <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="$v_publicationStmt/tei:idno[@type = ('volume', 'issue')]"/>
                     </monogr>
+                    <!-- add keywords from profileDesc -->
+                    <xsl:apply-templates select="following-sibling::tei:profileDesc/tei:textClass" mode="m_fileDesc-to-biblStruct"/>
                 </biblStruct>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <xsl:template mode="m_fileDesc-to-biblStruct" match="tei:textClass">
+         <note type="tagList">
+             <xsl:apply-templates select="tei:keywords" mode="m_fileDesc-to-biblStruct"/>
+         </note>
+    </xsl:template>
+    <xsl:template mode="m_fileDesc-to-biblStruct" match="tei:keywords">
+            <list>
+                <xsl:apply-templates select="@scheme | @n" mode="m_fileDesc-to-biblStruct"/>
+                <xsl:apply-templates select="tei:term" mode="m_fileDesc-to-biblStruct"/>
+            </list>
+    </xsl:template>
+    <xsl:template mode="m_fileDesc-to-biblStruct" match="tei:term">
+        <item>
+            <xsl:value-of select="normalize-space(.)"/>
+        </item>
+    </xsl:template>
+    <xsl:template mode="m_fileDesc-to-biblStruct" match="@scheme">
+        <xsl:attribute name="source" select="."/>
+    </xsl:template>
+    <xsl:template mode="m_fileDesc-to-biblStruct" match="@n">
+        <xsl:attribute name="type" select="."/>
     </xsl:template>
     <xsl:template match="tei:idno[@type = ('volume', 'issue')]" mode="m_fileDesc-to-biblStruct">
         <biblScope unit="{@type}">

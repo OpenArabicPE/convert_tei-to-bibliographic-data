@@ -245,6 +245,10 @@
                 <xsl:text>text</xsl:text>
             </typeOfResource>
             <xsl:choose>
+                <xsl:when test="$v_analytic/tei:title[@level = 'a'] and $v_biblStruct/tei:biblStruct/tei:note[@type = 'tagList']/tei:list[@type = 'category']/tei:item[matches(text(), 'vortrag', 'i')]">
+                    <genre authority="local" xml:lang="en">presentation</genre>
+<!--                    <genre authority="marcgt" xml:lang="en">article</genre>-->
+                </xsl:when>
                 <xsl:when test="$v_analytic/tei:title[@level = 'a']">
                     <genre authority="local" xml:lang="en">journalArticle</genre>
                     <genre authority="marcgt" xml:lang="en">article</genre>
@@ -320,7 +324,7 @@
                 </xsl:otherwise>
             </xsl:choose>
             <!-- notes, tags etc. -->
-            <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/tei:note"/>
+            <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/tei:biblStruct//tei:note"/>
         </mods>
     </xsl:function>
     <!-- transform TEI names to MODS -->
@@ -565,6 +569,9 @@
             <xsl:choose>
                 <xsl:when test="tei:persName">
                     <xsl:apply-templates mode="m_tei-to-mods" select="tei:persName"/>
+                </xsl:when>
+                <xsl:when test="tei:name">
+                    <xsl:apply-templates mode="m_tei-to-mods" select="tei:name"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <namePart>
