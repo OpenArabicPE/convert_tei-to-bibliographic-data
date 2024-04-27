@@ -183,8 +183,11 @@
                         <xsl:value-of select="@type"/>
                     </xsl:when>
                 </xsl:choose>
-                <xsl:text> published in </xsl:text>
-                <xsl:value-of select="oape:query-biblstruct(., 'pubPlace', 'en', $v_gazetteer, $p_local-authority)"/>
+                <xsl:text> published </xsl:text>
+                <xsl:if test="descendant::tei:pubPlace/tei:placeName/@ref">
+                    <xsl:text>in </xsl:text>
+                    <xsl:value-of select="oape:query-biblstruct(., 'pubPlace', 'en', $v_gazetteer, $p_local-authority)"/>
+                </xsl:if>
                 <xsl:text> </xsl:text>
                 <xsl:choose>
                     <xsl:when test="$v_onset != 'NA' and $v_terminus != 'NA'">
@@ -219,8 +222,11 @@
                         <xsl:text>دورية</xsl:text>
                     </xsl:when>
                 </xsl:choose>
-                <xsl:text> تصدر في </xsl:text>
+                <xsl:text> تصدر </xsl:text>
+                <xsl:if test="descendant::tei:pubPlace/tei:placeName/@ref">
+                    <xsl:text>في </xsl:text>
                 <xsl:value-of select="oape:query-biblstruct(., 'pubPlace', 'ar', $v_gazetteer, $p_local-authority)"/>
+                </xsl:if>
                 <xsl:text> </xsl:text>
                 <xsl:choose>
                     <xsl:when test="$v_onset != 'NA' and $v_terminus != 'NA'">
@@ -530,24 +536,25 @@
     <xsl:template match="tei:pubPlace">
         <xsl:choose>
             <xsl:when test="tei:placeName[matches(@ref, 'wiki:Q\d+|geon:\d+')]">
+                <xsl:variable name="v_placeName" select="oape:query-gazetteer(tei:placeName[@ref][1], $v_gazetteer, $p_local-authority, 'tei-ref', '')"/>
                 <P291>
                     <xsl:call-template name="t_source">
                         <xsl:with-param name="p_input" select="tei:placeName[matches(@ref, 'wiki:Q\d+|geon:\d+')]"/>
                     </xsl:call-template>
+                    <xsl:call-template name="t_string-value">
+                        <xsl:with-param name="p_input" select="oape:query-gazetteer(tei:placeName[@ref][1], $v_gazetteer, $p_local-authority, 'name', '')"/>
+                    </xsl:call-template>
                     <xsl:choose>
                         <!-- linked to Wikidata -->
-                        <xsl:when test="tei:placeName[matches(@ref, 'wiki:Q\d+')]">
+                        <xsl:when test="$v_placeName[matches(., 'wiki:Q\d+')]">
                             <xsl:call-template name="t_QItem">
-                                <xsl:with-param name="p_input" select="replace(tei:placeName[matches(@ref, 'wiki:Q\d+')][1]/@ref, '^.*wiki:(Q\d+).*$', '$1')"/>
+                                <xsl:with-param name="p_input" select="replace($v_placeName, '^.*wiki:(Q\d+).*$', '$1')"/>
                             </xsl:call-template>
                         </xsl:when>
                         <!-- linked to Geonames -->
-                        <xsl:when test="tei:placeName[matches(@ref, 'geon:\d+')]">
-                            <xsl:call-template name="t_string-value">
-                                <xsl:with-param name="p_input" select="tei:placeName[matches(@ref, 'geon:\d+')][1]"/>
-                            </xsl:call-template>
+                        <xsl:when test="$v_placeName[matches(., 'geon:\d+')]">
                             <P1566>
-                                <xsl:value-of select="replace(tei:placeName[matches(@ref, 'geon:\d+')][1]/@ref, '^.*geon:(\d+).*$', '$1')"/>
+                                <xsl:value-of select="replace($v_placeName, '^.*geon:(\d+).*$', '$1')"/>
                             </P1566>
                         </xsl:when>
                     </xsl:choose>
@@ -847,7 +854,11 @@
                 </xsl:when>
             </xsl:choose>
             <!-- aggregate data on the entire collection -->
-            <!-- P577: publication date -->
+            <!-- P580: start time
+                P582: end time -->
+            <P580>
+                <xsl:apply-templates select="min(descendant::tei:date/@when)"/>
+            </P580>
             <!-- P478: volume -->
             <!-- full work available at URL -->
         </P195>
