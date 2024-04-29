@@ -854,14 +854,37 @@
                 </xsl:when>
             </xsl:choose>
             <!-- aggregate data on the entire collection -->
-            <!-- P580: start time
-                P582: end time -->
-            <P580>
-                <xsl:apply-templates select="min(descendant::tei:date/@when)"/>
-            </P580>
+            <!-- P580: start time -->
+            <xsl:if test="descendant::tei:date/@when">
+                <P580>
+<!--                    <xsl:value-of select="min(descendant::tei:date/@when)"/>-->
+                </P580>
+            </xsl:if>
+            <!-- P580: end time -->
             <!-- P478: volume -->
+            <xsl:if test="descendant::tei:bibl/tei:biblScope[@unit = 'volume']">
+                <P478>
+                    <xsl:value-of select="min(descendant::tei:bibl/tei:biblScope[@unit = 'volume']/@from)"/>
+                    <xsl:text>-</xsl:text>
+                    <xsl:value-of select="max(descendant::tei:bibl/tei:biblScope[@unit = 'volume']/@to)"/>
+                </P478>
+            </xsl:if>
+            <!-- P217: inventory number -->
+            <xsl:apply-templates select="descendant::tei:bibl/tei:idno[@type = 'classmark']" mode="m_tei2wikidata_qualifier"/>
             <!-- full work available at URL -->
+            <xsl:apply-templates select="descendant::tei:bibl/tei:idno[@type = ('URI', 'url')][@subtype = 'self']" mode="m_tei2wikidata_qualifier"/>
         </P195>
+    </xsl:template>
+     <xsl:template match="tei:idno[@type = 'classmark']" mode="m_tei2wikidata_qualifier">
+         <P217>
+             <xsl:apply-templates mode="m_string" select="."/>
+         </P217>
+     </xsl:template>
+    <xsl:template match="tei:idno[@type = ('URI', 'url')][@subtype = 'self']" mode="m_tei2wikidata_qualifier">
+        <!-- full work available at URL -->
+        <P953>
+            <xsl:apply-templates mode="m_string" select="."/>
+        </P953>
     </xsl:template>
     <xsl:template match="tei:idno[@type = ('URI', 'url')][@subtype = 'self']" mode="m_tei2wikidata">
         <!-- full work available at URL -->
