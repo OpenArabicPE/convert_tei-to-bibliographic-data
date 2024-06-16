@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet exclude-result-prefixes="#all" version="3.0" xmlns="http://www.tei-c.org/ns/1.0"
-    xmlns:cc="http://web.resource.org/cc/" xmlns:dhq="http://www.digitalhumanities.org/ns/dhq" xmlns:mods="http://www.loc.gov/mods/v3"
-    xmlns:oape="https://openarabicpe.github.io/ns" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet exclude-result-prefixes="#all" version="3.0" xmlns="http://www.tei-c.org/ns/1.0" xmlns:cc="http://web.resource.org/cc/" xmlns:dhq="http://www.digitalhumanities.org/ns/dhq"
+    xmlns:mods="http://www.loc.gov/mods/v3" xmlns:oape="https://openarabicpe.github.io/ns" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:tei="http://www.tei-c.org/ns/1.0"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:output encoding="UTF-8" indent="yes" method="xml" name="xml" omit-xml-declaration="no" version="1.0"/>
     <xsl:include href="parameters.xsl"/>
     <xsl:import href="../../authority-files/xslt/functions.xsl"/>
@@ -548,9 +547,9 @@
                         <!-- IDs -->
                         <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="$v_publicationStmt/tei:idno[@type = ('DHQarticle-id')]"/>
                         <!-- date -->
-                        <xsl:apply-templates select="$v_editionStmt/tei:edition/tei:date" mode="m_simple"/>
+                        <xsl:apply-templates mode="m_simple" select="$v_editionStmt/tei:edition/tei:date"/>
                         <!-- availability -->
-                        <xsl:apply-templates select="$v_publicationStmt/tei:availability" mode="m_identity-transform"/>
+                        <xsl:apply-templates mode="m_identity-transform" select="$v_publicationStmt/tei:availability"/>
                     </analytic>
                     <monogr>
                         <!-- add missing journal title for DHQ -->
@@ -564,31 +563,31 @@
                         <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="$v_publicationStmt/tei:idno[@type = ('volume', 'issue')]"/>
                     </monogr>
                     <!-- add keywords from profileDesc -->
-                    <xsl:apply-templates select="following-sibling::tei:profileDesc/tei:textClass" mode="m_fileDesc-to-biblStruct"/>
+                    <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="following-sibling::tei:profileDesc/tei:textClass"/>
                 </biblStruct>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <xsl:template mode="m_fileDesc-to-biblStruct" match="tei:textClass">
-         <note type="tagList">
-             <xsl:apply-templates select="tei:keywords" mode="m_fileDesc-to-biblStruct"/>
-         </note>
+    <xsl:template match="tei:textClass" mode="m_fileDesc-to-biblStruct">
+        <note type="tagList">
+            <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="tei:keywords"/>
+        </note>
     </xsl:template>
-    <xsl:template mode="m_fileDesc-to-biblStruct" match="tei:keywords">
-            <list>
-                <xsl:apply-templates select="@scheme | @n" mode="m_fileDesc-to-biblStruct"/>
-                <xsl:apply-templates select="tei:term" mode="m_fileDesc-to-biblStruct"/>
-            </list>
+    <xsl:template match="tei:keywords" mode="m_fileDesc-to-biblStruct">
+        <list>
+            <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="@scheme | @n"/>
+            <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="tei:term"/>
+        </list>
     </xsl:template>
-    <xsl:template mode="m_fileDesc-to-biblStruct" match="tei:term">
+    <xsl:template match="tei:term" mode="m_fileDesc-to-biblStruct">
         <item>
             <xsl:value-of select="normalize-space(.)"/>
         </item>
     </xsl:template>
-    <xsl:template mode="m_fileDesc-to-biblStruct" match="@scheme">
+    <xsl:template match="@scheme" mode="m_fileDesc-to-biblStruct">
         <xsl:attribute name="source" select="."/>
     </xsl:template>
-    <xsl:template mode="m_fileDesc-to-biblStruct" match="@n">
+    <xsl:template match="@n" mode="m_fileDesc-to-biblStruct">
         <xsl:attribute name="type" select="."/>
     </xsl:template>
     <xsl:template match="tei:idno[@type = ('volume', 'issue')]" mode="m_fileDesc-to-biblStruct">
@@ -631,15 +630,16 @@
                 <xsl:text> </xsl:text>
                 <xsl:apply-templates mode="m_dhq-to-biblStruct" select="dhq:author_name/dhq:family"/>
             </persName>
-            <xsl:apply-templates select="dhq:affiliation" mode="m_dhq-to-biblStruct"/>
+            <xsl:apply-templates mode="m_identity-transform" select="tei:idno"/>
+            <xsl:apply-templates mode="m_dhq-to-biblStruct" select="dhq:affiliation"/>
         </author>
     </xsl:template>
     <xsl:template match="dhq:affiliation" mode="m_dhq-to-biblStruct">
-        <xsl:variable name="v_temp">
-            <xsl:apply-templates mode="m_plain-text" select="text()"/>
+        <xsl:variable name="v_plain">
+            <xsl:apply-templates mode="m_plain-text" select="."/>
         </xsl:variable>
         <affiliation>
-            <xsl:value-of select="normalize-space($v_temp)"/>
+            <xsl:value-of select="normalize-space($v_plain)"/>
         </affiliation>
     </xsl:template>
     <xsl:template match="dhq:family" mode="m_dhq-to-biblStruct">

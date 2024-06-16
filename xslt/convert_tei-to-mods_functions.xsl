@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet exclude-result-prefixes="#all" version="3.0" xmlns="http://www.loc.gov/mods/v3" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:cc="http://web.resource.org/cc/" xmlns:oape="https://openarabicpe.github.io/ns" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.loc.gov/mods/v3">
+<xsl:stylesheet exclude-result-prefixes="#all" version="3.0" xmlns="http://www.loc.gov/mods/v3" xmlns:cc="http://web.resource.org/cc/" xmlns:mods="http://www.loc.gov/mods/v3"
+    xmlns:oape="https://openarabicpe.github.io/ns" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.loc.gov/mods/v3">
     <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no" version="1.0"/>
     <!-- this stylesheet translates <tei:biblStruct>s to  <mods:mods> -->
     <!-- date conversion functions -->
@@ -313,10 +314,8 @@
             </xsl:if>
             <xsl:if test="$v_biblStruct/descendant::tei:idno[@type = ('url', 'URI')]">
                 <!-- MODS allows for more than one URL! -->
-                <location>
-                    <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/descendant::tei:idno[@type = ('url', 'URI')]"/>
-                    <!--<url dateLastAccessed="{$p_date-accessed}" usage="primary display">-->
-                </location>
+                <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/descendant::tei:idno[@type = ('url', 'URI')]"/>
+                <!--<url dateLastAccessed="{$p_date-accessed}" usage="primary display">-->
             </xsl:if>
             <!-- language information -->
             <xsl:choose>
@@ -443,12 +442,19 @@
     <!-- IDs -->
     <xsl:template match="tei:idno" mode="m_tei-to-mods">
         <identifier type="{@type}">
-            <xsl:apply-templates mode="m_plain-text" select="text()"/>
+            <!--<xsl:apply-templates mode="m_plain-text" select="text()"/>-->
+            <xsl:variable name="v_plain">
+                <xsl:apply-templates mode="m_plain-text" select="."/>
+            </xsl:variable>
+            <xsl:value-of select="normalize-space($v_plain)"/>
         </identifier>
     </xsl:template>
     <xsl:template match="tei:idno[parent::tei:author or parent::tei:editor]" mode="m_tei-to-mods">
         <nameIdentifier type="{@type}">
-            <xsl:apply-templates mode="m_plain-text" select="text()"/>
+            <xsl:variable name="v_plain">
+                <xsl:apply-templates mode="m_plain-text" select="."/>
+            </xsl:variable>
+            <xsl:value-of select="normalize-space($v_plain)"/>
         </nameIdentifier>
     </xsl:template>
     <xsl:template match="tei:idno[@type = 'classmark']" mode="m_tei-to-mods">
@@ -486,11 +492,13 @@
             </url>
         </location>
     </xsl:template>
-     <xsl:template match="tei:idno[@type = ('url', 'URI')]" mode="m_tei-to-mods">
+    <xsl:template match="tei:idno[@type = ('url', 'URI')]" mode="m_tei-to-mods">
         <location>
-            <url><xsl:value-of select="."/></url>
+            <url>
+                <xsl:value-of select="."/>
+            </url>
         </location>
-     </xsl:template>
+    </xsl:template>
     <!-- this is invalid encoding according to the specs, even though Zotero handles it this way -->
     <!--<xsl:template match="tei:idno[@type = 'classmark']" mode="m_tei-to-mods">
         <classification>
