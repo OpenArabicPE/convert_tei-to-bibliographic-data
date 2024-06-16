@@ -652,7 +652,16 @@
     </xsl:template>
     <xsl:template match="tei:titleStmt/tei:title" mode="m_fileDesc-to-biblStruct">
         <title level="a">
-            <xsl:apply-templates mode="m_identity-transform" select="@xml:lang"/>
+            <xsl:attribute name="xml:lang">
+                <xsl:choose>
+                    <xsl:when test="@xml:lang">
+                        <xsl:value-of select="@xml:lang"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="ancestor::tei:TEI/tei:text/@xml:lang"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
             <!--<xsl:apply-templates mode="m_identity-transform"/>-->
             <xsl:apply-templates mode="m_plain-text" select="."/>
         </title>
