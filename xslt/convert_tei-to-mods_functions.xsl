@@ -70,18 +70,15 @@
                         <xsl:apply-templates mode="m_tei-to-mods" select="$v_imprint/tei:publisher"/>
                     </xsl:otherwise>
                 </xsl:choose>
-                <dateIssued>
-                    <xsl:choose>
-                        <xsl:when test="$v_imprint/tei:date/@when != ''">
-                            <xsl:attribute name="encoding" select="'w3cdtf'"/>
-                            <xsl:value-of select="$v_imprint/tei:date[@when][1]/@when"/>
-                        </xsl:when>
-                        <xsl:when test="$v_imprint/tei:date[@from]">
-                            <xsl:attribute name="encoding" select="'w3cdtf'"/>
-                            <xsl:value-of select="$v_imprint/tei:date[@from][1]/@from"/>
-                        </xsl:when>
-                    </xsl:choose>
-                </dateIssued>
+                <!-- dates -->
+                <xsl:choose>
+                    <xsl:when test="$v_imprint/tei:date/@when != ''">
+                        <xsl:apply-templates mode="m_tei-to-mods" select="$v_imprint/tei:date[@when][1]"/>
+                    </xsl:when>
+                    <xsl:when test="$v_imprint/tei:date[@from]">
+                        <xsl:apply-templates mode="m_tei-to-mods" select="$v_imprint/tei:date[@from][1]"/>
+                    </xsl:when>
+                </xsl:choose>
                 <!-- add hijri dates -->
                 <xsl:if test="$v_imprint/tei:date/@calendar = '#cal_islamic'">
                     <!-- v3.7 added @calendar (xs:string) -->
@@ -303,6 +300,10 @@
                 <!-- for the time being I use a fixed variable -->
                 <xsl:value-of select="$v_license"/>
             </accessCondition>
+            <!-- data on analytic -->
+            <xsl:if test="$v_analytic/tei:date">
+                <xsl:apply-templates mode="m_tei-to-mods" select="$v_analytic/tei:date"/>
+            </xsl:if>
             <xsl:if test="$v_biblStruct/descendant::tei:idno[@type = 'url']">
                 <!-- MODS allows for more than one URL! -->
                 <location>
@@ -497,6 +498,21 @@
             <xsl:apply-templates mode="m_plain-text" select="text()"/>
         </url>
     </xsl:template>-->
+    <!-- dates -->
+    <xsl:template match="tei:date" mode="m_tei-to-mods">
+        <dateIssued>
+            <xsl:choose>
+                <xsl:when test="@when != ''">
+                    <xsl:attribute name="encoding" select="'w3cdtf'"/>
+                    <xsl:value-of select="@when"/>
+                </xsl:when>
+                <xsl:when test="@from">
+                    <xsl:attribute name="encoding" select="'w3cdtf'"/>
+                    <xsl:value-of select="@from"/>
+                </xsl:when>
+            </xsl:choose>
+        </dateIssued>
+    </xsl:template>
     <!-- source languages -->
     <xsl:template match="tei:textLang" mode="m_tei-to-mods">
         <language>
