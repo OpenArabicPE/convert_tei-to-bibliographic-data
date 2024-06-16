@@ -329,6 +329,10 @@
                 <xsl:when test="@when | @notBefore | @notAfter">
                     <xsl:apply-templates mode="m_simple" select="@*"/>
                 </xsl:when>
+                <xsl:when test="matches(., '^\d{4}-\d{2}-\d{2}')">
+                    <xsl:attribute name="when" select="replace(., '^(\d{4}-\d{2}-\d{2}).*$', '$1')"/>
+                    <xsl:apply-templates mode="m_simple"/>
+                </xsl:when>
                 <xsl:otherwise>
                     <xsl:apply-templates mode="m_simple" select="@* | node()"/>
                 </xsl:otherwise>
@@ -517,10 +521,14 @@
     <!-- conversion of information from fileDesc -->
     <xsl:template match="tei:fileDesc" mode="m_fileDesc-to-biblStruct">
         <xsl:choose>
-            <xsl:when test="tei:publicationStmt[descendant::tei:biblStruct or descendant::tei:bibl]"> </xsl:when>
+            <xsl:when test="tei:publicationStmt[descendant::tei:biblStruct]">
+                <xsl:copy-of select="tei:publicationStmt/descendant::tei:biblStruct"/>
+            </xsl:when>
+            <xsl:when test="tei:publicationStmt[descendant::tei:biblStruct or descendant::tei:bibl]"/>
             <xsl:otherwise>
                 <xsl:variable name="v_publicationStmt" select="tei:publicationStmt"/>
                 <xsl:variable name="v_titleStmt" select="tei:titleStmt"/>
+                <xsl:variable name="v_editionStmt" select="tei:editionStmt"/>
                 <biblStruct>
                     <analytic>
                         <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="$v_titleStmt/tei:title"/>
@@ -535,7 +543,10 @@
                         </xsl:choose>
                         <!-- language -->
                         <textLang mainLang="{following-sibling::tei:profileDesc/tei:langUsage/tei:language/@ident}"/>
+                        <!-- IDs -->
                         <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="$v_publicationStmt/tei:idno[@type = ('DHQarticle-id')]"/>
+                        <!-- date -->
+                        <xsl:apply-templates select="$v_editionStmt/tei:edition/tei:date" mode="m_simple"/>
                     </analytic>
                     <monogr>
                         <!-- add missing journal title for DHQ -->
