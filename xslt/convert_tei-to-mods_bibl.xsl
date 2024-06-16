@@ -27,6 +27,7 @@
     <xsl:template match="/">
         <xsl:result-document href="../metadata/{$vgFileId}-bibl.MODS.xml">
             <xsl:value-of select="concat('&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;',$p_url-boilerplate,'&quot;?&gt;')" disable-output-escaping="yes"/>
+            <xsl:value-of select="concat('&lt;?xml-model href=&quot;',$v_schema,'&quot;?&gt;')" disable-output-escaping="yes"/>
             <modsCollection xsi:schemaLocation="{$v_schema}">
                 <xsl:apply-templates select="descendant::tei:standOff//tei:biblStruct"/>
                 <!--<xsl:apply-templates select=".//tei:body//tei:bibl[contains(ancestor::tei:div/tei:head/text(),$pg_head-section)]"/>-->
