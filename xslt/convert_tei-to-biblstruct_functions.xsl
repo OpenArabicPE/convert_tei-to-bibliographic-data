@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet exclude-result-prefixes="#all" version="3.0" xmlns="http://www.tei-c.org/ns/1.0" xmlns:dhq="http://www.digitalhumanities.org/ns/dhq" xmlns:mods="http://www.loc.gov/mods/v3"
-    xmlns:oape="https://openarabicpe.github.io/ns" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<xsl:stylesheet exclude-result-prefixes="#all" version="3.0" xmlns="http://www.tei-c.org/ns/1.0"
+    xmlns:cc="http://web.resource.org/cc/" xmlns:dhq="http://www.digitalhumanities.org/ns/dhq" xmlns:mods="http://www.loc.gov/mods/v3"
+    xmlns:oape="https://openarabicpe.github.io/ns" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:output encoding="UTF-8" indent="yes" method="xml" name="xml" omit-xml-declaration="no" version="1.0"/>
     <xsl:include href="parameters.xsl"/>
@@ -533,12 +534,13 @@
                     <analytic>
                         <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="$v_titleStmt/tei:title"/>
                         <xsl:choose>
+                            <!-- dealing with DHQ files -->
+                            <xsl:when test="$v_titleStmt/descendant::dhq:authorInfo">
+                                <xsl:apply-templates mode="m_dhq-to-biblStruct" select="$v_titleStmt/descendant::dhq:authorInfo"/>
+                            </xsl:when>
+                            <!-- normal TEI markup -->
                             <xsl:when test="$v_titleStmt/tei:author">
                                 <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="$v_titleStmt/tei:author"/>
-                            </xsl:when>
-                            <!-- dealing with DHQ files -->
-                            <xsl:when test="$v_titleStmt/descendant::dhq:author_name">
-                                <xsl:apply-templates mode="m_dhq-to-biblStruct" select="$v_titleStmt/descendant::dhq:author_name"/>
                             </xsl:when>
                         </xsl:choose>
                         <!-- language -->
@@ -547,6 +549,8 @@
                         <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="$v_publicationStmt/tei:idno[@type = ('DHQarticle-id')]"/>
                         <!-- date -->
                         <xsl:apply-templates select="$v_editionStmt/tei:edition/tei:date" mode="m_simple"/>
+                        <!-- availability -->
+                        <xsl:apply-templates select="$v_publicationStmt/tei:availability" mode="m_identity-transform"/>
                     </analytic>
                     <monogr>
                         <!-- add missing journal title for DHQ -->
@@ -615,19 +619,28 @@
             <xsl:value-of select="concat($v_base-url, '.xml')"/>
         </idno>
     </xsl:template>
-    <xsl:template match="dhq:author_name" mode="m_dhq-to-biblStruct">
+    <xsl:template match="dhq:authorInfo" mode="m_dhq-to-biblStruct">
         <author>
             <persName>
                 <xsl:variable name="v_name">
-                    <xsl:apply-templates mode="m_plain-text" select="text()"/>
+                    <xsl:apply-templates mode="m_plain-text" select="dhq:author_name/text()"/>
                 </xsl:variable>
                 <forename>
                     <xsl:value-of select="normalize-space($v_name)"/>
                 </forename>
                 <xsl:text> </xsl:text>
-                <xsl:apply-templates mode="m_dhq-to-biblStruct" select="dhq:family"/>
+                <xsl:apply-templates mode="m_dhq-to-biblStruct" select="dhq:author_name/dhq:family"/>
             </persName>
+            <xsl:apply-templates select="dhq:affiliation" mode="m_dhq-to-biblStruct"/>
         </author>
+    </xsl:template>
+    <xsl:template match="dhq:affiliation" mode="m_dhq-to-biblStruct">
+        <xsl:variable name="v_temp">
+            <xsl:apply-templates mode="m_plain-text" select="text()"/>
+        </xsl:variable>
+        <affiliation>
+            <xsl:value-of select="normalize-space($v_temp)"/>
+        </affiliation>
     </xsl:template>
     <xsl:template match="dhq:family" mode="m_dhq-to-biblStruct">
         <xsl:variable name="v_name">
