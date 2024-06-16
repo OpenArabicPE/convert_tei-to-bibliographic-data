@@ -285,7 +285,7 @@
                         <xsl:copy-of select="$v_originInfo"/>
                         <xsl:copy-of select="$v_part"/>
                         <!-- IDs: but not URL -->
-                        <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/descendant::tei:idno[not(@type = 'url')]"/>
+                        <xsl:apply-templates mode="m_tei-to-mods" select="$v_monogr/tei:idno[not(@type = 'url')]"/>
                     </relatedItem>
                 </xsl:when>
                 <xsl:otherwise>
