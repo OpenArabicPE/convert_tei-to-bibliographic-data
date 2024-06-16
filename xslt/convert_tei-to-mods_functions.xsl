@@ -247,7 +247,7 @@
             <xsl:choose>
                 <xsl:when test="$v_analytic/tei:title[@level = 'a'] and $v_biblStruct/tei:biblStruct/tei:note[@type = 'tagList']/tei:list[@type = 'category']/tei:item[matches(text(), 'vortrag', 'i')]">
                     <genre authority="local" xml:lang="en">presentation</genre>
-<!--                    <genre authority="marcgt" xml:lang="en">article</genre>-->
+                    <!--                    <genre authority="marcgt" xml:lang="en">article</genre>-->
                 </xsl:when>
                 <xsl:when test="$v_analytic/tei:title[@level = 'a']">
                     <genre authority="local" xml:lang="en">journalArticle</genre>
@@ -436,6 +436,11 @@
             <xsl:apply-templates mode="m_plain-text" select="text()"/>
         </identifier>
     </xsl:template>
+    <xsl:template match="tei:idno[parent::tei:author or parent::tei:editor]" mode="m_tei-to-mods">
+        <nameIdentifier type="{@type}">
+            <xsl:apply-templates mode="m_plain-text" select="text()"/>
+        </nameIdentifier>
+    </xsl:template>
     <xsl:template match="tei:idno[@type = 'classmark']" mode="m_tei-to-mods">
         <location>
             <!-- the actual location of the physical copy -->
@@ -582,6 +587,9 @@
                     </namePart>
                 </xsl:otherwise>
             </xsl:choose>
+            <!-- deal with affiliations, IDs -->
+            <xsl:apply-templates mode="m_tei-to-mods" select="tei:idno"/>
+            <xsl:apply-templates mode="m_tei-to-mods" select="tei:affiliation"/>
             <role>
                 <roleTerm authority="marcrelator" type="code">
                     <xsl:choose>
@@ -595,6 +603,14 @@
                 </roleTerm>
             </role>
         </name>
+    </xsl:template>
+    <xsl:template match="tei:affiliation" mode="m_tei-to-mods">
+        <affiliation>
+            <xsl:variable name="v_plain">
+                <xsl:apply-templates mode="m_plain-text" select="."/>
+            </xsl:variable>
+            <xsl:value-of select="normalize-space($v_plain)"/>
+        </affiliation>
     </xsl:template>
     <!-- notes -->
     <xsl:template match="tei:note[@type = 'tagList']" mode="m_tei-to-mods">
