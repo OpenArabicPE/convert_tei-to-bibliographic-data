@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet exclude-result-prefixes="#all" version="3.0" xmlns="http://www.loc.gov/mods/v3" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:oape="https://openarabicpe.github.io/ns"
+<xsl:stylesheet exclude-result-prefixes="#all" version="3.0" xmlns="http://www.loc.gov/mods/v3" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:cc="http://web.resource.org/cc/" xmlns:oape="https://openarabicpe.github.io/ns" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.loc.gov/mods/v3">
     <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no" version="1.0"/>
     <!-- this stylesheet translates <tei:biblStruct>s to  <mods:mods> -->
@@ -10,6 +10,7 @@
     <!-- this needs to be adopted to work with any periodical and not just al-Muqtabas -->
     <xsl:variable name="v_schema" select="'http://www.loc.gov/standards/mods/mods-3-7.xsd'"/>
     <xsl:variable name="v_license" select="'http://creativecommons.org/licenses/by-sa/4.0/'"/>
+    <xsl:variable name="v_license-url" select="'http://creativecommons.org/licenses/by-sa/4.0/'"/>
     <!-- the MODS output -->
     <xsl:function name="oape:bibliography-tei-to-mods">
         <!-- input is a bibl or biblStruct -->
@@ -17,7 +18,6 @@
         <!-- output language -->
         <xsl:param name="p_lang"/>
         <!-- missing bits: absent from biblStruct
-            - licence
             - date last accessed
             - edition
         -->
@@ -295,11 +295,18 @@
                     <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/descendant::tei:idno"/>
                 </xsl:otherwise>
             </xsl:choose>
-            <accessCondition>
-                <!--                <xsl:value-of select="$p_url-licence"/>-->
-                <!-- for the time being I use a fixed variable -->
-                <xsl:value-of select="$v_license"/>
-            </accessCondition>
+            <!-- availability / license -->
+            <xsl:choose>
+                <xsl:when test="$v_biblStruct/descendant::tei:availability">
+                    <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/descendant::tei:availability"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <accessCondition>
+                        <xsl:attribute name="vauleURI" select="$v_license-url"/>
+                        <xsl:value-of select="$v_license"/>
+                    </accessCondition>
+                </xsl:otherwise>
+            </xsl:choose>
             <!-- data on analytic -->
             <xsl:if test="$v_analytic/tei:date">
                 <xsl:apply-templates mode="m_tei-to-mods" select="$v_analytic/tei:date"/>
@@ -621,6 +628,15 @@
                 </roleTerm>
             </role>
         </name>
+    </xsl:template>
+    <xsl:template match="tei:availability" mode="m_tei-to-mods">
+        <accessCondition>
+            <xsl:choose>
+                <xsl:when test="cc:License/@rdf:about">
+                    <xsl:attribute name="valueURI" select="cc:License/@rdf:about"/>
+                </xsl:when>
+            </xsl:choose>
+        </accessCondition>
     </xsl:template>
     <xsl:template match="tei:affiliation" mode="m_tei-to-mods">
         <affiliation>
