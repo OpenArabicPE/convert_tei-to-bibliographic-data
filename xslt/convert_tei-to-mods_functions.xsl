@@ -8,7 +8,7 @@
     <!--     <xsl:include href="../../../xslt-calendar-conversion/date-functions.xsl"/> -->
     <xsl:import href="functions.xsl"/>
     <!-- this needs to be adopted to work with any periodical and not just al-Muqtabas -->
-    <xsl:variable name="v_schema" select="'http://www.loc.gov/standards/mods/mods-3-7.xsd'"/>
+    <xsl:variable name="v_schema" select="'http://www.loc.gov/standards/mods/mods-3-8.xsd'"/>
     <xsl:variable name="v_license" select="'http://creativecommons.org/licenses/by-sa/4.0/'"/>
     <xsl:variable name="v_license-url" select="'http://creativecommons.org/licenses/by-sa/4.0/'"/>
     <!-- the MODS output -->
