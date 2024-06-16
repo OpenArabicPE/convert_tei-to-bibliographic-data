@@ -311,10 +311,10 @@
             <xsl:if test="$v_analytic/tei:date">
                 <xsl:apply-templates mode="m_tei-to-mods" select="$v_analytic/tei:date"/>
             </xsl:if>
-            <xsl:if test="$v_biblStruct/descendant::tei:idno[@type = 'url']">
+            <xsl:if test="$v_biblStruct/descendant::tei:idno[@type = ('url', 'URI')]">
                 <!-- MODS allows for more than one URL! -->
                 <location>
-                    <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/descendant::tei:idno[@type = 'url']"/>
+                    <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/descendant::tei:idno[@type = ('url', 'URI')]"/>
                     <!--<url dateLastAccessed="{$p_date-accessed}" usage="primary display">-->
                 </location>
             </xsl:if>
@@ -486,6 +486,11 @@
             </url>
         </location>
     </xsl:template>
+     <xsl:template match="tei:idno[@type = ('url', 'URI')]" mode="m_tei-to-mods">
+        <location>
+            <url><xsl:value-of select="."/></url>
+        </location>
+     </xsl:template>
     <!-- this is invalid encoding according to the specs, even though Zotero handles it this way -->
     <!--<xsl:template match="tei:idno[@type = 'classmark']" mode="m_tei-to-mods">
         <classification>
