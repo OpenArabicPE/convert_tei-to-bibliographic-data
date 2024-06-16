@@ -50,16 +50,18 @@
                     </xsl:variable>
                     <xsl:value-of select="normalize-space($v_plain)"/>
                 </edition>-->
-                <place>
-                    <xsl:choose>
-                        <xsl:when test="$v_imprint/tei:pubPlace/tei:placeName[@xml:lang = $p_lang]">
-                            <xsl:apply-templates mode="m_tei-to-mods" select="$v_imprint/tei:pubPlace/tei:placeName[@xml:lang = $p_lang]"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:apply-templates mode="m_tei-to-mods" select="$v_imprint/tei:pubPlace/tei:placeName[1]"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </place>
+                <xsl:if test="$v_imprint/tei:pubPlace">
+                    <place>
+                        <xsl:choose>
+                            <xsl:when test="$v_imprint/tei:pubPlace/tei:placeName[@xml:lang = $p_lang]">
+                                <xsl:apply-templates mode="m_tei-to-mods" select="$v_imprint/tei:pubPlace/tei:placeName[@xml:lang = $p_lang]"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:apply-templates mode="m_tei-to-mods" select="$v_imprint/tei:pubPlace/tei:placeName[1]"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </place>
+                </xsl:if>
                 <xsl:choose>
                     <xsl:when test="$v_imprint/tei:publisher/child::node()[@xml:lang = $p_lang]">
                         <xsl:apply-templates mode="m_tei-to-mods" select="$v_imprint/tei:publisher/child::node()[@xml:lang = $p_lang]"/>
