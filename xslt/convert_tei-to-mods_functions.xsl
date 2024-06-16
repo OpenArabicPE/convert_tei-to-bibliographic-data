@@ -614,11 +614,14 @@
     </xsl:template>
     <!-- notes -->
     <xsl:template match="tei:note[@type = 'tagList']" mode="m_tei-to-mods">
-        <xsl:for-each select="tei:list/tei:item">
+        <xsl:for-each select="tei:list">
             <subject>
-                <topic>
-                    <xsl:value-of select="."/>
-                </topic>
+                <xsl:attribute name="authority" select="@source"/>
+                <xsl:for-each select="tei:item">
+                    <topic>
+                        <xsl:value-of select="."/>
+                    </topic>
+                </xsl:for-each>
             </subject>
         </xsl:for-each>
     </xsl:template>
