@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TEI xml:id="107_final-HADERSBECK_Maximilian_Nachlass_Ludwig_Wittgenstein__Software" xmlns="http://www.tei-c.org/ns/1.0">
+<teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="full">
+<title type="main">Nachlass Ludwig Wittgenstein: Softwaretechnologien und computerlinguistische Methoden der Software-Infrastruktur um die FinderApp WiTTFind</title>
+<title type="sub"/>
+</title>
+<author>
+<persName>
+<surname>Hadersbeck</surname>
+<forename>Maximilian</forename>
+</persName>
+<affiliation>Ludwig-Maximilians Universität München</affiliation>
+<email>maximilian@cis.uni-muenchen.de</email>
+</author>
+<author>
+<persName>
+<surname>Babl</surname>
+<forename>Florian</forename>
+</persName>
+<affiliation>Ludwig-Maximilians Universität München</affiliation>
+<email>Florian.Babl@campus.lmu.de</email>
+</author>
+<author>
+<persName>
+<surname>Eisterhues</surname>
+<forename>Marcel</forename>
+</persName>
+<affiliation>Ludwig-Maximilians Universität München</affiliation>
+<email>Marcel.Eisterhues@campus.lmu.de</email>
+</author>
+<author>
+<persName>
+<surname>Röhrer</surname>
+<forename>Ines</forename>
+</persName>
+<affiliation>Ludwig-Maximilians Universität München</affiliation>
+<email>I.Roehrer@campus.lmu.de</email>
+</author>
+<author>
+<persName>
+<surname>Still</surname>
+<forename>Sebastian</forename>
+</persName>
+<affiliation>Ludwig-Maximilians Universität München</affiliation>
+<email>Sebastian.Still@campus.lmu.de</email>
+</author>
+<author>
+<persName>
+<surname>Ullrich</surname>
+<forename>Sabine</forename>
+</persName>
+<affiliation>Ludwig-Maximilians Universität München</affiliation>
+<email>sabine.ullrich@campus.lmu.de</email>
+</author>
+<author>
+<persName>
+<surname>Landes</surname>
+<forename>Florian</forename>
+</persName>
+<affiliation>Bayerische Akademie der Wissenschaften, München</affiliation>
+<email>florian.landes@kbl.badw.de</email>
+</author>
+<author>
+<persName>
+<surname>Lindinger</surname>
+<forename>Matthias</forename>
+</persName>
+<affiliation>Bayerische Staatsbilbliothek, München</affiliation>
+<email>matthias.lindinger@bsb-muenchen.de</email>
+</author>
+</titleStmt>
+<editionStmt>
+<edition>
+<date>2019-09-25T10:58:59.146957978</date>
+</edition>
+</editionStmt>
+<publicationStmt>
+<publisher>Universität Paderborn</publisher>
+<address>
+<addrLine>Warburger Str. 100</addrLine>
+<addrLine>33098 Paderborn</addrLine>
+<addrLine>Deutschland</addrLine>
+</address>
+</publicationStmt>
+<sourceDesc>
+<p>Converted from an OASIS Open Document</p>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<appInfo>
+<application ident="DHCONVALIDATOR" version="1.22">
+<label>DHConvalidator</label>
+</application>
+</appInfo>
+</encodingDesc>
+<profileDesc>
+<textClass>
+<keywords n="category" scheme="ConfTool">
+<term>Paper</term>
+</keywords>
+<keywords n="subcategory" scheme="ConfTool">
+<term>Workshop</term>
+</keywords>
+<keywords n="keywords" scheme="ConfTool">
+<term>TEI-P5 XML Edition und Transformation</term>
+<term>OCR</term>
+<term>Lexikalische Arbeit</term>
+<term>Suchmaschinen Programmierung</term>
+<term>NLP-Ähnlichkeitssuche</term>
+<term>WEB-Programmierung</term>
+<term>git Projektmanagement</term>
+<term>MongoDB</term>
+</keywords>
+<keywords n="topics" scheme="ConfTool">
+<term>Bilderfassung</term>
+<term>Programmierung</term>
+<term>Projektmanagement</term>
+<term>Webentwicklung</term>
+<term>Infrastruktur</term>
+<term>Forschung</term>
+</keywords>
+</textClass>
+</profileDesc>
+</teiHeader>
+<text>
+<body>
+<div rend="DH-Heading" type="div1">
+<head>Die Infrastuktur und das Projekt</head>
+<p>Seit 2010 kooperieren das Wittgenstein Archiv der Universität Bergen und das Centrum für Informations- und Sprachverarbeitung der Ludwig-Maximilians Universität München in der Forschungsgruppe „Wittgenstein Advanced Search Group“ (WAST). Die Forschungsgruppe entwickelt Web-Frontends (FinderApps) und spezielle Suchwerkzeuge, die sich gut für die Forschung und Lehre im Bereich der Digital Humanities eignen. Ihre erste Suchmaschine, die FinderApp WiTTFind (wittfind.cis.lmu.de, siehe Abb. 1), die den von der UNESCO zum Weltkulturerbe (im Jahr 2017) erhobenen (Schmidt 2018) Nachlass von Ludwig Wittgenstein durchsucht, gewann im Jahre 2014 der EU-Open-Humanity Award. Der Preis zeichnet Gruppen aus, die herausragende Technologie im Bereich der Humanities entwickelt haben. Die in der Forschergruppe programmierte FinderApp WiTTFind erlaubt es, mit hochqualifizierten, computerlinguistisch orientierten Suchwerkzeugen Nachlasstrans-kriptionen zu durchsuchen. Die Transkriptionen entstammen der 
+                    <hi rend="italic">Bergen Normalized Edition</hi>, die die Grundlage der Wittgenstein Edition bildet. Neben den gefundenen Treffern der Suchmaschine, werden in den Suchergebnissen von WiTTFind die Faksimile-Extrakte aus den Originaldokumenten angezeigt. So kann der Nutzer die „Aura“ der gefundenen Textstelle im Original studieren und nicht nur den transkribierten Text sehen.
+                </p>
+<p>
+<figure>
+  <graphic url="107_final-f897daa699cd4943461d46e6bf0dc126.png"/>
+  <head> Abbildung 1: WiTTFind (<ref target="http://wittfind.cis.lmu.de/">http://wittfind.cis.lmu.de</ref>)</head>
+</figure>
+</p>
+<!-- <p>Abb 1: WiTTFind ( -->
+<!--                     <ref target="http://wittfind.cis.lmu.de/">wittfind.cis.lmu.de</ref>) -->
+<!--                 </p> -->
+<p>Damit derNutzer auch den seitenweisen Kontext des Suchtreffers im Original studieren kann, wurde am CIS eine weitere WEB-Applikation entwickelt, der doppelseitige Reader. Dieser Reader ermöglicht es, vom Suchtreffer direkt an die entsprechende Stelle im entsprechenden Dokument des Originals zu springen. Im doppelseitigen Lesemodus kann der Nutzer in den Faksimile des originalen Dokuments blättern. Eine symmetrische Autovervollständigung gibt während der Suchanfrage einen statistischen und lexikalischen Zugang zu den Wörtern, die in der Edition vorkommen. Im Zentrum der Suche steht die selbstprogrammierte C++ Suchmaschine wf, die mit Hilfe von Vollformlexika (WiTTlex), verbessertem POS-Tagging und weiteren Metainformationen regelbasiertes Suchen erlaubt. Zum Aufspüren semantisch ähnlicher Textpassagen in der Edition gibt es das NLP-Tool WiTTSim.</p>
+<p>Die thematisch getrennten Aufgaben innerhalb der Infrastruktur der WAST-Tools (siehe Abb. 2) werden über REST-API’s von einzelnen Microservices realisiert, deren zentrale Datenhaltung über eine mongo Datenbank realisiert wird. Die Oberflächen der FinderApps werden mit HTML5, Javascript und Bootstraptechniken für WEB-Browser programmiert und möglichst browserunabhängig gehalten. </p>
+<p>
+<figure>
+<graphic url="107_final-3e09113c66b34dd483a67a95e3bda3a6.png"/>
+  <head> Abbildung 2: Infrastruktur der WAST-Tools (<ref target="http://gitlab.cis.lmu.de/">http://gitlab.cis.lmu.de</ref>)</head>
+</figure>
+</p>
+<!-- <p>Abb 2: Infrastruktur der WAST-Tools ( -->
+<!--                     <ref target="http://gitlab.cis.lmu.de/">http://gitlab.cis.lmu.de</ref>) -->
+<!--                 </p> -->
+<p>Alle Programme, Schnittstellen und Entwicklungen werden dokumentiert (siehe Abb. 3) und Tutorials für Anschlussprojekte entwickelt. So ist gewährleistet, dass die Tools und Suchmaschinen nachhaltig verwendet und auch für die Forschung und Lehre eingesetzt werden können. Als Versionskontrollsystem wird git verwendet.</p>
+<p>
+<figure>
+<graphic url="107_final-093084038ce6bf919787e0a17a7159fb.png"/>
+<head> Abbildung 3: Dokumentation der WAST-Tools: <ref target="http://wittfind.cis.uni-muenchen.de/wast/infrastruktur/index.html">http://wittfind.cis.uni-muenchen.de/wast/infrastruktur/index.html</ref></head>
+</figure>
+</p>
+<!-- <p>Abb. 3: Dokumentation der WAST-Tools: wittfind.cis.uni-muenchen.de/wast/infrastruktur/index.html</p> -->
+<p>Bei der Entwicklung der Infrastruktur der WAST-Tools wurden die strengen Vorgaben des EU-Open-Humanity Awards eingehalten: Forderungen nach Open-Source, interdisziplinäre Öffnung und Nachhaltigkeit. Diese Offenheit ermöglichte es weitere FinderApps für andere Wissenschaftsbereiche zu implementieren: GoetheFind (Faust-I und Faust-II Edition, Deutsches Textarchiv Berlin (XML-TEIP5, DTA Basis Format)), HistoFind (Briefwechsel Erzherzog Leopold Wilhelms an Kaiser Ferdinand III. aus dem Reichsarchiv Stockholm; Kooperation mit Historikern) und den OdysseeReader (Schreibprozess der zur Logisch-Philosophischen-Abhandlung führte; Kooperation mit Philosophen).</p>
+<p>In diesem Workshop werden die verwendeten Softwaretechnologien und computerlinguistischen Methoden im konkreten Einsatz vorgestellt. Den Teilnehmer*innen wird ein Debian-10 Container mit allen notwendigen Programmen, Tools und Dokumentation der gesamten Softwareinfrastruktur zur Verfügung gestellt. Innerhalb dieses Containers können die Teilnehmer*innen die einzelnen Tools der WAST-Projektgruppe kennenlernen und bekommen von den Projektmitarbeiter*innen kleine Aufgaben gestellt, die sie dann mit ihnen bearbeiten. So können sie die Arbeitsweise der WAST Infrastruktur konkret kennenlernen.</p>
+</div>
+<div rend="DH-Heading" type="div1">
+<head>Im Workshop werden folgende Datenformate, Tools und Programmierkonzepte vorgestellt und geübt</head>
+<p>Gitlab Projektmanagement und Continuous Integration, XML TEI-P5 Edition CISWAB, Faksimilestrukturierung und Texterkennung, lexikalische Arbeit, WEB-Oberfläche der FinderApps und Einsatz mit Micorservices, doppelseitiger Faksimilereader mit MongoDB, NLP-Tools zur semantischen Ähnlichkeitssuche, Vorstellung und Programmierung einer regelbasierten Suchmaschine und die Erstellung eines Dokumentationssystems mit Sphinx.</p>
+<div rend="DH-Heading2" type="div2">
+<head>Voraussetzungen an die Kursteilnehmer*innen</head>
+<p>Programmierkenntnisse (Grundkenntnisse): LINUX (Arbeit mit der UNIX-Shell), Python, XML, HTML, git, javascript, POS-Tagging.</p>
+<p>Da beim Workshop einige Entwickler der WAST-Tools anwesend sein werden, gibt es die Möglichkeit auch vertieft in die jeweilige Thematik einzusteigen.</p>
+</div>
+<div rend="DH-Heading2" type="div2">
+<head>Gitlab Projektmanagement und Continuous Integration (Hadersbeck, Still)</head>
+<p>Im gesamten Projekt wird als Versionierungssystem git verwendet. Die Projektrepositories werden auf zwei unterschiedlichen Rechnern ausgerollt: Dem preview-Server für Tests und einem Projektserver für die offizielle Onlineversion. Es wird das in der Praxis bewährte „git branching model“ kombiniert mit einer „continuous integration“ Technik eingesetzt. Mit einer Feedbackapp können Nutzer Fehler melden oder Implementierungswünsche äußern, die in Issues innerhalb der Projektrepositories bearbeitet werden.</p>
+</div>
+<div rend="DH-Heading2" type="div2">
+<head>XML TEI-P5 Edition CISWAB (Hadersbeck)</head>
+<p>Als Datenbasis für das WiTTFind Projekt wird die „Bergen Nachlass Edition“ (BNE) verwendet, die sich an den Richtlinien der Text Encoding Initiative (TEI-P5) orientiert. Im Workshop werden die wichtigen TEI-XML-Elemente der BNE vorgestellt.</p>
+<p>&#160; &#160;</p>
+</div>
+<div rend="DH-Heading2" type="div2">
+<head>Faksimilestrukturierung und Erkennung (Eisterhues, Landes)</head>
+<p>Da in den FinderApps neben den gefunden Textstellen auch die zugehörigen Faksimileextrakte aus der Edition dargestellt werden, sind Kenntnisse der Bildkoordinaten der Textstellen nötig. Diese Koordinaten werden mit Hilfe einer Kette von Bildverarbeitungstools ermittelt. Da bei Manuskripten und bei manuellen Änderungen in Dokumenten die automatische Zeichenerkennung unbrauchbare Ergebnisse liefert, wurden eigene Strategien entwickelt, die die Informationen aus der BNE nutzen. Im Workshop werden die eingesetzten Tools und Optimierungsstrategien vorgestellt.</p>
+</div>
+<div rend="DH-Heading2" type="div2">
+<head>Lexikalische Arbeit (Lokale Grammatiken, Semantik) (Röhrer)</head>
+<p>Zur lemmatisierten Suche, Partikelverberkennung und semantischen Wortfeldern wurden spezielle Projektlexika entwickelt (Röhrer 2017). Die Lexika enthalten alle Wörter der zu durchsuchenden Edition und sind mit grammatischen Angaben und zum Teil mit zusätzlichen semantischen Informationen versehen. Diese Lexika und ein nachgestelltes optimiertes Part-of-Speech Tagging ist die Grundlage für die computerlinguistischen Methoden, die bei der regelbasierten Suche im Nachlass von Ludwig Wittgenstein eingesetzt werden.</p>
+</div>
+<div rend="DH-Heading2" type="div2">
+<head>Regelbasierte Suchmaschine (Babl)</head>
+<p>Im Zentrum der FinderApps steht die Suchmaschine wf, ein multithreaded C++ Programm, das viele Anfragemöglichkeiten zur Suche implementiert: Einwort und Mehrwortsuche (mit internem Rankingverfahren) und reguläre Ausdrücke kombiniert mit linguistischen Anfragen (Morphologische Eigenschaften, POS-Tags, semantische und syntaktische Tags). Für das Rankingverfahren wird für jeden Suchtreffer die Relevanz zur Suchanfrage berechnet. Die Qualität für jeden Suchtreffer, die Distanz zwischen den einzelnen Wörtern und unterschiedlichen Belohnungs- und Bestrafungsparametern, gehen in die Berechnung der Relevanz ein. Die Treffer werden dann nach dieser sortiert und auf der Website ausgegeben. Durch dieses neuartige Ranking kann nun auch nach verschiedenen Wörtern gesucht werden, die im Text nicht direkt hintereinander stehen müssen.</p>
+</div>
+<div rend="DH-Heading2" type="div2">
+<head>NLP-Tool Semantische Ähnlichkeitssuche (Ullrich)</head>
+<p>Zur Extraktion von semantisch ähnlichen Bemerkungen wurde das Analysetool WiTTSim (Ullrich 2018) entwickelt, welches anhand von semantischen und syntaktischen Features ähnliche Texte identifiziert. Da die enorm hohe Anzahl von etwa 100.000 Features in Kombination mit den zu vergleichenden 54.000 Bemerkungen eine effiziente Suche unmöglich macht, wurde ein semantisches Clustering-Verfahren vorgeschaltet (Ullrich 2019), welches durch Dimensionsreduktion und Gruppierung der Texte die Rechenzeit der Ähnlichkeitssuche um den Faktor 100 beschleunigt.</p>
+</div>
+<div rend="DH-Heading2" type="div2">
+<head>WEB-Oberfläche der FinderApps und Micorservices (Hadersbeck, Still)</head>
+<p>Zur Arbeit mit WiTTFind wird dem User eine WEB-basierte FinderApp zur Verfügung gestellt, die über REST-APIs und „internet microservices“ mit den WAST-Tools kommuniziert. HTML5, Javascript und Bootstrap-css erlauben den Aufbau der WEB-page, die nahezu browserunabhängig die Schnittstelle zum Anwender darstellt. </p>
+</div>
+<div rend="DH-Heading2" type="div2">
+<head>Doppelseitiger Faksimilereader und MongoDB (Lindinger)</head>
+<p>Der doppelseitiger Faksimilereader ist eine komplett eigenständige Anwendung mit Suchschlitz und Investigate Mode zur gleichzeitigen Betrachtung von Faksimile und Transkription. Außerdem gibt es zahlreiche weitere Features, die es den Nutzern sehr bequem erlauben, die gefunden Treffer der Suchmaschine im Kontext einer doppelseitigen Darstellung der Faksimile zu sehen und gleichzeitig durch die Dokumente der Forschungsdomäne zu blättern. Sämtliche Informationen bzgl. Edition und Faksimile sind in einer MongoDB gespeichert und werden über HTTP-Schnittstellen abgefragt.</p>
+</div>
+<div rend="DH-Heading2" type="div2">
+<head>Dokumentationssystem Sphinx (Babl) (siehe Abb.2)</head>
+<p>Für jedes Teilprojekt der Wittgenstein Advanced Search Tools (WAST) wird im entsprechenden Gitlab Ordner eine README.md Datei erstellt, das in einer Dokumentation, die alle Projekte umspannt mithilfe der Software Sphinx zusammengefasst und online auf ansprechende Art und Weise darstellt. Die Dokumentation hilft, neuen Studierenden einen schnelleren Einstieg in das Projekt zu finden und ermöglicht es, das gesamte WAST-Projekt schnell nach bestimmten Fachbegriffen zu durchsuchen. </p>
+</div>
+</div>
+<div rend="DH-Heading" type="div1">
+  <head>Programm des Workshops (ganztages Workshop)</head>
+  <div rend="DH-Heading2" type="div2">
+    <head>Überblick/Einführung/Vorstellungsrunde </head>
+    <p>Digitaler Zugang zum Nachlass von Ludwig Wittgenstein, das Projekt WAST (Dr. Max Hadersbeck)</p>
+    <p>Fragen/ Diskussion/ gewünschte Schwerpunkte der Teilnehmer*innen des Workshops</p>
+  </div>
+  <div rend="DH-Heading2" type="div2">
+    <head>
+    <hi rend="bold">WAST-Spezialthemen</hi> (jeweils ca. 15 Min. Theorie / 20 Min. Praxis)</head>
+    <list type="unordered">
+      <item> Gitlab Projektmanagement und Continuous Integration mit git production / testing server (Hadersbeck, Still) 
+      </item>
+      <item> XML TEI-P5 Edition CISWAB (Hadersbeck): Bergen Normalized Edition und xslt-Transformationen und Investigate-Mode von WiTTFind</item>
+      <item> Faksimilestrukturierung und OCR Erkennung (Eisterhues, Landes) </item>
+      <item> Lexikalische Arbeit (Röhrer): Lemmatisierte Suche, Lexika, Lokale Grammatiken, Query Beispiele</item>
+      <item> WEB-Oberfläche der FinderApps und Microservices (Hadersbeck, Still): Flask server, Javascript</item>
+      <item> Doppelseitiger Faksimilereader und mongodb (Lindinger) </item>
+      <item> NLP-Tool Semantische Ähnlichkeitssuche (Ullrich): NLP-Python Libraries, Funktionalitäten</item>
+      <item> Regelbasierte Suchmaschine (Babl): Programmierung C++, make/cmake, client-server Programmierung mit C++</item>
+      <item> Dokumentationssystem Sphinx (Babl): Markdown, Sphinx Installation, 2HTML, 2PDF</item>
+    </list>
+  </div>
+  <div rend="DH-Heading2" type="div2">
+    <head>Arbeitsgruppen: Diskussionen/Spezialfragen</head>
+    <p>Je nach Interesse der Teilnehmer*innen unter der Leitung der einzelnen Dozent*innen.</p>
+  </div>
+</div>
+<div rend="DH-Heading" type="div1">
+  <head>Kurzbiographie der Dozent*innen</head>
+  <div rend="DH-Heading2" type="div2">
+    <head>Florian Babl (CIS)</head>
+    <!-- <p> -->
+    <!--   <ref target="mailto:florian.babl@campus.lmu.de">florian.babl@campus.lmu.de</ref> -->
+    <!-- </p> -->
+    <p>Bachelorarbeit: Entwicklung eines Rankingverfahrens der Suchtreffer für die FinderApp WiTTfind im Nachlass Ludwig Wittgensteins </p>
+    <p>Forschungsschwerpunkte: verschiedene Rankingalgorithmen und ihre Funktionalität mit dem Ziel der Rankingverbesserung.</p>
+  </div>
+  <div rend="DH-Heading2" type="div2">
+    <head>Marcel Eisterhues (CIS)</head>
+    <!-- <p> -->
+    <!--   <hi rend="color(#000080)">marcel.eisterhues@campus.lmu.de</hi> -->
+    <!-- </p> -->
+    <p>Forschungsschwerpunkte: Der momentane Forschungsschwerpunkt ist die automatische Seitensegmentierung von handgeschriebenen Texten.</p>
+  </div>
+  <div rend="DH-Heading2" type="div2">
+    <head>Max Hadersbeck (CIS)</head>
+    <!-- <p> -->
+    <!--   <ref target="mailto:maximilian.hadersbeck@lmu.de">maximilian.hadersbeck@lmu.de</ref> -->
+    <!-- </p> -->
+    <p>Projektleiter und Dozent am CIS</p>
+    <p>Forschungsschwerpunkte: Digitaler Zugang zum Nachlass von Ludwig Wittgenstein, FinderApp WiTTFind, Wittgenstein Advanced Search Tools, Programmierung: C++, Python, XML</p>
+  </div>
+  <div rend="DH-Heading2" type="div2">
+    <head>Florian Landes (Kommission für bayerische Landesgeschichte bei der Bayerischen Akademie der Wissenschaften) </head>
+    <!-- <p> -->
+    <!--   <ref target="mailto:florian.landes@kbl.badw.de">florian.landes@kbl.badw.de</ref> -->
+    <!-- </p> -->
+    <p>Bachelorarbeit: Optical Character Recognition (OCR) – Optische Zeichenerkennung (OZE) Ein Werkzeug zur Verknüpfung von digitaler Edition und Faksimile? Semiautomatische Ermittlung von Bildkoordinaten für WiTTFind</p>
+    <p>Forschungsschwerpunkte: OCR, OZE, Bavarikonprojekt Ortsnamen des Regierungsbezirks Schwaben</p>
+    <p>&#160;<lb/>&#160;<lb/>&#160;</p>
+  </div>
+  <div rend="DH-Heading2" type="div2">
+    <head>Ines Röhrer (CIS)</head>
+    <!-- <p> -->
+    <!--   <hi rend="color(#000080)">I.roehrer@campus.lmu.de</hi> -->
+    <!-- </p> -->
+    <p>Masterarbeit: Lexikon, Syntax und Semantik - computerlinguistische Untersuchungen zum Nachlass Ludwig Wittgensteins</p>
+    <p>Forschungsschwerpunkte: Digitales Speziallexikon WiTTLex für den Nachlass von Ludwig Wittgenstein</p>
+  </div>
+  <div rend="DH-Heading2" type="div2">
+    <head>Sebastian Still (CIS)</head>
+    <!-- <p> -->
+    <!--   <hi rend="color(#000080)">Sebastian.Still@campus.lmu.de</hi> -->
+    <!-- </p> -->
+    <p>Masterarbeit: Ludwig Wittgenstein: 100 Jahre Traktatus. Der Odyssee-Reader, ein web-basiertes Tool zur textgenetischen Suche im Traktatus</p>
+    <p>Forschungsschwerpunkte: moderne Frontend Programmierung, NLP (Backend)</p>
+  </div>
+  <div rend="DH-Heading2" type="div2">
+    <head>Sabine Ullrich (CIS)</head>
+    <!-- <p>sabine.ullrich@campus.lmu.de</p> -->
+    <p>Masterarbeit: Clustering zur Verbesserung der Performanz einer Ähnlichkeitssuche</p>
+    <p>Forschungsschwerpunkte: Natural Language Processing, Data Mining, semantische Ähnlichkeitserkennung im Nachlass von Ludwig Wittgenstein</p>
+  </div>
+</div>
+</body>
+<back>
+<div type="bibliogr">
+<listBibl>
+<head>Bibliographie</head>
+<bibl>
+<hi rend="bold">Babl, Florian </hi>(2019): 
+                        <hi rend="italic">Entwicklung eines Rankingverfahrens der Suchtreffer für die FinderApp WiTTFind im Nachlass Ludwig Wittgensteins</hi>. Bachelor‘s thesis. LMU.
+                    </bibl>
+<bibl>
+<hi rend="bold">Landes, </hi>
+<hi rend="bold">Florian</hi> (2019): 
+                        <hi rend="italic">Optical Character Recognition (OCR) – Optische Zeichenerkennung (OZE). Ein Werkzeug zur Verknüpfung von digitaler Edition und Faksimile? Semiautomatische Ermittlung von Bildkoordinaten für WiTTFind</hi>, Bachelorarbeit, LMU.
+                    </bibl>
+<bibl>
+<hi rend="bold">Lindinger, Matthias</hi> (2013): 
+                        <hi rend="italic">Highlighting von Treffern des Suchmaschinentools </hi>
+<hi rend="italic">WiTTFind im zugehörigen Faksimile.</hi> Bachelor‘s thesis, LMU.
+</bibl>
+<bibl>
+<hi rend="bold">Lindinger, </hi>
+<hi rend="bold">Matthias</hi> (2015): 
+                        <hi rend="italic">Entwicklung eines WEB-basierten Faksimileviewers mit Highlighting von Suchmaschinen-Treffern und Anzeige der zugehörigen Texte in unterschiedlichen Editionsformaten</hi>. Master's thesis, LMU.
+                    </bibl>
+<bibl>
+<hi rend="bold">Pichler, Alois</hi> (2017): 
+                        <hi rend="italic">Wittgenstein Archives at the University of Bergen (WAB): Open Access to Wittgenstein's Nachlass. XML based Interactive Dynamic Presentation (IDP) of WAB's Nachlass transcriptions.</hi> 16. Mai 2017. http://wab.uib.no/transform/wab.php?modus=opsjoner [letzter Zugriff 20.09.2019].
+                    </bibl>
+<bibl>
+<hi rend="bold">Hadersbeck, </hi>
+<hi rend="bold">Maximilian / </hi>
+<hi rend="bold">Pichler, </hi>
+<hi rend="bold">Alois / </hi>
+<hi rend="bold">Fink, </hi>
+<hi rend="bold">Florian /</hi>
+<hi rend="bold"> Gjesdal, </hi>
+<hi rend="bold">Øyvind L.</hi> (2014): „Wittgenstein's Nachlass: WiTTFind and Wittgenstein advanced search tools (WAST)“
+                        <hi rend="italic">,</hi> in: 
+                        <hi rend="italic">Proceedings of the First International Conference on Digital Access to Textual Cultural Heritage</hi>, 91-96. ACM.
+                    </bibl>
+<bibl>
+<hi rend="bold">Hadersbeck , </hi>
+<hi rend="bold">Maximilian /</hi>
+<hi rend="bold"> Pichler, </hi>
+<hi rend="bold"> Alois /</hi>
+<hi rend="bold"> Bruder, Daniel / Schweter, Stefan</hi> (2016): 
+                        <hi rend="italic">New (re)search </hi>
+<hi rend="italic">possibilities for Wittgenstein's Nachlass II: Advanced Search, Navigation and Feedback with the FinderApp WiTTFind</hi>. http://wab.uib.no/alois/Hadersbeck_Pichler%20Kirchberg2016.pdf [letzter Zugriff 20.09.2019].
+                    </bibl>
+<bibl>
+<hi rend="bold">Röhrer, </hi>
+<hi rend="bold">Ines / </hi>
+<hi rend="bold">Ullrich, </hi>
+<hi rend="bold">Sabine / </hi>
+<hi rend="bold">Hadersbeck, </hi>
+<hi rend="bold">Maximilian </hi>(2019): 
+                        <hi rend="italic">Weltkulturerbe international digital: Erweiterung der Wittgenstein Advanced Search Tools durch Semantisierung und neuronale maschinelle Übersetzung</hi>. multimedial multimodal. Abstracts zur Jahrestagung des Verbandes Digital Humanities im deutschsprachigen Raum, 25. - 29.03.2019 an den Universitäten zu Mainz und Frankfurt.
+                    </bibl>
+<bibl>
+<hi rend="bold">Röhrer, </hi>
+<hi rend="bold">Ines </hi>(2017): 
+                        <hi rend="italic">Musik und Ludwig Wittgenstein: Semantische Suche in seinem Nachlass.</hi> Bachelor‘s thesis, LMU.
+                    </bibl>
+<bibl>
+<hi rend="bold">Schmidt, </hi>
+<hi rend="bold">Alfred </hi>(2018): „Ludwig Wittgenstein’s Nachlass in the UNESCO Memory of the World register.“, in: 
+                        <hi rend="italic">Nordic Wittgenstein Review </hi>7(2):209–213.
+                    </bibl>
+<bibl>
+<hi rend="bold">Ullrich, </hi>
+<hi rend="bold">Sabine /</hi>
+<hi rend="bold"> Bruder, </hi>
+<hi rend="bold">Daniel /</hi>
+<hi rend="bold"> Hadersbeck, </hi>
+<hi rend="bold">Maximilian </hi>(2018): Aufdecken von „versteckten" Einflüssen: Teil-Automatisierte Textgenetische Prozesse mit Methoden der Computerlinguistik und des Machine Learning. Kritik der digitalen Vernunft. Abstracts zur Jahrestagung des Verbandes Digital Humanities im deutschsprachigen Raum, 26.02.-02.03. 2018 an der Universi
+                        <anchor xml:id="id__GoBack"/>tät zu Köln, veranstaltet vom Cologne Center for eHumanities (CceH).
+                    </bibl>
+<bibl>
+<hi rend="bold">Ullrich, Sabine </hi>(2019):
+                        <hi rend="italic"> Boosting Performance of a Similarity Detection System using State of the Art Clustering Algorithms</hi>. Master‘s thesis. LMU.
+                    </bibl>
+</listBibl>
+</div>
+</back>
+</text>
+</TEI>

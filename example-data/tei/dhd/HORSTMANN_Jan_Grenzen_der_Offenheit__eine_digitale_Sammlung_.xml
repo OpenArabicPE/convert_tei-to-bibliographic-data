@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:id="HORSTMANN_Jan_Grenzen_der_Offenheit__eine_digitale_Sammlung_" xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Grenzen der Offenheit: eine digitale Sammlung zur Erforschung historischer Arzneimittelrezepte</title>
+                <author>
+                    <persName>
+                        <surname>Dinger</surname>
+                        <forename>Patrick</forename>
+                    </persName>
+                    <affiliation>Westfälische Wilhelms-Universität Münster, Deutschland</affiliation>
+                    <email>patrick.dinger@uni-muenster.de</email>
+                    <idno type="ORCID">0000-0002-2649-4737</idno>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Horstmann</surname>
+                        <forename>Jan</forename>
+                    </persName>
+                    <affiliation>Westfälische Wilhelms-Universität Münster, Deutschland</affiliation>
+                    <email>jan.horstmann@uni-muenster.de</email>
+                    <idno type="ORCID">0000-0001-8047-2232</idno>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Schellhammer</surname>
+                        <forename>Stefan</forename>
+                    </persName>
+                    <affiliation>Westfälische Wilhelms-Universität Münster, Deutschland</affiliation>
+                    <email>Stefan.Schellhammer@wi.uni-muenster.de</email>
+                    <idno type="ORCID">0000-0001-9954-7695</idno>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Troglauer</surname>
+                        <forename>Patrick</forename>
+                    </persName>
+                    <affiliation>Westfälische Wilhelms-Universität Münster, Deutschland</affiliation>
+                    <email>patrick.troglauer@wi.uni-muenster.de</email>
+                    <idno type="ORCID">0000-0002-7045-6877</idno>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2022-07-15T10:28:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                    <publisher>Culture and Computation Lab</publisher>
+                    <address>
+                        <addrLine>Université du Luxembourg</addrLine>
+                        <addrLine>2, Avenue de l'Université</addrLine>
+                        <addrLine>L-4365 Esch-sur Alzette</addrLine>
+                        <addrLine>Luxembourg</addrLine>
+                    </address>
+                    <publisher>Luxembourg Centre for Contemporary and Digital History</publisher>
+                    <address>
+                        <addrLine>Université du Luxembourg</addrLine>
+                        <addrLine>2, Avenue de l'Université</addrLine>
+                        <addrLine>L-4365 Esch-sur Alzette</addrLine>
+                        <addrLine>Luxembourg</addrLine>
+                    </address>
+                    <publisher>Trier Center for Digital Humanities</publisher>
+                    <address>
+                        <addrLine>Universität Trier</addrLine>  
+                        <addrLine>Universitätsring 15</addrLine>
+                        <addrLine>54296 Trier</addrLine>
+                        <addrLine>Deutschland</addrLine>
+                    </address>
+                </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Vortrag</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Arzneimittelrezepte</term>
+                    <term>FAIR-Prinzipien</term>
+                    <term>Open Science</term>
+                    <term>Öffnung</term>
+                    <term>Supportstrukturen</term>
+                    <term>Nachhaltigkeit</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>Datenerkennung</term>
+                    <term>Sammlung</term>
+                    <term>Bereinigung</term>
+                    <term>Bearbeitung</term>
+                    <term>Veröffentlichung</term>
+                    <term>Infrastruktur</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Einleitung</head>
+                <p>Das BMBF-geförderte Forschungsprojekts „ArIS - Durch das Artefakt zur ‘infra structura’“<ref n="1" target="ftn1"/> hatte das Ziel, durch Erschließung von Arzneimittelrezepten einen erkenntnisermöglichenden Zugang zur Entstehung der Gesundheitsinfrastruktur in Deutschland und Österreich zu generieren.<ref n="2" target="ftn2"/> Im Fokus der Forschungsaktivität des Projekts lag das Vorhaben, über historische Rezepte Einblick in die Entwicklungsgeschichte des deutschen Gesundheitssystems zu erhalten. Die auf ihnen zu findenden Spuren bieten Hinweise auf kleinere und größere Veränderungen ihrer historischen Umwelt, wie bspw. die Entstehung der Krankenkassen oder neue Abrechnungsformen. Da auf keine vorhandenen Daten dieser Art zurückgegriffen werden konnte, wurden erstmals historische Arzneimittelrezepte in größerem Umfang digitalisiert und der Versuch unternommen, diese artefakt-individuell zu untersuchen und zu beschreiben. Gleichsam als Nebenprodukt entstanden bei der digitalen Erschließung Scans der Rezeptzettel, welche die Möglichkeit für eine weitere inhaltliche Erfassung im Rahmen von Anschlussforschung bieten. Das Bestreben, die Datenbank inkl. Scans als eine den FAIR-Prinzipien<ref n="3" target="ftn3"/> entsprechende Datensammlung hierfür zu veröffentlichen, stößt jedoch auf einige Hindernisse.
+                </p>
+                <p>Das Projekt war eine Kooperation zwischen Wirtschaftsinformatiker*innen und Pharmaziehistoriker*innen der Universitäten Aachen, Münster und Marburg sowie dem Deutschen Apotheken-Museum Heidelberg und wurde über vier Jahre (2018–2022) gefördert.<ref n="4" target="ftn4"/> Trotz des von den Projektpartner*innen vertretenen Anspruchs an Offenheit musste an mehreren Stellen des Projekts aus unterschiedlichen Gründen von diesem Prinzip abgewichen werden. Dies ist sowohl auf projektspezifische Forschungsinteressen als auch rechtliche Einschränkungen zurückzuführen, die im Folgenden erörtert werden.
+                </p>
+                <p>Obwohl es sich bei dem Arzneimittelrezept um einen jahrhundertealten, millionenfach ausgestellten Gegenstand der Gesundheitsversorgung im alltäglichen Leben handelt, wurde dieser bislang kaum als erhaltenswert wahrgenommen. Im ArIS-Projekt ist nun eine einmalige Datenbank mit digitalisierten Rezeptblättern aus mehreren Sammlungen unterschiedlicher Herkunft mit über 12.200 Datensätzen entstanden. </p>
+                <figure>
+                    <graphic n="1001" width="15.980833333333333cm" height="7.852833333333334cm" url="Pictures/5281e186736f49bc50cb3d9b00f752c0.png" rend="inline"/>
+                    <head>Beispiele historischer Arzneimittelrezepte (Bildinhaber: Deutsches Apotheken-Museum Heidelberg)</head>
+                </figure>
+                <p>Mit Blick auf den typischen Lebenszyklus von Forschungsdaten<ref n="5" target="ftn5"/> und den Anspruch von Open Science (vgl. Heise 2018) lassen sich bei einem interdisziplinären Projektvorhaben dieser Größenordnung unterschiedliche Herausforderungen beobachten: (1) Der große historische Rahmen, aus dem die Objekte stammen, wirft in der Modellierung die Frage nach einer geeigneten Definition des Terminus „Rezept“ auf. (2) Methodisch zeigt sich bei großen, heterogenen Handschriftenkorpora die Notwendigkeit, traditionelle Erschließungsmethoden durch visuelle Analysen zu ergänzen. (3) Neben rechtlichen Herausforderungen bei Open Data, wie Urheber- und Verwendungsrechten, sind bei Gesundheitsdaten besondere Schutzbedürfnisse und Fristen zu wahren, die nach einem Konzept für eine dynamische Öffnung von Daten verlangen.
+                </p>
+                <p>Die verschiedenen Möglichkeiten der inhaltlichen Erschließung bei herausfordernder Rechtslage sind die zentralen Aspekte sowohl des Forschungsprojekts ArIS als auch des vorliegenden Beitrags.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Offene Supportstrukturen für das ArIS-Projekt</head>
+                <p>Ziel des ArIS-Projekts war es, die Rolle und Bedeutung des Arzneimittelrezepts in der Entstehung des modernen Gesundheitswesens zu untersuchen. Zu diesem Zweck sollte zunächst eine empirische Grundlage geschaffen werden, indem vorhandene Sammlungen von Schriftstücken (meist Zettel) mit Rezepten unterschiedlicher Standorte identifiziert, digitalisiert und virtuell zusammengeführt wurden.</p>
+                <p>Zur Erschließung, Modellierung, Analyse und Langzeitarchivierung der im Projekt entstehenden Forschungsdaten griffen die Münsteraner Projektpartner aus der Wirtschaftsinformatik auf die Kompetenzstrukturen der eigenen Institution zurück und erarbeiteten zusammen mit der Universitäts- und Landesbibliothek und ihren Service Centern for Data Management<ref n="6" target="ftn6"/> und for Digital Humanities<ref n="7" target="ftn7"/> ein strukturiertes Vorgehen.<ref n="8" target="ftn8"/> Die für die Forschenden an der Universität Münster frei und dauerhaft zur Verfügung stehenden Supportstrukturen ermöglichten sowohl eine enge und nachhaltige Zusammenarbeit als auch eine Orientierung an Standardformaten. Impulse für die Modellierung und den Einsatz von Methoden des maschinellen Lernens (vgl. Bönisch 2022) konnten so frühzeitig und während der gesamten Projektdauer aufgenommen werden.
+                </p>
+                <p>Zu Beginn lag ein Großteil der physischen Artefakte als ungesichtete Blattsammlungen in Kartons vor, zu denen nur in Teilen Metadaten erfasst waren. Daten auf Artefaktebene oder auch Aussagen über mögliche Ordnungsprinzipien in Bezug auf Kartons oder andere physische Objektklammern gab es i.d.R. nicht. Die Digitalisate bisher nicht archivierter Schriftstücke wurden daher mit Inventarnummern versehen, die Rückschlüsse auf Ort, Lagerform und Blattnummer zulassen. Auf diese Weise sollte die Wiederauffindbarkeit der physischen Blätter an den jeweiligen (musealen) Standorten gewährleistet sein, um einem durch die Digitalisierung möglicherweise entstehenden Informationsverlust (Bindung, Ordnungsprinzipien) entgegenzuwirken. Anschließend wurden die Digitalisate inklusive der bereits existierenden Metadaten in eine easydb-Datenbank importiert.<ref n="9" target="ftn9"/> Die an der ULB Münster betriebene Datenbank erlaubt eine flexible Gestaltung des Datenmodells, sodass auf die Anforderungen des interdisziplinären Forschungs- und Erschließungsprojekts eingegangen werden konnte. Geschaffen wurde so eine standardisierte Datenbank, in welcher die heterogenen Bestände unterschiedlicher Provenienz zusammengeführt, erfasst und verwaltet werden.
+                </p>
+                <p>Durch die neu gewonnene digitale Verfügbarkeit der Artefakte sowie das flexible Rechtemanagement der ULB Münster konnten Teilsammlungen, wie beispielsweise die des Deutschen Apotheken-Museums in Heidelberg, von ausgewiesenen Fachwissenschaftler*innen erschlossen werden. Zugänglichkeit und Multibenutzer-Betrieb der Forschungsdatenbank ermöglichten es den Projektpartner*innen des ArIS-Projekts asynchron und ohne Konflikte in den Daten zu erzeugen, ihr fachspezifisches Wissen bei der Erschließung einzubringen.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Standardisierte Metadatenmodellierung und projektspezifische Erweiterungen</head>
+                <p>Bei der Erschließung digitalisierter Sammlungen der Universität Münster liegt der Fokus auf einer standardisierten Erfassung der Metadaten, der Nutzung etablierter Datenformate wie LIDO oder METS/MODS sowie der Anbindung von Normdaten und kontrollierten Vokabularien (vgl. DFG-Praxisregeln). Nur unter Beachtung dieser Voraussetzungen ist die Entstehung von interoperablen (
+                    <hi rend="italic">interoperabel</hi>) und wiederverwendbaren (
+                    <hi rend="italic">reusable</hi>) Forschungsdaten gewährleistet. Bei der Bildung der umfassenden Datensammlung (vgl. Schöch 2017) wurden Sammlungen von Arzneimittelrezepten mit heterogenem Inventarisierungs- und Kuratierungsstatus zusammengeführt. Daraus ergibt sich die konzeptionelle Frage, ob der standardisierte Erschließungsworkflow den Anforderungen der vorliegenden Sammlung überhaupt gerecht werden kann (vgl. Dörk und Glinka 2018).
+                </p>
+                <p>In enger Kooperation zwischen dem Teilprojektteam in Münster und der ULB Münster (Service Center for Data Management; SCDM) wurde entschieden, anstelle einer standardisierten Erschließung der einzelnen Rezepte zunächst eine flexible Modellierung der vorhandenen Bild- und Objektdaten anzustreben. Hintergrund ist, dass anders als in unserer Alltagsvorstellung ein Digitalisat bzw. Datensatz nicht zwangsläufig mit einem einzelnen Arzneimittelrezept auf einer Seite eines Blattes gleichzusetzen ist. Das Rezept als abstraktes Konzept, das erst in einem bestimmten sozialen Kontext seine Form und Definition erhält, ist vielmehr unabhängig von einer bestimmten physischen Repräsentation. Heutzutage wird unter einem Arzneimittelrezept die formelle, schriftliche Aufforderung von Ärzt*innen an Apotheker*innen zur Abgabe von Arzneimitteln an eine/n bestimmte/n Patient*in verstanden. Inwiefern dieses Begriffsverständnis und dessen definitorische Merkmale aber auf historische Rezepte übertragbar sind, ist Teil eines pharmaziehistorischen Forschungsdiskurses (vgl. Seidel 1977, 22f.) und soll an dieser Stelle nicht weiter ausgeführt werden. Für den Projektkontext ist jedoch bedeutsam, dass die einzelnen Digitalisate manuell dahingehend überprüft werden mussten, ob sie Rezeptinformationen enthalten.</p>
+                <p>Für die Modellierung der Daten wurden die durch den externen Dienstleister dokumentierten Informationen zu den Artefakten in die Datenbank übernommen, wie z.B. die Klammerung oder Bindungen der Blätter. Zu diesem Zeitpunkt war jedoch unklar, ob den wenigen ermittelten Informationen ein historisch relevantes Ordnungsprinzip zu Grunde lag oder ob es sich um zufällige Gegebenheiten handelte. Gleichwohl erschien die Abbildung dieser Parameter als ein sinnvoller erster Schritt, eine Ordnung für die Daten und damit einen Ausgangspunkt für die Analyse zu finden.</p>
+                <p>Alle vorhandenen Rezeptblätter wurden formal erschlossen, kategorisiert, datiert und zu einer übergreifenden Datenbank zusammengeführt. In einem zweiten Schritt können einzelne Arzneimittelrezepte mit spezifischen Fragestellungen aus dem Bereich der Medizin- und Pharmaziegeschichte nach den etablierten Standards des Sammlungsmanagements<ref n="10" target="ftn10"/> erschlossen werden. Zugleich können auf Grundlage der entstandenen Datenbasis zentrale Fragen wie die Entwicklung der Arzneimittelrezepte anhand der identifizierten, übergreifenden Kriterien nachgezeichnet werden.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Inhaltliche Erschließung als Herausforderung und Voraussetzung</head>
+                <p>Die Erschließung und Erfassung von grundlegenden Metadaten der losen Zettelsammlung ist ein enormer Gewinn für die Forschung, da hier die Existenz möglicher Quellen nachgewiesen wird. Ähnlich wie bei vergleichbaren Archivalien entsteht so eine Art Zusammenführung, die einen Überblick über bestimmte Informationen eines größeren Zeitraums zulässt, in Bezug auf den Inhalt der Rezepte jedoch noch wenig Aussagekraft hat und damit zwar eine gute, aber keine hinreichende Quelle darstellt. Die Forschungsfragen etwa nach den verwendeten Arzneimitteln/Präparaten beginnen aber erst auf einer feingranulareren Ebene der Modellierung, wenn auch die Inhalte identifiziert werden.</p>
+                <p>Um die Findbarkeit von Inhalten der Rezepte zu erhöhen (und anschließende Analysen zu ermöglichen), wäre eine vollständige Maschinenlesbarkeit der Rezepte optimal. Die Möglichkeiten der inhaltlichen Erschließung stoßen in diesem Fall jedoch an methodische Grenzen: Die Arzneimittelrezepte sind in der Regel vollständig handschriftlich geschrieben oder zumindest handschriftlich ausgefüllt. Es finden sich zu viele unterschiedliche Handschriften und sprachliche Besonderheiten (Abkürzungen, Apothekerlatein), die nach aktuellem Stand der algorithmischen Möglichkeiten eines Handwritten-Text-Recognition-Ansatzes<ref n="11" target="ftn11"/> nicht trainiert werden können, sondern händisch transkribiert werden müssten. Hierfür fehlten im Projekt die zeitlichen und personellen Kapazitäten. Bislang wurde daher lediglich ein Subset der Rezepte im Rahmen eines geplanten Webauftritts des Deutschen Apotheken-Museums Heidelberg vollständig transkribiert.
+                </p>
+                <p>Konfrontiert mit diesen Herausforderungen wurde im Projekt nach alternativen Wegen zur Überschreitung der Objektebene gesucht. Die Interpretation der losen Blattsammlung als Kollektion visueller Artefakte erschien dabei vielversprechend. Mit Methoden der Computer Vision (vgl. z.B. Arnold und Tilton 2019; He et al. 2016; Redmon et al. 2016) lässt sich das Korpus als Ganzes in seiner visuellen Ausprägung analysieren und z.B. mithilfe einer Mustererkennung clustern. Denkbar wäre hier etwa die Suche nach verwendeten Stempeln, Schriftfarben/Schreibutensilien oder standardisierten Vorstrukturierungen der Rezeptzettel, anhand derer sich eine über die Zeit zunehmende Formalisierung nicht nur der Behandlung, sondern auch der damit einhergehenden Kommunikation der Akteure feststellen ließe.</p>
+                <p>Eine Herausforderung ist hierbei, dass die Rezeptzettel nicht mit dem Ziel einer automatisierten, visuellen Analyse eingescannt wurden, sodass häufig etwa Kriterien wie geknickte Ecken oder Verfärbungen fälschlicherweise zu einem Clustering führen, das für die inhaltsbezogene Forschungsfrage keine Aussagekraft hat. In einem verhältnismäßig aufwändigen Preprocessing müssten die Scans daher vor einer eingehenden Computer-Vision-Analyse einzeln bereinigt und normiert werden, um anhand inhaltlicher Kriterien aussagekräftig clustern zu können. Erste Schritte wurden hierfür mit dem am DHLab Yale entwickelten Tool PixPlot (vgl. Duhaime 2019) gemacht. Im Gegensatz zu eigentlich intendierten Anwendungsszenarien diente die Software dazu, im Zusammenspiel mit easydb eine Gesamtschau auf die Daten zu kreieren, die mit der Betrachtung einzelner Bilddateien in der Datenbank nicht erreicht werden konnte. </p>
+                <figure>
+                    <graphic n="1002" width="15.980833333333333cm" height="12.6365cm" url="Pictures/60f90fc8399e52a1f71300de40c50c52.png" rend="inline"/>
+                    <head>Clusterbildung ausgewählter Arzneimittelrezepte mit PixPlot</head>
+                </figure>
+                <p>Das Tool erlaubt es, die Rezeptzettel nach Ähnlichkeit oder auch anhand einer Zeitachse zu clustern. Durch das Zusammenspiel menschlicher und maschineller Analyse können darüber hinaus die identifizierten Erscheinungsformen der Arzneimittelrezepte bestätigt, auf visueller Ebene evaluiert und Datenanomalien erkannt werden. Obwohl diese Verknüpfung von Datenbank und visueller, software-gestützter Analyse bei der Erschließung der Daten nur erprobt werden konnte, erscheint sie als vielversprechendes Instrument, um traditionelle objektbasierte Methoden der Erschließung zu ergänzen.</p>
+                <p>Die inhaltliche Erschließung der Arzneimittelrezepte würde nicht nur die Findbarkeit der Daten enorm erhöhen, sie wäre auch Grundvoraussetzung, um die im Folgenden beschriebenen rechtlichen Grenzen der Offenheit überwinden zu können und die Daten vollständig 
+                    <hi rend="italic">open access</hi> zugänglich zu machen.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Rechtsebene: Herausforderungen und Grenzen der offenen Datenmodellierung</head>
+                <p>Das ArIS-Projekt wurde Ende August 2022 beendet. Die entstandenen Daten bilden eine vielversprechende Grundlage für weitere Forschung. Die Objekte wurden im Projekt auf Einzelartefaktebene erschlossen, sodass bestimmt werden konnte, für welche Jahre Arzneimittelrezepte vorliegen und wo die physischen Artefakte jeweils auffindbar sind. Ein Subset der Artefakte konnte bereits vollumfänglich transkribiert, d.h. inhaltlich erschlossen werden.</p>
+                <p>In Bezug auf die Nachnutzbarkeit von Daten stehen üblicherweise Fragestellungen zu Urheber- und Verwendungsrechten im Vordergrund. Im vorliegenden Fall sind allerdings weitergehende Schutzrechte zu beachten, wie das im Deutschen Reich definierte besondere Schutzrecht für Patientendaten (vgl. Deutsches Reichsgesetzblatt 1871, §300). Das genaue Ende von Schutzfristen für in Arzneimittelrezepten vorkommende Daten ist juristisch nicht eindeutig zu klären.<ref n="12" target="ftn12"/> Hinzugezogene Experten haben dem Projekt geraten, dass Arzneimittelrezepte bis Ende des Jahres 1871 unbedenklich zugänglich gemacht werden können. Bei Rezepten, die ab dem Jahr 1872 ausgestellt wurden, müssten identifizierende Merkmale von Ärzt*innen oder Patient*innen unkenntlich gemacht werden. Dieser Umstand hatte besonderen Einfluss auf den Projektverlauf und offenbart eine zentrale Herausforderung für offene Forschungsdaten und ihre Langzeitverfügbarmachung. So musste hier zweifelsfrei sichergestellt werden, dass alle vorliegenden Digitalisate jahresgenau datiert wurden. Bei mehreren oder teilweise unleserlichen Datumsangaben wurde grundsätzlich das jüngste Datum als Datenbankeintrag gewählt.
+                </p>
+                <p>Eine Ausgangslage des Projekts ist somit die Zwickmühle, dass die Güte einer automatisierten Erschließung hoch sein muss, um eine inhaltliche Aussage zu treffen – und bis dahin können auch nicht beispielsweise lediglich die Scans der nicht-transkribierten Zettel öffentlich zur Verfügung gestellt werden, da so potentiell personenrelevante Daten offengelegt würden. Da die aktuellen Methoden hier nicht ausreichende Ergebnisse liefern, können auch personenrelevante Daten nicht leicht bereinigt werden.</p>
+                <p>Die Existenz von langen Schutzfristen über mehrere Jahrzehnte hat damit zur Folge, dass eine öffentlich zugängliche Archivierung nur mit Schwärzung zentraler Merkmale der Artefakte möglich wäre. Hierfür wäre wiederum die Transkription sämtlicher Arzneimittelrezepte Voraussetzung, um etwa automatisiert nach benannten Entitäten suchen zu können. Alternativ könnte man nur einen eng umrissenen Teil der Sammlung zugänglich machen. Weiterhin ist zu beachten, dass mit fortschreitender Zeit Schutzfristen für bestimmte Jahrgänge der Artefakte aufgelöst werden müssten. Diese Dynamik in der Möglichkeit, Daten zugänglich zu machen, ist eine besondere Herausforderung für Open Data in einer projektbasierten Forschung. Auch dauerhaft bereitstehende Supportstrukturen können hier häufig keine Abhilfe schaffen. Dazu kommen Aspekte des ethischen Umgangs mit Kulturgut. Neben einer möglichst umfänglichen Umsetzung der FAIR-Prinzipien sollen die CARE-Prinzipien nicht minder Beachtung finden (vgl. Research Data Alliance 2019).</p>
+                <p>Im Sinne des Projekts wurde ein mehrstufiges Vorgehen gewählt, das dem Museum eine zentrale Rolle einräumt: Die Datenbank wird als „work-in-progress“ zum Projektende an das Deutsche Apotheken-Museum übergeben. Durch die initiale Analyse aller Artefakte ist es möglich, Teile des Datenschatzes zugänglich zu machen und diesen Teil sukzessive auszuweiten. Damit wird nicht nur den Schutzrechten Rechnung getragen, sondern auch sichergestellt, dass die physischen Artefakte weiterhin für Forscher*innen zugänglich bleiben. Vollständig erfasste und transkribierte Artefakte können sukzessive, vorausgesetzt die Schutzfristen entfallen, ebenfalls öffentlich zugänglich gemacht werden.</p>
+                <p>Niemand kann antizipieren, welche Forschungscommunitys sich in Zukunft mit welchen Fragen an bestimmte Datenschätze wenden. Das ist ein Grundprinzip des Forschens, auf das die FAIR-Prinzipien produktiv antworten. Die öffentliche Zugänglichkeit nützt damit der gesamten Forschung und macht vor allem die erhobenen Daten zukunftsfähig. Unser Verständnis von FAIR und Open Access ist, dass hier der normative Anspruch erhoben wird, zunächst keine Zugangsschranken zu erstellen. Dieser Anspruch muss vor anderen Rechtsgütern verantwortungsvoll ausgehandelt werden. Es gilt daher ganz im Sinne der European Commission (2021, 61) der Grundsatz: „as open as possible, as closed as necessary“. </p>
+                <p>Wie diese Balance aussehen sollte, ist, wie das Beispiel der Daten der Arzneimittelrezepte zeigt, nicht einfach zu beantworten. Es zeigt sich, dass eine gesellschaftliche Auseinandersetzung mit dieser Frage hilfreich wäre, um gegebenenfalls rechtliche Rahmenbedingungen neu zu bewerten. Für Museen ergibt sich mit diesem Aspekt der Digitalisierung die neue Herausforderung, wie sie einerseits dem Anspruch des Open Access genügen können und andererseits den Schutz der Daten vor Zugriff durch rechtlich Unbefugte gewährleisten. Dieser Beitrag veranschaulicht jene Herausforderung, ohne eine eindeutige Empfehlung aussprechen zu können.</p>
+            </div>
+        </body>
+        <back>
+<div type="notes">
+<note rend="footnote text" xml:id="ftn1" n="1">
+                        
+                            <hi style="font-size:10pt" xml:space="preserve"> Vgl.</hi>
+                            <ref target="https://www.sprache-der-rezepte.de/" xml:space="preserve"> </ref>
+                            <ref target="https://www.sprache-der-rezepte.de/">
+                                <hi rend="color(1155CC)" style="font-size:10pt">https://www.sprache-der-rezepte.de/</hi>
+                            </ref>
+                            <hi style="font-size:10pt" xml:space="preserve"> (zugegriffen: 28. Juli 2022).</hi>
+                        
+                    </note>
+<note rend="footnote text" xml:id="ftn2" n="2">
+                        
+                            <hi style="font-size:10pt">CRediTs: Patrick Dinger (Data curation, Writing – original draft, Writing – review &amp; editing), Jan Horstmann (Conceptualization, Writing – original draft, Writing – review &amp; editing), Stefan Schellhammer (Conceptualization, Writing – review &amp; editing), Patrick Troglauer (Data curation, Formal Analysis, Visualization, Writing – review &amp; editing).</hi>
+                        
+                    </note>
+<note rend="footnote text" xml:id="ftn3" n="3">
+                        
+                            <hi style="font-size:10pt" xml:space="preserve"> Vgl. </hi>
+                            <hi rend="underline color(1155CC)" style="font-size:10pt">https://www.forschungsdaten.info/themen/veroeffentlichen-und-archivieren/faire-daten/</hi>
+                            <hi style="font-size:10pt" xml:space="preserve"> (zugegriffen: 28. Juli 2022).</hi>
+                        
+                    </note>
+<note rend="footnote text" xml:id="ftn4" n="4">
+                        
+                            <hi style="font-size:10pt" xml:space="preserve"> Die fachwissenschaftliche Perspektive der vorliegenden Einreichung ist durch die Projektpartner im Deutschen Apotheken-Museum Heidelberg und der Universität Marburg gegeben. Auch wenn der Beitrag nur von einem Teil des Teams bestritten wird, bildet ihre Perspektive einen zentralen Grundstein des gesamten Projekts, seiner Ergebnisse und Vorgehensweisen. So wurden Forschungsergebnisse beispielsweise auf pharmaziehistorischen Kongressen wie der Pharmaziehistorischen Biennale der Deutschen Gesellschaft für Geschichte der Pharmazie 2021 oder in Fachzeitschriften wie der Deutschen Apotheker Zeitung präsentiert und mit Fachwissenschaftler*innen diskutiert (vgl. Avci et al. 2020, Avci et al. 2021).</hi>
+                        
+                    </note>
+<note rend="footnote text" xml:id="ftn5" n="5">
+                        
+                            <hi style="font-size:10pt" xml:space="preserve"> Vgl. </hi>
+                            <ref target="https://www.forschungsdaten.info/themen/informieren-und-planen/datenlebenszyklus/">
+                                <hi rend="color(1155CC)" style="font-size:10pt">https://www.forschungsdaten.info/themen/informieren-und-planen/datenlebenszyklus/</hi>
+                            </ref>
+                            <hi style="font-size:10pt" xml:space="preserve"> (zugegriffen: 28. Juli 2022).</hi>
+                        
+                    </note>
+<note rend="footnote text" xml:id="ftn6" n="6">
+                        
+                            <hi style="font-size:10pt" xml:space="preserve"> Vgl. </hi>
+                            <ref target="https://www.uni-muenster.de/Forschungsdaten/">
+                                <hi rend="color(1155CC)" style="font-size:10pt">https://www.uni-muenster.de/Forschungsdaten/</hi>
+                            </ref>
+                            <hi style="font-size:10pt" xml:space="preserve"> (zugegriffen: 28. Juli 2022).</hi>
+                        
+                    </note>
+<note rend="footnote text" xml:id="ftn7" n="7">
+                        
+                            <hi style="font-size:10pt" xml:space="preserve"> Vgl. </hi>
+                            <ref target="https://www.uni-muenster.de/DH/scdh">
+                                <hi rend="color(1155CC)" style="font-size:10pt">https://www.uni-muenster.de/DH/scdh</hi>
+                            </ref>
+                            <hi style="font-size:10pt" xml:space="preserve"> (zugegriffen: 28. Juli 2022).</hi>
+                        
+                    </note>
+<note rend="footnote text" xml:id="ftn8" n="8">
+                        
+                            <hi style="font-size:10pt" xml:space="preserve"> Grundlage des Projekts bilden 12.200 Datensätze (teilweise mit Scans der Vorder- und Rückseite) in unterschiedlichen Ausprägungsformen von sieben Standorten vom 16. bis 21. Jahrhundert, welche durch einen spezialisierten Dienstleister zu Beginn der Projektlaufzeit im TIF-Format digitalisiert wurden.</hi>
+                        
+                    </note>
+<note rend="footnote text" xml:id="ftn9" n="9">
+                        
+                            <hi style="font-size:10pt" xml:space="preserve"> Vgl. </hi>
+                            <ref target="https://www.programmfabrik.de/easydb/">
+                                <hi rend="color(1155CC)" style="font-size:10pt">https://www.programmfabrik.de/easydb/</hi>
+                            </ref>
+                            <hi style="font-size:10pt" xml:space="preserve"> (zugegriffen: 28. Juli 2022) und mit Bezug auf Forschungsdaten z.B. Kloppmann und Kastner 2020.</hi>
+                        
+                    </note>
+<note rend="footnote text" xml:id="ftn10" n="10">
+                        
+                            <hi style="font-size:10pt" xml:space="preserve"> Neben etablierten Metadatenformaten, kontrollierten Vokabularien und Normdaten ist auch der SPECTRUM-Standard für die Dokumentation und Verwaltung eines Objekts zu beachten. Zur deutschen Fassung des Standards siehe </hi>
+                            <ref target="https://wissenschaftliche-sammlungen.de/de/service-material/materialien/dokumentationsstandard-spectrum-auf-deutsch-2013?pk_campaign=Newsletter-2013-04">
+                                <hi rend="color(1155CC)" style="font-size:10pt">https://wissenschaftliche-sammlungen.de/de/service-material/materialien/dokumentationsstandard-spectrum-auf-deutsch-2013?pk_campaign=Newsletter-2013-04</hi>
+                            </ref>
+                            <hi style="font-size:10pt" xml:space="preserve"> (zugegriffen: 28. Juli 2022).</hi>
+                        
+                    </note>
+<note rend="footnote text" xml:id="ftn11" n="11">
+                        
+                            <hi style="font-size:10pt" xml:space="preserve"> Vgl. zu Neuerungen in diesem Bereich z.B. Tomasek, Reul und Wehner 2022.</hi>
+                        
+                    </note>
+<note rend="footnote text" xml:id="ftn12" n="12">
+                        
+                            <hi style="font-size:10pt" xml:space="preserve"> Projektexterne Experten haben darauf aufmerksam gemacht, dass in § 203 StGB nach wie vor nicht zum Ausdruck gebracht wird, wann die nach dem Tod der/des Patient*in weiter bestehen bleibende Geheimhaltungspflicht endet. Das spiegele sich in den Archivgesetzen wider, die auch nach Ablauf der personenbezogenen Schutzfrist von zehn Jahren nach dem Tode der im Dokument herausgehobenen Personen und der Geheimhaltungsschutzfrist von 60 Jahren seit der Entstehung des Archivguts eine weitere Einschränkung oder sogar Versagung der Benutzung ermöglichten.</hi>
+                        
+                    </note></div>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliographie</head>
+                    <bibl><hi rend="bold">Arnold, Taylor und Lauren Tilton. </hi>2019. “Distant Viewing: Analyzing Large Visual Corpora.“ 
+                        <hi rend="italic">Digital Scholarship in the Humanities</hi> 34 (1).
+                        <ref target="https://doi.org/10.1093/llc/fqz013" xml:space="preserve"> </ref>
+                        <ref target="https://doi.org/10.1093/llc/fqz013">https://doi.org/10.1093/llc/fqz013</ref>.
+                    </bibl>
+                    <bibl><hi rend="bold">Avci, Meral, Kerstin Grothusheitkamp, Patrick Troglauer, Stefan Schellhammer, Christoph Friedrich, Elisabeth Huwer und Barbara Simon. </hi>2020. “Vom analogen zum digitalen Arzneimittelrezept. Eine lange Transformationsgeschichte.” 
+                        <hi rend="italic" xml:space="preserve">Deutsche Apotheker Zeitung </hi>43 (22.10.2020), 78–79. Stuttgart.
+                    </bibl>
+                    <bibl><hi rend="bold">Avci, Meral, Kerstin Grothusheitkamp, Stefan Schellhammer, Patrick Troglauer.</hi> 2021. “Die Rolle der Armen bei der Entstehung des deutschen Gesundheitssystems.“ Poster. 
+                        <hi rend="italic">Pharmaziehistorische Biennale 2021: Heilpflanzen im Wandel der Zeiten</hi> (08.–10.12.2021). Detmold. URL: 
+                        <ref target="https://www.sprache-der-rezepte.de/sites/sprache-der-rezepte.de/files/attachments/poster_final.pdf">https://www.sprache-der-rezepte.de/sites/sprache-der-rezepte.de/files/attachments/poster_final.pdf</ref> (zugegriffen: 06. Dezember 2022).
+                    </bibl>
+                    <bibl><hi rend="bold">Bönisch, Dominik.</hi> 2022. “Training the Archive – Von der maschinellen Exploration musealer Sammlungsdaten zur Curator’s Machine.” 
+                        <hi rend="italic">DHd 2022 Kulturen des digitalen Gedächtnisses. 8. Tagung des Verbands “Digital Humanities im deutschsprachigen Raum” (DHd 2022)</hi>. Potsdam.
+                        <ref target="https://doi.org/10.5281/zenodo.6327949" xml:space="preserve"> </ref>
+                        <ref target="https://doi.org/10.5281/zenodo.6327949">https://doi.org/10.5281/zenodo.6327949</ref>.
+                    </bibl>
+                    <bibl><hi rend="bold">Deutsches Reichsgesetzblatt.</hi> 1871. (24), 127–205. 
+                        <ref target="https://de.wikisource.org/wiki/Strafgesetzbuch_f%C3%BCr_das_Deutsche_Reich_(1871)">https://de.wikisource.org/wiki/Strafgesetzbuch_f%C3%BCr_das_Deutsche_Reich_(1871)</ref> (zugegriffen: 28. Juli 2022).
+                    </bibl>
+                    <bibl><hi rend="bold">DFG-Praxisregeln "Digitalisierung"</hi> [12/16]. 
+                        <ref target="https://www.dfg.de/formulare/12_151/">https://www.dfg.de/formulare/12_151/</ref> (zugegriffen: 28. Juli 2022).
+                    </bibl>
+                    <bibl><hi rend="bold">Dörk, Marian und Katrin Glinka. </hi>2018. “Der Sammlung gerecht werden: Kritisch-generative Methoden zur Konzeption experimenteller Visualisierungen.” 
+                        <hi rend="italic">DHd 2018 Kritik der digitalen Vernunft. 5. Tagung des Verbands “Digital Humanities im deutschsprachigen Raum” (DHd 2018)</hi>. Köln.
+                        <ref target="https://doi.org/10.5281/zenodo.4622364" xml:space="preserve"> </ref>
+                        <ref target="https://doi.org/10.5281/zenodo.4622364">https://doi.org/10.5281/zenodo.4622364</ref>.
+                    </bibl>
+                    <bibl><hi rend="bold">Duhaime, Douglas.</hi> 2019. PixPlot.
+                        <ref target="https://github.com/YaleDHLab/pix-plot" xml:space="preserve"> </ref>
+                        <ref target="https://github.com/YaleDHLab/pix-plot">https://github.com/YaleDHLab/pix-plot</ref> (zugegriffen: 22. Juli 2022).
+                    </bibl>
+                    <bibl><hi rend="bold">European Commission, Directorate-General for Research and Innovation.</hi> 2021. “Strategic Research and Innovation Agenda (SRIA) of the European Open Science Cloud (EOSC).” Version 1.0, Brussels. 
+                        <ref target="https://doi.org/10.2777/935288">https://doi.org/10.2777/935288</ref>.
+                    </bibl>
+                    <bibl><hi rend="bold">He, Kaiming, Xiangyu Zhang, Shaoqing Ren und Jian Sun. </hi>2016. “Deep residual learning for image recognition.” 
+                        <hi rend="italic">Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition</hi>, 770–778. Las Vegas. 
+                        <ref target="https://doi.org/10.1109/CVPR.2016.90">https://doi.org/10.1109/CVPR.2016.90</ref>.
+                    </bibl>
+                    <bibl><hi rend="bold">Heise, Christian. </hi>2018. 
+                        <hi rend="italic">Von Open Access zu Open Science: Zum Wandel digitaler Kulturen der wissenschaftlichen Kommunikation</hi>. Lüneburg: meson press. 
+                        <ref target="https://doi.org/10.14619/1303">https://doi.org/10.14619/1303</ref>.
+                    </bibl>
+                    <bibl><hi rend="bold">Kloppmann, Jens und Charlotte Kastner. </hi>2020. “easydb. Flexibles Framework zum Aufbau von Metadaten- und Medienrepositorien. Anwendungsfall: Forschungsdaten.” 
+                        <hi rend="italic">Programmfabrik GmbH. Digital Summer School 2020 der SUH (UB Hildesheim)</hi>. 
+                        <ref target="https://doi.org/10.5281/zenodo.3937554">https://doi.org/10.5281/zenodo.3937554</ref>
+                        <hi rend="underline">.</hi>
+                    </bibl>
+                    <bibl><hi rend="bold">Research Data Alliance International Indigenous Data Sovereignty Interest Group.</hi> (2019). “CARE Principles for Indigenous Data Governance.” 
+                        <hi rend="italic">The Global Indigenous Data Alliance</hi>. 
+                        <ref target="https://static1.squarespace.com/static/5d3799de845604000199cd24/t/637acb53881a0973324d18bf/1668991830292/Die+CARE-Prinzipien+f%C3%BCr+indigene+Data+Governance.pdf">https://static1.squarespace.com/static/5d3799de845604000199cd24/t/637acb53881a0973324d18bf/1668991830292/Die+CARE-Prinzipien+f%C3%BCr+indigene+Data+Governance.pdf</ref> (zugegriffen: 24. November 2022).
+                    </bibl>
+                    <bibl><hi rend="bold">Redmon, Joseph, Santosh Divvala, Ross Girshick und Ali Farhadi.</hi> 2016. “You only look once: unified, real-time object detection.” 
+                        <hi rend="italic">Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition</hi>, 779–788. Las Vegas. 
+                        <ref target="https://doi.org/10.1109/CVPR.2016.91">https://doi.org/10.1109/CVPR.2016.91</ref>.
+                    </bibl>
+                    <bibl><hi rend="bold">Schöch, Christof.</hi> 2017. “Aufbau von Datensammlungen.” In: 
+                        <hi rend="italic">Digital Humanities. Eine Einführung</hi>, hg. von Fotis Jannidis, Hubertus Kohle und Malte Rehbein, Stuttgart: Metzler, 223–233.
+                        <ref target="https://doi.org/10.1007/978-3-476-05446-3_16" xml:space="preserve"> </ref>
+                        <ref target="https://doi.org/10.1007/978-3-476-05446-3_16">https://doi.org/10.1007/978-3-476-05446-3_16</ref>.
+                    </bibl>
+                    <bibl><hi rend="bold">Seidel, Ulrich.</hi> 1977. “Rezept und Apotheke. Zur Geschichte der Arzneiverordnung vom 13. bis zum 16. Jahrhundert.” Naturwissenschaftliche Diss. Marburg.</bibl>
+                    <bibl><hi rend="bold">Tomasek, Stefan, Christian Reul, und Maximilian Wehner. </hi>2022. “Handwritten Text Recognition und Word Mover’s Distance als Grundlagen der digitalen Edition ‘Die Kindheit Jesu Konrads von Fußesbrunnen’.” 
+                        <hi rend="italic">DHd 2022 Kulturen des digitalen Gedächtnisses. 8. Tagung des Verbands “Digital Humanities im deutschsprachigen Raum” (DHd 2022)</hi>. Potsdam.
+                        <ref target="https://doi.org/10.5281/zenodo.6328199" xml:space="preserve"> </ref>
+                        <ref target="https://doi.org/10.5281/zenodo.6328199">https://doi.org/10.5281/zenodo.6328199</ref>.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

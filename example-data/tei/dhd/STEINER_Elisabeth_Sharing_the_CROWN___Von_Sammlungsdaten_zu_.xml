@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:id="STEINER_Elisabeth_Sharing_the_CROWN___Von_Sammlungsdaten_zu_" xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Sharing the CROWN - Von Sammlungsdaten zu Linked Open Research Data</title>
+                <author>
+                    <persName>
+                        <surname>Grießer</surname>
+                        <forename>Martina</forename>
+                    </persName>
+                    <affiliation>Kunsthistorisches Museum, Wien</affiliation>
+                    <email>martina.griesser@khm.at</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Hanzer</surname>
+                        <forename>Helene</forename>
+                    </persName>
+                    <affiliation>Kunsthistorisches Museum, Wien</affiliation>
+                    <email>helene.hanzer@khm.at</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Kirchweger</surname>
+                        <forename>Franz</forename>
+                    </persName>
+                    <affiliation>Kunsthistorisches Museum, Wien</affiliation>
+                    <email>franz.kirchweger@khm.at</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Kloser</surname>
+                        <forename>Peter</forename>
+                    </persName>
+                    <affiliation>Kunsthistorisches Museum, Wien</affiliation>
+                    <email>peter.kloser@khm.at</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Lamers</surname>
+                        <forename>Teresa</forename>
+                    </persName>
+                    <affiliation>Kunsthistorisches Museum, Wien</affiliation>
+                    <email>teresa.lamers@khm.at</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Pollin</surname>
+                        <forename>Christopher</forename>
+                    </persName>
+                    <affiliation>Zentrum für Informationsmodellierung, Universität Graz</affiliation>
+                    <email>christopher.pollin@uni-graz.at</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Scholger</surname>
+                        <forename>Martina</forename>
+                    </persName>
+                    <affiliation>Zentrum für Informationsmodellierung, Universität Graz</affiliation>
+                    <email>martina.scholger@uni-graz.at</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Steiner</surname>
+                        <forename>Elisabeth</forename>
+                    </persName>
+                    <affiliation>Zentrum für Informationsmodellierung, Universität Graz</affiliation>
+                    <email>elisabeth.steiner@uni-graz.at</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Vasold</surname>
+                        <forename>Gunter</forename>
+                    </persName>
+                    <affiliation>Zentrum für Informationsmodellierung, Universität Graz</affiliation>
+                    <email>gunter.vasold@uni-graz.at</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2022-12-13T18:25:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                    <publisher>Culture and Computation Lab</publisher>
+                    <address>
+                        <addrLine>Université du Luxembourg</addrLine>
+                        <addrLine>2, Avenue de l'Université</addrLine>
+                        <addrLine>L-4365 Esch-sur Alzette</addrLine>
+                        <addrLine>Luxembourg</addrLine>
+                    </address>
+                    <publisher>Luxembourg Centre for Contemporary and Digital History</publisher>
+                    <address>
+                        <addrLine>Université du Luxembourg</addrLine>
+                        <addrLine>2, Avenue de l'Université</addrLine>
+                        <addrLine>L-4365 Esch-sur Alzette</addrLine>
+                        <addrLine>Luxembourg</addrLine>
+                    </address>
+                    <publisher>Trier Center for Digital Humanities</publisher>
+                    <address>
+                        <addrLine>Universität Trier</addrLine>  
+                        <addrLine>Universitätsring 15</addrLine>
+                        <addrLine>54296 Trier</addrLine>
+                        <addrLine>Deutschland</addrLine>
+                    </address>
+                </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Posterpräsentation</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Forschungsdaten</term>
+                    <term>Museum</term>
+                    <term>Kulturerbe</term>
+                    <term>Ontologie</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>Teilen</term>
+                    <term>Modellierung</term>
+                    <term>Annotieren</term>
+                    <term>Veröffentlichung</term>
+                    <term>Artefakte</term>
+                    <term>Daten</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p style="text-align: left;">
+                <hi style="font-size:12pt">Die Reichskrone des Heiligen Römischen Reiches ist eines der wichtigsten Symbole europäischer Geschichte. Heute ist sie Teil der Sammlungen des Kunsthistorischen Museums (KHM) in Wien. Im Zuge des vom KHM initiierten CROWN-Projekts</hi><ref n="1" target="ftn1"/>
+                <hi style="font-size:12pt" xml:space="preserve"> wird eine umfassende Analyse der Reichskrone durchgeführt. Ziel dieser Analyse ist es nicht nur den konservatorischen Status des Objektes zu bestimmen, sondern auch die Diskussion um Entstehungszeit und Entstehungsort voranzubringen. Dazu werden alle Bestandteile der Krone, die Platten, das Stirnkreuz, der Bügel, die Edelsteine und Zierelemente etc. aus unterschiedlicher Perspektive - naturwissenschaftlich, konservatorisch, (kunst)historisch - analysiert. Dieses interdisziplinäre Vorhaben läuft noch bis 2024.</hi>
+            </p>
+            <p style="text-align: left;">
+                <hi style="font-size:12pt">Im Rahmen des CROWN-Projekts wird ein einzelnes Objekt - die Reichskrone - im Vergleich zu einigen wenigen ausgewählten Vergleichsobjekten eingehend und möglichst umfassend beschrieben und analysiert. Die Forschungsdaten, die sich aus der Anwendung naturwissenschaftlicher Analysetechniken zur Untersuchung der Herstellungstechniken und der verwendeten Materialien ergeben, werden mit The Museum System (TMS)</hi><ref n="2" target="ftn2"/>
+                <hi style="font-size:12pt" xml:space="preserve"> erfasst. TMS ist eine weit verbreitete, aber proprietäre Softwarelösung, die für Museen entwickelt wurde. Sie bietet eine relationale Datenbank, die für die Inventarisierung, Dokumentation und Verwaltung von Sammlungen verwendet wird. Die Verwendung von TMS ist nicht nur auf vorhandene Ressourcen zurückzuführen, sondern hat pragmatische Gründe: Die Etablierung eines weiteren Systems zur Erfassung kann im jetzigen Projektkontext nicht erfolgen. Bei den im CROWN-Projekt erfassten Daten handelt es sich nicht um Inventardaten, also deskriptive Daten, die Objekte in einer Sammlung beschreiben und wofür TMS primär entwickelt wurde, sondern um hochspezifische Forschungsdaten. Ziel dieses Beitrags ist es, einen Workflow zur Überführung der in TMS erfassten Daten zu beschreiben, an dessen Ende eine hochstrukturierte, den FAIR-Kriterien entsprechende und Linked-Open-Data-fähige (LOD) Ressource steht.</hi>
+            </p>
+            <p style="text-align: left;">
+                <hi style="font-size:12pt">LOD beschreibt die freie und offene Zurverfügungstellung von strukturierten Daten über das Web. Oft wird der Technologiestack des Semantic Web verwendet. Fundamentale Grundlage ist dabei das Resource Description Framework (RDF)</hi><ref n="3" target="ftn3"/>
+                <hi style="font-size:12pt">, das ein standardisiertes und graphenbasiertes Modell zur Darstellung und zum Austausch von Daten und deren Semantik.</hi>
+            </p>
+            <p style="text-align: left;">
+                <hi style="font-size:12pt">Die verschiedenen Forschungsfragen können nur im Rahmen einer interdisziplinären Untersuchung der gemeinsamen Auswertung und Interpretation des Datenmaterials, zu dem auch historische Bild- und Schriftquellen gehören, beantwortet werden. Diese wiederum, d.h. die Verbindung von wissenschaftlichen Messungen und Quellen, geht weit über die übliche Beschreibung von Objekten in Sammlungen hinaus. Da den Autor*innen für dieses Vorhaben kein geeigneter Standard bekannt ist, wird ein Semantic-Web-Ansatz verfolgt. Dieser beinhaltet die Entwicklung einer domänenspezifischen Ontologie und deren Anbindung an die Top-Level-Ontologien CIDOC-CRM</hi><ref n="4" target="ftn4"/>
+                <hi style="font-size:12pt" xml:space="preserve"> und Basic Formal Ontology (BFO)</hi><ref n="5" target="ftn5"/>
+                <hi style="font-size:12pt">. Im Ontology Engineering Prozess wird auf etablierte Ontology Design Patterns</hi><ref n="6" target="ftn6"/>
+                <hi style="font-size:12pt" xml:space="preserve"> und Modellierungswerkzeuge zurückgegriffen. Die Domäne umfasst die formale Abbildung der im CROWN-Projekt erfassten Daten, also die Zusammenführung technologischer Untersuchungen und naturwissenschaftlicher Analysen mit Ergebnissen der historischen bzw. kunsthistorischen Forschung. Folgendes Beispiel soll die Domäne veranschaulichen:</hi>
+            </p>
+            <p style="text-align: left;">
+                <hi style="font-size:12pt">Eine “Hochfassung für Perle mit Einsteckstiften” ist eine Komponente an einer Platte der Reichskrone. Dabei handelt es sich um eine 30 x 30 x 20 mm große Fassung aus Gold. Fünf Punkte auf dieser Fassung werden im Zuge des CROWN-Projektes mit drei Analyseverfahren untersucht: 3D Mikroskopie, Röntgenfluoreszenzanalyse (XRF) und Multispectral Imaging (MSI). Jede Analyse umfasst eine Beschreibung des Messvorgangs, Messdaten in tabellarischer Form als CSV oder XLSX, sowie Ergebnisse in Form von Diagrammen als bspw. BMP, sowie eine (kon-)textuelle Interpretation bzw. Schlussfolgerung der Messung durch die Fachwissenschaftler*in. Zusätzlich gibt es ggf. eine historische Quelle, etwa eine überlieferte Beauftragung eines Goldschmieds, in der weitere Informationen enthalten sind, oder eine kunsthistorische Quelle in Form eines Gemäldes in dem die Fassungen zu einem bestimmten Zeitpunkt abgebildet sind. Ziel der domänenspezifischen Ontologie ist es, genau diese Informationen formal zusammenzuführen und als Forschungsressource nachnutzbar zu machen. </hi>
+            </p>
+            <p style="text-align: left;">
+                <hi style="font-size:12pt">Der dabei entwickelte Best-Practice-Workflow kann von anderen Forschungsvorhaben in Museen, die TMS nutzen, nachgenutzt werden. Dieser beinhaltet das Ontology Engineering, also die Umsetzung der Domäne als Ontologie und den Export und die Transformation von TMS nach LOD mittels Python. Python erlaubt weiters ein Semantic Enrichment, also die Normalisierung von Entitäten mittels Reconciliation durch Wikidata, sowie andere kontrollierte Vokabularien (z. B. Getty</hi><ref n="7" target="ftn7"/>
+                <hi style="font-size:12pt" xml:space="preserve"> oder GND</hi><ref n="8" target="ftn8"/>
+                <hi style="font-size:12pt">)</hi>
+            </p>
+            <p style="text-align: left;">
+                <hi style="font-size:12pt">
+                    <lb/>Am Ende dieser Überlegungen steht nicht eine Software, sondern ein beschriebener Workflow, in dem unterschiedliche Komponenten modular austauschbar sind. Das heißt konkret: statt TMS könnte auch ein anderes System zur Verwaltung und Erfassung von Inventardaten stehen, oder auch eine andere Programmiersprache verwendet werden als Python, mit der man in der Lage ist, programmatisch über einen Export oder eine Schnittstelle Daten nach RDF zu überführen. Der Fokus liegt auf der Interoperabilität verschiedener Werkzeuge und der Gestaltung dieser Schnittstellen. Die Autor*innen sind sich bewusst, dass ein Modell, das dieses Vorhaben auf generischer Ebene löst (Top Level Ontology), von zentralem Interesse ist. Das gegenständliche Projekt ist als eine prototypische Vorarbeit zu einem solchen Vorhaben zu verstehen. 
+                </hi>
+            </p>
+        </body>
+        <back>
+<div type="notes">
+<note rend="footnote text" xml:id="ftn1" n="1">
+                    
+                        <hi style="font-size:10pt">CROWN. Untersuchungen zu Materialität, Technologie und Erhaltungszustand der Wiener Reichskrone.</hi>
+                        <ref target="https://www.khm.at/erfahren/forschung/forschungsprojekte/restauratorisch-konservatorische-projekte/crown-untersuchungen-zu-materialitaet-technologie-und-erhaltungszustand-der-wiener-reichskrone/">
+                            <hi rend="color(1155CC)" style="font-size:10pt">https://www.khm.at/erfahren/forschung/forschungsprojekte/restauratorisch-konservatorische-projekte/crown-untersuchungen-zu-materialitaet-technologie-und-erhaltungszustand-der-wiener-reichskrone/</hi>
+                        </ref>
+                        <hi style="font-size:10pt">, 20.06.2022.</hi>
+                    
+                </note>
+<note rend="footnote text" xml:id="ftn2" n="2">
+                    
+                        <hi style="font-size:10pt" xml:space="preserve">The Museum System, </hi>
+                        <ref target="https://www.gallerysystems.com/solutions/tms-classic/">
+                            <hi rend="color(1155CC)" style="font-size:10pt">https://www.gallerysystems.com/solutions/tms-classic/</hi>
+                        </ref>
+                        <hi style="font-size:10pt">, 20.06.2022.</hi>
+                    
+                </note>
+<note rend="footnote text" xml:id="ftn3" n="3">
+                    
+                        <hi style="font-size:10pt" xml:space="preserve"> RDF 1.1 Concepts and Abstract Syntax, </hi>
+                        <ref target="https://www.w3.org/TR/rdf11-concepts/">
+                            <hi style="font-size:10pt">https://www.w3.org/TR/rdf11-concepts/</hi>
+                        </ref>
+                        <hi style="font-size:10pt">, 13.12.2022.</hi>
+                    
+                </note>
+<note rend="footnote text" xml:id="ftn4" n="4">
+                    
+                        <hi style="font-size:9pt" xml:space="preserve">CIDOC Conceptual Reference Model, </hi>
+                        <ref target="https://www.cidoc-crm.org/">
+                            <hi rend="color(1155CC)" style="font-size:10pt">https://www.cidoc-crm.org/</hi>
+                        </ref>
+                        <hi style="font-size:10pt">, 20.06.2022.</hi>
+                    
+                </note>
+<note rend="footnote text" xml:id="ftn5" n="5">
+                    
+                        <hi style="font-size:10pt">Basic Formal Ontology,</hi>
+                        <ref target="https://basic-formal-ontology.org/">
+                            <hi rend="color(1155CC)" style="font-size:10pt">https://basic-formal-ontology.org/</hi>
+                        </ref>
+                        <hi style="font-size:10pt">, 20.06.2022.</hi>
+                    
+                </note>
+<note rend="footnote text" xml:id="ftn6" n="6">
+                    
+                        <hi style="font-size:9pt" xml:space="preserve">Ontology Design Patterns, </hi>
+                        <ref target="http://ontologydesignpatterns.org/wiki/">
+                            <hi style="font-size:9pt">http://ontologydesignpatterns.org/wiki/</hi>
+                        </ref>
+                        <hi style="font-size:9pt">, 13.12.2022.</hi>
+                    
+                </note>
+<note rend="footnote text" xml:id="ftn7" n="7">
+                    
+                        <hi style="font-size:9pt" xml:space="preserve">Getty Vocabularies, </hi>
+                        <ref target="https://www.getty.edu/research/tools/vocabularies">
+                            <hi style="font-size:9pt">https://www.getty.edu/research/tools/vocabularies</hi>
+                        </ref>
+                        <hi style="font-size:9pt">, 13.12.2022.</hi>
+                    
+                </note>
+<note rend="footnote text" xml:id="ftn8" n="8">
+                    
+                        <hi style="font-size:9pt">Gemeinsame Normdatei, https://www.dnb.de, 13.12.2022.</hi>
+                    
+                </note></div>
+            <div type="bibliogr">
+                <listBibl>
+<head>Bibliographie</head>
+                    <bibl style="text-align: left; "><hi rend="bold">Boettiger, Carl.</hi> “
+                        <hi rend="italic">rdflib: A high level wrapper around the redland package for common rdf applications</hi>” (Version 0.1.0). Zenodo, 2018, 
+                        <ref target="https://doi.org/10.5281/zenodo.1098478">https://doi.org/10.5281/zenodo.1098478</ref>.
+                    </bibl>
+                    <bibl style="text-align: left; "><hi rend="bold">Bruseker, George, Nicola Carboni, and Anaïs Guillem. </hi>“
+                        <hi rend="italic">Cultural Heritage Data Management: The Role of Formal Ontology and CIDOC CRM</hi>”. In Heritage and Archaeology in the Digital Age. Quantitative Methods in the Humanities and Social Sciences, edited by M. Vincent, V. López-Menchero Bendicho, M. Ioannides, T. Levy, 93-131. Cham: Springer, 2017, 
+                        <ref target="https://doi.org/10.1007/978-3-319-65370-9_6">https://doi.org/10.1007/978-3-319-65370-9_6</ref>.
+                    </bibl>
+                    <bibl style="text-align: left; "><hi rend="bold">Cavalcante, J. </hi>“
+                        <hi rend="italic">reconciler 0.2.1</hi>“. GitHub, 2021, 
+                        <ref target="https://github.com/jvfe/reconciler">https://github.com/jvfe/reconciler</ref>.
+                    </bibl>
+                    <bibl style="text-align: left; "><hi rend="bold">Delpeuch, Antonin.</hi> 
+                        <hi rend="italic">Running a Reconciliation Service for Wikidata</hi>. In Proceedings of the 1st Wikidata Workshop (Wikidata 2020), edited by Lucie-Aimée Kaffee, Oana Tifrea-Marciuska, Elena Simperl, Denny Vrandečić. Virtual Conference, November 2-6, 2020, 
+                        <ref target="http://ceur-ws.org/Vol-2773/paper-17.pdf">http://ceur-ws.org/Vol-2773/paper-17.pdf</ref>. 
+                    </bibl>
+                    <bibl style="text-align: left; "><hi rend="bold">Doerr, Martin, Richard Light, and Gerald Hiebel.</hi> “
+                        <hi rend="italic">Implementing the CIDOC Conceptual Reference Model in RDF”</hi>. Version 1.0. 2020,  
+                        <ref target="https://cidoc-crm.org/sites/default/files/Implementing%20the%20CIDOC%20Conceptual%20Reference%20Model%20in%20RDF.pdf">https://cidoc-crm.org/sites/default/files/Implementing%20the%20CIDOC%20Conceptual%20Reference%20Model%20in%20RDF.pdf</ref>. 
+                    </bibl>
+                    <bibl style="text-align: left; "><hi rend="bold">Hitzler, Pascal,</hi> “
+                        <hi rend="italic">A review of the semantic web field</hi>”, Communications of the ACM. 64(2), (February 2021): 76-83,  
+                        <ref target="https://doi.org/10.1145/3397512">https://doi.org/10.1145/3397512</ref>. 
+                    </bibl>
+                    <bibl style="text-align: left; "><hi rend="bold">Kamrin, Janice, and Jennie Choi,</hi> “
+                        <hi rend="italic">Taking Advantage of TMS</hi>”, CIPEG Journal: Ancient Egyptian &amp; Sudanese Collections and Museums, No. 3, (2019): 17-25, 
+                        <ref target="https://doi.org/10.11588/cipeg.2019.3.66053">https://doi.org/10.11588/cipeg.2019.3.66053</ref>. 
+                    </bibl>
+                    <bibl style="text-align: left; "><hi rend="bold">Otte, J. Neil, John Beverley, and Alan Ruttenberg,</hi> “
+                        <hi rend="italic">BFO: Basic Formal Ontology</hi>”, Applied Ontology, 17 (1), (2022): 17-43, 
+                        <ref target="https://doi.org/10.1145/3397512">https://doi.org/</ref>
+                        <ref target="https://philpapers.org/go.pl?id=OTTBBF&amp;proxyId=&amp;u=https%3A%2F%2Fdx.doi.org%2F10.3233%2Fao-220262">10.3233/ao-220262</ref>.
+                    </bibl>
+                    <bibl style="text-align: left; "><hi rend="bold">Vlachidis, A., A. Antoniou, A. Bikakis, and M.M. Terras.</hi> “
+                        <hi rend="italic">Semantic metadata enrichment and data augmentation of small museum collections following the FAIR principles</hi>”. In Information and Knowledge Organisation in Digital Humanities, edited by Koraljka Golub and Ying-Hsang Liu, London &amp; New York: Routledge 2021. 106-129.
+                    </bibl>
+                    <bibl style="text-align: left; "><hi rend="bold">Wilkinson, Mark D. et al.</hi>, “
+                        <hi rend="italic">The FAIR Guiding Principles for scientific data management and stewardship</hi>”, Sci Data 3:160018. (2016), 
+                        <ref target="https://doi.org/10.1038/sdata.2016.18">https://doi.org/10.1038/sdata.2016.18</ref>. 
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

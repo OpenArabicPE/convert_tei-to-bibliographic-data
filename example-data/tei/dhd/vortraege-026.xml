@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="vortraege-026">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Tambora: Erkenntnisgewinne durch kartographische Visualisierungen von Forschungsdaten aus der historischen Klimatologie</title>
+        <author>
+          <name>
+            <surname>Specht</surname>
+            <forename>Sebastian</forename>
+
+          </name>
+          <affiliation>Leibniz-Institut für Länderkunde, Deutschland</affiliation>
+          <email>s_specht@ifl-leipzig.de</email>
+        </author>
+        <author>
+          <name>
+            <surname>Hanewinkel</surname>
+            <forename>Christian</forename>
+          </name>
+          <affiliation>Leibniz-Institut für Länderkunde, Deutschland</affiliation>
+          <email>c_hanewinkel@ifl-leipzig.de</email>
+        </author>
+        <author>
+          <name>
+            <surname>Koslitz</surname>
+            <forename>Sebastian</forename>
+          </name>
+          <affiliation>Leibniz-Institut für Länderkunde, Deutschland</affiliation>
+          <email>s_koslitz@ifl-leipzig.de</email>
+        </author>
+        <author>
+          <name>
+            <surname>Steller</surname>
+            <forename>Heike</forename>
+          </name>
+          <affiliation>Leibniz-Institut für Länderkunde, Deutschland</affiliation>
+          <email>h_steller@ifl-leipzig.de</email>
+        </author>
+      </titleStmt>
+      <editionStmt>
+        <edition>
+          <date>2015-10-05T10:49:00Z</date>
+        </edition>
+      </editionStmt>
+      <publicationStmt>
+        <publisher>Elisabeth Burr, Universität Leipzig</publisher>
+        <address>
+          <addrLine>Beethovenstr. 15</addrLine>
+          <addrLine>04107 Leipzig</addrLine>
+          <addrLine>Deutschland</addrLine>
+          <addrLine>Elisabeth Burr</addrLine>
+        </address>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Converted from a Word document </p>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <appInfo>
+        <application ident="DHCONVALIDATOR" version="1.11">
+          <label>DHConvalidator</label>
+        </application>
+      </appInfo>
+    </encodingDesc>
+    <profileDesc>
+      <textClass>
+        <keywords scheme="ConfTool" n="category">
+          <term>Vortrag</term>
+        </keywords>
+        <keywords scheme="ConfTool" n="subcategory">
+          <term></term>
+        </keywords>
+        <keywords scheme="ConfTool" n="keywords">
+          <term>Visualisierung</term>
+          <term>Kartographie</term>
+          <term>Historische Klimatologie</term>
+          <term>Weiße Flecken</term>
+        </keywords>
+        <keywords scheme="ConfTool" n="topics">
+          <term>Sammlung</term>
+          <term>Transkription</term>
+          <term>Crowdsourcing</term>
+          <term>Kollaboration</term>
+          <term>Webentwicklung</term>
+          <term>Organisation</term>
+          <term>Visualisierung</term>
+          <term>Forschungsprozess</term>
+          <term>Visualisierung</term>
+          <term>virtuelle Forschungsumgebungen</term>
+        </keywords>
+      </textClass>
+    </profileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <p>Mit der virtuellen Forschungsumgebung Tambora.org wird Wissenschaftlern eine
+        IT-Infrastruktur zur Verfügung gestellt, die den ganzen Prozess
+        historisch-klimatologischer Quellenarbeit abbildet. Nach der Recherche,
+        Katalogisierung und Erfassung von Texten mit klimarelevanten Hinweisen bildet die
+        räumliche, zeitliche und umweltgeschichtlich-klimatologische Kodierung der erfassten
+        historischen Quellentexte ein zentrales Element der Forschungsumgebung (Borel /
+        Steller 2012). Karten und Visualisierungen spielen in diesem Prozess eine große
+        Rolle (Specht / Hanewinkel 2013).</p>
+        <p>Die erfassten Forschungsdaten variieren stark hinsichtlich ihres Detailgrades und der Datendichte entlang der Dimensionen Zeit und Raum. Die Benutzung heute gebräuchlicher Referenzsysteme zur Kodierung (zum Beispiel das räumliche WGS84-Referenzsystem bzw. mittelbar über geographische Namensdatenbanken oder der gregorianische Kalender in seiner in ISO8601 niedergelegten Spezifizierung) sind dabei als gemeinsame Basis aller Forschungsprojekte vorgegeben. Spezielle Zusatzkodierungen wie zum Beispiel Jahreszeiten oder Sonnenauf- und untergangszeiten werden vom System bereitgestellt. Wie bei Raum und Zeit kann auch der Gehalt an historisch-klimatologischer Informationen mehr oder weniger spezifisch sein und von einer einfachen Verschlagwortung über ordinale Intensitätsskalen bis hin zu Messwertreihen kodiert werden. Referenzsysteme dieser Art sind für die Kodierung grundsätzlich nötig, um eine Verarbeitbarkeit der Daten zu ermöglichen und diese sinnvoll recherchierbar zu machen. Weiterhin können in allen Dimensionen Kodierfehler oder systematische Fehler nicht ausgeschlossen werden.</p>
+        <p>Die Arbeit an der Forschungsumgebung zeigt: Die gespeicherten Texte und kodierten Daten erfahren auch ein Interesse aus der allgemeinen Öffentlichkeit außerhalb der historischen Klimatologie. Gleichzeitig zeigen Menschen außerhalb der Forschergemeinde ein Interesse, ihnen zur Verfügung stehende historische Quellen in die Forschungsumgebung einzuarbeiten. Ob Popularisierung von Forschungsdaten oder „Citizen Science“: Mit der Erweiterung der Nutzerkreise stellen sich auch in Bezug auf die Kartennutzung eine Reihe von Fragen. Sind sich die Nutzer außerhalb der Fachwissenschaften der komplexen Eigenschaften historischer Texte wie Lückenhaftigkeit, Subjektivität und Glaubwürdigkeit bewusst? Wie ausgeprägt ist das Verständnis für klimatologische Phänomene und deren räumliche und zeitliche Ausdehnung und Wirkung? Können diese komplexen Qualitätseigenschaften der Inhalte mit Hilfe der Kartographie in den Visualisierungen kommuniziert werden? Werden die Auswirkungen des Kodierungsprozesses auf die in den Visualisierungen enthaltenen Informationen nachvollzogen?</p>
+        <p>Zentrales Ziel der Visualisierung ist neben dem der Kartographie innewohnenden
+          Anliegen der Kommunikation räumlichen Wissens vor allem die gleichzeitige
+          Herausarbeitung der räumlichen und zeitlichen Begrenzung dieses Wissens. Eine
+          tragende Rolle kommt dabei der Basiskarte zu: Sie sollte frei von Anachronismen sein
+          und in einem weiten Maßstabsbereich eine angemessene Projektion besitzen. Ebenso
+          sollte neben der räumlichen Orientierungsfunktion auch eine inhaltsorientierte
+          räumliche und zeitliche Begrenzung der gespeicherten Daten kommuniziert werden, um
+          so zum Beispiel durch „weiße Flecken“ den entscheidenden Unterschied zwischen dem
+          Nicht-Vorhanden-Sein von historischem Wissen und dem Nicht-Auftreten von
+          klimatologischen Ereignissen zu verdeutlichen. Der „weiße Fleck“ ist dabei nicht nur
+          ein Ausdruck von Leere, sondern ein in der kartographischen Tradition stehender,
+          „auf das engste mit dem Medium der Karte [verbundener] Forschungsauftrag.“
+          (Schelhaas 2009). Aus historisch-klimatologischer Sicht handelt es sich dort um eine
+          „terra incognita“ und die Karte ist, zumindest in der Raumdimension, die Matrix, auf
+          der entsprechende Orte mit Bedeutung konstruiert werden können (Paez i Blanch
+          2015).</p>
+          <p>Die kartographische Symbolisierung von hunderttausenden, auf dem oben beschriebenen Kodierprozess beruhenden raum-zeitlichen Ereignissen wird auf dieser Kartengrundlage durch Aggregationsmechanismen ermöglicht. Dabei darf der Charakter dieser Symbolisierung keine unangemessene Exaktheit vortäuschen. Verbliebene Restunsicherheiten in den Daten sollten durch die Art der visuellen Kommunikation vermittelt werden.</p>
+          <p>Durch die vielfältigen Tools innerhalb der Forschungsumgebung werden sehr
+            unterschiedliche Sichten auf die Daten ermöglicht, die neben der gewünschten neuen
+            Forschungserkenntnis im Speziellen vielleicht auch „citizen scientists“ zum weiteren
+            Forschen in bisher unbekannten Räumen anregen soll. Erfahrungen im
+            OpenStreetMap-Projekt bestätigen die motivierende Rolle von Visualisierungen: Leere
+            Orte ziehen Aufmerksamkeit auf sich und das Füllen dieser Lücken wird von Nutzern
+            als befriedigend empfunden (Budhathoki / Haythornthwaite 2013).</p>
+            <p>Diese Arbeit stellt den Aufbau und die Systemarchitektur der virtuellen Forschungsumgebung sowie deren Vernetzung in die Community und zu externen Diensten vor. Im Speziellen werden die im Projekt entstandenen Visualisierungen vorgestellt und zu ihrer Tauglichkeit in Bezug auf die formulierten Anforderungen und Ansprüche diskutiert. Die Vorstellung der offenen Datenschnittstelle des Projektes (Tambora.org REST API) soll unter anderem Kartographen oder auch Informatiker zu einem „map hacking“ einladen und zu alternativen Visualisierungen anregen. Diese Schnittstelle wird damit als integraler Bestandteil des kartographischen Kommunikationsprozesses betrachtet.</p>
+          </body>
+          <back>
+            <div type="bibliogr">
+              <listBibl>
+                <head>Bibliographie</head>
+                <bibl>
+                  <hi rend="bold">Borel, Franck / Steller, Heike</hi> (2012): "Tambora – Die
+                  Entstehung einer virtuellen Forschungsumgebung", in: <hi rend="italic"
+                  >B.I.T.online</hi> 5: 423-430. </bibl>
+                  <bibl>
+                    <hi rend="bold">Budhathoki, Nama R. / Haythornthwaite, Caroline</hi> (2013):
+                    "Motivation for Open Collaboration: Crowd and Community Models and the Case
+                    of OpenStreetMap", in: <hi rend="italic">American Behavioral Scientist</hi>
+                    57, 5: 548-575. </bibl>
+                    <bibl>
+                      <hi rend="bold">Paez i Blanch, Roger</hi> (2015): "Mapping emptiness:
+                      cartographic activations of empty space", in: <hi rend="italic">Cuadernos De
+                      Proyectos Arquitectó Nicos</hi> 5: 155-157 <ref
+                      target="http://polired.upm.es/index.php/proyectos_arquitectonicos/article/view/3067"
+                      >http://polired.upm.es/index.php/proyectos_arquitectonicos/article/view/3067</ref>
+                      [letzter Zugriff 01. September 2015]. </bibl>
+                      <bibl>
+                        <hi rend="bold">Schelhaas, Bruno </hi>(2009): "Das „Wiederkehren des
+                        Fragezeichens in der Karte“. Gothaer Kartenproduktion im 19. Jahrhundert",
+                        in: <hi rend="italic">Geographische Zeitschrift</hi> 97, 4: 227-242. </bibl>
+                        <bibl>
+                          <hi rend="bold">Specht, Sebastian / Hanewinkel, Christian</hi> (2013): "Maps
+                          as Research Tools Within a Virtual Research Environment", in: Buchroithner,
+                          Manfred F. / Prechtel, Nikolas / Burghardt, Dirk / Pippig, Karsten /
+                          Schröter, Benjamin (eds.)<hi rend="italic">Proceedings of the 26th
+                          International Cartographic Conference</hi>, Dresden, Germany <ref
+                          target="http://icaci.org/files/documents/ICC_proceedings/ICC2013/"
+                          >http://icaci.org/files/documents/ICC_proceedings/ICC2013/</ref>
+                          [letzter Zugriff 08. Januar 2016].</bibl>
+                        </listBibl>
+                      </div>
+                    </back>
+                  </text>
+                </TEI>

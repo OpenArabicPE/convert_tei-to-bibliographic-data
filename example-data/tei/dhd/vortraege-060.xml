@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="vortraege-060">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title> Dramen als small worlds? Netzwerkdaten zur Geschichte und Typologie deutschsprachiger Dramen 1730-1930 </title>
+        <author>
+          <name>
+            <surname>Trilcke</surname>
+            <forename>Peer</forename>
+          </name>
+          <affiliation>Georg-August-Universität Göttingen, Deutschland</affiliation>
+          <email>trilcke@phil.uni-goettingen.de</email>
+        </author>
+        <author>
+          <name>
+            <surname>Fischer</surname>
+            <forename>Frank</forename>
+          </name>
+          <affiliation>Niedersächsische Staats- und Universitätsbibliothek Göttingen</affiliation>
+          <email>frank.fischer@sub.uni-goettingen.de</email>
+        </author>
+        <author>
+          <name>
+            <surname>Göbel</surname>
+            <forename>Mathias</forename>
+          </name>
+          <affiliation>Niedersächsische Staats- und Universitätsbibliothek Göttingen</affiliation>
+          <email>goebel@sub.uni-goettingen.de</email>
+        </author>
+        <author>
+          <name>
+            <surname>Kampkaspar</surname>
+            <forename>Dario</forename>
+          </name>
+          <affiliation>Herzog August Bibliothek Wolfenbüttel</affiliation>
+          <email>kampkaspar@hab.de</email>
+        </author>
+      </titleStmt>
+      <editionStmt>
+        <edition>
+          <date>2015-10-12T13:27:00Z</date>
+        </edition>
+      </editionStmt>
+      <publicationStmt>
+        <publisher>Elisabeth Burr, Universität Leipzig</publisher>
+        <address>
+          <addrLine>Beethovenstr. 15</addrLine>
+          <addrLine>04107 Leipzig</addrLine>
+          <addrLine>Deutschland</addrLine>
+          <addrLine>Elisabeth Burr</addrLine>
+        </address>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Converted from a Word document </p>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <appInfo>
+        <application ident="DHCONVALIDATOR" version="1.13">
+          <label>DHConvalidator</label>
+        </application>
+      </appInfo>
+    </encodingDesc>
+    <profileDesc>
+      <textClass>
+        <keywords scheme="ConfTool" n="category">
+          <term>Vortrag</term>
+        </keywords>
+        <keywords scheme="ConfTool" n="subcategory">
+          <term></term>
+        </keywords>
+        <keywords scheme="ConfTool" n="keywords">
+          <term>Netzwerkanalyse</term>
+          <term>Dramen</term>
+          <term>Literaturgeschichte</term>
+          <term>small worlds</term>
+        </keywords>
+        <keywords scheme="ConfTool" n="topics">
+          <term>Strukturanalyse</term>
+          <term>Netzwerkanalyse</term>
+          <term>Visualisierung</term>
+          <term>Literatur</term>
+          <term>Text</term>
+        </keywords>
+      </textClass>
+    </profileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <div type="div1" rend="DH-Heading1">
+        <head>Ansatz </head>
+        <p>Neben dem ›klassischen‹ strukturalistischen Paradigma, das sich wesentlich an
+          Theoremen der Linguistik orientiert (u. a. Lotman 1972; Titzmann 1977), gibt es
+          in der Literaturwissenschaft bereits seit Jahrzehnten Ansätze zu einer
+          Strukturanalyse, die sich auf die empirische Soziologie – insbesondere auf die
+          <hi rend="italic">Social Network Analysis – </hi>bezieht und Struktur
+          entsprechend nicht über basale semantische Relationen (etwa als Opposition oder
+          Äquivalenz) definiert, sondern über soziale Interaktionen (Marcus 1973; Stiller
+          et al. 2003; de Nooy 2006; Stiller / Hudson 2005; Elson et al. 2010; Agarwal et
+          al. 2012). Im Kontext der Digital Humanities haben diese Ansätze zu einer
+          literaturwissenschaftlichen Netzwerkanalyse (Trilcke 2013) in den letzten Jahren
+          eine neue Dynamik gewonnen (Moretti 2011; Rydberg-Cox 2011; Park et al. 2013).
+          Aus literaturwissenschaftlicher Sicht versprechen diese Analyseverfahren dabei
+          auf umfangreichen Korpora basierende, von quantitativen Daten gestützte
+          Erkenntnisse über die Literaturgeschichte wie auch über die generischen
+          Eigenarten literarischer Texte. Im Projekt <hi rend="italic">dlina. Digital
+          Literary Network Analysis </hi>haben wir einen Workflow zur Extraktion,
+          Analyse und Visualisierung von Netzwerkdaten aus dramatischen Texten mit
+          rudimentärer TEI-Auszeichnung entwickelt (Fischer et al. 2015). Der hier
+          projektierte Vortrag wird Ergebnisse der netzwerkanalytischen Auswertung dieser
+          Daten präsentieren und vor dem Hintergrund etablierter fachwissenschaftlicher
+          Fragestellungen diskutieren. </p>
+        </div>
+        <div type="div1" rend="DH-Heading1">
+          <head>Datenerhebung und -analyse</head>
+          <p>Unser derzeitiges Korpus umfasst 465 deutschsprachige Dramen (Zeitraum 1730 bis
+            1930), die aus dem <ref target="https://textgridrep.de">Textgrid
+            Repository</ref> extrahiert wurden. Die für die Netzwerkanalyse relevanten
+            Strukturdaten dieser Dramen (Segmentierung, Figurenidentifikation) wurden in
+            einem regelbasierten Prozess händisch ediert, um OCR- und TEI-Tagging-Fehler zu
+            beheben sowie solchen ›Eigenarten‹ der literarischen Texte zu begegnen, die die
+            Analyseergebnisse verfälschen würden (u. a. unterschiedliche Bezeichnungen
+            identischer Figuren; Bezeichnung von Figurengruppen mit unbestimmten Numeralien
+            wie ›beide‹ oder ›alle‹; etc.). Die edierten Strukturdaten liegen in einem
+            eigens entwickelten Datenformat, dem dlina-Format, in Form von XML-Dateien vor.
+            Die Visualisierung der Netzwerke und die Berechnung netzwerkanalytischer Werte
+            erfolgt – mittels Python- und D3-Skripten – automatisiert auf Basis der in den
+            dlina-Dateien gespeicherten Strukturdaten. Neben Graphen und basalen Werten, die
+            die Netzwerke global beschreiben (Network Size, Density, Average Degree, Average
+            Path Length), werden dabei auch Zentralitätswerte für sämtliche Figuren eines
+            Dramas erhoben (u. a. Degree, Average Distance, Closeness Centrality,
+            Betweenness Centrality). Die Implemtierung weiterer Berechnungsrountinen (u. a.
+            Clustering Coefficient, logarithmierte Degree Distribution-Tabellen) ist für den
+            Winter 2015/16 vorgesehen. Sämtliche Daten und Visualisierungen werden frei
+            verfügbar im Netz publiziert (<ref target="https://github.com/dlina"
+            >https://github.com/dlina</ref> und <ref
+            target="https://dlina.github.io/linas/"
+            >https://dlina.github.io/linas/</ref>). </p>
+          </div>
+          <div type="div1" rend="DH-Heading1">
+            <head>Literaturwissenschaftliche Auswertung 1: Dramengeschichte </head>
+            <p>Die diachrone Erstreckung unseres Dramenkorpus über ca. 200 Jahre deutscher
+              Literaturgeschichte macht es möglich, größere Entwicklungen im Bereich der
+              strukturellen Komposition von dramatischen Texten zu beobachten (erste
+              Überlegungen dazu haben wir in einem Blogpost skizziert: <ref
+              target="https://dlina.github.io/200-Years-of-Literary-Network-Data/"
+              >https://dlina.github.io/200-Years-of-Literary-Network-Data/</ref>). Neben
+              Werten, die sich auf die Gesamtnetzwerke der einzelnen Dramen beziehen (u. a.
+              Network Size, Density, Average Degree; s. exemplarisch zur Average Path Length,
+              Abbildung 1), werden dabei auch figurenbezogene Werte, v.a. Zentralitätsmaße,
+              einbezogen, die Aufschluss etwa über die Streuung des Personals eines Dramas
+              bzw. dessen Zusammensetzung aus ›zentralen‹ und weniger ›zentralen‹ Figuren
+              gibt. Auf Grundlage dieser Werte sollen im Vortrag einige globale Thesen der
+              Literaturgeschichte diskutiert werden. So werden wir <hi rend="italic"
+              >erstens</hi> diskutieren, inwieweit sich anhand der netzwerkanalytischen
+              Werte eine Ausdifferenzierung der strukturellen Komposition von dramatischen
+              Texten am Ende des 18. Jahrhunderts beobachten lässt: Eine solche
+              Ausdifferenzierung wäre angesichts des Nebeinanders von ›geschlossenen‹, in der
+              Tradition der Französischen Klassik stehenden Dramen und ›offenen‹ Dramen, die
+              sich u. a. an der Drramatik Shakespeares orientieren, zu erwarten. <hi
+              rend="italic">Zweitens </hi>werden wir einige geläufige
+              literaturwissenschaftliche Periodisierungshypothesen testen (u. a. aus dem
+              Strukturalismus und der Sozialgeschichte); gefragt werden soll hier, inwieweit
+              die Entwicklung der netzwerkanalytischen Werte mit den von der Forschung
+              vorgeschlagenen Periodisierungen korreliert. </p>
+              <figure>
+                <graphic n="1001" width="14.123911111111111cm" height="6.325327777777778cm" url="060-image1.png" rend="inline"/>
+                <p rend="figure">
+                  <hi rend="bold">Abb. 1</hi>: Average Path Length (Mean; nach Dekaden) </p>
+                </figure>
+              </div>
+              <div type="div1" rend="DH-Heading1">
+                <head>Literaturwissenschaftliche Auswertung 2: Dramentypen</head>
+                <p>Die von uns bisher erhobenen Werte zeigen, dass Dramen in dem untersuchten
+                  Zeitraum auf sehr unterschiedliche Weise strukturiert wurden. In der
+                  ›traditionellen‹ Literaturwissenschaft wurden für solche unterschiedlichen
+                  ›Bauformen‹ diverse Typologien entwickelt, in der Germanistik am bekanntesten
+                  ist Volker Klotz’ Unterscheidung in eine ›offene‹ und eine ›geschlossen‹
+                  Dramenform (Klotz 1960). Diesen typologischen Impuls wollen wir aufgreifen und
+                  einen Vorschlag unterbreiten, wie sich mittels netzwerkanalytischer Daten
+                  bestimmte Typen der strukturellen Komposition von Dramen unterscheiden (und dann
+                  wiederum historisch verorten) lassen. Unser Vorschlag greift dabei Überlegungen
+                  aus der Forschung zu sog. Small-world-Netzwerken auf. Diese Forschungen setzen
+                  bei der Beobachtung an, dass die Werte von empirisch erhobenen Netzwerken nicht
+                  selten signifikant von entsprechenden Random-Netzwerken (also z. B. nach dem
+                  Erdős-Rényi-Modell erstellten Graphen) abweichen. Abweichungen sind dabei
+                  insbesondere beim Clustering Coefficient, bei der Averge Path Length sowie bei
+                  der Degree Distribution zu beobachten (Albert / Barabási 2002). Für den hier
+                  projektierten Vortrag werden wir diese Werte – sowie die Werte für die
+                  entsprechenden Random-Netzwerke – für unser Gesamtkorpus erheben (sowie einen
+                  Workflow für die automatisierte Erhebung entwickeln) und diskutieren. Erste
+                  Testläufe deuten dabei darauf hin, dass sich auf diese Weise tatsächlich
+                  unterschiedliche Typen der strukturellen Komposition von Dramen beschreiben
+                  lassen könnten. So zeigen sich z. B. auffällige Unterschiede bei der Degree
+                  Distribution (s. exemplarisch die Tabellen für vier Dramen in Abbildung 2); und
+                  mit Blick auf den Clustering Coefficient zeigt sich, dass im Vergleich zu
+                  Random-Netzwerken signifikant höhere Werte, wie sie bei Small-world-Netzwerken
+                  zu erwarten sind, zwar in mehreren Fällen vorkommen, jedoch keineswegs für alle
+                  Dramennetzwerke charakteristisch sind (siehe exemplarisch die Werte in Abbildung
+                  3). Im Vortrag werden wir diese Werte für alle Dramen unseres Korpus
+                  präsentieren; wir werden diskutieren, inwieweit sich hier – aufbauend auf dem
+                  Small-world-Konzept – netzwerkanalytisch basierte Typen der strukturellen
+                  Komposition von Dramen unterscheiden lassen und wir werden literarhistorisch
+                  fundiert erörtern, welche Eigenschaften der Dramen für die unterschiedlichen
+                  Werte verantwortlich sind.</p>
+                  <figure>
+                    <graphic n="1002" width="11.337727777777777cm" height="7cm" url="060-image2.jpeg" rend="block"/>
+                  </figure>
+                  <figure>
+                    <graphic n="1003" width="11.340588888888888cm" height="7cm" url="060-image3.jpeg" rend="block"/>
+                  </figure>
+                  <figure>
+                    <graphic n="1004" width="11.3383cm" height="7cm" url="060-image4.jpeg" rend="block"/>
+                  </figure>
+                  <figure>
+                    <graphic n="1005" width="11.3383cm" height="7cm" url="060-image5.jpeg" rend="block"/>
+                    <p rend="figure"><hi rend="bold">Abb. 2.1 bis 2.4</hi>: Node Degree Distribution für »Der
+                    sterbende Cato« (1731), »Emilia Galotti« (1772), »Götz von Berlichingen« (1773)
+                    und »Die Räuber« (1781) </p>
+                  </figure>
+                  <figure>
+                    <graphic url="v60-table1.png" rend="inline"></graphic>
+                    <p rend="figure">
+                      <hi rend="bold">Abb. 3</hi>: Vergleich des Clustering Coefficent des
+                      Dramen-Netzwerks mit dem eines jeweils entsprechenden Random-Netzwerks </p>
+                    </figure>
+                  </div>
+                </body>
+                <back>
+                  <div type="bibliogr">
+                    <listBibl>
+                      <head>Bibliographie</head>
+                      <bibl><hi rend="bold">Albert, Réka / Barabási, Albert-László</hi> (2002):
+                      "Statistical mechanics of complex networks", in: <hi rend="italic">Reviews
+                      of Modern Physics</hi> 74: 47–97. </bibl>
+                      <bibl><hi rend="bold">Agarwal, Apoorv / Corvalan, Augusto / Jensen, Jacob /
+                        Rambow, Owen </hi>(2012): "Social Network Analysis of <hi rend="italic"
+                        >Alice in Wonderland</hi>" in: <hi rend="italic">Proceedings of the
+                        Workshop on Computational Linguistics for Literature</hi>. Montréal
+                        88–96. </bibl>
+                        <bibl><hi rend="bold">de Nooy, Wouter</hi> (2006): "Stories, Scripts, Roles, and
+                        Networks" in: <hi rend="italic">Structure and Dynamics</hi> 1, 2 <ref
+                        target="http://escholarship.org/uc/item/8508h946#page-1"
+                        >http://escholarship.org/uc/item/8508h946#page-1</ref> [letzter Zugriff
+                        12. Oktober 2015]. </bibl>
+                        <bibl><hi rend="bold">Elson, David K. / Dames, Nicholas / McKeown, Kathleen R.
+                        </hi>(2010): "Extracting Social Networks from Literary Fiction", in: <hi
+                        rend="italic">Proceedings of the 48th Annual Meeting of the Association
+                        for Computational Linguistics</hi>. Uppsala 138–147. </bibl>
+                        <bibl><hi rend="bold">Fischer, Frank / Kampkaspar, Dario / Göbel, Mathias /
+                          Trilcke, Peer</hi> (2015): "Digital Network Analysis of Dramatic Texts",
+                          in: <hi rend="italic">DH 2015, Sydney, 2. Juli 2015</hi>
+                          <ref target="https://dlina.github.io/Our-Talk-at-DH2015/"
+                            >https://dlina.github.io/Our-Talk-at-DH2015/</ref> [Skript] und <ref
+                            target="/"
+                            >https://dlina.github.io/presentations/2015-sydney/sydney.html#/</ref>
+                            [Slides] [letzter Zugriff 12. Oktober 2015]. </bibl>
+                            <bibl><hi rend="bold">Klotz, Volker</hi> (1960): <hi rend="italic">Geschlossene
+                            und offene Form im Drama</hi>. München: Hanser. </bibl>
+                            <bibl><hi rend="bold">Lotman, Jurij M.</hi> (1972): <hi rend="italic">Die
+                            Struktur literarischer Texte</hi>. München: Wilhelm Fink. </bibl>
+                            <bibl><hi rend="bold">Marcus, Solomon</hi> (1973): <hi rend="italic"
+                            >Mathematische Poetik</hi>. Frankfurt am Main: Editura Academiei. </bibl>
+                            <bibl><hi rend="bold">Moretti, Franco</hi> (2011): "Network Theory, Plot
+                            Analysis" in: <hi rend="italic">Stanford Literary Lab Pamphlets</hi> 2 <ref
+                            target="http://litlab.stanford.edu/LiteraryLabPamphlet2.pdf"
+                            >http://litlab.stanford.edu/LiteraryLabPamphlet2.pdf</ref> [letzter
+                            Zugriff 12. Oktober 2015]. </bibl>
+                            <bibl>
+                              <hi rend="bold">Park, Gyeong-Mi / Kim, Sung-Hwan / Cho, Hwan-Gue</hi>
+                              (2013): "Structural Analysis on Social Network Constructed from Characters
+                              in Literature Texts", in: <hi rend="italic">Journal of Computers</hi> 8, 9:
+                              2442-2447 <ref
+                              target="http://ojs.academypublisher.com/index.php/jcp/article/view/jcp080924422447/7672"
+                              >http://ojs.academypublisher.com/index.php/jcp/article/view/jcp080924422447/7672</ref>
+                              [letzter Zugriff 12. Oktober 2015]. </bibl>
+                              <bibl><hi rend="bold">Rydberg-Cox, Jeff</hi> (2011): "Social Networks and the
+                              Language of Greek Tragedy", in: <hi rend="italic">Journal of the Chicago
+                              Colloquium on Digital Humanities and Computer Science</hi> 1, 3 <ref
+                              target="https://letterpress.uchicago.edu/index.php/jdhcs/article/view/86/91"
+                              >https://letterpress.uchicago.edu/index.php/jdhcs/article/view/86/91</ref>
+                              [letzter Zugriff 12. Oktober 2015]. </bibl>
+                              <bibl><hi rend="bold">Stiller, James / Nettle, Daniel / Dunbar, Robin I. M.</hi>
+                              (2003): "The Small World of Shakespeare's Plays", in: <hi rend="italic"
+                              >Human Nature</hi> 14: 397–408. </bibl>
+                              <bibl><hi rend="bold">Stiller, James / Hudson, Matthew</hi> (2005): "Weak Links
+                              and Scene Cliques Within the Small World of Shakespeare", in: <hi
+                              rend="italic">Journal of Cultural and Evolutionary Psychology</hi> 3:
+                              57–73. </bibl>
+                              <bibl><hi rend="bold">TextGrid</hi>: <hi rend="italic">TextGrid Repository</hi>
+                              <ref target="https://textgridrep.de">https://textgridrep.de</ref> [letzter
+                              Zugriff 10. Februar 2016].</bibl>
+                              <bibl><hi rend="bold">Titzmann, Michael</hi> (1977): <hi rend="italic"
+                              >Strukturale Textanalyse</hi>. Theorie und Praxis der Interpretation.
+                              München: Wilhelm Fink. </bibl>
+                              <bibl><hi rend="bold">Trilcke, Peer</hi> (2013): "Social Network Analysis (SNA)
+                              als Methode einer textempirischen Literaturwissenschaft", in: Ajouri, Philip
+                              / Mellmann, Katja / Rauen, Christoph (eds.): <hi rend="italic">Empirie in
+                              der Literaturwissenschaft</hi>. Münster: mentis 201–247. </bibl>
+                            </listBibl>
+                          </div>
+                        </back>
+                      </text>
+                    </TEI>
