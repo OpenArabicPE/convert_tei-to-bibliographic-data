@@ -263,8 +263,8 @@
                 </xsl:when>
             </xsl:choose>
             <!-- for each author -->
-            <xsl:apply-templates mode="m_tei-to-mods" select="$v_analytic/tei:author"/>
-            <xsl:apply-templates mode="m_tei-to-mods" select="$v_monogr/tei:author"/>
+            <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/descendant::tei:author"/>
+            <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/descendant::tei:respStmt[tei:persName]"/>
             <xsl:choose>
                 <xsl:when test="$v_analytic/tei:title[@level = 'a']">
                     <relatedItem type="host">
@@ -308,15 +308,16 @@
                     </accessCondition>
                 </xsl:otherwise>
             </xsl:choose>
-            <!-- data on analytic -->
+            <!-- date on analytic -->
             <xsl:if test="$v_analytic/tei:date">
                 <xsl:apply-templates mode="m_tei-to-mods" select="$v_analytic/tei:date"/>
             </xsl:if>
-            <xsl:if test="$v_biblStruct/descendant::tei:idno[@type = ('url', 'URI')]">
-                <!-- MODS allows for more than one URL! -->
-                <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/descendant::tei:idno[@type = ('url', 'URI')]"/>
-                <!--<url dateLastAccessed="{$p_date-accessed}" usage="primary display">-->
-            </xsl:if>
+            <!-- IDs -->
+            <xsl:apply-templates select="$v_analytic/tei:idno[not(@type = ('url', 'URI'))]" mode="m_tei-to-mods"/>
+            <!-- URLs -->
+            <!-- MODS allows for more than one URL! -->
+            <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/descendant::tei:idno[@type = ('url', 'URI')]"/>
+            <!--<url dateLastAccessed="{$p_date-accessed}" usage="primary display">-->
             <!-- language information -->
             <xsl:choose>
                 <xsl:when test="$v_biblStruct/descendant::tei:textLang">
@@ -441,22 +442,41 @@
     </xsl:template>
     <!-- IDs -->
     <xsl:template match="tei:idno" mode="m_tei-to-mods">
-        <identifier type="{@type}">
-            <!--<xsl:apply-templates mode="m_plain-text" select="text()"/>-->
+        <xsl:variable name="v_name">
+            <xsl:choose>
+                <xsl:when test="parent::tei:author | parent::tei:editor | parent::tei:persName">
+                    <xsl:text>nameIdentifier</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>identifier</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:element name="{$v_name}">
+            <xsl:attribute name="type">
+                <xsl:choose>
+                    <xsl:when test="@type = ('doi', 'gnd', 'orcid')">
+                        <xsl:value-of select="upper-case(@type)"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="@type"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
             <xsl:variable name="v_plain">
                 <xsl:apply-templates mode="m_plain-text" select="."/>
             </xsl:variable>
             <xsl:value-of select="normalize-space($v_plain)"/>
-        </identifier>
+        </xsl:element>
     </xsl:template>
-    <xsl:template match="tei:idno[parent::tei:author or parent::tei:editor]" mode="m_tei-to-mods">
+    <!--<xsl:template match="tei:idno[parent::tei:author or parent::tei:editor]" mode="m_tei-to-mods">
         <nameIdentifier type="{@type}">
             <xsl:variable name="v_plain">
                 <xsl:apply-templates mode="m_plain-text" select="."/>
             </xsl:variable>
             <xsl:value-of select="normalize-space($v_plain)"/>
         </nameIdentifier>
-    </xsl:template>
+    </xsl:template>-->
     <xsl:template match="tei:idno[@type = 'classmark']" mode="m_tei-to-mods">
         <location>
             <!-- the actual location of the physical copy -->
@@ -597,7 +617,7 @@
         </extent>
     </xsl:template>
     <!-- contributors -->
-    <xsl:template match="tei:editor | tei:author" mode="m_tei-to-mods" priority="10">
+    <xsl:template match="tei:editor | tei:author | tei:respStmt[tei:persName]" mode="m_tei-to-mods" priority="10">
         <name type="personal" xml:lang="{@xml:lang}">
             <!-- add references to authority files -->
             <xsl:choose>
@@ -625,9 +645,12 @@
                     </namePart>
                 </xsl:otherwise>
             </xsl:choose>
-            <!-- deal with affiliations, IDs -->
+            <!-- affiliations, IDs -->
             <xsl:apply-templates mode="m_tei-to-mods" select="tei:idno"/>
             <xsl:apply-templates mode="m_tei-to-mods" select="tei:affiliation"/>
+            <!-- tag abuse from ZfDG -->
+            <xsl:apply-templates mode="m_tei-to-mods" select="tei:persName/tei:idno"/>
+            <xsl:apply-templates mode="m_tei-to-mods" select="tei:persName/tei:affiliation"/>
             <role>
                 <roleTerm authority="marcrelator" type="code">
                     <xsl:choose>
@@ -636,6 +659,9 @@
                         </xsl:when>
                         <xsl:when test="local-name() = 'author'">
                             <xsl:text>aut</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="tei:resp/@ref[matches(., 'https*://id.loc.gov/vocabulary/relators')]">
+                            <xsl:value-of select="replace(tei:resp/@ref, '^https*://id.loc.gov/vocabulary/relators/', '')"/>
                         </xsl:when>
                     </xsl:choose>
                 </roleTerm>
