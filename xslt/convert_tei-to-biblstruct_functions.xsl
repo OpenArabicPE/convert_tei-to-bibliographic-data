@@ -522,9 +522,20 @@
     <xsl:template match="tei:fileDesc" mode="m_fileDesc-to-biblStruct">
         <xsl:choose>
             <xsl:when test="tei:publicationStmt[descendant::tei:biblStruct]">
-                <xsl:copy-of select="tei:publicationStmt/descendant::tei:biblStruct"/>
+                <biblStruct>
+                    <xsl:apply-templates mode="m_identity-transform" select="tei:publicationStmt/descendant::tei:biblStruct/node()"/>
+                    <!-- add keywords from profileDesc -->
+                    <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="following-sibling::tei:profileDesc/tei:textClass"/>
+                </biblStruct>
             </xsl:when>
-            <xsl:when test="tei:publicationStmt[descendant::tei:biblStruct or descendant::tei:bibl]"/>
+            <xsl:when test="tei:publicationStmt[descendant::tei:bibl]"/>
+            <xsl:when test="tei:titleStmt/tei:title/tei:biblStruct">
+                <biblStruct>
+                    <xsl:apply-templates mode="m_identity-transform" select="tei:titleStmt/tei:title/tei:biblStruct/node()"/>
+                    <!-- add keywords from profileDesc -->
+                    <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="following-sibling::tei:profileDesc/tei:textClass"/>
+                </biblStruct>
+            </xsl:when>
             <xsl:otherwise>
                 <xsl:variable name="v_publicationStmt" select="tei:publicationStmt"/>
                 <xsl:variable name="v_titleStmt" select="tei:titleStmt"/>
