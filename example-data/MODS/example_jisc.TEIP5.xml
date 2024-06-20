@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Title</title>
+         </titleStmt>
+         <publicationStmt>
+            <p>Publication Information</p>
+         </publicationStmt>
+         <sourceDesc>
+            <p>Information about the source</p>
+         </sourceDesc>
+      </fileDesc>
+   </teiHeader>
+   <standOff>
+      <listBibl>
+         <biblStruct xmlns:oape="https://openarabicpe.github.io/ns"
+                     type="periodical"
+                     oape:frequency="Weekly">
+            <monogr>
+               <title level="a">Ḥadīqat al-akhbār</title>
+               <title type="sub">a weekly periodical of politics, literature, science, and commerce</title>
+               <textLang mainLang="ar"/>
+               <idno type="UkMaC">20514402</idno>
+               <idno type="url">https://gallica.bnf.fr/ark:/12148/cb327855212/date</idno>
+               <imprint>
+                  <pubPlace>
+                     <country>le</country>
+                  </pubPlace>
+                  <pubPlace>
+                     <placeName>[Bayrut</placeName>
+                  </pubPlace>
+                  <publisher>
+                     <orgName>s.n.</orgName>
+                  </publisher>
+                  <date type="onset">1858</date>
+                  <date type="">1868</date>
+                  <date>1858-1868]</date>
+               </imprint>
+            </monogr>
+            <note type="comments">edited by Khalīl al-Khūrī].</note>
+            <note type="holdings">
+               <list>
+                  <item>
+                     <label>
+                        <orgName>University of Edinburgh Libraries</orgName>
+                     </label>
+                     <listBibl>
+                        <bibl>
+                           <idno type="UkMaC">20514402</idno>
+                           <idno type="StEdU">9911791443502466</idno>
+                           <idno type="classmark">WidowIII.1.27</idno>
+                           <biblScope>Nos.20-350,407-516 (in 9 vols.)</biblScope>
+                        </bibl>
+                     </listBibl>
+                     <note type="format">print</note>
+                  </item>
+                  <item>
+                     <label>
+                        <orgName>University of Oxford Libraries</orgName>
+                     </label>
+                     <listBibl>
+                        <bibl>
+                           <idno type="UkMaC">40333413</idno>
+                           <idno type="UkOxU">017558521</idno>
+                           <idno type="classmark">N. Arab. b.3</idno>
+                           <idno type="classmark">N. Arab. b.3a</idno>
+                           <idno type="classmark">N. Arab. b.3b</idno>
+                        </bibl>
+                     </listBibl>
+                     <note type="format">print</note>
+                  </item>
+                  <item>
+                     <label>
+                        <orgName>Brunel University London Library</orgName>
+                     </label>
+                     <listBibl>
+                        <bibl>
+                           <idno type="UkMaC">187829774</idno>
+                           <idno type="UkUbBU">ssib032071850</idno>
+                        </bibl>
+                     </listBibl>
+                     <note type="format">online</note>
+                  </item>
+               </list>
+            </note>
+         </biblStruct>
+         <biblStruct type="periodical">
+            <monogr>
+               <title level="a">Studia Semitica et Orientalia.</title>
+               <idno type="UkMaC">7292952</idno>
+               <idno type="lccn">21-18129</idno>
+               <idno type="isrc">ocm04934943</idno>
+               <author>
+                  <persName>Glasgow, University. Oriental Society. Personal</persName>
+               </author>
+               <editor>
+                  <orgName>University of Glasgow. Oriental Society. Corporate</orgName>
+               </editor>
+               <editor>
+                  <orgName>University of Glasgow. Oriental Society</orgName>
+               </editor>
+               <imprint>
+                  <publisher>
+                     <orgName>MacLehose, Jackson and co</orgName>
+                  </publisher>
+                  <date>1920</date>
+                  <date>1920</date>
+               </imprint>
+            </monogr>
+            <note type="comments">[1]-</note>
+            <note type="comments">Includes bibliographical references</note>
+            <note type="comments">A volume presented to James Robertson ... on his eightieth birthday</note>
+            <note type="holdings">
+               <list>
+                  <item>
+                     <label>
+                        <orgName>National Library of Wales / Llyfrgell Genedlaethol Cymru</orgName>
+                     </label>
+                     <listBibl>
+                        <bibl>
+                           <idno type="UkMaC">7292952</idno>
+                           <idno type="WlAbNL">9954730902419</idno>
+                           <idno type="classmark">89MB19229</idno>
+                        </bibl>
+                     </listBibl>
+                     <note type="format">print</note>
+                  </item>
+               </list>
+            </note>
+         </biblStruct>
+      </listBibl>
+   </standOff>
+</TEI>
