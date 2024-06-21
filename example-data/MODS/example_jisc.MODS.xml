@@ -1,0 +1,913 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modsCollection xmlns="http://www.loc.gov/mods/v3">
+    <mods version="3.7" xmlns="http://www.loc.gov/mods/v3" xmlns:h="http://copac.ac.uk/schemas/holdings/v1" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <recordInfo>
+            <recordIdentifier source="UkMaC">20514402</recordIdentifier>
+            <recordCreationDate encoding="iso8601">20240118</recordCreationDate>
+        </recordInfo>
+        <typeOfResource>text</typeOfResource>
+        <originInfo>
+            <issuance>serial</issuance>
+        </originInfo>
+        <originInfo>
+            <dateIssued encoding="marc" point="start">1858</dateIssued>
+            <dateIssued encoding="marc" point="end">1868</dateIssued>
+            <place>
+                <placeTerm authority="marccountry" type="code">le </placeTerm>
+            </place>
+        </originInfo>
+        <originInfo>
+            <frequency authority="marcfrequency">Weekly</frequency>
+        </originInfo>
+        <titleInfo>
+            <title>Ḥadīqat al-akhbār</title>
+            <subTitle>a weekly periodical of politics, literature, science, and commerce</subTitle>
+        </titleInfo>
+        <note type="statement of responsibility">edited by Khalīl al-Khūrī].</note>
+        <originInfo eventType="publisher">
+            <place>
+                <placeTerm type="text">[Bayrut</placeTerm>
+            </place>
+            <publisher>s.n.</publisher>
+            <dateIssued>1858-1868]</dateIssued>
+        </originInfo>
+        <physicalDescription>
+            <extent>v. ; cm. (2do)</extent>
+        </physicalDescription>
+        <location>
+            <url note="Gallica Periodicals">https://gallica.bnf.fr/ark:/12148/cb327855212/date</url>
+        </location>
+        <extension>
+            <modsCollection>
+                <mods version="3.7">
+                    <recordInfo>
+                        <recordIdentifier source="UkMaC">20514402</recordIdentifier>
+                        <recordIdentifier source="StEdU">9911791443502466</recordIdentifier>
+                        <recordCreationDate encoding="iso8601">20240118</recordCreationDate>
+                    </recordInfo>
+                    <typeOfResource>text</typeOfResource>
+                    <originInfo>
+                        <issuance>serial</issuance>
+                    </originInfo>
+                    <originInfo>
+                        <dateIssued encoding="marc" point="start">1858</dateIssued>
+                        <dateIssued encoding="marc" point="end">1868</dateIssued>
+                        <place>
+                            <placeTerm authority="marccountry" type="code">le </placeTerm>
+                        </place>
+                    </originInfo>
+                    <originInfo>
+                        <frequency authority="marcfrequency">Weekly</frequency>
+                    </originInfo>
+                    <recordInfo>
+                        <languageOfCataloging>
+                            <languageTerm authority="iso639-2b" type="code">eng</languageTerm>
+                        </languageOfCataloging>
+                        <descriptionStandard>rda</descriptionStandard>
+                    </recordInfo>
+                    <titleInfo>
+                        <title>Ḥadīqat al-akhbār</title>
+                        <subTitle>a weekly periodical of politics, literature, science, and commerce</subTitle>
+                    </titleInfo>
+                    <note type="statement of responsibility">edited by Khalīl al-Khūrī].</note>
+                    <originInfo eventType="publisher">
+                        <place>
+                            <placeTerm type="text">[Bayrut</placeTerm>
+                        </place>
+                        <publisher>s.n.</publisher>
+                        <dateIssued>1858-1868]</dateIssued>
+                    </originInfo>
+                    <physicalDescription>
+                        <extent>v. ; cm. (2do)</extent>
+                    </physicalDescription>
+                    <physicalDescription>
+                        <form authority="marcform">print</form>
+                    </physicalDescription>
+                    <language>
+                        <languageTerm authority="iso639-2b" type="code">ara</languageTerm>
+                        <languageTerm type="text">Arabic</languageTerm>
+                    </language>
+                    <location>
+                        <physicalLocation>University of Edinburgh Libraries</physicalLocation>
+                        <physicalLocation authority="UkMaC">edi</physicalLocation>
+                        <holdingSimple>
+                            <copyInformation>
+                                <subLocation>Main Library - Special Collections</subLocation>
+                                <shelfLocator>WidowIII.1.27</shelfLocator>
+                            </copyInformation>
+                            <copyInformation>
+                                <enumerationAndChronology>Nos.20-350,407-516 (in 9 vols.)</enumerationAndChronology>
+                            </copyInformation>
+                        </holdingSimple>
+                    </location>
+                </mods>
+                <mods version="3.7">
+                    <recordInfo>
+                        <recordIdentifier source="UkMaC">40333413</recordIdentifier>
+                        <recordIdentifier source="UkOxU">017558521</recordIdentifier>
+                        <recordCreationDate encoding="iso8601">20240118</recordCreationDate>
+                    </recordInfo>
+                    <typeOfResource>text</typeOfResource>
+                    <originInfo>
+                        <issuance>serial</issuance>
+                    </originInfo>
+                    <originInfo>
+                        <dateIssued encoding="marc" point="start">1858</dateIssued>
+                        <dateIssued encoding="marc" point="end">9999</dateIssued>
+                    </originInfo>
+                    <originInfo>
+                        <frequency authority="marcfrequency">Unknown</frequency>
+                    </originInfo>
+                    <recordInfo>
+                        <recordContentSource authority="marcorg">UKMGB</recordContentSource>
+                    </recordInfo>
+                    <titleInfo>
+                        <title>Ḥadīqat al-akhbār</title>
+                        <subTitle>jurnāl madanī ʿilmī matjarī tārīkhī.</subTitle>
+                    </titleInfo>
+                    <originInfo eventType="publisher">
+                        <place>
+                            <placeTerm type="text">Bayrūt</placeTerm>
+                        </place>
+                        <dateIssued>1858-68</dateIssued>
+                    </originInfo>
+                    <physicalDescription>
+                        <extent>v. ; 49 cm.</extent>
+                    </physicalDescription>
+                    <physicalDescription>
+                        <form authority="marcform">print</form>
+                    </physicalDescription>
+                    <genre>Periodical</genre>
+                    <language>
+                        <languageTerm authority="iso639-2b" type="code">eng</languageTerm>
+                        <languageTerm type="text">English</languageTerm>
+                    </language>
+                    <location>
+                        <physicalLocation>University of Oxford Libraries</physicalLocation>
+                        <physicalLocation authority="UkMaC">oxf</physicalLocation>
+                        <holdingSimple>
+                            <copyInformation>
+                                <subLocation>Bodleian Library</subLocation>
+                                <shelfLocator>N. Arab. b.3</shelfLocator>
+                            </copyInformation>
+                            <copyInformation>
+                                <subLocation>Bodleian Library</subLocation>
+                                <shelfLocator>N. Arab. b.3a</shelfLocator>
+                            </copyInformation>
+                            <copyInformation>
+                                <subLocation>Bodleian Library</subLocation>
+                                <shelfLocator>N. Arab. b.3b</shelfLocator>
+                            </copyInformation>
+                        </holdingSimple>
+                    </location>
+                </mods>
+                <mods version="3.7">
+                    <recordInfo>
+                        <recordIdentifier source="UkMaC">187829774</recordIdentifier>
+                        <recordIdentifier source="UkUbBU">ssib032071850</recordIdentifier>
+                        <recordCreationDate encoding="iso8601">20240118</recordCreationDate>
+                    </recordInfo>
+                    <typeOfResource>text</typeOfResource>
+                    <originInfo>
+                        <issuance>serial</issuance>
+                    </originInfo>
+                    <originInfo>
+                        <dateIssued encoding="marc" point="start">1861</dateIssued>
+                        <dateIssued encoding="marc" point="end">1862</dateIssued>
+                        <place>
+                            <placeTerm authority="marccountry" type="code">xx#</placeTerm>
+                        </place>
+                    </originInfo>
+                    <titleInfo>
+                        <title>Ḥadīqaẗ al-aẖbār</title>
+                    </titleInfo>
+                    <location>
+                        <url note="Gallica Periodicals">https://gallica.bnf.fr/ark:/12148/cb327855212/date</url>
+                    </location>
+                    <physicalDescription>
+                        <form authority="rdamedia" type="media">computer</form>
+                        <form authority="marccategory">electronic resource</form>
+                        <form authority="marcform">online</form>
+                        <form authority="rdacarrier" type="carrier">online resource</form>
+                        <form authority="marcsmd">remote</form>
+                    </physicalDescription>
+                    <genre authority="rdacontent">text</genre>
+                    <location>
+                        <physicalLocation>Brunel University London Library</physicalLocation>
+                        <physicalLocation authority="UkMaC">bru</physicalLocation>
+                        <holdingSimple>
+                            <copyInformation>
+                                <electronicLocator>https://gallica.bnf.fr/ark:/12148/cb327855212/date</electronicLocator>
+                                <note>Gallica Periodicals</note>
+                            </copyInformation>
+                        </holdingSimple>
+                    </location>
+                </mods>
+            </modsCollection>
+        </extension>
+        <physicalDescription>
+            <form authority="rdamedia" type="media">computer</form>
+            <form authority="marccategory">electronic resource</form>
+            <form authority="rdacarrier" type="carrier">online resource</form>
+            <form authority="marcform">print</form>
+            <form authority="marcsmd">remote</form>
+        </physicalDescription>
+        <genre authority="rdacontent">text</genre>
+        <language>
+            <languageTerm authority="iso639-2b" type="code">ara</languageTerm>
+            <languageTerm type="text">Arabic</languageTerm>
+        </language>
+    </mods>
+    <mods version="3.7" xmlns="http://www.loc.gov/mods/v3" xmlns:h="http://copac.ac.uk/schemas/holdings/v1" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <recordInfo>
+            <recordIdentifier source="UkMaC">7292952</recordIdentifier>
+            <recordCreationDate encoding="iso8601">20240118</recordCreationDate>
+        </recordInfo>
+        <typeOfResource>text</typeOfResource>
+        <originInfo>
+            <issuance>serial</issuance>
+        </originInfo>
+        <originInfo>
+            <issuance>single unit</issuance>
+        </originInfo>
+        <originInfo>
+            <dateIssued encoding="marc">1920</dateIssued>
+        </originInfo>
+        <identifier type="lccn">21-18129</identifier>
+        <identifier type="isrc">ocm04934943</identifier>
+        <subject authority="marcgac">
+            <geographicCode>a-is---</geographicCode>
+        </subject>
+        <classification authority="lcc">PJ3002.Z5 R6</classification>
+        <classification authority="ddc">296</classification>
+        <name type="personal">
+            <namePart>Glasgow, University. Oriental Society. Personal</namePart>
+            <role>
+                <roleTerm type="text">creator</roleTerm>
+            </role>
+        </name>
+        <name type="corporate">
+            <namePart>University of Glasgow. Oriental Society. Corporate</namePart>
+            <role>
+                <roleTerm type="text">creator</roleTerm>
+            </role>
+        </name>
+        <name type="conference">
+            <namePart>Glasgow University Oriental Society.</namePart>
+            <role>
+                <roleTerm type="text">creator</roleTerm>
+            </role>
+        </name>
+        <titleInfo>
+            <title>Studia Semitica et Orientalia.</title>
+        </titleInfo>
+        <originInfo eventType="publisher">
+            <publisher>MacLehose, Jackson and co</publisher>
+            <dateIssued>1920</dateIssued>
+        </originInfo>
+        <physicalDescription>
+            <extent>127 p : plates, port ; 24 cm.</extent>
+        </physicalDescription>
+        <note type="date/sequential designation">[1]-</note>
+        <relatedItem type="series">
+            <titleInfo>
+                <title>Studia semitica et orientalia</title>
+                <partNumber>v. 1</partNumber>
+            </titleInfo>
+        </relatedItem>
+        <relatedItem type="series">
+            <titleInfo>
+                <title>Studia semitica et orientalia</title>
+            </titleInfo>
+        </relatedItem>
+        <relatedItem type="series">
+            <titleInfo>
+                <partNumber>v. 1</partNumber>
+            </titleInfo>
+        </relatedItem>
+        <note type="bibliography">Includes bibliographical references</note>
+        <tableOfContents>A study in Hebrew synonyms / by J.R. Buchanan -- Tell Ḥum the site of Capernaum / by W.M. Christie -- Jewish everyday life as reflected in the Mishnah treatise Shabbath / by A.R.S. Kennedy -- The synchronisms of the Hebrew book of Kings / by R.B. Pattie -- Translation of an Arabic ms. on calligraphy / by E. Robertson -- Some specimens of Moslem charms / by W.B. Stevenson -- The pre-Abrahamic stories of Genesis, as a part of the wisdom literature / by D.B. Macdonald -- Bibliography of the published writings of the Rev. Professor James Robertson (p. 126-127).</tableOfContents>
+        <note type="original version">A volume presented to James Robertson ... on his eightieth birthday</note>
+        <subject authority="lcsh">
+            <name type="personal">
+                <namePart>Robertson, James</namePart>
+                <namePart type="date">1840-1920</namePart>
+            </name>
+            <topic>Bibliography</topic>
+        </subject>
+        <subject>
+            <name type="personal">
+                <namePart>Robertson, James</namePart>
+                <namePart type="date">1840-1920.</namePart>
+            </name>
+        </subject>
+        <subject authority="lcsh">
+            <name type="personal">
+                <namePart>Robertson, James</namePart>
+                <namePart type="date">1840-1920</namePart>
+            </name>
+            <topic>Bibliography</topic>
+        </subject>
+        <subject authority="lcsh">
+            <titleInfo>
+                <title>Bible.</title>
+                <partName>Kings</partName>
+            </titleInfo>
+            <topic>Chronology.</topic>
+        </subject>
+        <subject authority="lcsh">
+            <titleInfo>
+                <title>Bible.</title>
+                <partName>Genesis.</partName>
+            </titleInfo>
+        </subject>
+        <subject authority="lcsh">
+            <titleInfo>
+                <title>Bible.</title>
+                <partName>Kings</partName>
+            </titleInfo>
+        </subject>
+        <subject authority="lcsh">
+            <titleInfo>
+                <title>Bible.</title>
+                <partName>Kings</partName>
+            </titleInfo>
+            <topic>Chronology.</topic>
+        </subject>
+        <subject authority="lcsh">
+            <titleInfo>
+                <title>Bible.</title>
+                <partName>Genesis</partName>
+            </titleInfo>
+        </subject>
+        <subject authority="lcsh">
+            <topic>Semitic philology</topic>
+            <topic>Collections.</topic>
+        </subject>
+        <subject>
+            <topic>Amulets (Islam)</topic>
+        </subject>
+        <subject>
+            <topic>Jews - Social life and customs</topic>
+        </subject>
+        <subject>
+            <topic>Hebrew language - Synonyms and antonyms</topic>
+        </subject>
+        <subject>
+            <topic>Robertson, James, 1840-1920 - Bibliography</topic>
+        </subject>
+        <subject>
+            <topic>Bible. Kings - Chronology</topic>
+        </subject>
+        <subject>
+            <topic>Palestine - Antiquities</topic>
+        </subject>
+        <subject>
+            <topic>Semitic philology</topic>
+        </subject>
+        <subject>
+            <topic>Islamic calligraphy</topic>
+        </subject>
+        <subject>
+            <topic>Bible. Genesis</topic>
+        </subject>
+        <subject authority="lcsh">
+            <topic>Semitic philology</topic>
+        </subject>
+        <subject authority="lcsh">
+            <topic>Semitic philology.</topic>
+        </subject>
+        <subject authority="lcsh">
+            <topic>Hebrew language</topic>
+            <topic>Synonyms and antonyms.</topic>
+        </subject>
+        <subject authority="lcsh">
+            <topic>Jews</topic>
+            <topic>Social life and customs.</topic>
+        </subject>
+        <subject authority="lcsh">
+            <topic>Calligraphy, Islamic.</topic>
+        </subject>
+        <subject authority="lcsh">
+            <topic>Amulets (Islam)</topic>
+        </subject>
+        <subject authority="lcsh">
+            <topic>Calligraphy, Arabic.</topic>
+        </subject>
+        <subject authority="lcsh">
+            <topic>Wisdom literature.</topic>
+        </subject>
+        <subject authority="lcsh">
+            <topic>Islam.</topic>
+        </subject>
+        <subject authority="lcsh">
+            <topic>Hebrew language</topic>
+            <topic>Synonyms and antonyms.</topic>
+        </subject>
+        <subject authority="lcsh">
+            <topic>Jews</topic>
+            <topic>Social life and customs.</topic>
+        </subject>
+        <subject authority="lcsh">
+            <topic>Islamic calligraphy.</topic>
+        </subject>
+        <subject authority="lcsh">
+            <topic>Amulets (Islam)</topic>
+        </subject>
+        <subject authority="lcsh">
+            <geographic>Palestine</geographic>
+            <topic>Antiquities.</topic>
+        </subject>
+        <subject authority="lcsh">
+            <geographic>Palestine</geographic>
+            <topic>Antiquities.</topic>
+        </subject>
+        <name type="personal">
+            <namePart>Robertson, James</namePart>
+            <namePart type="date">1840-1920</namePart>
+        </name>
+        <name type="corporate">
+            <namePart>University of Glasgow. Oriental Society</namePart>
+        </name>
+        <relatedItem type="series">
+            <titleInfo type="uniform">
+                <title>Studia semitica et orientalia ; v. 1.</title>
+            </titleInfo>
+        </relatedItem>
+        <extension>
+            <modsCollection>
+                <mods version="3.7">
+                    <recordInfo>
+                        <recordIdentifier source="UkMaC">7292952</recordIdentifier>
+                        <recordIdentifier source="WlAbNL">9954730902419</recordIdentifier>
+                        <recordCreationDate encoding="iso8601">20240118</recordCreationDate>
+                    </recordInfo>
+                    <typeOfResource>text</typeOfResource>
+                    <originInfo>
+                        <issuance>single unit</issuance>
+                    </originInfo>
+                    <recordInfo>
+                        <descriptionStandard>aacr</descriptionStandard>
+                    </recordInfo>
+                    <originInfo>
+                        <dateIssued encoding="marc">1920</dateIssued>
+                    </originInfo>
+                    <titleInfo>
+                        <title>Studia Semitica et Orientalia.</title>
+                    </titleInfo>
+                    <originInfo eventType="publisher">
+                        <publisher>MacLehose, Jackson and co</publisher>
+                        <dateIssued>1920</dateIssued>
+                    </originInfo>
+                    <physicalDescription>
+                        <form authority="marcform">print</form>
+                    </physicalDescription>
+                    <language>
+                        <languageTerm authority="iso639-2b" type="code">und</languageTerm>
+                        <languageTerm type="text">Undetermined</languageTerm>
+                    </language>
+                    <location>
+                        <physicalLocation>National Library of Wales / Llyfrgell Genedlaethol Cymru</physicalLocation>
+                        <physicalLocation authority="UkMaC">nlw</physicalLocation>
+                        <holdingSimple>
+                            <copyInformation>
+                                <subLocation>Contact the National Library of Wales / Llyfrgell Genedlaethol Cymru</subLocation>
+                                <shelfLocator>89MB19229</shelfLocator>
+                            </copyInformation>
+                        </holdingSimple>
+                    </location>
+                </mods>
+            </modsCollection>
+        </extension>
+    </mods>
+    <mods version="3.7" xmlns="http://www.loc.gov/mods/v3" xmlns:h="http://copac.ac.uk/schemas/holdings/v1" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <recordInfo>
+            <recordIdentifier source="UkMaC">65545679</recordIdentifier>
+            <recordCreationDate encoding="iso8601">20240118</recordCreationDate>
+        </recordInfo>
+        <typeOfResource>text</typeOfResource>
+        <originInfo>
+            <issuance>serial</issuance>
+        </originInfo>
+        <originInfo>
+            <dateIssued encoding="marc" point="start">1892</dateIssued>
+            <dateIssued encoding="marc" point="end">1909</dateIssued>
+            <place>
+                <placeTerm authority="marccountry" type="code">tz </placeTerm>
+            </place>
+        </originInfo>
+        <originInfo>
+            <frequency authority="marcfrequency">Weekly</frequency>
+        </originInfo>
+        <identifier type="lccn">94643857</identifier>
+        <subject authority="marcgac">
+            <geographicCode>f-tz---</geographicCode>
+        </subject>
+        <classification authority="lcc">J8 .B79</classification>
+        <name type="corporate">
+            <namePart>Zanzibar.</namePart>
+            <role>
+                <roleTerm type="text">creator</roleTerm>
+            </role>
+        </name>
+        <titleInfo>
+            <title> <nonSort>The </nonSort>gazette for Zanzibar and East Africa.</title>
+        </titleInfo>
+        <originInfo eventType="publisher">
+            <place>
+                <placeTerm type="text">Zanzibar</placeTerm>
+            </place>
+            <publisher>[s.n.</publisher>
+            <dateIssued>-1909]</dateIssued>
+        </originInfo>
+        <physicalDescription>
+            <extent>18 v. ; 32-33 cm.</extent>
+        </physicalDescription>
+        <originInfo>
+            <frequency>Weekly</frequency>
+        </originInfo>
+        <note type="date/sequential designation">Began with v. 1, no. 1 (Feb. 1892).</note>
+        <note type="date/sequential designation">-v. 18, no. 899 (Apr. 21, 1909).</note>
+        <note type="supplement">Includes supplements.</note>
+        <note type="additional physical form">Also available in microfilm from EP Microform Ltd., East Ardlsey, Wakefield, Yorkshire, England.</note>
+        <note type="language">Chiefly in English; some Arabic and Hindi.</note>
+        <subject authority="lcsh">
+            <topic>Gazettes</topic>
+            <geographic>Tanzania</geographic>
+            <geographic>Zanzibar.</geographic>
+        </subject>
+        <subject authority="lcsh">
+            <topic>Law</topic>
+            <geographic>Tanzania</geographic>
+            <geographic>Zanzibar</geographic>
+            <topic>Periodicals.</topic>
+        </subject>
+        <subject authority="lcsh">
+            <geographic>Zanzibar</geographic>
+            <topic>Politics and government</topic>
+            <topic>Periodicals.</topic>
+        </subject>
+        <relatedItem type="succeeding">
+            <name>
+                <namePart>Zanzibar.</namePart>
+            </name>
+            <titleInfo>
+                <title>Gazette for Zanzibar</title>
+            </titleInfo>
+        </relatedItem>
+        <extension>
+            <modsCollection>
+                <mods version="3.7">
+                    <recordInfo>
+                        <recordIdentifier source="UkMaC">65545679</recordIdentifier>
+                        <recordIdentifier source="Uk">008540045</recordIdentifier>
+                        <recordCreationDate encoding="iso8601">20240118</recordCreationDate>
+                    </recordInfo>
+                    <typeOfResource>text</typeOfResource>
+                    <originInfo>
+                        <issuance>serial</issuance>
+                    </originInfo>
+                    <recordInfo>
+                        <descriptionStandard>aacr</descriptionStandard>
+                    </recordInfo>
+                    <originInfo>
+                        <dateIssued encoding="marc" point="start">1892</dateIssued>
+                        <dateIssued encoding="marc" point="end">1909</dateIssued>
+                        <place>
+                            <placeTerm authority="marccountry" type="code">tz </placeTerm>
+                        </place>
+                    </originInfo>
+                    <originInfo>
+                        <frequency authority="marcfrequency">Weekly</frequency>
+                    </originInfo>
+                    <recordInfo>
+                        <recordContentSource authority="marcorg">Uk</recordContentSource>
+                    </recordInfo>
+                    <name type="corporate">
+                        <namePart>Zanzibar.</namePart>
+                        <role>
+                            <roleTerm type="text">creator</roleTerm>
+                        </role>
+                    </name>
+                    <titleInfo>
+                        <title> <nonSort>The </nonSort>gazette for Zanzibar and East Africa.</title>
+                    </titleInfo>
+                    <originInfo eventType="publisher">
+                        <place>
+                            <placeTerm type="text">Zanzibar</placeTerm>
+                        </place>
+                        <publisher>[s.n.</publisher>
+                        <dateIssued>-1909]</dateIssued>
+                    </originInfo>
+                    <physicalDescription>
+                        <extent>18 v. ; 32-33 cm.</extent>
+                    </physicalDescription>
+                    <originInfo>
+                        <frequency>Weekly</frequency>
+                    </originInfo>
+                    <note type="date/sequential designation">Began with v. 1, no. 1 (Feb. 1892).</note>
+                    <note type="date/sequential designation">-v. 18, no. 899 (Apr. 21, 1909).</note>
+                    <note type="language">Chiefly in English; some Arabic and Hindi.</note>
+                    <subject authority="lcsh">
+                        <topic>Gazettes</topic>
+                        <geographic>Tanzania</geographic>
+                        <geographic>Zanzibar.</geographic>
+                    </subject>
+                    <subject authority="lcsh">
+                        <topic>Law</topic>
+                        <geographic>Tanzania</geographic>
+                        <geographic>Zanzibar</geographic>
+                        <topic>Periodicals.</topic>
+                    </subject>
+                    <subject authority="lcsh">
+                        <geographic>Zanzibar</geographic>
+                        <topic>Politics and government</topic>
+                        <topic>Periodicals.</topic>
+                    </subject>
+                    <relatedItem type="succeeding">
+                        <name>
+                            <namePart>Zanzibar.</namePart>
+                        </name>
+                        <titleInfo>
+                            <title>Gazette for Zanzibar</title>
+                        </titleInfo>
+                    </relatedItem>
+                    <physicalDescription>
+                        <form authority="marcform">print</form>
+                        <form authority="marcsmd">regular print</form>
+                        <form authority="marccategory">text</form>
+                        <form authority="rdamedia" type="media">unmediated</form>
+                        <form authority="rdacarrier" type="carrier">volume</form>
+                    </physicalDescription>
+                    <genre authority="rdacontent">text</genre>
+                    <language>
+                        <languageTerm authority="iso639-2b" type="code">ara</languageTerm>
+                        <languageTerm type="text">Arabic</languageTerm>
+                    </language>
+                    <language>
+                        <languageTerm authority="iso639-2b" type="code">eng</languageTerm>
+                        <languageTerm type="text">English</languageTerm>
+                    </language>
+                    <language>
+                        <languageTerm authority="iso639-2b" type="code">hin</languageTerm>
+                        <languageTerm type="text">Hindi</languageTerm>
+                    </language>
+                    <location>
+                        <physicalLocation>British Library</physicalLocation>
+                        <physicalLocation authority="UkMaC">bli</physicalLocation>
+                        <holdingSimple>
+                            <copyInformation>
+                                <subLocation>Lending Collection</subLocation>
+                                <shelfLocator>4094.500000</shelfLocator>
+                            </copyInformation>
+                        </holdingSimple>
+                    </location>
+                    <extension>
+                        <cpc:local xmlns:cpc="http://copac.ac.uk/schemas/mods-copac/v1">
+                            <accessCondition type="useAndReproduction">Current Copyright Fee: GBP25.00 0 Uk</accessCondition>
+                        </cpc:local>
+                    </extension>
+                </mods>
+                <mods version="3.7">
+                    <recordInfo>
+                        <recordIdentifier source="UkMaC">36612778</recordIdentifier>
+                        <recordIdentifier source="UkOxU">012622692</recordIdentifier>
+                        <recordCreationDate encoding="iso8601">20240118</recordCreationDate>
+                    </recordInfo>
+                    <typeOfResource>text</typeOfResource>
+                    <originInfo>
+                        <issuance>serial</issuance>
+                    </originInfo>
+                    <originInfo>
+                        <dateIssued encoding="marc" point="start">1892</dateIssued>
+                        <dateIssued encoding="marc" point="end">1909</dateIssued>
+                        <place>
+                            <placeTerm authority="marccountry" type="code">tz </placeTerm>
+                        </place>
+                    </originInfo>
+                    <originInfo>
+                        <frequency authority="marcfrequency">Weekly</frequency>
+                    </originInfo>
+                    <identifier type="lccn">94643857</identifier>
+                    <recordInfo>
+                        <recordContentSource authority="marcorg">DLC</recordContentSource>
+                    </recordInfo>
+                    <subject authority="marcgac">
+                        <geographicCode>f-tz---</geographicCode>
+                    </subject>
+                    <classification authority="lcc">J8 .B79</classification>
+                    <name type="corporate">
+                        <namePart>Zanzibar.</namePart>
+                        <role>
+                            <roleTerm type="text">creator</roleTerm>
+                        </role>
+                    </name>
+                    <titleInfo>
+                        <title> <nonSort>The </nonSort>gazette for Zanzibar and East Africa.</title>
+                    </titleInfo>
+                    <originInfo eventType="publisher">
+                        <place>
+                            <placeTerm type="text">Zanzibar</placeTerm>
+                        </place>
+                        <publisher>[s.n.</publisher>
+                        <dateIssued>-1909]</dateIssued>
+                    </originInfo>
+                    <physicalDescription>
+                        <extent>18 v. ; 32-33 cm.</extent>
+                    </physicalDescription>
+                    <originInfo>
+                        <frequency>Weekly</frequency>
+                    </originInfo>
+                    <note type="date/sequential designation">Began with v. 1, no. 1 (Feb. 1892).</note>
+                    <note type="date/sequential designation">-v. 18, no. 899 (Apr. 21, 1909).</note>
+                    <note type="general">Description based on: Vol. 12, no. 623 (Jan. 6, 1904); title from caption.</note>
+                    <note type="supplement">Includes supplements.</note>
+                    <note type="additional physical form">Also available in microfilm from EP Microform Ltd., East Ardlsey, Wakefield, Yorkshire, England.</note>
+                    <note type="language">Chiefly in English; some Arabic and Hindi.</note>
+                    <subject authority="lcsh">
+                        <topic>Gazettes</topic>
+                        <geographic>Tanzania</geographic>
+                        <geographic>Zanzibar.</geographic>
+                    </subject>
+                    <subject authority="lcsh">
+                        <topic>Law</topic>
+                        <geographic>Tanzania</geographic>
+                        <geographic>Zanzibar</geographic>
+                        <topic>Periodicals.</topic>
+                    </subject>
+                    <subject authority="lcsh">
+                        <geographic>Zanzibar</geographic>
+                        <topic>Politics and government</topic>
+                        <topic>Periodicals.</topic>
+                    </subject>
+                    <relatedItem type="succeeding">
+                        <name>
+                            <namePart>Zanzibar.</namePart>
+                        </name>
+                        <titleInfo>
+                            <title>Gazette for Zanzibar</title>
+                        </titleInfo>
+                        <identifier type="local">(OCoLC)31502766</identifier>
+                    </relatedItem>
+                    <physicalDescription>
+                        <form authority="marcform">print</form>
+                    </physicalDescription>
+                    <language>
+                        <languageTerm authority="iso639-2b" type="code">ara</languageTerm>
+                        <languageTerm type="text">Arabic</languageTerm>
+                    </language>
+                    <language>
+                        <languageTerm authority="iso639-2b" type="code">eng</languageTerm>
+                        <languageTerm type="text">English</languageTerm>
+                    </language>
+                    <language>
+                        <languageTerm authority="iso639-2b" type="code">hin</languageTerm>
+                        <languageTerm type="text">Hindi</languageTerm>
+                    </language>
+                    <location>
+                        <physicalLocation>University of Oxford Libraries</physicalLocation>
+                        <physicalLocation authority="UkMaC">oxf</physicalLocation>
+                        <holdingSimple>
+                            <copyInformation>
+                                <subLocation>Bodleian Library</subLocation>
+                                <shelfLocator>(RHO) 740.1 s. 3</shelfLocator>
+                            </copyInformation>
+                        </holdingSimple>
+                    </location>
+                </mods>
+                <mods version="3.7">
+                    <recordInfo>
+                        <recordIdentifier source="UkMaC">134948725</recordIdentifier>
+                        <recordIdentifier source="UkCU">9945622543403606</recordIdentifier>
+                        <recordCreationDate encoding="iso8601">20240118</recordCreationDate>
+                    </recordInfo>
+                    <typeOfResource>text</typeOfResource>
+                    <originInfo>
+                        <issuance>serial</issuance>
+                    </originInfo>
+                    <recordInfo>
+                        <descriptionStandard>aacr</descriptionStandard>
+                    </recordInfo>
+                    <originInfo>
+                        <dateIssued encoding="marc" point="start">1892</dateIssued>
+                        <dateIssued encoding="marc" point="end">1909</dateIssued>
+                        <place>
+                            <placeTerm authority="marccountry" type="code">tz </placeTerm>
+                        </place>
+                    </originInfo>
+                    <originInfo>
+                        <frequency authority="marcfrequency">Weekly</frequency>
+                    </originInfo>
+                    <identifier type="lccn">   94643857</identifier>
+                    <recordInfo>
+                        <recordContentSource authority="marcorg">DLC</recordContentSource>
+                    </recordInfo>
+                    <subject authority="marcgac">
+                        <geographicCode>f-tz---</geographicCode>
+                    </subject>
+                    <classification authority="lcc">J8 .B79</classification>
+                    <name type="corporate">
+                        <namePart>Zanzibar.</namePart>
+                        <role>
+                            <roleTerm type="text">creator</roleTerm>
+                        </role>
+                    </name>
+                    <titleInfo>
+                        <title> <nonSort>The </nonSort>gazette for Zanzibar and East Africa.</title>
+                    </titleInfo>
+                    <originInfo eventType="publisher">
+                        <place>
+                            <placeTerm type="text">Zanzibar</placeTerm>
+                        </place>
+                        <publisher>[s.n.</publisher>
+                        <dateIssued>-1909]</dateIssued>
+                    </originInfo>
+                    <physicalDescription>
+                        <extent>18 v. ; 32-33 cm.</extent>
+                    </physicalDescription>
+                    <originInfo>
+                        <frequency>Weekly</frequency>
+                    </originInfo>
+                    <note type="date/sequential designation">Began with v. 1, no. 1 (Feb. 1892).</note>
+                    <note type="date/sequential designation">-v. 18, no. 899 (Apr. 21, 1909).</note>
+                    <note type="general">Description based on: Vol. 12, no. 623 (Jan. 6, 1904); title from caption.</note>
+                    <note type="supplement">Includes supplements.</note>
+                    <note type="additional physical form">Also available in microfilm from EP Microform Ltd., East Ardlsey, Wakefield, Yorkshire, England.</note>
+                    <note type="language">Chiefly in English; some Arabic and Hindi.</note>
+                    <subject authority="lcsh">
+                        <topic>Gazettes</topic>
+                        <geographic>Tanzania</geographic>
+                        <geographic>Zanzibar.</geographic>
+                    </subject>
+                    <subject authority="lcsh">
+                        <topic>Law</topic>
+                        <geographic>Tanzania</geographic>
+                        <geographic>Zanzibar</geographic>
+                        <genre>Periodicals.</genre>
+                    </subject>
+                    <subject authority="lcsh">
+                        <geographic>Zanzibar</geographic>
+                        <topic>Politics and government</topic>
+                        <genre>Periodicals.</genre>
+                    </subject>
+                    <relatedItem type="succeeding">
+                        <name>
+                            <namePart>Zanzibar.</namePart>
+                        </name>
+                        <titleInfo>
+                            <title>Gazette for Zanzibar.</title>
+                        </titleInfo>
+                    </relatedItem>
+                    <physicalDescription>
+                        <form authority="marcform">print</form>
+                    </physicalDescription>
+                    <language>
+                        <languageTerm authority="iso639-2b" type="code">ara</languageTerm>
+                        <languageTerm type="text">Arabic</languageTerm>
+                    </language>
+                    <language>
+                        <languageTerm authority="iso639-2b" type="code">eng</languageTerm>
+                        <languageTerm type="text">English</languageTerm>
+                    </language>
+                    <language>
+                        <languageTerm authority="iso639-2b" type="code">hin</languageTerm>
+                        <languageTerm type="text">Hindi</languageTerm>
+                    </language>
+                    <location>
+                        <physicalLocation>University of Cambridge Libraries</physicalLocation>
+                        <physicalLocation authority="UkMaC">cam</physicalLocation>
+                        <holdingSimple>
+                            <copyInformation>
+                                <subLocation>Cambridge University Library: Order to Rare Books Reading Room, follow signs to Alpha staircase, First Floor, not borrowable</subLocation>
+                                <shelfLocator>OP.14300.320.02</shelfLocator>
+                            </copyInformation>
+                            <copyInformation>
+                                <enumerationAndChronology>vols. 1-17 only.</enumerationAndChronology>
+                            </copyInformation>
+                        </holdingSimple>
+                    </location>
+                </mods>
+            </modsCollection>
+        </extension>
+        <physicalDescription>
+            <form authority="marcform">print</form>
+            <form authority="marcsmd">regular print</form>
+            <form authority="marccategory">text</form>
+            <form authority="rdamedia" type="media">unmediated</form>
+            <form authority="rdacarrier" type="carrier">volume</form>
+        </physicalDescription>
+        <genre authority="rdacontent">text</genre>
+        <language>
+            <languageTerm authority="iso639-2b" type="code">ara</languageTerm>
+            <languageTerm type="text">Arabic</languageTerm>
+        </language>
+        <language>
+            <languageTerm authority="iso639-2b" type="code">eng</languageTerm>
+            <languageTerm type="text">English</languageTerm>
+        </language>
+        <language>
+            <languageTerm authority="iso639-2b" type="code">hin</languageTerm>
+            <languageTerm type="text">Hindi</languageTerm>
+        </language>
+    </mods>
+</modsCollection>
