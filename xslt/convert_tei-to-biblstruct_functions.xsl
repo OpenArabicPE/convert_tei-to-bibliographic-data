@@ -592,6 +592,9 @@
     </xsl:template>
     <xsl:template match="tei:term" mode="m_fileDesc-to-biblStruct">
         <item>
+            <xsl:if test="parent::tei:keywords/@n">
+                <xsl:copy-of select="parent::tei:keywords/@n"/>
+            </xsl:if>
             <xsl:value-of select="normalize-space(.)"/>
         </item>
     </xsl:template>
@@ -661,21 +664,29 @@
             <xsl:value-of select="normalize-space($v_name)"/>
         </surname>
     </xsl:template>
-    <xsl:template match="tei:titleStmt/tei:title" mode="m_fileDesc-to-biblStruct">
-        <title level="a">
-            <xsl:attribute name="xml:lang">
-                <xsl:choose>
-                    <xsl:when test="@xml:lang">
-                        <xsl:value-of select="@xml:lang"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="ancestor::tei:TEI/tei:text/@xml:lang"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:attribute>
-            <!--<xsl:apply-templates mode="m_identity-transform"/>-->
-            <xsl:apply-templates mode="m_plain-text" select="."/>
-        </title>
+    <xsl:template match="tei:title[ancestor::tei:titleStmt]" mode="m_fileDesc-to-biblStruct">
+        <xsl:choose>
+            <xsl:when test="tei:title">
+                <xsl:apply-templates select="tei:title" mode="m_fileDesc-to-biblStruct"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:copy>
+                    <xsl:apply-templates select="@*" mode="m_identity-transform" />
+                    <xsl:attribute name="level" select="'a'"/>
+                    <xsl:attribute name="xml:lang">
+                        <xsl:choose>
+                            <xsl:when test="@xml:lang">
+                                <xsl:value-of select="@xml:lang"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="ancestor::tei:TEI/tei:text/@xml:lang"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:attribute>
+                    <xsl:apply-templates mode="m_plain-text" select="."/>
+                </xsl:copy>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="tei:author | tei:date | tei:idno | tei:publisher | tei:title" mode="m_fileDesc-to-biblStruct">
         <xsl:apply-templates mode="m_identity-transform" select="."/>

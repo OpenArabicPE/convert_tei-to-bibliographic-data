@@ -71,6 +71,10 @@
                         <xsl:apply-templates mode="m_tei-to-mods" select="$v_imprint/tei:publisher"/>
                     </xsl:otherwise>
                 </xsl:choose>
+                <!-- date on analytic -->
+                <xsl:if test="$v_analytic/tei:date">
+                    <xsl:apply-templates mode="m_tei-to-mods" select="$v_analytic/tei:date"/>
+                </xsl:if>
                 <!-- dates -->
                 <xsl:choose>
                     <xsl:when test="$v_imprint/tei:date/@when != ''">
@@ -303,17 +307,13 @@
                 </xsl:when>
                 <xsl:otherwise>
                     <accessCondition>
-                        <xsl:attribute name="vauleURI" select="$v_license-url"/>
+                        <xsl:attribute name="valueURI" select="$v_license-url"/>
                         <xsl:value-of select="$v_license"/>
                     </accessCondition>
                 </xsl:otherwise>
             </xsl:choose>
-            <!-- date on analytic -->
-            <xsl:if test="$v_analytic/tei:date">
-                <xsl:apply-templates mode="m_tei-to-mods" select="$v_analytic/tei:date"/>
-            </xsl:if>
             <!-- IDs -->
-            <xsl:apply-templates select="$v_analytic/tei:idno[not(@type = ('url', 'URI'))]" mode="m_tei-to-mods"/>
+            <xsl:apply-templates mode="m_tei-to-mods" select="$v_analytic/tei:idno[not(@type = ('url', 'URI'))]"/>
             <!-- URLs -->
             <!-- MODS allows for more than one URL! -->
             <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/descendant::tei:idno[@type = ('url', 'URI')]"/>
@@ -339,14 +339,14 @@
     </xsl:function>
     <!-- transform TEI names to MODS -->
     <xsl:template match="tei:persName" mode="m_tei-to-mods">
-        <xsl:choose>
+        <!--<xsl:choose>
             <xsl:when test="tei:surname">
                 <xsl:apply-templates mode="m_tei-to-mods" select="tei:surname"/>
                 <xsl:apply-templates mode="m_tei-to-mods" select="tei:forename"/>
             </xsl:when>
             <xsl:otherwise>
-                <!-- what should happen if there is neither surname nor forename? -->
-                <!-- there should still be a wrapper node -->
+                <!-\- what should happen if there is neither surname nor forename? -\->
+                <!-\- there should still be a wrapper node -\->
                 <namePart>
                     <xsl:variable name="v_plain">
                         <xsl:apply-templates mode="m_plain-text" select="."/>
@@ -354,10 +354,32 @@
                     <xsl:value-of select="normalize-space($v_plain)"/>
                 </namePart>
             </xsl:otherwise>
-        </xsl:choose>
+        </xsl:choose>-->
+        <!-- For many applications, it makes sense to provide one simple string -->
+        <namePart>
+            <xsl:variable name="v_plain">
+                <xsl:choose>
+                    <xsl:when test="tei:surname">
+                        <xsl:apply-templates mode="m_plain-text" select="tei:forename"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:apply-templates mode="m_plain-text" select="tei:surname"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates mode="m_plain-text" select="."/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:value-of select="normalize-space($v_plain)"/>
+        </namePart>
+        <!-- provide more specific information, if available -->
+        <xsl:if test="tei:surname">
+            <xsl:apply-templates mode="m_tei-to-mods" select="tei:surname"/>
+            <xsl:apply-templates mode="m_tei-to-mods" select="tei:forename"/>
+        </xsl:if>
     </xsl:template>
     <xsl:template match="tei:surname" mode="m_tei-to-mods">
-        <namePart type="family" xml:lang="{@xml:lang}">
+        <namePart type="family">
+            <xsl:copy-of select="oape:get-xml-lang(.)"/>
             <xsl:variable name="v_plain">
                 <xsl:apply-templates mode="m_plain-text" select="."/>
             </xsl:variable>
@@ -365,7 +387,8 @@
         </namePart>
     </xsl:template>
     <xsl:template match="tei:forename" mode="m_tei-to-mods">
-        <namePart type="given" xml:lang="{@xml:lang}">
+        <namePart type="given">
+            <xsl:copy-of select="oape:get-xml-lang(.)"/>
             <xsl:variable name="v_plain">
                 <xsl:apply-templates mode="m_plain-text" select="."/>
             </xsl:variable>
@@ -380,7 +403,8 @@
     </xsl:template>-->
     <xsl:template match="tei:publisher | tei:publisher/tei:orgName | tei:publisher/tei:persName" mode="m_tei-to-mods">
         <!-- tei:publisher can have a variety of child nodes, which are completely ignored by this template -->
-        <publisher xml:lang="{@xml:lang}">
+        <publisher>
+            <xsl:copy-of select="oape:get-xml-lang(.)"/>
             <xsl:variable name="v_plain">
                 <xsl:apply-templates mode="m_plain-text" select="."/>
             </xsl:variable>
@@ -393,7 +417,8 @@
         </place>
     </xsl:template>-->
     <xsl:template match="tei:placeName" mode="m_tei-to-mods">
-        <placeTerm type="text" xml:lang="{@xml:lang}">
+        <placeTerm type="text">
+            <xsl:copy-of select="oape:get-xml-lang(.)"/>
             <!-- add references to authority files  -->
             <xsl:apply-templates mode="m_authority" select="."/>
             <xsl:variable name="v_plain">
@@ -565,7 +590,8 @@
     <xsl:template match="tei:title" mode="m_tei-to-mods">
         <xsl:choose>
             <xsl:when test="@type = 'sub'">
-                <subTitle xml:lang="{@xml:lang}">
+                <subTitle>
+                    <xsl:copy-of select="oape:get-xml-lang(.)"/>
                     <xsl:variable name="v_plain">
                         <xsl:apply-templates mode="m_plain-text" select="."/>
                     </xsl:variable>
@@ -573,7 +599,8 @@
                 </subTitle>
             </xsl:when>
             <xsl:otherwise>
-                <title xml:lang="{@xml:lang}">
+                <title>
+                    <xsl:copy-of select="oape:get-xml-lang(.)"/>
                     <xsl:variable name="v_plain">
                         <xsl:apply-templates mode="m_plain-text" select="."/>
                     </xsl:variable>
@@ -618,7 +645,8 @@
     </xsl:template>
     <!-- contributors -->
     <xsl:template match="tei:editor | tei:author | tei:respStmt[tei:persName]" mode="m_tei-to-mods" priority="10">
-        <name type="personal" xml:lang="{@xml:lang}">
+        <name type="personal">
+            <xsl:copy-of select="oape:get-xml-lang(.)"/>
             <!-- add references to authority files -->
             <xsl:choose>
                 <xsl:when test="matches(@ref, 'viaf:\d+')">
@@ -679,6 +707,7 @@
     </xsl:template>
     <xsl:template match="tei:affiliation" mode="m_tei-to-mods">
         <affiliation>
+            <xsl:copy-of select="oape:get-xml-lang(.)"/>
             <xsl:variable name="v_plain">
                 <xsl:apply-templates mode="m_plain-text" select="."/>
             </xsl:variable>
@@ -690,12 +719,27 @@
         <xsl:for-each select="tei:list">
             <subject>
                 <xsl:attribute name="authority" select="@source"/>
-                <xsl:for-each select="tei:item">
-                    <topic>
-                        <xsl:value-of select="."/>
-                    </topic>
-                </xsl:for-each>
+                <xsl:apply-templates mode="m_tei-to-mods" select="tei:item"/>
             </subject>
         </xsl:for-each>
+    </xsl:template>
+    <xsl:template match="tei:item" mode="m_tei-to-mods">
+        <xsl:choose>
+            <xsl:when test="@n = 'topics'">
+                <topic>
+                    <xsl:value-of select="."/>
+                </topic>
+            </xsl:when>
+            <xsl:when test="@n = ('category', 'subcategory')"> <!-- values specific to DHConvalidator -->
+                <genre>
+                    <xsl:value-of select="."/>
+                </genre>
+            </xsl:when>
+            <xsl:otherwise>
+                <topic>
+                    <xsl:value-of select="."/>
+                </topic>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 </xsl:stylesheet>

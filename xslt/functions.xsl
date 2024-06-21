@@ -205,4 +205,20 @@
     <xsl:template match="text()" mode="m_copy-from-source" priority="10">
         <xsl:value-of select="normalize-space(.)"/>
     </xsl:template>
+    <xsl:function name="oape:get-xml-lang">
+        <xsl:param name="p_node"/>
+        <xsl:variable name="v_lang" select="if($p_node/@xml:lang) then($p_node/@xml:lang) else($p_node/ancestor::element()[@xml:lang][1]/@xml:lang)"/>
+        <xsl:choose>
+            <xsl:when test="$v_lang != ''">
+                <xsl:attribute name="xml:lang" select="$v_lang"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:message>
+                    <xsl:text>No language information available for "</xsl:text>
+                    <xsl:value-of select="$p_node/name()"/>
+                    <xsl:text>"</xsl:text>
+                </xsl:message>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
 </xsl:stylesheet>
