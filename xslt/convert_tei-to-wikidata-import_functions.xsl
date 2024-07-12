@@ -27,6 +27,7 @@
     <xsl:template match="@xml:id | tei:monogr/@xml:lang | tei:title/@level | tei:title/@ref"/>
     <!-- remove nodes -->
     <xsl:template match="tei:date[@type = 'documented']"/>
+    <xsl:template match="tei:note[@type = ('comments', 'sources', 'holdings')]"/>
     <!-- convert textual content to a string node -->
     <xsl:template name="t_string-value">
         <xsl:param name="p_input"/>
@@ -161,8 +162,11 @@
                 <xsl:when test="descendant::tei:idno[@type = 'wiki']">
                     <xsl:attribute name="xml:id" select="descendant::tei:idno[@type = 'wiki'][1]"/>
                 </xsl:when>
-                <xsl:otherwise>
+                <xsl:when test="descendant::tei:idno[@type = $p_local-authority]">
                     <xsl:attribute name="xml:id" select="concat($p_local-authority, '_', descendant::tei:idno[@type = $p_local-authority][1])"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:attribute name="xml:id" select="concat( 'temp_', generate-id(.))"/>
                 </xsl:otherwise>
             </xsl:choose>
             <!-- add label and description -->
@@ -179,7 +183,7 @@
                     <xsl:when test="@subtype = 'newspaper'">
                         <xsl:value-of select="@subtype"/>
                     </xsl:when>
-                    <xsl:when test="@type = 'periodical'">
+                    <xsl:when test="@type = 'periodical'  or descendant::tei:title[@level = 'j']">
                         <xsl:value-of select="@type"/>
                     </xsl:when>
                 </xsl:choose>
@@ -218,7 +222,7 @@
                     <xsl:when test="@subtype = 'newspaper'">
                         <xsl:text>جريدة</xsl:text>
                     </xsl:when>
-                    <xsl:when test="@type = 'periodical'">
+                    <xsl:when test="@type = 'periodical' or descendant::tei:title[@level = 'j']">
                         <xsl:text>دورية</xsl:text>
                     </xsl:when>
                 </xsl:choose>
@@ -282,7 +286,7 @@
             </xsl:choose>
         </P31>
     </xsl:template>
-    <xsl:template match="tei:date[@type = 'onset']">
+    <xsl:template match="tei:date[@type = ('onset', 'official')]">
         <P571>
             <xsl:apply-templates mode="m_date-when" select="."/>
             <!-- notBefore: currently there is no property for earlies start date -->
@@ -409,7 +413,7 @@
             </xsl:when>
         </xsl:choose>
     </xsl:template>
-    <xsl:template match="tei:persName[tei:editor]" mode="m_name-string">
+    <xsl:template match="tei:persName[parent::tei:editor]" mode="m_name-string">
         <P2093>
             <xsl:apply-templates mode="m_string" select="."/>
         </P2093>
@@ -705,8 +709,11 @@
                 <xsl:when test="descendant::tei:idno[@type = 'wiki']">
                     <xsl:attribute name="xml:id" select="descendant::tei:idno[@type = 'wiki'][1]"/>
                 </xsl:when>
-                <xsl:otherwise>
+                <xsl:when test="descendant::tei:idno[@type = $p_local-authority]">
                     <xsl:attribute name="xml:id" select="concat($p_local-authority, '_', descendant::tei:idno[@type = $p_local-authority][1])"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:attribute name="xml:id" select="concat( 'temp_', generate-id(.))"/>
                 </xsl:otherwise>
             </xsl:choose>
             <!-- add label and description -->
