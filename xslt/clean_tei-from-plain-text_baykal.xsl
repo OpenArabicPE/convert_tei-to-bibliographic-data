@@ -15,6 +15,32 @@
         </xsl:copy>
     </xsl:template>
     
+    <!-- frequency -->
+    <xsl:template match="tei:biblStruct[not(@oape:frequency)][descendant::tei:item[@type = 'f']]">
+        <xsl:copy>
+            <xsl:attribute name="oape:frequency">
+                <xsl:choose>
+                    <xsl:when test="descendant::tei:item[@type = 'f'] = 'W'">
+                        <xsl:text>weekly</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="descendant::tei:item[@type = 'f'] = 'D'">
+                        <xsl:text>daily</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="descendant::tei:item[@type = 'f'] = 'TW'">
+                        <xsl:text>biweekly</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="descendant::tei:item[@type = 'f'] = ('BW', 'TM')">
+                        <xsl:text>fortnightly</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="descendant::tei:item[@type = 'f'] = 'M'">
+                        <xsl:text>monthly</xsl:text>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:attribute>
+            <xsl:apply-templates select="@* | node()"/>
+        </xsl:copy>
+    </xsl:template>
+    
     <!--  split elements containing "/" -->
     <xsl:variable name="v_string-split" select="'/'"/>
     <xsl:template match="tei:title[matches(., $v_string-split)]" priority="10">
