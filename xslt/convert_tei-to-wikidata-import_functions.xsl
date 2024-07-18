@@ -79,23 +79,25 @@
                 </xsl:when>
                 <!-- local URLs need to be resolved or omitted -->
                 <xsl:when test="starts-with($v_source, '../')">
-                    <P854>
-                        <xsl:choose>
-                            <xsl:when test="matches($v_source, 'oclc_618896732/|oclc_165855925/')">
+                    <xsl:choose>
+                        <xsl:when test="matches($v_source, 'oclc_618896732/|oclc_165855925/')">
+                            <P854>
                                 <xsl:value-of select="replace($v_source, '^(\.\./)+TEI/', 'https://tillgrallert.github.io/')"/>
-                            </xsl:when>
-                            <xsl:when test="matches($v_source, '/OpenArabicPE/')">
+                            </P854>
+                        </xsl:when>
+                        <xsl:when test="matches($v_source, '/OpenArabicPE/')">
+                            <P854>
                                 <xsl:value-of select="replace($v_source, '^^(\.\./)+OpenArabicPE/', 'https://openarabicpe.github.io/')"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:message>
-                                    <xsl:text>WARNING: </xsl:text>
-                                    <xsl:value-of select="$v_source"/>
-                                    <xsl:text> could not be resolved</xsl:text>
-                                </xsl:message>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </P854>
+                            </P854>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:message>
+                                <xsl:text>WARNING: </xsl:text>
+                                <xsl:value-of select="$v_source"/>
+                                <xsl:text> could not be resolved</xsl:text>
+                            </xsl:message>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:when>
                 <xsl:when test="starts-with($v_source, concat($p_local-authority, ':org:'))">
                     <xsl:variable name="v_orgName">
@@ -166,7 +168,7 @@
                     <xsl:attribute name="xml:id" select="concat($p_local-authority, '_', descendant::tei:idno[@type = $p_local-authority][1])"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:attribute name="xml:id" select="concat( 'temp_', generate-id(.))"/>
+                    <xsl:attribute name="xml:id" select="concat('temp_', generate-id(.))"/>
                 </xsl:otherwise>
             </xsl:choose>
             <!-- add label and description -->
@@ -183,7 +185,7 @@
                     <xsl:when test="@subtype = 'newspaper'">
                         <xsl:value-of select="@subtype"/>
                     </xsl:when>
-                    <xsl:when test="@type = 'periodical'  or descendant::tei:title[@level = 'j']">
+                    <xsl:when test="@type = 'periodical' or descendant::tei:title[@level = 'j']">
                         <xsl:value-of select="@type"/>
                     </xsl:when>
                 </xsl:choose>
@@ -229,7 +231,7 @@
                 <xsl:text> تصدر </xsl:text>
                 <xsl:if test="descendant::tei:pubPlace/tei:placeName/@ref">
                     <xsl:text>في </xsl:text>
-                <xsl:value-of select="oape:query-biblstruct(., 'pubPlace', 'ar', $v_gazetteer, $p_local-authority)"/>
+                    <xsl:value-of select="oape:query-biblstruct(., 'pubPlace', 'ar', $v_gazetteer, $p_local-authority)"/>
                 </xsl:if>
                 <xsl:text> </xsl:text>
                 <xsl:choose>
@@ -240,7 +242,7 @@
                         <xsl:value-of select="$v_terminus"/>
                     </xsl:when>
                     <xsl:when test="$v_onset != 'NA' and $v_terminus = 'NA'">
-                        <xsl:text>من سنة </xsl:text>
+                        <xsl:text>منذ سنة </xsl:text>
                         <xsl:value-of select="$v_onset"/>
                     </xsl:when>
                     <xsl:when test="$v_onset = 'NA' and $v_terminus != 'NA'">
@@ -713,7 +715,7 @@
                     <xsl:attribute name="xml:id" select="concat($p_local-authority, '_', descendant::tei:idno[@type = $p_local-authority][1])"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:attribute name="xml:id" select="concat( 'temp_', generate-id(.))"/>
+                    <xsl:attribute name="xml:id" select="concat('temp_', generate-id(.))"/>
                 </xsl:otherwise>
             </xsl:choose>
             <!-- add label and description -->
@@ -864,8 +866,7 @@
             <!-- P580: start time -->
             <xsl:if test="descendant::tei:date/@when">
                 <P580>
-<!--                    <xsl:value-of select="min(descendant::tei:date/@when)"/>-->
-                </P580>
+                    <!--                    <xsl:value-of select="min(descendant::tei:date/@when)"/>--> </P580>
             </xsl:if>
             <!-- P580: end time -->
             <!-- P478: volume -->
@@ -877,16 +878,16 @@
                 </P478>
             </xsl:if>
             <!-- P217: inventory number -->
-            <xsl:apply-templates select="descendant::tei:bibl/tei:idno[@type = 'classmark']" mode="m_tei2wikidata_qualifier"/>
+            <xsl:apply-templates mode="m_tei2wikidata_qualifier" select="descendant::tei:bibl/tei:idno[@type = 'classmark']"/>
             <!-- full work available at URL -->
-            <xsl:apply-templates select="descendant::tei:bibl/tei:idno[@type = ('URI', 'url')][@subtype = 'self']" mode="m_tei2wikidata_qualifier"/>
+            <xsl:apply-templates mode="m_tei2wikidata_qualifier" select="descendant::tei:bibl/tei:idno[@type = ('URI', 'url')][@subtype = 'self']"/>
         </P195>
     </xsl:template>
-     <xsl:template match="tei:idno[@type = 'classmark']" mode="m_tei2wikidata_qualifier">
-         <P217>
-             <xsl:apply-templates mode="m_string" select="."/>
-         </P217>
-     </xsl:template>
+    <xsl:template match="tei:idno[@type = 'classmark']" mode="m_tei2wikidata_qualifier">
+        <P217>
+            <xsl:apply-templates mode="m_string" select="."/>
+        </P217>
+    </xsl:template>
     <xsl:template match="tei:idno[@type = ('URI', 'url')][@subtype = 'self']" mode="m_tei2wikidata_qualifier">
         <!-- full work available at URL -->
         <P953>

@@ -24,7 +24,7 @@
                         <items>
                             <head>already in Wikidata</head>
                             <xsl:apply-templates mode="m_tei2wikidata"
-                                select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical'][descendant::tei:idno/@type = $p_acronym-wikidata]"/>
+                                select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical'][descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, 'Q\d+'))]]"/>
                         </items>
                         <!-- periodicals without QID -->
                         <items>
