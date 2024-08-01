@@ -162,7 +162,10 @@
         <item>
             <xsl:choose>
                 <xsl:when test="descendant::tei:idno[@type = 'wiki']">
-                    <xsl:attribute name="xml:id" select="descendant::tei:idno[@type = 'wiki'][1]"/>
+                    <xsl:attribute name="xml:id" select="descendant::tei:idno[@type = $p_acronym-wikidata][1]"/>
+                </xsl:when>
+                <xsl:when test="descendant::tei:title[matches(@ref, $p_acronym-wikidata)]">
+                    <xsl:attribute name="xml:id" select="replace(descendant::tei:title[matches(@ref, $p_acronym-wikidata)][1]/@ref,'^.*(Q\d+).*$','$1')"/>
                 </xsl:when>
                 <xsl:when test="descendant::tei:idno[@type = $p_local-authority]">
                     <xsl:attribute name="xml:id" select="concat($p_local-authority, '_', descendant::tei:idno[@type = $p_local-authority][1])"/>
