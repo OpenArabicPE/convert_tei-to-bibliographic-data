@@ -171,7 +171,10 @@
                     <xsl:attribute name="xml:id" select="concat($p_local-authority, '_', descendant::tei:idno[@type = $p_local-authority][1])"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:attribute name="xml:id" select="concat('temp_', generate-id(.))"/>
+<!--                    <xsl:attribute name="xml:id" select="concat('temp_', generate-id(.))"/>-->
+                    <xsl:message terminate="yes">
+                        <xsl:text>The biblStruct has no ID that would alow to link back to it</xsl:text>
+                    </xsl:message>
                 </xsl:otherwise>
             </xsl:choose>
             <!-- add label and description -->
