@@ -345,6 +345,11 @@
                 <xsl:value-of select="@when"/>
             </date>
         </xsl:if>
+        <xsl:if test="matches(@notAfter, '\d{4}-\d{2}-[29|30|31]') and (month-from-date(@notAfter) = month-from-date(@notBefore))">
+            <date>
+                <xsl:value-of select="replace(@notAfter, '(\d{4}-\d{2})-\d+', '$1')"/>
+            </date>
+        </xsl:if>
     </xsl:template>
     <xsl:template match="tei:editor[tei:orgName]"/>
     <xsl:template match="tei:editor[tei:persName]">
