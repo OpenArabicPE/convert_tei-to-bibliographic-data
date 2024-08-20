@@ -217,11 +217,13 @@
                 <xsl:attribute name="xml:lang" select="$v_lang"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:message>
-                    <xsl:text>No language information available for "</xsl:text>
-                    <xsl:value-of select="$p_node/name()"/>
-                    <xsl:text>"</xsl:text>
-                </xsl:message>
+                <xsl:if test="$p_verbose = true()">
+                    <xsl:message>
+                        <xsl:text>No language information available for "</xsl:text>
+                        <xsl:value-of select="$p_node/name()"/>
+                        <xsl:text>"</xsl:text>
+                    </xsl:message>
+                </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>
