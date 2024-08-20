@@ -28,7 +28,7 @@
     </xsl:template>
 
     <xsl:template match="/">
-        <xsl:result-document href="../metadata/{$vgFileId}-bibl.Zotero.rdf">
+        <xsl:result-document href="../metadata/{$v_file-name_input}-bibl.Zotero.rdf">
             <rdf:RDF>
                 <!--<xsl:apply-templates select=".//tei:body//tei:bibl[contains(ancestor::tei:div/tei:head/text(),$pg_head-section)]"/>-->
                 <xsl:apply-templates select=".//tei:body//tei:bibl[descendant::tei:title] | .//tei:body//tei:biblStruct"/>

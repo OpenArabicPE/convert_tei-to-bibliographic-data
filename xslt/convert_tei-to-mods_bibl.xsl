@@ -25,7 +25,7 @@
     </xsl:template>
 
     <xsl:template match="/">
-        <xsl:result-document href="../metadata/{$vgFileId}-bibl.MODS.xml">
+        <xsl:result-document href="../metadata/{$v_file-name_input}-bibl.MODS.xml">
             <xsl:value-of select="concat('&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;',$p_url-boilerplate,'&quot;?&gt;')" disable-output-escaping="yes"/>
             <xsl:value-of select="concat('&lt;?xml-model href=&quot;',$v_schema,'&quot;?&gt;')" disable-output-escaping="yes"/>
             <modsCollection xsi:schemaLocation="{$v_schema}">

@@ -18,7 +18,7 @@
     <xsl:include href="convert_tei-to-bibtex_functions.xsl"/>
 
     <xsl:template match="/">
-        <xsl:result-document href="{$v_base-directory}metadata/{$vgFileId}.bib" method="text">
+        <xsl:result-document href="{$v_base-directory}metadata/{$v_file-name_input}.bib" method="text">
             <xsl:call-template name="t_file-head"/>
             <!-- construct BibText -->
             <xsl:apply-templates select="descendant::tei:text/tei:body/descendant::tei:div"/>
