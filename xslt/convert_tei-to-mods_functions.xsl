@@ -7,7 +7,7 @@
     <!-- date conversion functions -->
     <xsl:import href="https://tillgrallert.github.io/xslt-calendar-conversion/functions/date-functions.xsl"/>
     <!--     <xsl:include href="../../../xslt-calendar-conversion/date-functions.xsl"/> -->
-    <xsl:import href="functions.xsl"/>
+    <xsl:import href="convert_tei-to-biblstruct_functions.xsl"/>
     <!-- this needs to be adopted to work with any periodical and not just al-Muqtabas -->
     <xsl:variable name="v_schema" select="'http://www.loc.gov/standards/mods/mods-3-8.xsd'"/>
     <xsl:variable name="v_license" select="'http://creativecommons.org/licenses/by-sa/4.0/'"/>
@@ -324,13 +324,14 @@
                     <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/descendant::tei:textLang"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:variable name="v_lang">
+                    <!-- why did I decide to create a textLang element from a parameter? -->
+                   <!-- <xsl:variable name="v_lang">
                         <tei:textLang>
                             <xsl:attribute name="mainLang" select="$p_lang"/>
                             <xsl:value-of select="$p_lang"/>
                         </tei:textLang>
                     </xsl:variable>
-                    <xsl:apply-templates mode="m_tei-to-mods" select="$v_lang/tei:textLang"/>
+                    <xsl:apply-templates mode="m_tei-to-mods" select="$v_lang/tei:textLang"/>-->
                 </xsl:otherwise>
             </xsl:choose>
             <!-- notes, tags etc. -->
