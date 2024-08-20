@@ -192,11 +192,11 @@
                 </xsl:if>
                 <issuance>
                     <xsl:choose>
-                        <xsl:when test="$v_analytic/tei:title[@level = 'a'] | $v_monogr/tei:title[@level = 'j']">
-                            <xsl:text>continuing</xsl:text>
-                        </xsl:when>
                         <xsl:when test="$v_monogr/tei:title[@level = 'm']">
                             <xsl:text>monographic</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="$v_analytic/tei:title[@level = 'a'] | $v_monogr/tei:title[@level = 'j']">
+                            <xsl:text>continuing</xsl:text>
                         </xsl:when>
                     </xsl:choose>
                 </issuance>
@@ -253,6 +253,14 @@
                     <genre authority="local" xml:lang="en">presentation</genre>
                     <!--                    <genre authority="marcgt" xml:lang="en">article</genre>-->
                 </xsl:when>
+                <xsl:when test="$v_analytic/tei:title[@level = 'a'] and $v_monogr/tei:title[@level = 'j']">
+                    <genre authority="local" xml:lang="en">journalArticle</genre>
+                    <genre authority="marcgt" xml:lang="en">article</genre>
+                </xsl:when>
+                <xsl:when test="$v_analytic/tei:title[@level = 'a'] and $v_monogr/tei:title[@level = 'm']">
+                    <genre authority="local" xml:lang="en">bookSection</genre>
+                </xsl:when>
+                <!-- fallback to journal article -->
                 <xsl:when test="$v_analytic/tei:title[@level = 'a']">
                     <genre authority="local" xml:lang="en">journalArticle</genre>
                     <genre authority="marcgt" xml:lang="en">article</genre>
@@ -284,7 +292,16 @@
                                 </xsl:otherwise>
                             </xsl:choose>
                         </titleInfo>
-                        <genre authority="marcgt">journal</genre>
+                        <genre authority="marcgt">
+                            <xsl:choose>
+                                <xsl:when test="$v_monogr/tei:title[@level = 'j']">
+                                    <xsl:text>journal</xsl:text>
+                                </xsl:when>
+                                <xsl:when test="$v_monogr/tei:title[@level = 'm']">
+                                    <xsl:text>book</xsl:text>
+                                </xsl:when>
+                            </xsl:choose>
+                        </genre>
                         <xsl:copy-of select="$v_editor"/>
                         <xsl:copy-of select="$v_originInfo"/>
                         <xsl:copy-of select="$v_part"/>
