@@ -12,7 +12,7 @@
     <xsl:output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no" version="1.0"/>
     <xsl:preserve-space elements="tei:head tei:bibl"/>
 
-    <xsl:include href="convert_tei-to-mods_functions.xsl"/>
+    <xsl:import href="convert_tei-to-mods_functions.xsl"/>
     
     <!-- this parameter is currently not used -->
 <!--    <xsl:param name="pg_head-section" select="'مخطوطات ومطبوعات'"/>-->

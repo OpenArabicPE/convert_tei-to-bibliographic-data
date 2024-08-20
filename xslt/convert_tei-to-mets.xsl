@@ -12,7 +12,7 @@
     <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
     
     <xsl:import href="convert_tei-to-biblstruct_functions.xsl"/>
-    <xsl:include href="convert_tei-to-mods_functions.xsl"/>
+    <xsl:import href="convert_tei-to-mods_functions.xsl"/>
     
     <xsl:template match="/">
         <xsl:element name="mets:mets">
