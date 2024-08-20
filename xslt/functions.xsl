@@ -207,7 +207,11 @@
     </xsl:template>
     <xsl:function name="oape:get-xml-lang">
         <xsl:param name="p_node"/>
-        <xsl:variable name="v_lang" select="if($p_node/@xml:lang) then($p_node/@xml:lang) else($p_node/ancestor::element()[@xml:lang][1]/@xml:lang)"/>
+        <xsl:variable name="v_lang" select="
+                if ($p_node/@xml:lang) then
+                    ($p_node/@xml:lang)
+                else
+                    ($p_node/ancestor::element()[@xml:lang][1]/@xml:lang)"/>
         <xsl:choose>
             <xsl:when test="$v_lang != ''">
                 <xsl:attribute name="xml:lang" select="$v_lang"/>
@@ -218,6 +222,64 @@
                     <xsl:value-of select="$p_node/name()"/>
                     <xsl:text>"</xsl:text>
                 </xsl:message>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+    <!-- this function takes a tei:date node as input and returns an ISO string -->
+    <xsl:function name="oape:date-get-onset">
+        <xsl:param name="p_date"/>
+        <xsl:choose>
+            <xsl:when test="$p_date/@when">
+                <xsl:value-of select="$p_date/@when"/>
+            </xsl:when>
+            <xsl:when test="$p_date/@from">
+                <xsl:value-of select="$p_date/@from"/>
+            </xsl:when>
+            <xsl:when test="$p_date/@notBefore">
+                <xsl:value-of select="$p_date/@notBefore"/>
+            </xsl:when>
+            <!-- this should act as a fallback -->
+            <xsl:when test="$p_date/@to">
+                <xsl:value-of select="$p_date/@to"/>
+            </xsl:when>
+            <xsl:when test="$p_date/@notAfter">
+                <xsl:value-of select="$p_date/@notAfter"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:if test="$p_verbose = true()">
+                    <xsl:message>
+                        <xsl:text>date: no machine-readible onset found</xsl:text>
+                    </xsl:message>
+                </xsl:if>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+    <!-- this function takes a tei:date node as input and returns an ISO string -->
+    <xsl:function name="oape:date-get-terminus">
+        <xsl:param name="p_date"/>
+        <xsl:choose>
+            <xsl:when test="$p_date/@when">
+                <xsl:value-of select="$p_date/@when"/>
+            </xsl:when>
+            <xsl:when test="$p_date/@to">
+                <xsl:value-of select="$p_date/@to"/>
+            </xsl:when>
+            <xsl:when test="$p_date/@notAfter">
+                <xsl:value-of select="$p_date/@notAfter"/>
+            </xsl:when>
+            <!-- this should act as a fallback -->
+            <xsl:when test="$p_date/@from">
+                <xsl:value-of select="$p_date/@from"/>
+            </xsl:when>
+            <xsl:when test="$p_date/@notBefore">
+                <xsl:value-of select="$p_date/@notBefore"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:if test="$p_verbose = true()">
+                    <xsl:message>
+                        <xsl:text>date: no machine-readible terminus found</xsl:text>
+                    </xsl:message>
+                </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>
