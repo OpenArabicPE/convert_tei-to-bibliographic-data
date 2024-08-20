@@ -8,7 +8,7 @@
     xpath-default-namespace="http://www.loc.gov/mods/v3">
     <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no" version="1.0"/>
     <!-- this stylesheet generates a MODS XML file with bibliographic metadata for each <div> in the body of the TEI source file. File names are based on the source's @xml:id and the @xml:id of the <div>. -->
-    <xsl:include href="convert_tei-to-biblstruct_functions.xsl"/>
+    <xsl:import href="convert_tei-to-biblstruct_functions.xsl"/>
     <xsl:include href="convert_tei-to-mods_functions.xsl"/>
     
     <xsl:template match="/">

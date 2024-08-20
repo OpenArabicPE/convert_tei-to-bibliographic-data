@@ -14,7 +14,7 @@
         + add information on collaborators on the digital edition
         comment: this information cannot be added to BibTeX for articles appart from the generic "annote" tag -->
     
-    <xsl:include href="convert_tei-to-biblstruct_functions.xsl"/>
+    <xsl:import href="convert_tei-to-biblstruct_functions.xsl"/>
     <xsl:include href="convert_tei-to-bibtex_functions.xsl"/>
 
     <xsl:template match="/">

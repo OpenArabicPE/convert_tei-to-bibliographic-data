@@ -8,7 +8,7 @@
     <xsl:output encoding="UTF-8" indent="yes" method="text" name="text" omit-xml-declaration="yes"/>
     <xsl:strip-space elements="*"/>
     <!-- this stylesheet generates a Bibtex file with bibliographic metadata for each <div> in the body of the TEI source file. File names are based on the source's @xml:id and the @xml:id of the <div>. -->
-    <xsl:include href="convert_tei-to-biblstruct_functions.xsl"/>
+    <xsl:import href="convert_tei-to-biblstruct_functions.xsl"/>
     <xsl:include href="convert_tei-to-bibtex_functions.xsl"/>
     
     <!-- all parameters and variables are set in Tei2BibTex-functions.xsl -->

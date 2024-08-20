@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.tei-c.org/ns/1.0">
     <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no" version="1.0"/>
     <!-- this stylesheet generates a TEI/XML bibliography from all <bibl> elements found in the text of a TEI/XML document -->
-    <xsl:include href="convert_tei-to-biblstruct_functions.xsl"/>
+    <xsl:import href="convert_tei-to-biblstruct_functions.xsl"/>
     <!-- all parameters and variables are set in convert_tei-to-mods_functions.xsl -->
     <xsl:template match="/">
         <xsl:result-document href="{$v_base-directory}metadata/{$v_file-name_input}-bibl_biblStruct.TEIP5.xml">

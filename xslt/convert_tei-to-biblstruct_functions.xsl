@@ -3,7 +3,7 @@
     xmlns:mods="http://www.loc.gov/mods/v3" xmlns:oape="https://openarabicpe.github.io/ns" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:tei="http://www.tei-c.org/ns/1.0"
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:output encoding="UTF-8" indent="yes" method="xml" name="xml" omit-xml-declaration="no" version="1.0"/>
-    <xsl:include href="parameters.xsl"/>
+    <xsl:import href="parameters.xsl"/>
     <xsl:import href="../../authority-files/xslt/functions.xsl"/>
     <!-- are translators covered? -->
     <!-- problems
