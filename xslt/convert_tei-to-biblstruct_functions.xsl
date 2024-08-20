@@ -4,6 +4,7 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:output encoding="UTF-8" indent="yes" method="xml" name="xml" omit-xml-declaration="no" version="1.0"/>
     <xsl:import href="parameters.xsl"/>
+    <!-- which functions do I actually need? -->
     <xsl:import href="../../authority-files/xslt/functions.xsl"/>
     <!-- are translators covered? -->
     <!-- problems
@@ -276,8 +277,16 @@
                                     <xsl:when test="tei:title[@level != 'a']/@xml:lang">
                                         <xsl:value-of select="tei:title[@level != 'a'][@xml:lang][1]/@xml:lang"/>
                                     </xsl:when>
+                                    <xsl:when test="tei:title[@level != 'm']/@xml:lang">
+                                        <xsl:value-of select="tei:title[@level != 'm'][@xml:lang][1]/@xml:lang"/>
+                                    </xsl:when>
                                     <xsl:otherwise>
-                                        <xsl:text>ar</xsl:text>
+                                        <xsl:if test="$p_verbose = true()">
+                                            <xsl:message>
+                                                <xsl:text>There is no language information for this bibl</xsl:text>
+                                            </xsl:message>
+                                        </xsl:if>
+                                        <!--                                        <xsl:value-of select="$p_target-language"/>-->
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </xsl:attribute>
@@ -667,11 +676,11 @@
     <xsl:template match="tei:title[ancestor::tei:titleStmt]" mode="m_fileDesc-to-biblStruct">
         <xsl:choose>
             <xsl:when test="tei:title">
-                <xsl:apply-templates select="tei:title" mode="m_fileDesc-to-biblStruct"/>
+                <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="tei:title"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:copy>
-                    <xsl:apply-templates select="@*" mode="m_identity-transform" />
+                    <xsl:apply-templates mode="m_identity-transform" select="@*"/>
                     <xsl:attribute name="level" select="'a'"/>
                     <xsl:attribute name="xml:lang">
                         <xsl:choose>
