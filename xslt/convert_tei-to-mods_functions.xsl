@@ -314,7 +314,7 @@
                     <xsl:copy-of select="$v_originInfo"/>
                     <xsl:copy-of select="$v_part"/>
                     <!-- IDs -->
-                    <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/descendant::tei:idno"/>
+                    <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/descendant::tei:idno[not(ancestor::tei:note)]"/>
                 </xsl:otherwise>
             </xsl:choose>
             <!-- availability / license -->
@@ -333,7 +333,7 @@
             <xsl:apply-templates mode="m_tei-to-mods" select="$v_analytic/tei:idno[not(@type = ('url', 'URI'))]"/>
             <!-- URLs -->
             <!-- MODS allows for more than one URL! -->
-            <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/descendant::tei:idno[@type = ('url', 'URI')]"/>
+            <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/descendant::tei:idno[@type = ('url', 'URI')][not(ancestor::tei:note)]"/>
             <!--<url dateLastAccessed="{$p_date-accessed}" usage="primary display">-->
             <!-- language information -->
             <xsl:choose>
@@ -509,7 +509,7 @@
             <xsl:value-of select="normalize-space($v_plain)"/>
         </nameIdentifier>
     </xsl:template>-->
-    <xsl:template match="tei:idno[@type = 'classmark']" mode="m_tei-to-mods">
+    <xsl:template match="tei:idno[@type = 'classmark'][ancestor::tei:note[@type = 'holdings']]" mode="m_tei-to-mods">
         <location>
             <!-- the actual location of the physical copy -->
             <physicalLocation>
