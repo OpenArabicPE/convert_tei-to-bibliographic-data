@@ -4,7 +4,7 @@
     <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no" version="1.0"/>
     <!-- this reduces the complexity of <biblStruct> nodes for use in other applications, such as OpenRefine -->
     <!-- the resulting dataset can also be used for all the linking purposes in our OpenArabicPE, Jarāʾid and Sihafa contexts, as it keeps the relevant information and simplifies everything with a focus on machine-actionability, while removing unnecessary notes -->
-    <xsl:include href="convert_tei-to-biblstruct_functions.xsl"/>
+    <xsl:import href="convert_tei-to-biblstruct_functions.xsl"/>
     <xsl:template match="/">
         <xsl:result-document href="{$v_url-base}/{$v_file-name_input}_simple.TEIP5.xml">
             <xsl:copy>

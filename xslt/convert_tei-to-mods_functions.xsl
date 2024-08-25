@@ -5,9 +5,9 @@
     <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no" version="1.0"/>
     <!-- this stylesheet translates <tei:biblStruct>s to  <mods:mods> -->
     <!-- date conversion functions -->
-    <xsl:include href="https://tillgrallert.github.io/xslt-calendar-conversion/functions/date-functions.xsl"/>
+    <xsl:import href="https://tillgrallert.github.io/xslt-calendar-conversion/functions/date-functions.xsl"/>
     <!--     <xsl:include href="../../../xslt-calendar-conversion/date-functions.xsl"/> -->
-    <xsl:import href="functions.xsl"/>
+    <xsl:import href="convert_tei-to-biblstruct_functions.xsl"/>
     <!-- this needs to be adopted to work with any periodical and not just al-Muqtabas -->
     <xsl:variable name="v_schema" select="'http://www.loc.gov/standards/mods/mods-3-8.xsd'"/>
     <xsl:variable name="v_license" select="'http://creativecommons.org/licenses/by-sa/4.0/'"/>
@@ -192,11 +192,11 @@
                 </xsl:if>
                 <issuance>
                     <xsl:choose>
-                        <xsl:when test="$v_analytic/tei:title[@level = 'a'] | $v_monogr/tei:title[@level = 'j']">
-                            <xsl:text>continuing</xsl:text>
-                        </xsl:when>
                         <xsl:when test="$v_monogr/tei:title[@level = 'm']">
                             <xsl:text>monographic</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="$v_analytic/tei:title[@level = 'a'] | $v_monogr/tei:title[@level = 'j']">
+                            <xsl:text>continuing</xsl:text>
                         </xsl:when>
                     </xsl:choose>
                 </issuance>
@@ -254,6 +254,14 @@
                     <genre authority="local" xml:lang="en">presentation</genre>
                     <!--                    <genre authority="marcgt" xml:lang="en">article</genre>-->
                 </xsl:when>
+                <xsl:when test="$v_analytic/tei:title[@level = 'a'] and $v_monogr/tei:title[@level = 'j']">
+                    <genre authority="local" xml:lang="en">journalArticle</genre>
+                    <genre authority="marcgt" xml:lang="en">article</genre>
+                </xsl:when>
+                <xsl:when test="$v_analytic/tei:title[@level = 'a'] and $v_monogr/tei:title[@level = 'm']">
+                    <genre authority="local" xml:lang="en">bookSection</genre>
+                </xsl:when>
+                <!-- fallback to journal article -->
                 <xsl:when test="$v_analytic/tei:title[@level = 'a']">
                     <genre authority="local" xml:lang="en">journalArticle</genre>
                     <genre authority="marcgt" xml:lang="en">article</genre>
@@ -285,7 +293,16 @@
                                 </xsl:otherwise>
                             </xsl:choose>
                         </titleInfo>
-                        <genre authority="marcgt">journal</genre>
+                        <genre authority="marcgt">
+                            <xsl:choose>
+                                <xsl:when test="$v_monogr/tei:title[@level = 'j']">
+                                    <xsl:text>journal</xsl:text>
+                                </xsl:when>
+                                <xsl:when test="$v_monogr/tei:title[@level = 'm']">
+                                    <xsl:text>book</xsl:text>
+                                </xsl:when>
+                            </xsl:choose>
+                        </genre>
                         <xsl:copy-of select="$v_editor"/>
                         <xsl:copy-of select="$v_originInfo"/>
                         <xsl:copy-of select="$v_part"/>
@@ -325,13 +342,14 @@
                     <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/descendant::tei:textLang"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:variable name="v_lang">
+                    <!-- why did I decide to create a textLang element from a parameter? -->
+                   <!-- <xsl:variable name="v_lang">
                         <tei:textLang>
                             <xsl:attribute name="mainLang" select="$p_lang"/>
                             <xsl:value-of select="$p_lang"/>
                         </tei:textLang>
                     </xsl:variable>
-                    <xsl:apply-templates mode="m_tei-to-mods" select="$v_lang/tei:textLang"/>
+                    <xsl:apply-templates mode="m_tei-to-mods" select="$v_lang/tei:textLang"/>-->
                 </xsl:otherwise>
             </xsl:choose>
             <!-- notes, tags etc. -->

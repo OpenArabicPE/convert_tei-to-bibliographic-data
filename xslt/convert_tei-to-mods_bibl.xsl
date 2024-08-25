@@ -12,7 +12,7 @@
     <xsl:output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no" version="1.0"/>
     <xsl:preserve-space elements="tei:head tei:bibl"/>
 
-    <xsl:include href="convert_tei-to-mods_functions.xsl"/>
+    <xsl:import href="convert_tei-to-mods_functions.xsl"/>
     
     <!-- this parameter is currently not used -->
 <!--    <xsl:param name="pg_head-section" select="'مخطوطات ومطبوعات'"/>-->
@@ -25,7 +25,7 @@
     </xsl:template>
 
     <xsl:template match="/">
-        <xsl:result-document href="../metadata/{$vgFileId}-bibl.MODS.xml">
+        <xsl:result-document href="{$v_base-directory}metadata/{$v_file-name_input}-bibl.MODS.xml">
             <xsl:value-of select="concat('&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;',$p_url-boilerplate,'&quot;?&gt;')" disable-output-escaping="yes"/>
             <xsl:value-of select="concat('&lt;?xml-model href=&quot;',$v_schema,'&quot;?&gt;')" disable-output-escaping="yes"/>
             <modsCollection xsi:schemaLocation="{$v_schema}">

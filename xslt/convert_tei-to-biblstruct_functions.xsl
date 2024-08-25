@@ -3,8 +3,9 @@
     xmlns:mods="http://www.loc.gov/mods/v3" xmlns:oape="https://openarabicpe.github.io/ns" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:tei="http://www.tei-c.org/ns/1.0"
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:output encoding="UTF-8" indent="yes" method="xml" name="xml" omit-xml-declaration="no" version="1.0"/>
-    <xsl:include href="parameters.xsl"/>
-    <xsl:import href="../../authority-files/xslt/functions.xsl"/>
+    <xsl:import href="functions.xsl"/>
+    <!-- which functions do I actually need? -->
+    <!--    <xsl:import href="../../authority-files/xslt/functions.xsl"/>-->
     <!-- are translators covered? -->
     <!-- problems
         - multiple surnames: e.g. Saʿīd al-Khūrī al-Shartūnī
@@ -269,19 +270,31 @@
                         <xsl:apply-templates mode="m_replicate" select="tei:textLang"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <textLang>
-                            <xsl:attribute name="mainLang">
-                                <xsl:choose>
-                                    <!-- chose the language of the title -->
-                                    <xsl:when test="tei:title[@level != 'a']/@xml:lang">
-                                        <xsl:value-of select="tei:title[@level != 'a'][@xml:lang][1]/@xml:lang"/>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:text>ar</xsl:text>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </xsl:attribute>
-                        </textLang>
+                        <xsl:variable name="v_lang">
+                            <xsl:choose>
+                                <!-- chose the language of the title -->
+                                <xsl:when test="tei:title[@level != 'a']/@xml:lang">
+                                    <xsl:value-of select="tei:title[@level != 'a'][@xml:lang][1]/@xml:lang"/>
+                                </xsl:when>
+                                <xsl:when test="tei:title[@level != 'm']/@xml:lang">
+                                    <xsl:value-of select="tei:title[@level != 'm'][@xml:lang][1]/@xml:lang"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:if test="$p_verbose = true()">
+                                        <xsl:message>
+                                            <xsl:text>There is no language information for this bibl</xsl:text>
+                                        </xsl:message>
+                                    </xsl:if>
+                                    <xsl:value-of select="'NA'"/>
+                                    <!--                                        <xsl:value-of select="$p_target-language"/>-->
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:variable>
+                        <xsl:if test="$v_lang != 'NA'">
+                            <textLang>
+                                <xsl:attribute name="mainLang" select="$v_lang"/>
+                            </textLang>
+                        </xsl:if>
                     </xsl:otherwise>
                 </xsl:choose>
                 <!-- author: depending on which level we are on -->
@@ -456,31 +469,6 @@
             <xsl:apply-templates mode="m_simple" select="tei:pubPlace[1] | tei:publisher[1]"/>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="tei:pubPlace[tei:placeName[@ref][@ref != 'NA']]" mode="m_simple">
-        <xsl:copy>
-            <xsl:apply-templates mode="m_simple" select="@*"/>
-            <!-- generate two toponyms from the authority file -->
-            <xsl:copy-of select="
-                    oape:query-gazetteer(tei:placeName[@ref][1], $v_gazetteer, $p_local-authority, 'name-tei', if (ancestor::tei:monogr/tei:textLang[1]/@mainLang) then
-                        (ancestor::tei:monogr/tei:textLang[1]/@mainLang)
-                    else
-                        ('en'))"/>
-            <!--            <xsl:copy-of select="oape:query-gazetteer(tei:placeName[@ref][1], $v_gazetteer, $p_local-authority, 'name-tei', 'en')"/>-->
-        </xsl:copy>
-    </xsl:template>
-    <xsl:template match="tei:editor[tei:persName[@ref][@ref != 'NA']]" mode="m_simple">
-        <xsl:copy>
-            <xsl:apply-templates mode="m_simple" select="@*"/>
-            <!-- generate two toponyms from the authority file -->
-            <xsl:apply-templates mode="m_simple" select="
-                    oape:query-personography(tei:persName[@ref][1], $v_personography, $p_local-authority, 'name-tei', if (ancestor::tei:monogr/tei:textLang[1]/@mainLang) then
-                        (ancestor::tei:monogr/tei:textLang[1]/@mainLang)
-                    else
-                        ('en'))"/>
-            <!--            <xsl:apply-templates mode="m_simple" select="oape:query-personography(tei:persName[@ref][1], $v_personography, $p_local-authority, 'name-tei', 'ar-Latn-x-ijmes')"/>-->
-        </xsl:copy>
-    </xsl:template>
-    <!-- this is the culprit!!! -->
     <xsl:template match="tei:surname | tei:forename" mode="m_simple">
         <xsl:copy>
             <xsl:apply-templates mode="m_simple" select="@*"/>
@@ -667,11 +655,11 @@
     <xsl:template match="tei:title[ancestor::tei:titleStmt]" mode="m_fileDesc-to-biblStruct">
         <xsl:choose>
             <xsl:when test="tei:title">
-                <xsl:apply-templates select="tei:title" mode="m_fileDesc-to-biblStruct"/>
+                <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="tei:title"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:copy>
-                    <xsl:apply-templates select="@*" mode="m_identity-transform" />
+                    <xsl:apply-templates mode="m_identity-transform" select="@*"/>
                     <xsl:attribute name="level" select="'a'"/>
                     <xsl:attribute name="xml:lang">
                         <xsl:choose>
@@ -692,4 +680,27 @@
         <xsl:apply-templates mode="m_identity-transform" select="."/>
     </xsl:template>
     <xsl:template match="text()[. = 'NA'] | tei:title/@ref | tei:title/@resp" mode="m_simple"/>
+    <!-- the following two templates are based on authority control and can be safely removed if this isn't needed -->
+    <!--<xsl:template match="tei:pubPlace[tei:placeName[@ref][@ref != 'NA']]" mode="m_simple">
+        <xsl:copy>
+            <xsl:apply-templates mode="m_simple" select="@*"/>
+            <!-\- look-up toponym for the reference's language in the authority file -\->
+            <xsl:copy-of select="
+                    oape:query-gazetteer(tei:placeName[@ref][1], $v_gazetteer, $p_local-authority, 'name-tei', if (ancestor::tei:monogr/tei:textLang[1]/@mainLang) then
+                        (ancestor::tei:monogr/tei:textLang[1]/@mainLang)
+                    else
+                        ('en'))"/>
+        </xsl:copy>
+    </xsl:template>
+    <xsl:template match="tei:editor[tei:persName[@ref][@ref != 'NA']]" mode="m_simple">
+        <xsl:copy>
+            <xsl:apply-templates mode="m_simple" select="@*"/>
+            <!-\- look-up the editor's name for the reference's language in the authority file -\->
+            <xsl:apply-templates mode="m_simple" select="
+                    oape:query-personography(tei:persName[@ref][1], $v_personography, $p_local-authority, 'name-tei', if (ancestor::tei:monogr/tei:textLang[1]/@mainLang) then
+                        (ancestor::tei:monogr/tei:textLang[1]/@mainLang)
+                    else
+                        ('en'))"/>
+        </xsl:copy>
+    </xsl:template>-->
 </xsl:stylesheet>
