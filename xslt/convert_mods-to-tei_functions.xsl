@@ -149,7 +149,7 @@
             <xsl:attribute name="mainLang">
                 <xsl:choose>
                     <xsl:when test="@authority = 'iso639-2b'">
-                        <xsl:value-of select="oape:string-convert-lang-codes(.)"/>
+                        <xsl:value-of select="oape:string-convert-lang-codes(., 'iso639-2', 'bcp47')"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:value-of select="."/>

@@ -178,7 +178,7 @@
                             <xsl:otherwise>
                                 <xsl:element name="textLang">
                                     <xsl:attribute name="mainLang">
-                                        <xsl:value-of select="oape:string-convert-lang-codes(substring($v_record//marc:controlfield[@tag = '008'], 36, 3))"/>
+                                        <xsl:value-of select="oape:string-convert-lang-codes(substring($v_record//marc:controlfield[@tag = '008'], 36, 3), 'iso639-2', 'bcp47')"/>
                                     </xsl:attribute>
                                 </xsl:element>
                             </xsl:otherwise>
@@ -307,11 +307,11 @@
         <xsl:variable name="v_lang-item">
             <xsl:choose>
                 <xsl:when test="ancestor::marc:record/marc:datafield[@tag = '041']/marc:subfield[@code = 'a']">
-                    <xsl:value-of select="oape:string-convert-lang-codes(ancestor::marc:record/marc:datafield[@tag = '041']/marc:subfield[@code = 'a'][1])"/>
+                    <xsl:value-of select="oape:string-convert-lang-codes(ancestor::marc:record/marc:datafield[@tag = '041']/marc:subfield[@code = 'a'][1], 'iso639-2', 'bcp47')"/>
                 </xsl:when>
                 <!-- language code at 36 -->
                 <xsl:when test="substring(ancestor::marc:record[1]/marc:controlfield[@tag = '008'], 36, 3) != '   '">
-                    <xsl:value-of select="oape:string-convert-lang-codes(substring(ancestor::marc:record[1]/marc:controlfield[@tag = '008'], 36, 3))"/>
+                    <xsl:value-of select="oape:string-convert-lang-codes(substring(ancestor::marc:record[1]/marc:controlfield[@tag = '008'], 36, 3), 'iso639-2', 'bcp47')"/>
                 </xsl:when>
                 <!-- fallback: undefined -->
                 <xsl:otherwise>
@@ -322,7 +322,7 @@
         <xsl:variable name="v_lang-catalogue">
             <xsl:choose>
                 <xsl:when test="ancestor::marc:record/marc:datafield[@tag = '040']/marc:subfield[@code = 'b']">
-                    <xsl:value-of select="oape:string-convert-lang-codes(ancestor::marc:record/marc:datafield[@tag = '040']/marc:subfield[@code = 'b'][1])"/>
+                    <xsl:value-of select="oape:string-convert-lang-codes(ancestor::marc:record/marc:datafield[@tag = '040']/marc:subfield[@code = 'b'][1], 'iso639-2', 'bcp47')"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:value-of select="'und'"/>
@@ -509,11 +509,11 @@
             <xsl:when test="$v_tag = '041'">
                 <xsl:choose>
                     <xsl:when test="$v_code = 'a' and preceding-sibling::marc:subfield[@code = 'a']">
-                        <xsl:attribute name="otherLangs" select="oape:string-convert-lang-codes($v_content)"/>
+                        <xsl:attribute name="otherLangs" select="oape:string-convert-lang-codes($v_content, 'iso639-2', 'bcp47')"/>
                     </xsl:when>
                     <xsl:when test="$v_code = 'a'">
                         <xsl:element name="textLang">
-                            <xsl:attribute name="mainLang" select="oape:string-convert-lang-codes($v_content)"/>
+                            <xsl:attribute name="mainLang" select="oape:string-convert-lang-codes($v_content, 'iso639-2', 'bcp47')"/>
                             <xsl:apply-templates select="following-sibling::marc:subfield[@code = 'a']"/>
                         </xsl:element>
                     </xsl:when>
