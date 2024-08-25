@@ -10,8 +10,7 @@
     <xsl:import href="convert_tei-to-biblstruct_functions.xsl"/>
     <!-- this needs to be adopted to work with any periodical and not just al-Muqtabas -->
     <xsl:variable name="v_schema" select="'http://www.loc.gov/standards/mods/mods-3-8.xsd'"/>
-    <xsl:variable name="v_license" select="'http://creativecommons.org/licenses/by-sa/4.0/'"/>
-    <xsl:variable name="v_license-url" select="'http://creativecommons.org/licenses/by-sa/4.0/'"/>
+    
     <!-- the MODS output -->
     <xsl:function name="oape:bibliography-tei-to-mods">
         <!-- input is a bibl or biblStruct -->
@@ -323,12 +322,12 @@
                 <xsl:when test="$v_biblStruct/descendant::tei:availability">
                     <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/descendant::tei:availability"/>
                 </xsl:when>
-                <xsl:otherwise>
+                <xsl:when test="$p_add-license">
                     <accessCondition>
                         <xsl:attribute name="valueURI" select="$v_license-url"/>
                         <xsl:value-of select="$v_license"/>
                     </accessCondition>
-                </xsl:otherwise>
+                </xsl:when>
             </xsl:choose>
             <!-- IDs -->
             <xsl:apply-templates mode="m_tei-to-mods" select="$v_analytic/tei:idno[not(@type = ('url', 'URI'))]"/>

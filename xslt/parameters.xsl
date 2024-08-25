@@ -7,6 +7,9 @@
     <xsl:param name="p_verbose" select="false()"/>
     <xsl:param name="p_debug" select="false()"/>
     <xsl:param name="p_mods-simple-persnames" select="false()"/>
+    <xsl:param name="p_add-license" select="false()"/>
+    <xsl:variable name="v_license" select="'http://creativecommons.org/licenses/by-sa/4.0/'"/>
+    <xsl:variable name="v_license-url" select="'http://creativecommons.org/licenses/by-sa/4.0/'"/>
     
     <xsl:variable name="v_base-directory">
         <xsl:choose>
