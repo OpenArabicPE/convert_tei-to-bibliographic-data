@@ -7,7 +7,7 @@
     <xsl:import href="convert_marc-xml-to-tei_functions.xsl"/>
     <!-- output: everything is wrapped in a listBibl -->
     <xsl:template match="/">
-        <xsl:result-document href="{$v_base-directory}metadata/{$v_file-name_input}.TEIP5.xml" method="xml">
+        <xsl:result-document href="{$v_base-directory}{$p_output-folder}{$v_file-name_input}.TEIP5.xml" method="xml">
             <TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
                 <teiHeader xml:lang="en">
                     <fileDesc>

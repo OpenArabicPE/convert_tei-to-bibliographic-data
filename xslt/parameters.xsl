@@ -30,6 +30,7 @@
     <xsl:variable name="v_id-file" select="if(tei:TEI/@xml:id) then(tei:TEI/@xml:id) else(substring-before(tokenize(base-uri(),'/')[last()],'.TEIP5'))"/>
     <xsl:variable name="v_url-file" select="base-uri()"/>
     <xsl:variable name="v_url-base" select="replace($v_url-file, '^(.+)/([^/]+?)$', '$1')"/>
+    <xsl:param name="p_output-folder" select="'metadata/'"/>
     <!-- URLs -->
     <xsl:variable name="v_url-server-zdb-ld" select="'http://ld.zdb-services.de/data/'"/>
 </xsl:stylesheet>

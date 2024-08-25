@@ -6,7 +6,7 @@
     <xsl:import href="convert_tei-to-biblstruct_functions.xsl"/>
     <!-- all parameters and variables are set in convert_tei-to-mods_functions.xsl -->
     <xsl:template match="/">
-        <xsl:result-document href="{$v_base-directory}metadata/{$v_file-name_input}-bibl_biblStruct.TEIP5.xml">
+        <xsl:result-document href="{$v_base-directory}{$p_output-folder}{$v_file-name_input}-bibl_biblStruct.TEIP5.xml">
             <xsl:copy>
                 <xsl:apply-templates mode="m_bibl-to-biblStruct"/>
             </xsl:copy>
