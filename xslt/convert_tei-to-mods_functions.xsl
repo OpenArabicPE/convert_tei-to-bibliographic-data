@@ -209,7 +209,8 @@
         </xsl:variable>
         <xsl:variable name="v_editor">
             <!-- pull in information on editor -->
-            <xsl:apply-templates mode="m_tei-to-mods" select="$v_monogr/tei:editor/tei:persName[@xml:lang = $p_lang]"/>
+<!--            <xsl:apply-templates mode="m_tei-to-mods" select="$v_monogr/tei:editor/tei:persName[@xml:lang = $p_lang]"/>-->
+            <xsl:apply-templates mode="m_tei-to-mods" select="$v_monogr/tei:editor"/>
         </xsl:variable>
         <!-- construct output -->
         <mods>
@@ -339,14 +340,32 @@
     </xsl:function>
     <!-- transform TEI names to MODS -->
     <xsl:template match="tei:persName" mode="m_tei-to-mods">
-        <!--<xsl:choose>
+        <xsl:choose>
+            <xsl:when test="$p_mods-simple-persnames = true()">
+                <!-- For many applications, it makes sense to provide one simple string -->
+                <namePart>
+                    <xsl:variable name="v_plain">
+                        <xsl:choose>
+                            <xsl:when test="tei:surname">
+                                <xsl:apply-templates mode="m_plain-text" select="tei:forename"/>
+                                <xsl:text> </xsl:text>
+                                <xsl:apply-templates mode="m_plain-text" select="tei:surname"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:apply-templates mode="m_plain-text" select="."/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
+                    <xsl:value-of select="normalize-space($v_plain)"/>
+                </namePart>
+            </xsl:when>
             <xsl:when test="tei:surname">
                 <xsl:apply-templates mode="m_tei-to-mods" select="tei:surname"/>
                 <xsl:apply-templates mode="m_tei-to-mods" select="tei:forename"/>
             </xsl:when>
             <xsl:otherwise>
-                <!-\- what should happen if there is neither surname nor forename? -\->
-                <!-\- there should still be a wrapper node -\->
+                <!-- what should happen if there is neither surname nor forename? -->
+                <!-- there should still be a wrapper node -->
                 <namePart>
                     <xsl:variable name="v_plain">
                         <xsl:apply-templates mode="m_plain-text" select="."/>
@@ -354,28 +373,7 @@
                     <xsl:value-of select="normalize-space($v_plain)"/>
                 </namePart>
             </xsl:otherwise>
-        </xsl:choose>-->
-        <!-- For many applications, it makes sense to provide one simple string -->
-        <namePart>
-            <xsl:variable name="v_plain">
-                <xsl:choose>
-                    <xsl:when test="tei:surname">
-                        <xsl:apply-templates mode="m_plain-text" select="tei:forename"/>
-                        <xsl:text> </xsl:text>
-                        <xsl:apply-templates mode="m_plain-text" select="tei:surname"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:apply-templates mode="m_plain-text" select="."/>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:variable>
-            <xsl:value-of select="normalize-space($v_plain)"/>
-        </namePart>
-        <!-- provide more specific information, if available -->
-        <xsl:if test="tei:surname">
-            <xsl:apply-templates mode="m_tei-to-mods" select="tei:surname"/>
-            <xsl:apply-templates mode="m_tei-to-mods" select="tei:forename"/>
-        </xsl:if>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="tei:surname" mode="m_tei-to-mods">
         <namePart type="family">
@@ -427,7 +425,7 @@
             <xsl:value-of select="normalize-space($v_plain)"/>
         </placeTerm>
     </xsl:template>
-    <xsl:template match="tei:persName | tei:orgName | tei:editor | tei:author" mode="m_authority">
+    <xsl:template match="tei:persName | tei:orgName | tei:editor | tei:author | tei:placeName" mode="m_authority">
         <xsl:if test="@ref != ''">
             <xsl:choose>
                 <!-- note that MODS seemingly supports only one authority file -->
@@ -437,27 +435,19 @@
                     <!-- it is arguably better to directly dereference VIAF IDs -->
                     <xsl:attribute name="valueURI" select="replace(@ref, '.*viaf:(\d+).*', 'https://viaf.org/viaf/$1')"/>
                 </xsl:when>
+                <xsl:when test="matches(@ref, 'geon:\d+')">
+                    <!--                        <xsl:attribute name="authority" select="'geonames'"/>-->
+                    <xsl:attribute name="valueURI" select="replace(@ref, '.*geon:(\d+).*', 'https://www.geonames.org/$1')"/>
+                </xsl:when>
+                <xsl:when test="matches(@ref, 'wiki:Q\d+')">
+                    <xsl:attribute name="valueURI" select="replace(@ref, '.*wiki:(Q\d+).*', 'https://www.wikidata.org/wiki/$1')"/>
+                </xsl:when>
                 <xsl:when test="matches(@ref, 'oape:pers:\d+')">
-                    <!-- @authority is a controlled list with the values: marcgac, marccountry, iso3166 -->
                     <!--                        <xsl:attribute name="authority" select="'oape'"/>-->
                     <!-- OpenArabicPE IDs do not resolve -->
                     <xsl:attribute name="valueURI" select="replace(@ref, '.*(oape:pers:\d+).*', '$1')"/>
                 </xsl:when>
-            </xsl:choose>
-        </xsl:if>
-    </xsl:template>
-    <xsl:template match="tei:placeName" mode="m_authority">
-        <xsl:if test="@ref != ''">
-            <xsl:choose>
-                <!-- note that MODS seemingly supports only one authority file -->
-                <xsl:when test="matches(@ref, 'geon:\d+')">
-                    <!-- @authority is a controlled list with the values: marcgac, marccountry, iso3166 -->
-                    <!--                        <xsl:attribute name="authority" select="'geonames'"/>-->
-                    <!-- it is arguably better to directly dereference VIAF IDs -->
-                    <xsl:attribute name="valueURI" select="replace(@ref, '.*geon:(\d+).*', 'https://www.geonames.org/$1')"/>
-                </xsl:when>
                 <xsl:when test="matches(@ref, 'oape:place:\d+')">
-                    <!-- @authority is a controlled list with the values: marcgac, marccountry, iso3166 -->
                     <!--                        <xsl:attribute name="authority" select="'oape'"/>-->
                     <!-- OpenArabicPE IDs do not resolve -->
                     <xsl:attribute name="valueURI" select="replace(@ref, '.*(oape:place:\d+).*', '$1')"/>
@@ -646,7 +636,7 @@
     <!-- contributors -->
     <xsl:template match="tei:editor | tei:author | tei:respStmt[tei:persName]" mode="m_tei-to-mods" priority="10">
         <name type="personal">
-            <xsl:copy-of select="oape:get-xml-lang(.)"/>
+            <!--<xsl:copy-of select="oape:get-xml-lang(.)"/>-->
             <!-- add references to authority files -->
             <xsl:choose>
                 <xsl:when test="matches(@ref, 'viaf:\d+')">
@@ -730,7 +720,8 @@
                     <xsl:value-of select="."/>
                 </topic>
             </xsl:when>
-            <xsl:when test="@n = ('category', 'subcategory')"> <!-- values specific to DHConvalidator -->
+            <xsl:when test="@n = ('category', 'subcategory')">
+                <!-- values specific to DHConvalidator -->
                 <genre>
                     <xsl:value-of select="."/>
                 </genre>

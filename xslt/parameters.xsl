@@ -4,6 +4,7 @@
     <xsl:param name="p_target-language" select="'ar'"/>
     
     <xsl:param name="p_github-action" select="false()"/>
+    <xsl:param name="p_mods-simple-persnames" select="false()"/>
     
     <xsl:variable name="v_base-directory">
         <xsl:choose>
