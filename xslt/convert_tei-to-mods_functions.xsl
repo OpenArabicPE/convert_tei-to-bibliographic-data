@@ -650,6 +650,8 @@
             </end>
         </extent>
     </xsl:template>
+    <!-- remove output for unsupported units etc. -->
+    <xsl:template match="tei:biblScope" mode="m_tei-to-mods"/>
     <!-- contributors -->
     <xsl:template match="tei:editor | tei:author | tei:respStmt[tei:persName]" mode="m_tei-to-mods" priority="10">
         <name type="personal">
@@ -722,6 +724,9 @@
         </affiliation>
     </xsl:template>
     <!-- notes -->
+    <!-- supressed -->
+    <xsl:template match="tei:note" mode="m_tei-to-mods"/>
+    <!-- supported -->
     <xsl:template match="tei:note[@type = 'tagList']" mode="m_tei-to-mods">
         <xsl:for-each select="tei:list">
             <subject>
@@ -730,7 +735,7 @@
             </subject>
         </xsl:for-each>
     </xsl:template>
-    <xsl:template match="tei:item" mode="m_tei-to-mods">
+    <xsl:template match="tei:item[ancestor::tei:note[@type = 'tagList']]" mode="m_tei-to-mods">
         <xsl:choose>
             <xsl:when test="@n = 'topics'">
                 <topic>
