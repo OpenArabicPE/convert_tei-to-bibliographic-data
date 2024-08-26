@@ -18,9 +18,9 @@
             <xsl:apply-templates mode="m_basic" select="tei:teiHeader"/>
             <xsl:element name="standOff">
                 <xsl:element name="listBibl">
-                    <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:text/tei:body/descendant::tei:bibl[not(parent::tei:listBibl)]"/>
+                    <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:text/tei:body/descendant::tei:bibl[not(ancestor::tei:biblStruct)][not(parent::tei:listBibl)]"/>
                 </xsl:element>
-                <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:text/tei:body/descendant::tei:listBibl"/>
+                <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:text/tei:body/descendant::tei:listBibl[not(ancestor::tei:biblStruct)]"/>
             </xsl:element>
         </xsl:copy>
     </xsl:template>
