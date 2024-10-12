@@ -165,13 +165,13 @@
                     <xsl:attribute name="xml:id" select="descendant::tei:idno[@type = $p_acronym-wikidata][1]"/>
                 </xsl:when>
                 <xsl:when test="descendant::tei:title[matches(@ref, $p_acronym-wikidata)]">
-                    <xsl:attribute name="xml:id" select="replace(descendant::tei:title[matches(@ref, $p_acronym-wikidata)][1]/@ref,'^.*(Q\d+).*$','$1')"/>
+                    <xsl:attribute name="xml:id" select="replace(descendant::tei:title[matches(@ref, $p_acronym-wikidata)][1]/@ref, '^.*(Q\d+).*$', '$1')"/>
                 </xsl:when>
                 <xsl:when test="descendant::tei:idno[@type = $p_local-authority]">
                     <xsl:attribute name="xml:id" select="concat($p_local-authority, '_', descendant::tei:idno[@type = $p_local-authority][1])"/>
                 </xsl:when>
                 <xsl:otherwise>
-<!--                    <xsl:attribute name="xml:id" select="concat('temp_', generate-id(.))"/>-->
+                    <!--                    <xsl:attribute name="xml:id" select="concat('temp_', generate-id(.))"/>-->
                     <xsl:message terminate="yes">
                         <xsl:text>The biblStruct has no ID that would alow to link back to it</xsl:text>
                     </xsl:message>
@@ -431,7 +431,7 @@
             <xsl:apply-templates mode="m_string" select="."/>
         </P2093>
     </xsl:template>
-    <xsl:template match="tei:idno">
+    <xsl:template match="tei:idno" mode="m_tei2wikidata">
         <xsl:choose>
             <xsl:when test="@type = 'ISBN'">
                 <xsl:choose>
@@ -452,6 +452,11 @@
                         </xsl:message>
                     </xsl:otherwise>
                 </xsl:choose>
+            </xsl:when>
+            <xsl:when test="@type = 'isil'">
+                <P791>
+                    <xsl:apply-templates mode="m_string" select="."/>
+                </P791>
             </xsl:when>
             <xsl:when test="@type = 'ISSN'">
                 <P236>
@@ -714,7 +719,7 @@
             </xsl:choose>
         </xsl:attribute>
     </xsl:template>
-    <xsl:template match="tei:person">
+    <xsl:template match="tei:person" mode="m_tei2wikidata">
         <xsl:variable name="v_id-wiki" select="descendant::tei:idno[@type = 'wiki'][1]"/>
         <xsl:variable name="v_id-viaf" select="descendant::tei:idno[@type = 'VIAF'][1]"/>
         <item>
@@ -773,8 +778,8 @@
             <!-- instance of: human -->
             <P31>Q5</P31>
             <!-- names -->
-            <xsl:apply-templates select="oape:query-person(., 'name-tei', 'ar', $p_local-authority)"/>
-            <xsl:apply-templates select="oape:query-person(., 'name-tei', 'en', $p_local-authority)"/>
+            <xsl:apply-templates select="oape:query-person(., 'name-tei', 'ar', $p_local-authority)" mode="m_tei2wikidata"/>
+            <xsl:apply-templates select="oape:query-person(., 'name-tei', 'en', $p_local-authority)" mode="m_tei2wikidata"/>
             <!-- languages -->
             <xsl:for-each select="tei:occupation/descendant::tei:title[@level = 'j']">
                 <xsl:variable name="v_langs">
@@ -800,19 +805,19 @@
             </xsl:for-each>
             <!-- life dates -->
             <!-- identifiers -->
-            <xsl:apply-templates select="tei:idno"/>
+            <xsl:apply-templates select="tei:idno" mode="m_tei2wikidata"/>
             <!-- occupation -->
-            <xsl:apply-templates select="tei:occupation"/>
+            <xsl:apply-templates select="tei:occupation" mode="m_tei2wikidata"/>
         </item>
     </xsl:template>
-    <xsl:template match="tei:persName">
+    <xsl:template match="tei:persName" mode="m_tei2wikidata">
         <P2561>
             <xsl:apply-templates select="@xml:lang"/>
             <xsl:apply-templates mode="m_string" select="."/>
         </P2561>
     </xsl:template>
-    <xsl:template match="tei:occupation"/>
-    <xsl:template match="tei:occupation[descendant::tei:bibl | descendant::tei:title]">
+    <xsl:template match="tei:occupation" mode="m_tei2wikidata"/>
+    <xsl:template match="tei:occupation[descendant::tei:bibl | descendant::tei:title]" mode="m_tei2wikidata">
         <xsl:variable name="v_id-wiki-title" select="oape:query-bibliography(descendant::tei:title[@level = 'j'][1], $v_bibliography, $v_gazetteer, $p_local-authority, 'id-wiki', '')"/>
         <!-- journal editor -->
         <P106>
@@ -917,6 +922,109 @@
             </xsl:if>
             <!-- date of retrieval: I do not track this date in my data -->
         </P953>
+    </xsl:template>
+    <!-- organizations -->
+    <xsl:template match="tei:org" mode="m_tei2wikidata">
+        <xsl:variable name="v_id-wiki" select="descendant::tei:idno[@type = 'wiki'][1]"/>
+        <xsl:variable name="v_id-isil" select="descendant::tei:idno[@type = 'isil'][1]"/>
+        <item>
+            <xsl:choose>
+                <xsl:when test="descendant::tei:idno[@type = 'wiki']">
+                    <xsl:attribute name="xml:id" select="descendant::tei:idno[@type = 'wiki'][1]"/>
+                </xsl:when>
+                <xsl:when test="descendant::tei:idno[@type = $p_local-authority]">
+                    <xsl:attribute name="xml:id" select="concat($p_local-authority, '_', descendant::tei:idno[@type = $p_local-authority][1])"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:attribute name="xml:id" select="concat('temp_', generate-id(.))"/>
+                </xsl:otherwise>
+            </xsl:choose>
+            <!-- add label and description -->
+            <label xml:lang="en">
+                <xsl:value-of select="oape:query-org(., 'name', 'en', $p_local-authority)"/>
+            </label>
+            <!-- native label -->
+            <xsl:for-each select="tei:orgName[not(@type = 'short')][@xml:lang != 'en']">
+                <label xml:lang="{@xml:lang}">
+                    <xsl:value-of select="."/>
+                </label>
+            </xsl:for-each>
+            <!-- I commonly do not have Arabic labels -->
+            <!--<label xml:lang="ar">
+                <xsl:value-of select="oape:query-org(., 'name', 'ar', $p_local-authority)"/>
+            </label>-->
+            <description xml:lang="en">
+                <xsl:text>Library in </xsl:text>
+                <xsl:value-of select="oape:query-org(., 'location-name', 'en', $p_local-authority)"/>
+            </description>
+            <description xml:lang="ar">
+                <xsl:text>مكتبة في </xsl:text>
+                <xsl:value-of select="oape:query-org(., 'location-name', 'ar', $p_local-authority)"/>
+            </description>
+            <!-- instance of: library -->
+            <P31>
+                <xsl:call-template name="t_source">
+                    <xsl:with-param name="p_input" select="."/>
+                </xsl:call-template>
+                <QItem>Q7075</QItem>
+            </P31>
+            <!-- names -->
+            <xsl:apply-templates select="oape:query-org(., 'name-tei', 'ar', $p_local-authority)" mode="m_tei2wikidata"/>
+            <xsl:apply-templates select="oape:query-org(., 'name-tei', 'en', $p_local-authority)" mode="m_tei2wikidata"/>
+            <!-- location -->
+            <xsl:apply-templates select="tei:location" mode="m_tei2wikidata"/>
+            <!-- identifiers -->
+            <xsl:apply-templates select="tei:idno" mode="m_tei2wikidata"/>
+        </item>
+    </xsl:template>
+    <xsl:template match="tei:orgName" mode="m_tei2wikidata"/>
+    <xsl:template match="tei:location" mode="m_tei2wikidata">
+        <xsl:apply-templates select="tei:geo" mode="m_tei2wikidata"/>
+        <xsl:apply-templates select="tei:address" mode="m_tei2wikidata"/>
+        <xsl:apply-templates select="tei:address/tei:postCode" mode="m_tei2wikidata"/>
+        <xsl:apply-templates select="descendant::tei:placeName" mode="m_tei2wikidata"/>
+    </xsl:template>
+    <xsl:template mode="m_tei2wikidata" match="tei:placeName">
+        <P276>
+            <!-- string and source -->
+            <xsl:apply-templates mode="m_string" select="."/>
+            <!-- identifiers -->
+            <xsl:if test="@ref">
+                <xsl:if test="oape:query-gazetteer(., $v_gazetteer, $p_local-authority, 'id-wiki', '') != 'NA'">
+                    <xsl:call-template name="t_QItem">
+                        <xsl:with-param name="p_input" select="oape:query-gazetteer(., $v_gazetteer, $p_local-authority, 'id-wiki', '')"/>
+                    </xsl:call-template>
+                </xsl:if>
+                <xsl:if test="oape:query-gazetteer(., $v_gazetteer, $p_local-authority, 'id-geon', '') != 'NA'">
+                    <P1566>
+                        <xsl:value-of select="oape:query-gazetteer(., $v_gazetteer, $p_local-authority, 'id-geon', '')"/>
+                    </P1566>
+                </xsl:if>
+            </xsl:if>
+        </P276>
+    </xsl:template>
+    <xsl:template match="tei:geo" mode="m_tei2wikidata">
+        <P625>
+            <xsl:apply-templates mode="m_string" select="."/>
+        </P625>
+    </xsl:template>
+    <xsl:template mode="m_tei2wikidata" match="tei:address">
+        <P6375>
+            <xsl:if test="tei:street">
+                <xsl:value-of select="concat(tei:street, ', ')"/>
+            </xsl:if>
+            <xsl:if test="tei:postCode">
+                <xsl:value-of select="concat(tei:postCode, ' ')"/>
+            </xsl:if>
+            <xsl:if test="tei:placeName">
+                <xsl:value-of select="tei:placeName"/>
+            </xsl:if>
+        </P6375>
+    </xsl:template>
+    <xsl:template match="tei:postCode" mode="m_tei2wikidata">
+        <P281>
+            <xsl:apply-templates mode="m_string" select="."/>
+        </P281>
     </xsl:template>
     <xsl:template match="@* | node()" mode="m_string">
         <xsl:call-template name="t_source">

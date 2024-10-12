@@ -21,27 +21,50 @@
             <xsl:otherwise>
                 <xsl:result-document href="{$v_base-directory}{$v_output-directory}{$v_file-name_input}.Wikidata.xml">
                     <collection>
-                        <items>
-                            <head>already in Wikidata</head>
-                            <xsl:apply-templates mode="m_tei2wikidata"
-                                select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical'][descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))]]"/>
-                        </items>
-                        <!-- periodicals without QID -->
-                        <items>
-                            <head>not in Wikidata</head>
-                            <xsl:apply-templates mode="m_tei2wikidata"
-                                select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical'][not(descendant::tei:idno/@type = $p_acronym-wikidata)]"/>
-                            <xsl:apply-templates mode="m_tei2wikidata" select="descendant::tei:standOff/descendant::tei:biblStruct[not(@type = 'periodical')][tei:monogr/tei:title[@level = 'j']]"/>
-                        </items>
-                        <!-- no periodicals -->
-                        <items>
-                            <head>no periodicals</head>
-                            <xsl:apply-templates mode="m_tei2wikidata" select="descendant::tei:standOff/descendant::tei:biblStruct[not(@type = 'periodical')][not(tei:monogr/tei:title[@level = 'j'])]"/>
-                        </items>
-                        <!--  -->
-                        <items>
-                            <xsl:apply-templates select="descendant::tei:standOff/descendant::tei:person[tei:occupation]"/>
-                        </items>
+                        <xsl:if test="descendant::tei:standOff/descendant::tei:biblStruct">
+                            <!-- periodicals -->
+                            <items>
+                                <head>already in Wikidata</head>
+                                <xsl:apply-templates mode="m_tei2wikidata"
+                                    select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical'][descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))]]"
+                                />
+                            </items>
+                            <!-- periodicals without QID -->
+                            <items>
+                                <head>not in Wikidata</head>
+                                <xsl:apply-templates mode="m_tei2wikidata"
+                                    select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical'][not(descendant::tei:idno/@type = $p_acronym-wikidata)]"/>
+                                <xsl:apply-templates mode="m_tei2wikidata" select="descendant::tei:standOff/descendant::tei:biblStruct[not(@type = 'periodical')][tei:monogr/tei:title[@level = 'j']]"/>
+                            </items>
+                            <!-- bibliographic info but no periodicals -->
+                            <items>
+                                <head>no periodicals</head>
+                                <xsl:apply-templates mode="m_tei2wikidata"
+                                    select="descendant::tei:standOff/descendant::tei:biblStruct[not(@type = 'periodical')][not(tei:monogr/tei:title[@level = 'j'])]"/>
+                            </items>
+                        </xsl:if>
+                        <!-- people from the personography  -->
+                        <xsl:if test="descendant::tei:standOff/descendant::tei:person">
+                            <items>
+                                <head>already in Wikidata</head>
+                                <xsl:apply-templates select="descendant::tei:standOff/descendant::tei:person[tei:occupation][descendant::tei:idno/@type = $p_acronym-wikidata]" mode="m_tei2wikidata"/>
+                            </items>
+                            <items>
+                                <head>not in Wikidata</head>
+                                <xsl:apply-templates select="descendant::tei:standOff/descendant::tei:person[tei:occupation][not(descendant::tei:idno/@type = $p_acronym-wikidata)]" mode="m_tei2wikidata"/>
+                            </items>
+                        </xsl:if>
+                        <xsl:if test="descendant::tei:standOff/descendant::tei:org">
+                            <!-- orgs from the organizationography  -->
+                            <items>
+                                <head>already in Wikidata</head>
+                                <xsl:apply-templates select="descendant::tei:standOff/descendant::tei:org[descendant::tei:idno/@type = $p_acronym-wikidata]" mode="m_tei2wikidata"/>
+                            </items>
+                            <items>
+                                <head>not in Wikidata</head>
+                                <xsl:apply-templates select="descendant::tei:standOff/descendant::tei:org[not(descendant::tei:idno/@type = $p_acronym-wikidata)]" mode="m_tei2wikidata"/>
+                            </items>
+                        </xsl:if>
                     </collection>
                 </xsl:result-document>
             </xsl:otherwise>
