@@ -270,7 +270,7 @@
                     <xsl:attribute name="xml:id" select="concat($p_local-authority, '_', descendant::tei:idno[@type = $p_local-authority][1])"/>
                 </xsl:otherwise>
             </xsl:choose>
-            <xsl:apply-templates select="tei:monogr/tei:idno[@type = $p_acronym-wikidata]"/>
+            <xsl:apply-templates select="tei:monogr/tei:idno[@type = $p_acronym-wikidata]" mode="m_tei2wikidata"/>
             <!-- holdings -->
             <xsl:apply-templates mode="m_tei2wikidata" select="tei:note[@type = 'holdings']"/>
         </item>
@@ -333,6 +333,27 @@
                 </P12506>
             </xsl:if>
         </P582>
+    </xsl:template>
+    <xsl:template match="tei:date" mode="m_tei2wikidata_holdings">
+        <xsl:choose>
+            <xsl:when test="@type = ('onset')">
+                <!-- start time -->
+                <P580>
+                    <xsl:apply-templates mode="m_date-when" select="."/>
+                </P580>
+            </xsl:when>
+            <xsl:when test="@type = ('terminus')">
+                <!-- start time -->
+                <P582>
+                    <xsl:apply-templates mode="m_date-when" select="."/>
+                </P582>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:message>
+                    <xsl:text>date: @type not present or not supported</xsl:text>
+                </xsl:message>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="tei:date[ancestor::tei:biblStruct][1]/tei:monogr/tei:title[@level = 'm']">
         <P577>
@@ -880,17 +901,16 @@
             </xsl:choose>
             <!-- aggregate data on the entire collection -->
             <!-- P580: start time -->
-            <xsl:if test="descendant::tei:date/@when">
-                <P580>
-                    <!--                    <xsl:value-of select="min(descendant::tei:date/@when)"/>--> </P580>
-            </xsl:if>
-            <!-- P580: end time -->
+            <!-- P582: end time -->
+            <xsl:apply-templates mode="m_tei2wikidata_holdings" select="descendant::tei:date"/>
             <!-- P478: volume -->
             <xsl:if test="descendant::tei:bibl/tei:biblScope[@unit = 'volume']">
                 <P478>
                     <xsl:value-of select="min(descendant::tei:bibl/tei:biblScope[@unit = 'volume']/@from)"/>
-                    <xsl:text>-</xsl:text>
-                    <xsl:value-of select="max(descendant::tei:bibl/tei:biblScope[@unit = 'volume']/@to)"/>
+                    <xsl:if test="min(descendant::tei:bibl/tei:biblScope[@unit = 'volume']/@from) lt max(descendant::tei:bibl/tei:biblScope[@unit = 'volume']/@to)">
+                        <xsl:text>-</xsl:text>
+                        <xsl:value-of select="max(descendant::tei:bibl/tei:biblScope[@unit = 'volume']/@to)"/>
+                    </xsl:if>
                 </P478>
             </xsl:if>
             <!-- P217: inventory number -->
@@ -954,19 +974,84 @@
                 <xsl:value-of select="oape:query-org(., 'name', 'ar', $p_local-authority)"/>
             </label>-->
             <description xml:lang="en">
-                <xsl:text>Library in </xsl:text>
-                <xsl:value-of select="oape:query-org(., 'location-name', 'en', $p_local-authority)"/>
+                <xsl:choose>
+                    <xsl:when test="@type = 'library'">
+                        <xsl:text>Library</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="@type = 'university'">
+                        <xsl:text>University</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="@type = 'archive'">
+                        <xsl:text>Archive</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="@type = 'researchInstitute'">
+                        <xsl:text>Research institute</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="@type = 'museum'">
+                        <xsl:text>Museum</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>Institution</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:if test="oape:query-org(., 'location-name', 'en', $p_local-authority) != 'NA'">
+                    <xsl:text> in </xsl:text>
+                    <xsl:value-of select="oape:query-org(., 'location-name', 'en', $p_local-authority)"/>
+                </xsl:if>
             </description>
             <description xml:lang="ar">
-                <xsl:text>مكتبة في </xsl:text>
-                <xsl:value-of select="oape:query-org(., 'location-name', 'ar', $p_local-authority)"/>
+                <xsl:choose>
+                    <xsl:when test="@type = 'library'">
+                        <xsl:text>مكتبة</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="@type = 'university'">
+                        <xsl:text>جامعة</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="@type = 'archive'">
+                        <xsl:text>ارشيف</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="@type = 'researchInstitute'">
+                        <xsl:text>معهد الأبحاث</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="@type = 'museum'">
+                        <xsl:text>متحف</xsl:text>
+                    </xsl:when>
+                </xsl:choose>
+                <xsl:if test="oape:query-org(., 'location-name', 'en', $p_local-authority) != 'NA'">
+                    <xsl:text>  في </xsl:text>
+                    <xsl:value-of select="oape:query-org(., 'location-name', 'ar', $p_local-authority)"/>
+                </xsl:if>
             </description>
-            <!-- instance of: library -->
+            <!-- instance of: depends on @type attribute -->
             <P31>
                 <xsl:call-template name="t_source">
                     <xsl:with-param name="p_input" select="."/>
                 </xsl:call-template>
-                <QItem>Q7075</QItem>
+                <xsl:choose>
+                    <xsl:when test="@type = 'library'">
+                        <QItem>Q7075</QItem>
+                    </xsl:when>
+                    <xsl:when test="@type = 'university'">
+                        <QItem>Q3918</QItem>
+                    </xsl:when>
+                    <xsl:when test="@type = 'archive'">
+                        <QItem>Q166118</QItem>
+                    </xsl:when>
+                    <xsl:when test="@type = 'digitalLibrary'">
+                        <QItem>Q212805</QItem>
+                    </xsl:when>
+                    <xsl:when test="@type = 'researchInstitute'">
+                        <QItem>Q31855</QItem>
+                    </xsl:when>
+                    <xsl:when test="@type = 'museum'">
+                        <QItem>Q33506</QItem>
+                    </xsl:when>
+                    <xsl:when test="@type">
+                        <string>
+                            <xsl:value-of select="@type"/>
+                        </string>
+                    </xsl:when>
+                </xsl:choose>
             </P31>
             <!-- names -->
             <xsl:apply-templates select="oape:query-org(., 'name-tei', 'ar', $p_local-authority)" mode="m_tei2wikidata"/>

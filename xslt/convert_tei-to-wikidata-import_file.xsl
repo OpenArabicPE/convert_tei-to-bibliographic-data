@@ -58,11 +58,11 @@
                             <!-- orgs from the organizationography  -->
                             <items>
                                 <head>already in Wikidata</head>
-                                <xsl:apply-templates select="descendant::tei:standOff/descendant::tei:org[descendant::tei:idno/@type = $p_acronym-wikidata]" mode="m_tei2wikidata"/>
+                                <xsl:apply-templates select="descendant::tei:standOff/tei:listOrg[@type = 'holdings']/descendant::tei:org[descendant::tei:idno/@type = $p_acronym-wikidata]" mode="m_tei2wikidata"/>
                             </items>
                             <items>
                                 <head>not in Wikidata</head>
-                                <xsl:apply-templates select="descendant::tei:standOff/descendant::tei:org[not(descendant::tei:idno/@type = $p_acronym-wikidata)]" mode="m_tei2wikidata"/>
+                                <xsl:apply-templates select="descendant::tei:standOff/tei:listOrg[@type = 'holdings']/descendant::tei:org[not(descendant::tei:idno/@type = $p_acronym-wikidata)]" mode="m_tei2wikidata"/>
                             </items>
                         </xsl:if>
                     </collection>
