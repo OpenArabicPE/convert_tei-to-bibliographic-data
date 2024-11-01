@@ -582,7 +582,7 @@
                 <xsl:variable name="v_placeName" select="oape:query-gazetteer(tei:placeName[@ref][1], $v_gazetteer, $p_local-authority, 'tei-ref', '')"/>
                 <P291>
                     <xsl:call-template name="t_source">
-                        <xsl:with-param name="p_input" select="tei:placeName[matches(@ref, 'wiki:Q\d+|geon:\d+')]"/>
+                        <xsl:with-param name="p_input" select="tei:placeName[matches(@ref, 'wiki:Q\d+|geon:\d+')][1]"/>
                     </xsl:call-template>
                     <xsl:call-template name="t_string-value">
                         <xsl:with-param name="p_input" select="oape:query-gazetteer(tei:placeName[@ref][1], $v_gazetteer, $p_local-authority, 'name', '')"/>
@@ -616,18 +616,20 @@
             <xsl:call-template name="t_source">
                 <xsl:with-param name="p_input" select="."/>
             </xsl:call-template>
-            <xsl:choose>
-                <xsl:when test="oape:string-convert-lang-codes(@mainLang, 'bcp47', 'wikidata') != 'NA'">
-                    <QItem>
-                        <xsl:value-of select="oape:string-convert-lang-codes(@mainLang, 'bcp47', 'wikidata')"/>
-                    </QItem>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:call-template name="t_reconcile-lang">
-                        <xsl:with-param name="p_lang" select="@mainLang"/>
-                    </xsl:call-template>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:for-each select="tokenize(@mainLang, '\s')">
+                <xsl:choose>
+                    <xsl:when test="oape:string-convert-lang-codes(., 'bcp47', 'wikidata') != 'NA'">
+                        <QItem>
+                            <xsl:value-of select="oape:string-convert-lang-codes(., 'bcp47', 'wikidata')"/>
+                        </QItem>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="t_reconcile-lang">
+                            <xsl:with-param name="p_lang" select="."/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:for-each>
         </P407>
     </xsl:template>
     <!-- this template is currently unused and not necessary -->
