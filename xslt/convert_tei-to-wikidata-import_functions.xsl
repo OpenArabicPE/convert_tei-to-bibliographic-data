@@ -24,9 +24,9 @@
     </xsl:template>
     <xsl:template match="element()[not(attribute())][not(text())][not(element())]" priority="2"/>
     <!--  remove attributes  -->
-    <xsl:template match="@xml:id | tei:monogr/@xml:lang | tei:title/@level | tei:title/@ref"/>
+    <xsl:template match="@xml:id | tei:monogr/@xml:lang | tei:title/@level | tei:title/@ref" mode="m_tei2wikidata"/>
     <!-- remove nodes -->
-    <xsl:template match="tei:date[@type = 'documented']"/>
+    <xsl:template match="tei:date[@type = 'documented']" mode="m_tei2wikidata"/>
     <xsl:template match="tei:note[@type = ('comments', 'sources', 'holdings')]"/>
     <!-- convert textual content to a string node -->
     <xsl:template name="t_string-value">
@@ -37,7 +37,7 @@
             </xsl:for-each>
         </xsl:variable>
         <string>
-            <xsl:apply-templates select="$p_input/@xml:lang"/>
+            <xsl:apply-templates select="$p_input/@xml:lang" mode="m_tei2wikidata"/>
             <xsl:value-of select="normalize-space($v_text)"/>
         </string>
         <!-- provide transliterations, if possible in P2440 -->
@@ -157,7 +157,7 @@
         </xsl:for-each-group>
     </xsl:template>
     <!-- nodes to be converted -->
-    <xsl:template match="tei:biblScope"/>
+    <xsl:template match="tei:biblScope" mode="m_tei2wikidata"/>
     <xsl:template match="tei:biblStruct" mode="m_tei2wikidata">
         <item>
             <xsl:choose>
@@ -257,7 +257,7 @@
                     </xsl:when>
                 </xsl:choose>
             </description>
-            <xsl:apply-templates select="@oape:frequency | @type | @subtype | node()"/>
+            <xsl:apply-templates select="@oape:frequency | @type | @subtype | node()" mode="m_tei2wikidata"/>
         </item>
     </xsl:template>
     <xsl:template match="tei:biblStruct" mode="m_tei2wikidata_holdings">
@@ -275,7 +275,7 @@
             <xsl:apply-templates mode="m_tei2wikidata" select="tei:note[@type = 'holdings']"/>
         </item>
     </xsl:template>
-    <xsl:template match="tei:biblStruct/@subtype | tei:biblStruct/@type">
+    <xsl:template match="tei:biblStruct/@subtype | tei:biblStruct/@type" mode="m_tei2wikidata">
         <P31>
             <xsl:call-template name="t_source">
                 <xsl:with-param name="p_input" select="."/>
@@ -294,7 +294,7 @@
             </xsl:choose>
         </P31>
     </xsl:template>
-    <xsl:template match="tei:date[@type = ('onset', 'official')]">
+    <xsl:template match="tei:date[@type = ('onset', 'official')]" mode="m_tei2wikidata">
         <P571>
             <xsl:apply-templates mode="m_date-when" select="."/>
             <!-- notBefore: currently there is no property for earlies start date -->
@@ -312,7 +312,7 @@
             <xsl:apply-templates mode="m_date-when" select="."/>
         </P580>
     </xsl:template>
-    <xsl:template match="tei:date[@type = 'terminus']">
+    <xsl:template match="tei:date[@type = 'terminus']" mode="m_tei2wikidata">
         <!-- end time -->
         <P582>
             <xsl:apply-templates mode="m_date-when" select="."/>
@@ -355,7 +355,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <xsl:template match="tei:date[ancestor::tei:biblStruct][1]/tei:monogr/tei:title[@level = 'm']">
+    <xsl:template match="tei:date[ancestor::tei:biblStruct][1]/tei:monogr/tei:title[@level = 'm']" mode="m_tei2wikidata">
         <P577>
             <xsl:apply-templates mode="m_date-when" select="."/>
         </P577>
@@ -375,8 +375,8 @@
             </date>
         </xsl:if>
     </xsl:template>
-    <xsl:template match="tei:editor[tei:orgName]"/>
-    <xsl:template match="tei:editor[tei:persName]">
+    <xsl:template match="tei:editor[tei:orgName]" mode="m_tei2wikidata"/>
+    <xsl:template match="tei:editor[tei:persName]" mode="m_tei2wikidata">
         <!-- converting to a reconciled Wikidata item! -->
         <xsl:variable name="v_id-wiki" select="oape:query-personography(tei:persName[1], $v_personography, $p_local-authority, 'id-wiki', '')"/>
         <xsl:variable name="v_id-viaf" select="oape:query-personography(tei:persName[1], $v_personography, $p_local-authority, 'id-viaf', '')"/>
@@ -546,14 +546,14 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <xsl:template match="tei:imprint">
-        <xsl:apply-templates/>
+    <xsl:template match="tei:imprint" mode="m_tei2wikidata">
+        <xsl:apply-templates mode="m_tei2wikidata" select="node()"/>
     </xsl:template>
-    <xsl:template match="tei:monogr">
-        <xsl:apply-templates select="@oape:frequency | node()"/>
+    <xsl:template match="tei:monogr" mode="m_tei2wikidata">
+        <xsl:apply-templates select="@oape:frequency | node()" mode="m_tei2wikidata"/>
     </xsl:template>
     <xsl:template match="tei:monogr[@type = 'reprint']"/>
-    <xsl:template match="tei:publisher">
+    <xsl:template match="tei:publisher" mode="m_tei2wikidata">
         <!-- converting to a reconciled Wikidata item! -->
         <xsl:choose>
             <xsl:when test="node()[matches(@ref, 'wiki:Q\d+')]">
@@ -576,7 +576,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <xsl:template match="tei:pubPlace">
+    <xsl:template match="tei:pubPlace" mode="m_tei2wikidata">
         <xsl:choose>
             <xsl:when test="tei:placeName[matches(@ref, 'wiki:Q\d+|geon:\d+')]">
                 <xsl:variable name="v_placeName" select="oape:query-gazetteer(tei:placeName[@ref][1], $v_gazetteer, $p_local-authority, 'tei-ref', '')"/>
@@ -611,7 +611,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <xsl:template match="tei:textLang">
+    <xsl:template match="tei:textLang" mode="m_tei2wikidata">
         <P407>
             <xsl:call-template name="t_source">
                 <xsl:with-param name="p_input" select="."/>
@@ -639,7 +639,7 @@
             <xsl:value-of select="oape:string-convert-lang-codes($p_lang, 'bcp47', 'iso639-2')"/>
         </P219>
     </xsl:template>
-    <xsl:template match="tei:title">
+    <xsl:template match="tei:title" mode="m_tei2wikidata">
         <P1476>
             <xsl:apply-templates mode="m_string" select="."/>
             <!-- add qualifier for transcriptions? Problem: we have no explicit linking between an Arabic string and its various transcriptions  -->
@@ -656,13 +656,13 @@
     </xsl:template>
     <!-- in consequence I should exclude all transcribed titles -->
     <xsl:template match="tei:title[not(@type)][@xml:lang = 'ar-Latn-x-ijmes'][parent::node()/tei:title[not(@type)][@xml:lang = 'ar']]"/>
-    <xsl:template match="tei:title[@type = 'sub']">
+    <xsl:template match="tei:title[@type = 'sub']" mode="m_tei2wikidata">
         <P1680>
             <xsl:apply-templates mode="m_string" select="."/>
         </P1680>
     </xsl:template>
     <xsl:template match="tei:title[@type = 'alt']"/>
-    <xsl:template match="@oape:frequency">
+    <xsl:template match="@oape:frequency" mode="m_tei2wikidata">
         <P2896>
             <xsl:call-template name="t_source">
                 <xsl:with-param name="p_input" select="."/>
@@ -715,7 +715,7 @@
             </xsl:choose>
         </P2896>
     </xsl:template>
-    <xsl:template match="@xml:lang">
+    <xsl:template match="@xml:lang" mode="m_tei2wikidata">
         <xsl:attribute name="xml:lang">
             <xsl:choose>
                 <xsl:when test="matches(., '-Arab-')">
@@ -835,7 +835,7 @@
     </xsl:template>
     <xsl:template match="tei:persName" mode="m_tei2wikidata">
         <P2561>
-            <xsl:apply-templates select="@xml:lang"/>
+            <xsl:apply-templates select="@xml:lang" mode="m_tei2wikidata"/>
             <xsl:apply-templates mode="m_string" select="."/>
         </P2561>
     </xsl:template>
