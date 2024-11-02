@@ -389,14 +389,17 @@
     <xsl:template match="tei:imprint" mode="m_simple">
         <xsl:copy>
             <!-- date -->
-            <!-- exclude all dates that originated from library catalongues -->
+            <!-- exclude all dates that originated from library catalogues -->
             <xsl:variable name="v_dates">
                 <xsl:for-each select="tei:date">
                     <xsl:choose>
-                        <xsl:when test="not(@source)">
-                            <xsl:apply-templates mode="m_identity-transform" select="."/>
+                        <xsl:when test="matches(@source, '^(oape:org:\d+\s*)+$')">
+                            <xsl:if test="$p_verbose">
+                                <xsl:message>
+                                    <xsl:text>date has been removed as it was sourced from a library catalogue and likely faulty</xsl:text>
+                                </xsl:message>
+                            </xsl:if>
                         </xsl:when>
-                        <xsl:when test="matches(@source, '^(oape:org:\d+\s*)+$')"/>
                         <xsl:otherwise>
                             <xsl:apply-templates mode="m_identity-transform" select="."/>
                         </xsl:otherwise>

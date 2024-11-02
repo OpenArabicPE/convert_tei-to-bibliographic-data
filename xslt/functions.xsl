@@ -6,6 +6,12 @@
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:z="http://www.zotero.org/namespaces/export#">
     <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no"/>
     <xsl:import href="parameters.xsl"/>
+    <xsl:template match="node() | @*" mode="m_identity-transform">
+        <xsl:copy>
+            <xsl:apply-templates select="@* | node()" mode="m_identity-transform"/>
+        </xsl:copy>
+    </xsl:template>
+    
     <xsl:function name="oape:string-convert-lang-codes">
         <xsl:param as="xs:string" name="p_input"/>
         <xsl:param name="p_source-encoding"/>

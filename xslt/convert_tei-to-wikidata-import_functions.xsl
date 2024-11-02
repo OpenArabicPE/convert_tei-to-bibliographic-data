@@ -22,12 +22,12 @@
             <xsl:apply-templates select="node()"/>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="element()[not(attribute())][not(text())][not(element())]" priority="2"/>
+    <xsl:template match="element()[not(attribute())][not(text())][not(element())]" priority="2" mode="m_tei2wikidata"/>
     <!--  remove attributes  -->
     <xsl:template match="@xml:id | tei:monogr/@xml:lang | tei:title/@level | tei:title/@ref" mode="m_tei2wikidata"/>
     <!-- remove nodes -->
     <xsl:template match="tei:date[@type = 'documented']" mode="m_tei2wikidata"/>
-    <xsl:template match="tei:note[@type = ('comments', 'sources', 'holdings')]"/>
+    <xsl:template match="tei:note[@type = ('comments', 'sources', 'holdings')]" mode="m_tei2wikidata"/>
     <!-- convert textual content to a string node -->
     <xsl:template name="t_string-value">
         <xsl:param name="p_input"/>
@@ -272,7 +272,7 @@
             </xsl:choose>
             <xsl:apply-templates select="tei:monogr/tei:idno[@type = $p_acronym-wikidata]" mode="m_tei2wikidata"/>
             <!-- holdings -->
-            <xsl:apply-templates mode="m_tei2wikidata" select="tei:note[@type = 'holdings']"/>
+            <xsl:apply-templates mode="m_tei2wikidata_holdings" select="tei:note[@type = 'holdings']"/>
         </item>
     </xsl:template>
     <xsl:template match="tei:biblStruct/@subtype | tei:biblStruct/@type" mode="m_tei2wikidata">
@@ -552,14 +552,14 @@
     <xsl:template match="tei:monogr" mode="m_tei2wikidata">
         <xsl:apply-templates select="@oape:frequency | node()" mode="m_tei2wikidata"/>
     </xsl:template>
-    <xsl:template match="tei:monogr[@type = 'reprint']"/>
+    <xsl:template match="tei:monogr[@type = 'reprint']" mode="m_tei2wikidata"/>
     <xsl:template match="tei:publisher" mode="m_tei2wikidata">
         <!-- converting to a reconciled Wikidata item! -->
         <xsl:choose>
             <xsl:when test="node()[matches(@ref, 'wiki:Q\d+')]">
                 <P123>
                     <xsl:call-template name="t_source">
-                        <xsl:with-param name="p_input" select="node()[matches(@ref, 'wiki:Q\d+')]"/>
+                        <xsl:with-param name="p_input" select="node()[matches(@ref, 'wiki:Q\d+')][1]"/>
                     </xsl:call-template>
                     <xsl:call-template name="t_QItem">
                         <xsl:with-param name="p_input" select="replace(node()[matches(@ref, 'wiki:Q\d+')][1]/@ref, '^.*wiki:(Q\d+).*$', '$1')"/>
@@ -866,7 +866,7 @@
         <!-- location of work -->
     </xsl:template>
     <!-- holdings -->
-    <xsl:template match="tei:note[@type = 'holdings']" mode="m_tei2wikidata">
+    <xsl:template match="tei:note[@type = 'holdings']" mode="m_tei2wikidata_holdings">
         <!-- all holdings -->
         <xsl:apply-templates mode="m_tei2wikidata" select="tei:list/tei:item"/>
         <!-- all digitised copies -->
