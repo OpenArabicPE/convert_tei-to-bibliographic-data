@@ -636,6 +636,7 @@
                 <xsl:apply-templates mode="m_dhq-to-biblStruct" select="dhq:author_name/dhq:family"/>
             </persName>
             <xsl:apply-templates mode="m_identity-transform" select="tei:idno"/>
+            <xsl:apply-templates mode="m_dhq-to-biblStruct" select=".//tei:ref[matches(@target,'https*://orcid.org')]"/>
             <xsl:apply-templates mode="m_dhq-to-biblStruct" select="dhq:affiliation"/>
         </author>
     </xsl:template>
@@ -654,6 +655,11 @@
         <surname>
             <xsl:value-of select="normalize-space($v_name)"/>
         </surname>
+    </xsl:template>
+    <xsl:template match="dhq:authorInfo//tei:ref[matches(@target,'https*://orcid.org')]" mode="m_dhq-to-biblStruct">
+        <idno type="ORCID">
+            <xsl:value-of select="replace(@target, 'https*://orcid.org/(.+)$', '$1')"/>
+        </idno>
     </xsl:template>
     <xsl:template match="tei:title[ancestor::tei:titleStmt]" mode="m_fileDesc-to-biblStruct">
         <xsl:choose>
