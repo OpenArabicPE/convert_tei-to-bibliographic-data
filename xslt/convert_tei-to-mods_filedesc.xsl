@@ -5,7 +5,7 @@
     <xsl:output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no" version="1.0"/>
     <xsl:preserve-space elements="tei:head tei:bibl"/>
     
-    <xsl:import href="convert_tei-to-biblstruct_functions.xsl"/>
+<!--    <xsl:import href="convert_tei-to-biblstruct_functions.xsl"/>-->
     <xsl:import href="convert_tei-to-mods_functions.xsl"/>
     
     <xsl:template match="/">

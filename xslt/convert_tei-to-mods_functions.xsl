@@ -636,6 +636,10 @@
                     <xsl:when test="@n">
                         <xsl:value-of select="@n"/>
                     </xsl:when>
+                    <!-- fallback: no information in attributes -->
+                    <xsl:otherwise>
+                        <xsl:value-of select="."/>
+                    </xsl:otherwise>
                 </xsl:choose>
             </number>
         </detail>

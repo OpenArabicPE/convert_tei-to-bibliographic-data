@@ -361,6 +361,19 @@
     <xsl:template match="tei:biblScope" mode="m_simple">
         <xsl:copy>
             <xsl:choose>
+                <!-- normalise funky attribute values -->
+                <xsl:when test="@unit != ('chapter', 'column', 'issue', 'line', 'page', 'part', 'volume')">
+                    <xsl:message>
+                        <xsl:text>The value of @unit (</xsl:text>
+                        <xsl:value-of select="@unit"/>
+                        <xsl:text>) is not part of the canonical list</xsl:text>
+                    </xsl:message>
+                    <!-- this is ZfDG -->
+                    <xsl:if test="@unit = 'year'">
+                        <xsl:attribute name="unit" select="'volume'"/>
+                        <xsl:apply-templates mode="m_simple" select="node()"/>
+                    </xsl:if>
+                </xsl:when>
                 <xsl:when test="@unit and @from and @to">
                     <xsl:apply-templates mode="m_simple" select="@*"/>
                 </xsl:when>
@@ -383,7 +396,7 @@
             <xsl:apply-templates mode="m_simple" select="tei:textLang"/>
             <xsl:apply-templates mode="m_simple" select="tei:editor"/>
             <xsl:apply-templates mode="m_simple" select="tei:imprint"/>
-            <xsl:apply-templates mode="m_simple" select="tei:biblScope"/>
+            <xsl:apply-templates mode="m_simple" select="descendant::tei:biblScope"/>
         </xsl:copy>
     </xsl:template>
     <xsl:template match="tei:imprint" mode="m_simple">
@@ -520,9 +533,10 @@
                 </biblStruct>
             </xsl:when>
             <xsl:when test="tei:publicationStmt[descendant::tei:bibl]"/>
+            <!-- this is the weird encoding used by ZfDG -->
             <xsl:when test="tei:titleStmt/tei:title/tei:biblStruct">
                 <biblStruct>
-                    <xsl:apply-templates mode="m_identity-transform" select="tei:titleStmt/tei:title/tei:biblStruct/node()"/>
+                    <xsl:apply-templates mode="m_simple" select="tei:titleStmt/tei:title/tei:biblStruct/node()"/>
                     <!-- add keywords from profileDesc -->
                     <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="following-sibling::tei:profileDesc/tei:textClass"/>
                 </biblStruct>
@@ -635,8 +649,8 @@
                 <xsl:text> </xsl:text>
                 <xsl:apply-templates mode="m_dhq-to-biblStruct" select="dhq:author_name/dhq:family"/>
             </persName>
-            <xsl:apply-templates mode="m_identity-transform" select="tei:idno"/>
-            <xsl:apply-templates mode="m_dhq-to-biblStruct" select=".//tei:ref[matches(@target,'https*://orcid.org')]"/>
+            <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="tei:idno"/>
+            <xsl:apply-templates mode="m_dhq-to-biblStruct" select=".//tei:ref[matches(@target, 'https*://orcid.org')]"/>
             <xsl:apply-templates mode="m_dhq-to-biblStruct" select="dhq:affiliation"/>
         </author>
     </xsl:template>
@@ -656,37 +670,45 @@
             <xsl:value-of select="normalize-space($v_name)"/>
         </surname>
     </xsl:template>
-    <xsl:template match="dhq:authorInfo//tei:ref[matches(@target,'https*://orcid.org')]" mode="m_dhq-to-biblStruct">
+    <xsl:template match="dhq:authorInfo//tei:ref[matches(@target, 'https*://orcid.org')]" mode="m_dhq-to-biblStruct">
         <idno type="ORCID">
             <xsl:value-of select="replace(@target, 'https*://orcid.org/(.+)$', '$1')"/>
         </idno>
     </xsl:template>
-    <xsl:template match="tei:title[ancestor::tei:titleStmt]" mode="m_fileDesc-to-biblStruct">
-        <xsl:choose>
-            <xsl:when test="tei:title">
+    <xsl:template match="tei:title[parent::tei:titleStmt]" mode="m_fileDesc-to-biblStruct">
+        <!--        <xsl:choose>-->
+        <!-- some titles nest. for instance, in the case of reviews -->
+        <!--<xsl:when test="tei:title">
                 <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="tei:title"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:copy>
-                    <xsl:apply-templates mode="m_identity-transform" select="@*"/>
-                    <xsl:attribute name="level" select="'a'"/>
-                    <xsl:attribute name="xml:lang">
-                        <xsl:choose>
-                            <xsl:when test="@xml:lang">
-                                <xsl:value-of select="@xml:lang"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="ancestor::tei:TEI/tei:text/@xml:lang"/>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:attribute>
-                    <xsl:apply-templates mode="m_plain-text" select="."/>
-                </xsl:copy>
-            </xsl:otherwise>
-        </xsl:choose>
+            </xsl:when>-->
+        <!--            <xsl:otherwise>-->
+        <xsl:copy>
+            <xsl:apply-templates mode="m_identity-transform" select="@*"/>
+            <xsl:attribute name="level" select="'a'"/>
+            <xsl:attribute name="xml:lang">
+                <xsl:choose>
+                    <xsl:when test="@xml:lang">
+                        <xsl:value-of select="@xml:lang"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="ancestor::tei:TEI/tei:text/@xml:lang"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
+            <xsl:apply-templates mode="m_plain-text" select="."/>
+        </xsl:copy>
+        <!--</xsl:otherwise>-->
+        <!--</xsl:choose>-->
     </xsl:template>
     <xsl:template match="tei:author | tei:date | tei:idno | tei:publisher | tei:title" mode="m_fileDesc-to-biblStruct">
         <xsl:apply-templates mode="m_identity-transform" select="."/>
+    </xsl:template>
+    <!-- clean ORCID -->
+    <xsl:template match="tei:idno[matches(@type, 'orcid', 'i')]" mode="m_fileDesc-to-biblStruct m_simple" priority="2">
+        <xsl:copy>
+            <xsl:apply-templates mode="m_identity-transform" select="@*"/>
+            <xsl:value-of select="replace(., 'https*://orcid.org/(.+)$', '$1')"/>
+        </xsl:copy>
     </xsl:template>
     <xsl:template match="text()[. = 'NA'] | tei:title/@ref | tei:title/@resp" mode="m_simple"/>
     <!-- the following two templates are based on authority control and can be safely removed if this isn't needed -->
