@@ -1,7 +1,8 @@
 ---
-title: "Licence: convert_tei-to-bibtex"
+title: "License"
 author: Till Grallert
 date: 2019-11-26
+lang: en
 ---
 
 # MIT License

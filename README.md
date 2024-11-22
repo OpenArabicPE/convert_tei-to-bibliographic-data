@@ -1,38 +1,98 @@
 ---
 title: "Read me: convert_tei-to-bibliographic-data"
 author: Till Grallert
-date: 2021-11-16
+date: 2024-11-22
 ORCID: orcid.org/0000-0002-5739-8094
+lang: en
 ---
 
-This repository contains code to generate a variety of bibliographic metadata formats for `<tei:div>`s and `<tei:biblStruct>`s. Everything is built upon `<tei:biblStruct>` as an intermediate format and XPath functions. The XSLT is split into basic stylesheets for  functions (file name: `...-functions.xsl`) and stylesheets applying these functions. Note that the functions make use of the `oape` namespace, which is mapped to `xmlns:oape="https://openarabicpe.github.io/ns"`.
+This repository contains XSLT stylesheets
 
-1. Input: TEI XML files[^2]
-2. Generate `<tei:biblStruct>`
-    - [convert_tei-to-biblstruct_functions.xsl](xslt/convert_tei-to-biblstruct_functions.xsl): provides the necessary function to construct a `<tei:biblStruct>` for a `<tei:div>` using information from the TEI file's `<sourceDesc>` and the `<tei:div>` itself as `oape:bibliography-tei-div-to-biblstruct()`.
-    - [convert_tei-to-biblstruct_articles.xsl](xslt/convert_tei-to-biblstruct_articles.xsl): applies the conversion to `<tei:div type="item">`
-3. Convert `<tei:biblStruct>` to:
-    1. **MODS XML**: The conversions utilise [XSLT from another repository](https://github.com/tillgrallert/xslt-calendar-conversion) for calendar conversions. One can decide to link to a local copy or use the following link to include the online version: `<xsl:include href="https://tillgrallert.github.io/xslt-calendar-conversion/functions/date-functions.xsl"/>`.
-        - [convert_tei-to-mods_functions.xsl](xslt/convert_tei-to-mods_functions.xsl): provides the function `oape:bibliography-tei-to-mods()` to convert a single `<tei:biblStruct>` to `<mods:mods>`
-        - [convert_tei-to-mods_articles.xsl](xslt/convert_tei-to-mods_articles.xsl): chains the functions `oape:bibliography-tei-div-to-biblstruct()` and `oape:bibliography-tei-to-mods()` to generate one MODS XML file per `<tei:div>` as input.
-        - [convert_tei-to-mods_issues.xsl](xslt/convert_tei-to-mods_issues.xsl): chains the functions `oape:bibliography-tei-div-to-biblstruct()` and `oape:bibliography-tei-to-mods()` to generate one MODS XML file per TEI XML file as input with `<mods:mods>` children for each `<tei:div>`.
-    2. **BibTeX**:
-        - [convert_tei-to-bibtex_functions.xsl](xslt/convert_tei-to-bibtex_functions.xsl): provides the function `oape:bibliography-tei-to-bibtex()` to convert a single `<tei:biblStruct>` to BibTeX
-        - [convert_tei-to-bibtex_articles.xsl](xslt/convert_tei-to-bibtex_articles.xsl): chains the functions `oape:bibliography-tei-div-to-biblstruct()` and `oape:bibliography-tei-to-bibtex()` to generate one BibTeX file (`.bib`) per `<tei:div>` as input.
-        - [convert_tei-to-bibtex_issues.xsl](xslt/convert_tei-to-bibtex_issues.xsl): chains the functions `oape:bibliography-tei-div-to-biblstruct()` and `oape:bibliography-tei-to-bibtex()` to generate one BibTeX file (`.bib`) per TEI XML file as input with one BibTeX child for each `<tei:div>`.
-    3. CSV
-    4. **YAML**: YAML would be of use for generating a static website from periodical editions, where each article is transformed to markdown with its own metadata block written in YAML in order to keep data and metadata together.
-        - [convert_tei-to-yaml_functions.xsl](xslt/convert_tei-to-yaml_functions.xsl): provides the function `oape:bibliography-tei-to-yaml()` to convert a single `<tei:biblStruct>` to YAML
-        - [convert_tei-to-yaml_issues.xsl](xslt/convert_tei-to-yaml_issues.xsl): chains the functions `oape:bibliography-tei-div-to-biblstruct()` and `oape:bibliography-tei-to-yaml()` to generate one YAML file (`.yml`) per TEI XML file as input with one YAML child for each `<tei:div>`.
-    4. **Zotero RDF**: proprietary RDF and serialised as XML, which allows lossless import into Zotero and moving data between Zotero libraries
-        - [convert_tei-to-zotero-rdf_functions.xsl](xslt/convert_tei-to-zotero-rdf_functions.xsl): provides the function `oape:bibliography-tei-to-zotero-rdf()` to convert a single `<tei:biblStruct>` to `<bib:{reference-type}>`
-        - [convert_tei-to-zotero-rdf_articles.xsl](xslt/convert_tei-to-zotero-rdf_articles.xsl): chains the functions `oape:bibliography-tei-div-to-biblstruct()` and `oape:bibliography-tei-to-zotero-rdf()` to generate one Zotero RDF file per `<tei:div>` as input.
-        - [convert_tei-to-zotero-rdf_issues.xsl](xslt/convert_tei-to-zotero-rdf_issues.xsl): chains the functions `oape:bibliography-tei-div-to-biblstruct()` and `oape:bibliography-tei-to-zotero-rdf()` to generate one Zotero RDF file per TEI XML file as input with `<bib:{reference-type}>` children for each `<tei:div>`.
-    4. TSS XML: **to do**
+1. to generate `<tei:biblStruct>`s for TEI/XML files and their fragments, such as individual `<tei:div>` nodes, which, in the case of our periodical editions contain the text of individual articles;
+2. to convert between multiple bibliographic XML formats, among them MODS/XML, MARCXML, BibTeX, and Zotero RDF.
 
-# to do
+Everything is built upon `<tei:biblStruct>` as an intermediate format and XPath functions. The XSLT is split into basic stylesheets for  functions (file name: `...-functions.xsl`) and stylesheets applying these functions. Note that the functions make use of the `oape` namespace, which is mapped to `xmlns:oape="https://openarabicpe.github.io/ns"`.
 
-- the conversion of name components into plain text strings does not add whitespace between them
+# XSLT stylesheets
+## Generate `<tei:biblStruct>` as intermediary format
+
+Output of the stylesheets is always is a self-contained TEI/XML file with all bibliographic data from the input written to `tei:TEI/tei:standOff`. 
+
+### from TEI/XML
+
+- [convert_tei-to-biblstruct_functions.xsl](xslt/convert_tei-to-biblstruct_functions.xsl): provides the necessary function to construct a `<tei:biblStruct>` for a `<tei:div>` using information from the TEI/XML file's `<sourceDesc>`, and the `<tei:div>` itself as `oape:bibliography-tei-div-to-biblstruct()`.
+- [convert_tei-to-biblstruct_articles.xsl](xslt/convert_tei-to-biblstruct_articles.xsl): applies the conversion to `<tei:div type="item">`
+- [convert_tei-to-biblstruct_fileDesc.xsl](xslt/convert_tei-to-biblstruct_fileDesc.xsl): applies conversions to `<tei:fileDesc>` and constructs a `<tei:biblStruct>` with the metadata for a given TEI/XML file.
+
+### from MARCXML
+
+These were developed and tested for the conversion of library catalogue data for mostly Arabic periodicals
+
+- [convert_marc-xml-to-tei_functions.xsl](xslt/convert_marc-xml-to-tei_functions.xsl): provides the necessary function to construct a `<tei:biblStruct>` for a `<marc:record>`.
+    - This conversion relies on other repositories for the conversion of ISIL RDF to TEI/XML.
+- [convert_marc-xml-to-tei_file.xsl](xslt/convert_marc-xml-to-tei_file.xsl): applies conversions to `<tei:fileDesc>` and constructs a lists of 
+    + `<tei:biblStruct>`: for each bibliographic item
+    + `<tei:person>`: for each editor
+    + `<tei:org>`: for each holding institution
+
+### from MODS/XML
+
+- [convert_mods-to-tei_functions.xsl](xslt/convert_mods-to-tei_functions.xsl): provides the function `oape:bibliography-mods-to-tei()` to construct a `<tei:biblStruct>` from a `<mods:mods>`.
+- [convert_mods-to-tei_file.xsl](xslt/convert_mods-to-tei_file.xsl): applies conversions to `<mods:mods>` and constructs a lists of 
+    + `<tei:biblStruct>`: for each bibliographic item
+    + `<tei:org>`: for each holding institution
+
+### from RDF/XML
+
+These were developed and tested for the conversion of library catalogue data for mostly Arabic periodicals
+
+- [convert_rdf-to-tei_functions.xsl](xslt/convert_rdf-to-tei_functions.xsl): provides the necessary function to construct a `<tei:biblStruct>` for a `<rdf:Description>`. Conversion is done in two steps: first to an unstructured `<tei:bibl>` and then to `<tei:biblStruct>`.
+- [convert_rdf-to-tei_file.xsl](xslt/convert_rdf-to-tei_file.xsl): applies conversions to `<rdf:Description>` and constructs a lists of `<tei:biblStruct>`. 
+
+## Convert `<tei:biblStruct>` to other formats
+
+All stylesheets use TEI/XML files or fragments[^2] as input.
+
+[^2]: Preferably validating against the [OpenArabicPE schema](https://github.com/OpenArabicPE/OpenArabicPE_ODD). All conversion functions work with any `<tei:div>` as input but concrete implementation of conversions is dependent on `@type` attribute values.
+
+### to BibTeX
+
+- [convert_tei-to-bibtex_functions.xsl](xslt/convert_tei-to-bibtex_functions.xsl): provides the function `oape:bibliography-tei-to-bibtex()` to convert a single `<tei:biblStruct>` to BibTeX
+- [convert_tei-to-bibtex_articles.xsl](xslt/convert_tei-to-bibtex_articles.xsl): chains the functions `oape:bibliography-tei-div-to-biblstruct()` and `oape:bibliography-tei-to-bibtex()` to generate one BibTeX file (`.bib`) per `<tei:div>` as input.
+- [convert_tei-to-bibtex_issues.xsl](xslt/convert_tei-to-bibtex_issues.xsl): chains the functions `oape:bibliography-tei-div-to-biblstruct()` and `oape:bibliography-tei-to-bibtex()` to generate one BibTeX file (`.bib`) per TEI XML file as input with one BibTeX child for each `<tei:div>`.
+
+### to CSV
+### to MODS/XML
+
+The conversions utilise [XSLT from another repository](https://github.com/tillgrallert/xslt-calendar-conversion) for calendar conversions. One can decide to link to a local copy or use the following link to include the online version: `<xsl:include href="https://tillgrallert.github.io/xslt-calendar-conversion/functions/date-functions.xsl"/>`.
+
+- [convert_tei-to-mods_functions.xsl](xslt/convert_tei-to-mods_functions.xsl): provides the function `oape:bibliography-tei-to-mods()` to convert a single `<tei:biblStruct>` to `<mods:mods>`
+- [convert_tei-to-mods_articles.xsl](xslt/convert_tei-to-mods_articles.xsl): chains the functions `oape:bibliography-tei-div-to-biblstruct()` and `oape:bibliography-tei-to-mods()` to generate one MODS XML file per `<tei:div>` as input.
+- [convert_tei-to-mods_issues.xsl](xslt/convert_tei-to-mods_issues.xsl): chains the functions `oape:bibliography-tei-div-to-biblstruct()` and `oape:bibliography-tei-to-mods()` to generate one MODS XML file per TEI XML file as input with `<mods:mods>` children for each `<tei:div>`.
+- [convert_tei-to-mods_fileDesc.xsl](xslt/convert_tei-to-mods_fileDesc.xsl): chains the conversions from `<tei:fileDesc>` to `<tei:biblStruct>` to `<mods:mods>` to generate the metadata for a given TEI/XML file.
+
+### to custom Wikidata XML
+
+Developed to push bibliographic data for Arabic and Ottoman periodicals to Wikidata. A preprint describing the data model can found [here](https://zenodo.org/records/14112648). Ouput is a custom XML serialisation for import into OpenRefine.
+
+- [convert_tei-to-wikidata-import_functions.xsl](xsl/convert_tei-to-wikidata-import_functions.xsl): provides the necessary functions to convert `<tei:biblStruct>`, `<tei:person>`, and `<tei:org>` to a Wikidata data model.
+- [convert_tei-to-wikidata-import_file.xsl](xsl/convert_tei-to-wikidata-import_file.xsl): applies the functions to input TEI/XML files.
+
+### to YAML
+
+YAML would be of use for generating a static website from periodical editions, where each article is transformed to markdown with its own metadata block written in YAML in order to keep data and metadata together.
+
+- [convert_tei-to-yaml_functions.xsl](xslt/convert_tei-to-yaml_functions.xsl): provides the function `oape:bibliography-tei-to-yaml()` to convert a single `<tei:biblStruct>` to YAML
+- [convert_tei-to-yaml_issues.xsl](xslt/convert_tei-to-yaml_issues.xsl): chains the functions `oape:bibliography-tei-div-to-biblstruct()` and `oape:bibliography-tei-to-yaml()` to generate one YAML file (`.yml`) per TEI XML file as input with one YAML child for each `<tei:div>`.
+
+### to Zotero RDF
+
+Zotero RDF is a proprietary RDF and serialised as XML, which allows lossless import into Zotero and moving data between Zotero libraries
+
+- [convert_tei-to-zotero-rdf_functions.xsl](xslt/convert_tei-to-zotero-rdf_functions.xsl): provides the function `oape:bibliography-tei-to-zotero-rdf()` to convert a single `<tei:biblStruct>` to `<bib:{reference-type}>`
+- [convert_tei-to-zotero-rdf_articles.xsl](xslt/convert_tei-to-zotero-rdf_articles.xsl): chains the functions `oape:bibliography-tei-div-to-biblstruct()` and `oape:bibliography-tei-to-zotero-rdf()` to generate one Zotero RDF file per `<tei:div>` as input.
+- [convert_tei-to-zotero-rdf_issues.xsl](xslt/convert_tei-to-zotero-rdf_issues.xsl): chains the functions `oape:bibliography-tei-div-to-biblstruct()` and `oape:bibliography-tei-to-zotero-rdf()` to generate one Zotero RDF file per TEI XML file as input with `<bib:{reference-type}>` children for each `<tei:div>`.
+
 
 # `<tei:biblStruct>`: intermediary / exchange format
 
@@ -226,7 +286,7 @@ There are, however, a number of problems with the format:
     + non-Gregorian calendars cannot be added.
 
 [^1]:[Wikipedia](https://en.wikipedia.org/wiki/BibTeX) has a better description than the official website.
-[^2]: Preferably validating against the [OpenArabicPE schema](https://github.com/OpenArabicPE/OpenArabicPE_ODD). All conversion functions work with any `<tei:div>` as input but concrete implementation of conversions is dependent on `@type` attribute values.
+
 
 ## example
 
