@@ -276,7 +276,7 @@
             </xsl:choose>
             <!-- for each author -->
             <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/descendant::tei:author"/>
-            <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/descendant::tei:respStmt[tei:persName]"/>
+            <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/descendant::tei:respStmt[descendant::tei:persName]"/>
             <xsl:choose>
                 <xsl:when test="$v_analytic/tei:title[@level = 'a']">
                     <relatedItem type="host">
@@ -363,10 +363,11 @@
                 <namePart>
                     <xsl:variable name="v_plain">
                         <xsl:choose>
-                            <xsl:when test="tei:surname">
-                                <xsl:apply-templates mode="m_plain-text" select="tei:forename"/>
+                            <!-- account for ZfDG's weird nesting of another <name> element inside <persName -->
+                            <xsl:when test="descendant::tei:surname">
+                                <xsl:apply-templates mode="m_plain-text" select="descendant::tei:forename"/>
                                 <xsl:text> </xsl:text>
-                                <xsl:apply-templates mode="m_plain-text" select="tei:surname"/>
+                                <xsl:apply-templates mode="m_plain-text" select="descendant::tei:surname"/>
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:apply-templates mode="m_plain-text" select="."/>
@@ -376,9 +377,10 @@
                     <xsl:value-of select="normalize-space($v_plain)"/>
                 </namePart>
             </xsl:when>
-            <xsl:when test="tei:surname">
-                <xsl:apply-templates mode="m_tei-to-mods" select="tei:surname"/>
-                <xsl:apply-templates mode="m_tei-to-mods" select="tei:forename"/>
+            <!-- account for ZfDG's weird nesting of another <name> element inside <persName -->
+            <xsl:when test="descendant::tei:surname">
+                <xsl:apply-templates mode="m_tei-to-mods" select="descendant::tei:surname"/>
+                <xsl:apply-templates mode="m_tei-to-mods" select="descendant::tei:forename"/>
             </xsl:when>
             <xsl:otherwise>
                 <!-- what should happen if there is neither surname nor forename? -->
@@ -657,7 +659,7 @@
     <!-- remove output for unsupported units etc. -->
     <xsl:template match="tei:biblScope" mode="m_tei-to-mods"/>
     <!-- contributors -->
-    <xsl:template match="tei:editor | tei:author | tei:respStmt[tei:persName]" mode="m_tei-to-mods" priority="10">
+    <xsl:template match="tei:editor | tei:author | tei:respStmt[descendant::tei:persName]" mode="m_tei-to-mods" priority="10">
         <name type="personal">
             <!--<xsl:copy-of select="oape:get-xml-lang(.)"/>-->
             <!-- add references to authority files -->
@@ -677,6 +679,10 @@
                 <xsl:when test="tei:name">
                     <xsl:apply-templates mode="m_tei-to-mods" select="tei:name"/>
                 </xsl:when>
+                <!-- tag abuse from ZfDG -->
+                <xsl:when test="tei:resp/tei:persName">
+                    <xsl:apply-templates mode="m_tei-to-mods" select="tei:resp/tei:persName"/>
+                </xsl:when>
                 <xsl:otherwise>
                     <namePart>
                         <xsl:variable name="v_plain">
@@ -690,8 +696,8 @@
             <xsl:apply-templates mode="m_tei-to-mods" select="tei:idno"/>
             <xsl:apply-templates mode="m_tei-to-mods" select="tei:affiliation"/>
             <!-- tag abuse from ZfDG -->
-            <xsl:apply-templates mode="m_tei-to-mods" select="tei:persName/tei:idno"/>
-            <xsl:apply-templates mode="m_tei-to-mods" select="tei:persName/tei:affiliation"/>
+            <xsl:apply-templates mode="m_tei-to-mods" select="tei:persName/tei:idno | tei:resp/tei:persName/tei:idno"/>
+            <xsl:apply-templates mode="m_tei-to-mods" select="tei:persName/tei:affiliation | tei:resp/tei:persName/tei:affiliation"/>
             <role>
                 <roleTerm authority="marcrelator" type="code">
                     <xsl:choose>
