@@ -10,7 +10,6 @@
     <xsl:import href="convert_tei-to-biblstruct_functions.xsl"/>
     <!-- this needs to be adopted to work with any periodical and not just al-Muqtabas -->
     <xsl:variable name="v_schema" select="'http://www.loc.gov/standards/mods/mods-3-8.xsd'"/>
-    
     <!-- the MODS output -->
     <xsl:function name="oape:bibliography-tei-to-mods">
         <!-- input is a bibl or biblStruct -->
@@ -208,7 +207,7 @@
         </xsl:variable>
         <xsl:variable name="v_editor">
             <!-- pull in information on editor -->
-<!--            <xsl:apply-templates mode="m_tei-to-mods" select="$v_monogr/tei:editor/tei:persName[@xml:lang = $p_lang]"/>-->
+            <!--            <xsl:apply-templates mode="m_tei-to-mods" select="$v_monogr/tei:editor/tei:persName[@xml:lang = $p_lang]"/>-->
             <xsl:apply-templates mode="m_tei-to-mods" select="$v_monogr/tei:editor"/>
         </xsl:variable>
         <!-- construct output -->
@@ -342,14 +341,13 @@
                 </xsl:when>
                 <xsl:otherwise>
                     <!-- why did I decide to create a textLang element from a parameter? -->
-                   <!-- <xsl:variable name="v_lang">
+                    <!-- <xsl:variable name="v_lang">
                         <tei:textLang>
                             <xsl:attribute name="mainLang" select="$p_lang"/>
                             <xsl:value-of select="$p_lang"/>
                         </tei:textLang>
                     </xsl:variable>
-                    <xsl:apply-templates mode="m_tei-to-mods" select="$v_lang/tei:textLang"/>-->
-                </xsl:otherwise>
+                    <xsl:apply-templates mode="m_tei-to-mods" select="$v_lang/tei:textLang"/>--> </xsl:otherwise>
             </xsl:choose>
             <!-- notes, tags etc. -->
             <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/tei:biblStruct//tei:note"/>
@@ -696,6 +694,7 @@
             <xsl:apply-templates mode="m_tei-to-mods" select="tei:idno"/>
             <xsl:apply-templates mode="m_tei-to-mods" select="tei:affiliation"/>
             <!-- tag abuse from ZfDG -->
+            <xsl:apply-templates mode="m_tei-to-mods" select="tei:orgName"/>
             <xsl:apply-templates mode="m_tei-to-mods" select="tei:persName/tei:idno | tei:resp/tei:persName/tei:idno"/>
             <xsl:apply-templates mode="m_tei-to-mods" select="tei:persName/tei:affiliation | tei:resp/tei:persName/tei:affiliation"/>
             <role>
@@ -707,13 +706,31 @@
                         <xsl:when test="local-name() = 'author'">
                             <xsl:text>aut</xsl:text>
                         </xsl:when>
-                        <xsl:when test="tei:resp/@ref[matches(., 'https*://id.loc.gov/vocabulary/relators')]">
+                        <!--<xsl:when test="tei:resp/@ref[matches(., 'https*://id.loc.gov/vocabulary/relators')]">
                             <xsl:value-of select="replace(tei:resp/@ref, '^https*://id.loc.gov/vocabulary/relators/', '')"/>
-                        </xsl:when>
+                        </xsl:when>-->
                     </xsl:choose>
                 </roleTerm>
             </role>
+            <xsl:apply-templates mode="m_tei-to-mods" select="tei:resp"/>
         </name>
+    </xsl:template>
+    <xsl:template match="tei:resp" mode="m_tei-to-mods">
+        <role>
+            <xsl:choose>
+                <xsl:when test="@ref[matches(., 'https*://id.loc.gov/vocabulary/relators')]">
+                    <roleTerm authority="marcrelator" type="code">
+                        <xsl:value-of select="replace(@ref, '^https*://id.loc.gov/vocabulary/relators/', '')"/>
+                    </roleTerm>
+                </xsl:when>
+                <xsl:when test="@ref[matches(., 'credit.niso.org/contributor-roles/')]">
+                    <roleTerm authority="https://credit.niso.org/contributor-roles/">
+                        <xsl:attribute name="type" select="replace(@ref, '^https*://credit.niso.org/contributor-roles/','')"/>
+                        <xsl:value-of select="replace(@ref, '^https*://credit.niso.org/contributor-roles/','')"/>
+                    </roleTerm>
+                </xsl:when>
+            </xsl:choose>
+        </role>
     </xsl:template>
     <xsl:template match="tei:availability" mode="m_tei-to-mods">
         <accessCondition>
@@ -724,7 +741,7 @@
             </xsl:choose>
         </accessCondition>
     </xsl:template>
-    <xsl:template match="tei:affiliation" mode="m_tei-to-mods">
+    <xsl:template match="tei:affiliation | tei:respStmt/tei:orgName" mode="m_tei-to-mods">
         <affiliation>
             <xsl:copy-of select="oape:get-xml-lang(.)"/>
             <xsl:variable name="v_plain">
