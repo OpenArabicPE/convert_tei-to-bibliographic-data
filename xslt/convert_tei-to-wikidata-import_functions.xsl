@@ -296,17 +296,9 @@
         </P31>
     </xsl:template>
     <xsl:template match="tei:date[@type = ('onset', 'official')]" mode="m_tei2wikidata">
+        <!-- inception -->
         <P571>
             <xsl:apply-templates mode="m_date-when" select="."/>
-            <!-- notBefore: currently there is no property for earlies start date -->
-            <!-- notAfter: P8555, latest start date -->
-            <xsl:if test="@notAfter">
-                <P8555>
-                    <date>
-                        <xsl:value-of select="@notAfter"/>
-                    </date>
-                </P8555>
-            </xsl:if>
         </P571>
         <!-- start time -->
         <P580>
@@ -317,22 +309,6 @@
         <!-- end time -->
         <P582>
             <xsl:apply-templates mode="m_date-when" select="."/>
-            <!-- notBefore: P8554, earliest end date -->
-            <xsl:if test="@notBefore">
-                <P8554>
-                    <date>
-                        <xsl:value-of select="@notBefore"/>
-                    </date>
-                </P8554>
-            </xsl:if>
-            <!-- notAfter: P12506, latest end date -->
-            <xsl:if test="@notAfter">
-                <P12506>
-                    <date>
-                        <xsl:value-of select="@notAfter"/>
-                    </date>
-                </P12506>
-            </xsl:if>
         </P582>
     </xsl:template>
     <xsl:template match="tei:date" mode="m_tei2wikidata_holdings">
@@ -375,6 +351,22 @@
                 <xsl:value-of select="replace(@notAfter, '(\d{4}-\d{2})-\d+', '$1')"/>
             </date>
         </xsl:if>
+        <!-- notBefore: P1319, earliest date -->
+            <xsl:if test="@notBefore">
+                <P1319>
+                    <date>
+                        <xsl:value-of select="@notBefore"/>
+                    </date>
+                </P1319>
+            </xsl:if>
+            <!-- notAfter: P1326, latest date -->
+            <xsl:if test="@notAfter">
+                <P1326>
+                    <date>
+                        <xsl:value-of select="@notAfter"/>
+                    </date>
+                </P1326>
+            </xsl:if>
     </xsl:template>
     <xsl:template match="tei:editor[tei:orgName]" mode="m_tei2wikidata"/>
     <xsl:template match="tei:editor[tei:persName]" mode="m_tei2wikidata">
