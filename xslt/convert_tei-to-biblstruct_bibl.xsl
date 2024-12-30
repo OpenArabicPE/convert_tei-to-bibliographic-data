@@ -16,19 +16,70 @@
         <xsl:copy>
             <xsl:apply-templates mode="m_replicate" select="@*"/>
             <xsl:apply-templates mode="m_basic" select="tei:teiHeader"/>
-            <xsl:element name="standOff">
-                <xsl:element name="listBibl">
-                    <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:text/tei:body/descendant::tei:bibl[not(ancestor::tei:biblStruct)][not(parent::tei:listBibl)]"/>
-                </xsl:element>
+            <xsl:variable name="v_bibls">
+                <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:text/tei:body/descendant::tei:bibl[not(ancestor::tei:biblStruct)][not(parent::tei:listBibl)]"/>
+                <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:text/tei:body/descendant::tei:title[not(ancestor::tei:biblStruct)][not(ancestor::tei:bibl)]"/>
                 <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:text/tei:body/descendant::tei:listBibl[not(ancestor::tei:biblStruct)]"/>
+            </xsl:variable>
+            <xsl:element name="standOff">
+                <!-- already in authority file-->
+                <xsl:element name="listBibl">
+                    <xsl:element name="head">
+                        <xsl:text>linked to authority file</xsl:text>
+                    </xsl:element>
+                    <xsl:for-each-group select="$v_bibls/descendant-or-self::tei:biblStruct[tei:monogr/tei:idno]" group-by=".">
+                        <xsl:sort select="tei:monogr/tei:title[1]"/>
+                        <xsl:apply-templates select="." mode="m_replicate"/>
+                    </xsl:for-each-group>
+                </xsl:element>
+                <!-- new or not linked -->
+                <xsl:element name="listBibl">
+                    <xsl:element name="head">
+                        <xsl:text>new or unlinked</xsl:text>
+                    </xsl:element>
+                    <xsl:for-each-group select="$v_bibls/descendant-or-self::tei:biblStruct[not(tei:monogr/tei:idno)]" group-by=".">
+                        <xsl:sort select="tei:monogr/tei:title[1]"/>
+                        <xsl:apply-templates select="." mode="m_replicate"/>
+                    </xsl:for-each-group>
+                </xsl:element>
+                <!-- <xsl:element name="head">
+                        <xsl:text>from </xsl:text>
+                        <xsl:element name="gi">
+                            <xsl:text>bibl</xsl:text>
+                        </xsl:element>
+                    </xsl:element>-->
+                <!--                    <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:text/tei:body/descendant::tei:bibl[not(ancestor::tei:biblStruct)][not(parent::tei:listBibl)]"/>-->
+                <!--                </xsl:element>-->
+                <!-- titles without bibl -->
+                <!--  <xsl:element name="listBibl">
+                     <xsl:element name="head">
+                        <xsl:text>from </xsl:text>
+                        <xsl:element name="gi">
+                            <xsl:text>title</xsl:text>
+                        </xsl:element>
+                    </xsl:element>-->
+                <!--                    <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:text/tei:body/descendant::tei:title[not(ancestor::tei:biblStruct)][not(ancestor::tei:bibl)]"/>-->
+                <!--</xsl:element>-->
+                <!-- find listBibls -->
+                <!--                    <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:text/tei:body/descendant::tei:listBibl[not(ancestor::tei:biblStruct)]"/>-->
             </xsl:element>
         </xsl:copy>
     </xsl:template>
+    <xsl:template match="tei:title[not(ancestor::tei:biblStruct)][not(ancestor::tei:bibl)]" mode="m_bibl-to-biblStruct">
+        <xsl:variable name="v_bibl">
+            <xsl:element name="bibl">
+                <!-- point back to source -->
+                <!--                <xsl:attribute name="source" select="concat($v_url-file, '#', @xml:id)"/>-->
+                <xsl:copy-of select="."/>
+            </xsl:element>
+        </xsl:variable>
+        <xsl:apply-templates select="$v_bibl/descendant-or-self::tei:bibl" mode="m_bibl-to-biblStruct"/>
+    </xsl:template>
     <xsl:template match="tei:listBibl" mode="m_bibl-to-biblStruct">
-        <xsl:copy>
-            <xsl:apply-templates mode="m_replicate" select="@*"/>
-            <xsl:apply-templates select="tei:bibl" mode="m_bibl-to-biblStruct"/>
-        </xsl:copy>
+        <!--<xsl:copy>
+            <xsl:apply-templates mode="m_replicate" select="@*"/>-->
+        <xsl:apply-templates select="tei:bibl" mode="m_bibl-to-biblStruct"/>
+        <!--</xsl:copy>-->
     </xsl:template>
     <xsl:template match="tei:teiHeader" mode="m_basic">
         <teiHeader>

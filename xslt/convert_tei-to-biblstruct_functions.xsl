@@ -234,10 +234,14 @@
             </xsl:if>
             <monogr>
                 <xsl:apply-templates mode="m_replicate" select="tei:title[@level != 'a']"/>
+                <xsl:apply-templates mode="m_replicate" select="tei:title[not(@level)]"/>
                 <xsl:apply-templates mode="m_replicate" select="tei:idno"/>
-                <xsl:for-each select="tokenize(tei:title[@level != 'a'][@ref][1]/@ref, '\s+')">
+                <xsl:for-each select="tokenize(tei:title[(@level != 'a') or not(@level)][@ref][1]/@ref, '\s+')">
                     <xsl:variable name="v_authority">
                         <xsl:choose>
+                            <xsl:when test="contains(., 'wiki:')">
+                                <xsl:text>wiki</xsl:text>
+                            </xsl:when>
                             <xsl:when test="contains(., 'oclc:')">
                                 <xsl:text>OCLC</xsl:text>
                             </xsl:when>
@@ -252,18 +256,21 @@
                     <xsl:variable name="v_local-uri-scheme" select="concat($v_authority, ':bibl:')"/>
                     <xsl:variable name="v_idno">
                         <xsl:choose>
-                            <xsl:when test="contains(., 'oclc:')">
-                                <xsl:value-of select="replace(., '.*oclc:(\d+).*', '$1')"/>
-                            </xsl:when>
                             <xsl:when test="contains(., $v_local-uri-scheme)">
                                 <!-- local IDs in Project Jaraid are not nummeric for biblStructs -->
                                 <xsl:value-of select="replace(., concat('.*', $v_local-uri-scheme, '(\w+).*'), '$1')"/>
                             </xsl:when>
+                            <xsl:when test="matches(., concat($v_authority, ':'), 'i')">
+                                <xsl:value-of select="replace(., concat($v_authority, ':'), '', 'i')"/>
+                                <!--                                <xsl:value-of select="replace(., '.*oclc:(\d+).*', '$1')"/>-->
+                            </xsl:when>
                         </xsl:choose>
                     </xsl:variable>
-                    <idno type="{$v_authority}">
-                        <xsl:value-of select="$v_idno"/>
-                    </idno>
+                    <xsl:if test="$v_idno != ''">
+                        <idno type="{$v_authority}">
+                            <xsl:value-of select="$v_idno"/>
+                        </idno>
+                    </xsl:if>
                 </xsl:for-each>
                 <xsl:choose>
                     <xsl:when test="tei:textLang">
