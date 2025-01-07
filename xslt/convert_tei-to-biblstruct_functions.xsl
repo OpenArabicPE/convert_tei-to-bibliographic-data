@@ -604,16 +604,33 @@
     </xsl:template>
     <xsl:template match="tei:term" mode="m_fileDesc-to-biblStruct">
         <item>
-            <xsl:if test="parent::tei:keywords/@n">
+            <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="parent::tei:keywords/@scheme"/>
+            <!--<xsl:if test="parent::tei:keywords/@n">
                 <xsl:copy-of select="parent::tei:keywords/@n"/>
             </xsl:if>
-            <xsl:value-of select="normalize-space(.)"/>
+            <xsl:if test="parent::tei:keywords/@scheme">
+                <xsl:attribute name="source">
+                    <xsl:value-of select="normalize-space(parent::tei:keywords/@scheme)"/>
+                </xsl:attribute>
+            </xsl:if>-->
+            <label>
+                <xsl:value-of select="normalize-space(.)"/>
+            </label>
+            <xsl:apply-templates mode="m_fileDesc-to-biblStruct"/>
         </item>
     </xsl:template>
-    <xsl:template match="@scheme" mode="m_fileDesc-to-biblStruct">
-        <xsl:attribute name="source" select="."/>
+    <!-- this is specifically for ZfDG -->
+    <xsl:template match="tei:keywords[@scheme = 'gnd']/tei:term/tei:ref" mode="m_fileDesc-to-biblStruct">
+        <idno type="gnd">
+            <xsl:value-of select="@target"/>
+        </idno>
     </xsl:template>
-    <xsl:template match="@n" mode="m_fileDesc-to-biblStruct">
+    <xsl:template match="@scheme" mode="m_fileDesc-to-biblStruct" priority="10">
+        <xsl:attribute name="source">
+            <xsl:value-of select="."/>
+        </xsl:attribute>
+    </xsl:template>
+    <xsl:template match="@n" mode="m_fileDesc-to-biblStruct" priority="10">
         <xsl:attribute name="type" select="."/>
     </xsl:template>
     <xsl:template match="tei:idno[@type = ('volume', 'issue')]" mode="m_fileDesc-to-biblStruct">

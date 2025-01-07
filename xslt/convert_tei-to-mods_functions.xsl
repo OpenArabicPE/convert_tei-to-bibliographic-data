@@ -766,18 +766,28 @@
         <xsl:choose>
             <xsl:when test="@n = 'topics'">
                 <topic>
-                    <xsl:value-of select="."/>
+                    <xsl:value-of select="tei:label"/>
                 </topic>
             </xsl:when>
             <xsl:when test="@n = ('category', 'subcategory')">
                 <!-- values specific to DHConvalidator -->
                 <genre>
-                    <xsl:value-of select="."/>
+                    <xsl:value-of select="tei:label"/>
                 </genre>
             </xsl:when>
             <xsl:otherwise>
                 <topic>
-                    <xsl:value-of select="."/>
+                    <xsl:if test="@source">
+                        <xsl:attribute name="authority" select="@source"/>
+                    </xsl:if>
+                    <xsl:if test="tei:idno">
+                        <xsl:attribute name="valueURI">
+                            <xsl:if test="tei:idno/@type = 'gnd'">
+                                <xsl:value-of select="concat($v_url-gnd-resolve, tei:idno)"/>
+                            </xsl:if>
+                        </xsl:attribute>
+                    </xsl:if>
+                    <xsl:value-of select="tei:label"/>
                 </topic>
             </xsl:otherwise>
         </xsl:choose>
