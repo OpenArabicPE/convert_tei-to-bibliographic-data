@@ -48,4 +48,5 @@
     <xsl:param name="p_output-folder" select="'metadata/'"/>
     <!-- URLs -->
     <xsl:variable name="v_url-server-zdb-ld" select="'http://ld.zdb-services.de/data/'"/>
+    <xsl:variable name="v_url-gnd-resolve" select="'https://d-nb.info/gnd/'"/>
 </xsl:stylesheet>

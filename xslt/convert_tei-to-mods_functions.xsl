@@ -9,7 +9,8 @@
     <!--     <xsl:include href="../../../xslt-calendar-conversion/date-functions.xsl"/> -->
     <xsl:import href="convert_tei-to-biblstruct_functions.xsl"/>
     <!-- this needs to be adopted to work with any periodical and not just al-Muqtabas -->
-    <xsl:variable name="v_schema" select="'http://www.loc.gov/standards/mods/mods-3-8.xsd'"/>
+    <xsl:variable name="v_schema" select="'http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/mods-3-8.xsd'"/>
+    
     <!-- the MODS output -->
     <xsl:function name="oape:bibliography-tei-to-mods">
         <!-- input is a bibl or biblStruct -->
@@ -485,15 +486,16 @@
             </xsl:choose>
         </xsl:variable>
         <xsl:element name="{$v_name}">
-            <xsl:attribute name="type">
-                <xsl:choose>
+            <!-- according to https://www.loc.gov/standards/sourcelist/standard-identifier.html identifiers are in lower case -->
+            <xsl:attribute name="type" select="lower-case(@type)">
+               <!-- <xsl:choose>
                     <xsl:when test="@type = ('doi', 'gnd', 'orcid')">
                         <xsl:value-of select="upper-case(@type)"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:value-of select="@type"/>
                     </xsl:otherwise>
-                </xsl:choose>
+                </xsl:choose>-->
             </xsl:attribute>
             <xsl:variable name="v_plain">
                 <xsl:apply-templates mode="m_plain-text" select="."/>
@@ -766,18 +768,28 @@
         <xsl:choose>
             <xsl:when test="@n = 'topics'">
                 <topic>
-                    <xsl:value-of select="."/>
+                    <xsl:value-of select="tei:label"/>
                 </topic>
             </xsl:when>
             <xsl:when test="@n = ('category', 'subcategory')">
                 <!-- values specific to DHConvalidator -->
                 <genre>
-                    <xsl:value-of select="."/>
+                    <xsl:value-of select="tei:label"/>
                 </genre>
             </xsl:when>
             <xsl:otherwise>
                 <topic>
-                    <xsl:value-of select="."/>
+                    <xsl:if test="@source">
+                        <xsl:attribute name="authority" select="@source"/>
+                    </xsl:if>
+                    <xsl:if test="tei:idno">
+                        <xsl:attribute name="valueURI">
+                            <xsl:if test="tei:idno/@type = 'gnd'">
+                                <xsl:value-of select="concat($v_url-gnd-resolve, tei:idno)"/>
+                            </xsl:if>
+                        </xsl:attribute>
+                    </xsl:if>
+                    <xsl:value-of select="tei:label"/>
                 </topic>
             </xsl:otherwise>
         </xsl:choose>
