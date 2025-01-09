@@ -477,6 +477,11 @@
                     <xsl:apply-templates mode="m_string" select="."/>
                 </P236>
             </xsl:when>
+            <xsl:when test="@type = 'jid'">
+                <P953>
+                    <xsl:apply-templates mode="m_string" select="concat($p_url-resolve-jid, .)"/>
+                </P953>
+            </xsl:when>
             <xsl:when test="@type = 'ht_bib_key'">
                 <P1844>
                     <xsl:apply-templates mode="m_string" select="."/>
@@ -491,6 +496,22 @@
                 <P243>
                     <xsl:apply-templates mode="m_string" select="."/>
                 </P243>
+            </xsl:when>
+            <!-- untyped catalogue IDs -->
+            <xsl:when test="@type = 'record'">
+                <xsl:choose>
+                    <!-- National Library of Israel -->
+                    <xsl:when test="@source = ('https://www.nli.org.il/', 'oape:org:60')">
+                        <P8189>
+                            <xsl:apply-templates mode="m_string" select="."/>
+                        </P8189>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:when test="@type = 'shamela'">
+                <P953>
+                    <xsl:apply-templates mode="m_string" select="concat($p_url-resolve-shamela, .)"/>
+                </P953>
             </xsl:when>
             <xsl:when test="@type = 'VIAF'">
                 <P214>
@@ -520,19 +541,9 @@
                     <xsl:apply-templates mode="m_string" select="."/>
                 </P953>
             </xsl:when>
-            <xsl:when test="@type = 'jid'">
-                <P953>
-                    <xsl:apply-templates mode="m_string" select="concat($p_url-resolve-jid, .)"/>
-                </P953>
-            </xsl:when>
-            <xsl:when test="@type = 'shamela'">
-                <P953>
-                    <xsl:apply-templates mode="m_string" select="concat($p_url-resolve-shamela, .)"/>
-                </P953>
-            </xsl:when>
             <xsl:otherwise>
                 <xsl:message>
-                    <xsl:text>WARNING: idno of type "</xsl:text>
+                    <xsl:text>WARNING: unknown idno of type "</xsl:text>
                     <xsl:value-of select="@type"/>
                     <xsl:text>" is not converted</xsl:text>
                 </xsl:message>
