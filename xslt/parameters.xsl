@@ -33,6 +33,17 @@
             else
                 (substring-before(tokenize(base-uri(), '/')[last()], '.TEIP5'))"/>
     <xsl:variable name="v_url-file" select="base-uri()"/>
+    <xsl:variable name="v_path-source">
+        <xsl:choose>
+              <!-- relative local path for my current set-up  -->
+             <xsl:when test="matches(base-uri(), 'file:/Users/Shared/BachUni/BachBibliothek/GitHub/')">
+                 <xsl:value-of select="replace(base-uri(), 'file:/Users/Shared/BachUni/BachBibliothek/GitHub/', '../../../../')"/>
+             </xsl:when>
+             <xsl:otherwise>
+                 <xsl:value-of select="base-uri()"/>
+             </xsl:otherwise>
+         </xsl:choose>
+    </xsl:variable>
     <xsl:variable name="v_url-base" select="replace($v_url-file, '^(.+)/([^/]+?)$', '$1')"/>
     <xsl:param name="p_output-folder" select="'metadata/'"/>
     <!-- URLs -->
