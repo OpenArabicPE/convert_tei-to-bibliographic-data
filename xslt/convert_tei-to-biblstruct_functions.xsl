@@ -221,6 +221,12 @@
         </xsl:variable>
         <!-- publication date of the source file -->
         <xsl:variable name="v_source-date" select="document($v_url-file)/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/descendant::tei:biblStruct[1]/descendant::tei:date[@when][1]/@when"/>
+        <xsl:if test="$p_debug = true()">
+            <xsl:message>
+                <xsl:text>transforming bibl with title </xsl:text>
+                <xsl:value-of select="descendant::tei:title[@level = 'j'][1]"/>
+            </xsl:message>
+        </xsl:if>
         <biblStruct>
             <xsl:apply-templates mode="m_bibl-to-biblStruct" select="@*"/>
             <!-- document source of information -->
@@ -239,8 +245,8 @@
                 <xsl:for-each select="tokenize(tei:title[(@level != 'a') or not(@level)][@ref][1]/@ref, '\s+')">
                     <xsl:variable name="v_authority">
                         <xsl:choose>
-                            <xsl:when test="contains(., 'wiki:')">
-                                <xsl:text>wiki</xsl:text>
+                            <xsl:when test="contains(., concat($p_acronym-wikidata, ':'))">
+                                <xsl:value-of select="$p_acronym-wikidata"/>
                             </xsl:when>
                             <xsl:when test="contains(., 'oclc:')">
                                 <xsl:text>OCLC</xsl:text>
@@ -277,23 +283,25 @@
                         <xsl:apply-templates mode="m_replicate" select="tei:textLang"/>
                     </xsl:when>
                     <xsl:otherwise>
+                        <xsl:if test="$p_verbose = true()">
+                            <xsl:message>
+                                <xsl:text>no explicit language information for this bibl</xsl:text>
+                            </xsl:message>
+                        </xsl:if>
                         <xsl:variable name="v_lang">
                             <xsl:choose>
                                 <!-- chose the language of the title -->
-                                <xsl:when test="tei:title[@level != 'a']/@xml:lang">
-                                    <xsl:value-of select="tei:title[@level != 'a'][@xml:lang][1]/@xml:lang"/>
-                                </xsl:when>
-                                <xsl:when test="tei:title[@level != 'm']/@xml:lang">
-                                    <xsl:value-of select="tei:title[@level != 'm'][@xml:lang][1]/@xml:lang"/>
-                                </xsl:when>
-                                <xsl:otherwise>
+                                <xsl:when test="$p_detect-language-from-title = true() and tei:title[@level = ('j', 'm')]/@xml:lang">
                                     <xsl:if test="$p_verbose = true()">
                                         <xsl:message>
-                                            <xsl:text>There is no language information for this bibl</xsl:text>
+                                            <xsl:text>taking implicit language information from title</xsl:text>
                                         </xsl:message>
                                     </xsl:if>
+                                    <xsl:value-of select="tei:title[@level = ('j', 'm')][@xml:lang][1]/@xml:lang"/>
+                                </xsl:when>
+                                <xsl:otherwise>
                                     <xsl:value-of select="'NA'"/>
-                                    <!--                                        <xsl:value-of select="$p_target-language"/>-->
+                                    <!--                                    <xsl:value-of select="$p_target-language"/>-->
                                 </xsl:otherwise>
                             </xsl:choose>
                         </xsl:variable>
@@ -313,6 +321,7 @@
                     </xsl:otherwise>
                 </xsl:choose>
                 <xsl:apply-templates mode="m_bibl-to-biblStruct" select="tei:editor"/>
+                <xsl:apply-templates mode="m_bibl-to-biblStruct" select="tei:respStmt"/>
                 <imprint>
                     <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:date"/>
                     <!-- add a date at which this bibl was documented in the source file -->
@@ -334,9 +343,10 @@
         </xsl:copy>
     </xsl:template>
     <!-- remove attributes -->
-    <xsl:template match="tei:author[tei:persName]/@xml:lang  | tei:bibl/@xml:lang | tei:editor[tei:persName]/@xml:lang  | tei:monogr/@xml:lang| tei:pubPlace[tei:placeName]/@xml:lang | @next | @prev" mode="m_bibl-to-biblStruct"/>
+    <xsl:template match="tei:author[tei:persName]/@xml:lang | tei:bibl/@xml:lang | tei:editor[tei:persName]/@xml:lang | tei:monogr/@xml:lang | tei:pubPlace[tei:placeName]/@xml:lang | @next | @prev"
+        mode="m_bibl-to-biblStruct"/>
     <!-- remove milestones -->
-    <xsl:template match="tei:pb | tei:lb |tei:cb" mode="m_bibl-to-biblStruct">
+    <xsl:template match="tei:pb | tei:lb | tei:cb" mode="m_bibl-to-biblStruct">
         <xsl:value-of select="' '"/>
     </xsl:template>
     <xsl:template match="tei:num" mode="m_bibl-to-biblStruct">

@@ -9,6 +9,12 @@
     <xsl:param name="p_add-license" select="false()"/>
     <xsl:variable name="v_license" select="'http://creativecommons.org/licenses/by-sa/4.0/'"/>
     <xsl:variable name="v_license-url" select="'http://creativecommons.org/licenses/by-sa/4.0/'"/>
+    <xsl:param name="p_detect-language-from-title" select="false()"/>
+    <!-- authorities -->
+    <xsl:param name="p_acronym-geonames" select="'geon'"/> <!-- in WHG this is 'gn' -->
+    <xsl:param name="p_acronym-viaf" select="'viaf'"/>
+    <xsl:param name="p_acronym-wikidata" select="'wiki'"/> <!-- in WHG this is 'wd' -->
+    <xsl:param name="p_acronym-wikimapia" select="'lwm'"/>
     <!-- identify the author of the change by means of a @xml:id -->
     <xsl:param name="p_id-editor" select="'pers_TG'"/>
     <xsl:param name="p_id-change" select="generate-id(//tei:revisionDesc[1]/tei:change[last()])"/>
