@@ -228,12 +228,12 @@
             <!--<xsl:attribute name="change" select="concat('#', $p_id-change)"/>-->
             <xsl:if test="tei:title[@level = 'a']">
                 <analytic>
-                    <xsl:apply-templates mode="m_replicate" select="tei:title[@level = 'a']"/>
+                    <xsl:apply-templates mode="m_bibl-to-biblStruct" select="tei:title[@level = 'a']"/>
                     <xsl:apply-templates mode="m_replicate" select="tei:author"/>
                 </analytic>
             </xsl:if>
             <monogr>
-                <xsl:apply-templates mode="m_replicate" select="tei:title[@level != 'a']"/>
+                <xsl:apply-templates mode="m_bibl-to-biblStruct" select="tei:title[@level != 'a']"/>
                 <xsl:apply-templates mode="m_replicate" select="tei:title[not(@level)]"/>
                 <xsl:apply-templates mode="m_replicate" select="tei:idno"/>
                 <xsl:for-each select="tokenize(tei:title[(@level != 'a') or not(@level)][@ref][1]/@ref, '\s+')">
@@ -333,7 +333,15 @@
             <xsl:apply-templates select="@* | node()" mode="m_bibl-to-biblStruct"/>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="tei:author[tei:persName]/@xml:lang  | tei:bibl/@xml:lang | tei:editor[tei:persName]/@xml:lang  | tei:monogr/@xml:lang| tei:pubPlace[tei:placeName]/@xml:lang" mode="m_bibl-to-biblStruct"/>
+    <!-- remove attributes -->
+    <xsl:template match="tei:author[tei:persName]/@xml:lang  | tei:bibl/@xml:lang | tei:editor[tei:persName]/@xml:lang  | tei:monogr/@xml:lang| tei:pubPlace[tei:placeName]/@xml:lang | @next | @prev" mode="m_bibl-to-biblStruct"/>
+    <!-- remove milestones -->
+    <xsl:template match="tei:pb | tei:lb |tei:cb" mode="m_bibl-to-biblStruct">
+        <xsl:value-of select="' '"/>
+    </xsl:template>
+    <xsl:template match="tei:num" mode="m_bibl-to-biblStruct">
+        <xsl:apply-templates mode="m_bibl-to-biblStruct"/>
+    </xsl:template>
     <!-- produce simple derivates of tei:biblStruct -->
     <xsl:template match="tei:biblStruct" mode="m_simple">
         <xsl:copy>
