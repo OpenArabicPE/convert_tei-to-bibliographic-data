@@ -3,6 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.tei-c.org/ns/1.0">
     <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no" version="1.0"/>
     <!-- this stylesheet generates a TEI/XML bibliography from all <bibl> elements found in the text of a TEI/XML document -->
+    <xsl:import href="../../../OpenArabicPE/authority-files/xslt/functions.xsl"/>
     <xsl:import href="convert_tei-to-biblstruct_functions.xsl"/>
     <!-- all parameters and variables are set in convert_tei-to-mods_functions.xsl -->
     <xsl:template match="/">
@@ -16,9 +17,19 @@
         <xsl:copy>
             <xsl:apply-templates mode="m_replicate" select="@*"/>
             <xsl:apply-templates mode="m_basic" select="tei:teiHeader"/>
+            <!-- transorm all references into biblStructs -->
             <xsl:variable name="v_bibls">
-                <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:text/tei:body/descendant::tei:bibl[not(ancestor::tei:biblStruct)][not(parent::tei:listBibl)]"/>
+                <!-- bibl -->
+                <!-- compile partial information -->
+                <xsl:variable name="v_bibls-temp">
+                    <xsl:for-each select="descendant::tei:text/tei:body/descendant::tei:bibl[not(ancestor::tei:biblStruct)][not(parent::tei:listBibl)]">
+                        <xsl:copy-of select="oape:compile-next-prev(.)"/>
+                    </xsl:for-each>
+                </xsl:variable>
+                <xsl:apply-templates mode="m_bibl-to-biblStruct" select="$v_bibls-temp/descendant-or-self::tei:bibl"/>
+                <!-- title -->
                 <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:text/tei:body/descendant::tei:title[not(ancestor::tei:biblStruct)][not(ancestor::tei:bibl)]"/>
+                <!-- listBibl -->
                 <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:text/tei:body/descendant::tei:listBibl[not(ancestor::tei:biblStruct)]"/>
             </xsl:variable>
             <xsl:element name="standOff">
