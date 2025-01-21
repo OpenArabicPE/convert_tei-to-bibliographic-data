@@ -45,6 +45,19 @@
                 </xsl:when>
             </xsl:choose>
         </xsl:variable> 
+        <xsl:variable name="v_title-journal">
+            <xsl:choose>
+                <xsl:when test="$p_input/descendant::tei:title[@level = 'j'][@xml:lang = $p_lang][not(@type = 'sub')]">
+                    <xsl:apply-templates select="$p_input/descendant::tei:title[@level = 'j'][@xml:lang = $p_lang][not(@type = 'sub')][1]" mode="m_tei-to-bibtex"/>
+                </xsl:when>
+                <xsl:when test="$p_input/descendant::tei:title[@level = 'j'][not(@type = 'sub')]">
+                    <xsl:apply-templates select="$p_input/descendant::tei:title[@level = 'j'][not(@type = 'sub')][1]" mode="m_tei-to-bibtex"/>
+                </xsl:when>
+            </xsl:choose>
+            <xsl:if test="$p_input/descendant::tei:title[@level = 'j'][@xml:lang = $p_lang][@type = 'sub']">
+                <xsl:text>: </xsl:text><xsl:value-of select="$p_input/descendant::tei:title[@level = 'j'][@xml:lang = $p_lang][@type = 'sub']"/>
+            </xsl:if>
+        </xsl:variable> 
         <!-- construct BibText -->
             <xsl:text>@ARTICLE{</xsl:text>
             <!-- BibTextKey -->
@@ -64,11 +77,7 @@
             <xsl:value-of select="$v_title-article"/>
             <xsl:text>}, </xsl:text><xsl:value-of select="$v_new-line"/>
             <xsl:text>journal = {</xsl:text>
-            <xsl:value-of select="$p_input/descendant::tei:title[@level = 'j'][@xml:lang = $p_lang][not(@type = 'sub')]"/>
-            <!-- subtitle -->
-            <xsl:if test="$p_input/descendant::tei:title[@level = 'j'][@xml:lang = $p_lang][@type = 'sub']">
-                <xsl:text>: </xsl:text><xsl:value-of select="$p_input/descendant::tei:title[@level = 'j'][@xml:lang = $p_lang][@type = 'sub']"/>
-            </xsl:if>
+            <xsl:value-of select="$v_title-journal"/>            
             <xsl:text>}, </xsl:text><xsl:value-of select="$v_new-line"/>
             <!-- imprint -->
             <xsl:apply-templates select="$p_input/descendant::tei:biblScope" mode="m_tei-to-bibtex"/>
