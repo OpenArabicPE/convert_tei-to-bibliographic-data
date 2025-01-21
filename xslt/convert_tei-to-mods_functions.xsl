@@ -10,7 +10,6 @@
     <xsl:import href="convert_tei-to-biblstruct_functions.xsl"/>
     <!-- this needs to be adopted to work with any periodical and not just al-Muqtabas -->
     <xsl:variable name="v_schema" select="'http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/mods-3-8.xsd'"/>
-    
     <!-- the MODS output -->
     <xsl:function name="oape:bibliography-tei-to-mods">
         <!-- input is a bibl or biblStruct -->
@@ -330,7 +329,7 @@
                 </xsl:when>
             </xsl:choose>
             <!-- IDs -->
-            <xsl:apply-templates mode="m_tei-to-mods" select="$v_analytic/tei:idno[not(@type = ('url', 'URI'))]"/>
+            <xsl:apply-templates mode="m_tei-to-mods" select="$v_analytic/tei:idno[not(@type = 'url')][not(@type = 'URI')]"/>
             <!-- URLs -->
             <!-- MODS allows for more than one URL! -->
             <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/descendant::tei:idno[@type = ('url', 'URI')][not(ancestor::tei:note)]"/>
@@ -488,15 +487,14 @@
         <xsl:element name="{$v_name}">
             <!-- according to https://www.loc.gov/standards/sourcelist/standard-identifier.html identifiers are in lower case -->
             <xsl:attribute name="type" select="lower-case(@type)">
-               <!-- <xsl:choose>
+                <!-- <xsl:choose>
                     <xsl:when test="@type = ('doi', 'gnd', 'orcid')">
                         <xsl:value-of select="upper-case(@type)"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:value-of select="@type"/>
                     </xsl:otherwise>
-                </xsl:choose>-->
-            </xsl:attribute>
+                </xsl:choose>--> </xsl:attribute>
             <xsl:variable name="v_plain">
                 <xsl:apply-templates mode="m_plain-text" select="."/>
             </xsl:variable>
@@ -549,6 +547,20 @@
     <xsl:template match="tei:idno[@type = ('url', 'URI')]" mode="m_tei-to-mods">
         <location>
             <url>
+                <!-- add @usage at least for our own URLs -->
+                <xsl:if test="matches(., 'http.+openarabicpe')">
+                    <xsl:attribute name="usage">
+                        <xsl:choose>
+                            <xsl:when test="matches(., 'github.com')">
+                                <xsl:value-of select="'primary'"/>
+                            </xsl:when>
+                            <xsl:when test="matches(., 'github.io')">
+                                <xsl:value-of select="'primary display'"/>
+                            </xsl:when>
+                        </xsl:choose>
+                    </xsl:attribute>
+                    <xsl:attribute name="dateLastAccessed" select="$p_today-iso"/>
+                </xsl:if>
                 <xsl:value-of select="."/>
             </url>
         </location>
@@ -727,8 +739,8 @@
                 </xsl:when>
                 <xsl:when test="@ref[matches(., 'credit.niso.org/contributor-roles/')]">
                     <roleTerm authority="https://credit.niso.org/contributor-roles/">
-                        <xsl:attribute name="type" select="replace(@ref, '^https*://credit.niso.org/contributor-roles/','')"/>
-                        <xsl:value-of select="replace(@ref, '^https*://credit.niso.org/contributor-roles/','')"/>
+                        <xsl:attribute name="type" select="replace(@ref, '^https*://credit.niso.org/contributor-roles/', '')"/>
+                        <xsl:value-of select="replace(@ref, '^https*://credit.niso.org/contributor-roles/', '')"/>
                     </roleTerm>
                 </xsl:when>
             </xsl:choose>
