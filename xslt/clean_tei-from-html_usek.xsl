@@ -5,6 +5,10 @@
     <xsl:import href="post-process_tei-biblstruct_functions.xsl"/>
     <xsl:param name="p_source" select="'oape:org:10'"/>
     <!-- use @mode = 'm_off' to toggle templates off -->
+    
+    <!-- remove artefacts from USJ -->
+    <xsl:template match="tei:idno[matches(text(),'librarycatalog.usj.edu')]" mode="m_post-process" priority="10"/>
+    
     <!-- add templates specific to this particular input -->
     <xsl:template match="tei:date[@type = 'acquisition'][year-from-date(@when) lt 1931]/@type" mode="m_off" priority="10">
         <xsl:attribute name="type" select="'official'"/>
@@ -62,12 +66,12 @@
         <xsl:apply-templates mode="m_identity-transform" select="."/>
     </xsl:template>
     <!-- clean persNames -->
-    <xsl:template match="tei:forename[ancestor::tei:respStmt]" mode="m_post-process" priority="20">
+    <xsl:template match="tei:forename[ancestor::tei:respStmt]" mode="m_off" priority="20">
         <surname>
             <xsl:apply-templates mode="m_post-process" select="@* | node()"/>
         </surname>
     </xsl:template>
-    <xsl:template match="tei:surname[ancestor::tei:respStmt]" mode="m_post-process" priority="20">
+    <xsl:template match="tei:surname[ancestor::tei:respStmt]" mode="m_off" priority="20">
         <forename>
             <xsl:apply-templates mode="m_post-process" select="@* | node()"/>
         </forename>

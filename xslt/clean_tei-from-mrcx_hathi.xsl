@@ -8,8 +8,15 @@
         - hamza, ayn
         - commas in Arabic strings
     -->
+    <xsl:template mode="m_post-process" match="tei:bibl[tei:idno[starts-with(., 'https://hdl.handle.net/2027/')]]" priority="10">
+        <xsl:copy>
+            <xsl:apply-templates mode="m_post-process" select="@*"/>
+            <xsl:attribute name="type" select="'copy'"/>
+            <xsl:apply-templates mode="m_post-process"/>
+        </xsl:copy>
+    </xsl:template>
     <!-- switch off post processing for notes -->
-    <xsl:template match="tei:note" mode="m_post-process">
+    <xsl:template match="tei:note" mode="m_off">
         <xsl:copy-of select="."/>
     </xsl:template>
     <xsl:template match="tei:forename[@xml:lang = 'ar'] | tei:surname[@xml:lang = 'ar']" mode="m_off" priority="10">
@@ -27,46 +34,48 @@
     <xsl:template match="tei:org[parent::tei:listOrg][tei:orgName[@ref]]" mode="m_off"/>
     <!-- dates-->
     <!-- titles ending in = -->
-    <xsl:template match="tei:title[ends-with(., '=')][following-sibling::tei:title[@type = 'sub']]" mode="m_post-process">
+    <xsl:template match="tei:title[ends-with(., '=')][following-sibling::tei:title[@type = 'sub']]" mode="m_off">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:value-of select="replace(., '\s*=$', '')"/>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="tei:title[@type = 'sub'][preceding-sibling::tei:title[ends-with(., '=')]]" mode="m_post-process">
+    <xsl:template match="tei:title[@type = 'sub'][preceding-sibling::tei:title[ends-with(., '=')]]" mode="m_off">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@level | @xml:lang"/>
             <xsl:apply-templates mode="m_post-process"/>
         </xsl:copy>
     </xsl:template>
-        <xsl:template match="tei:biblScope[ancestor::tei:note[@type = 'holdings']]" mode="m_off">
+    <xsl:template match="tei:biblScope[ancestor::tei:note[@type = 'holdings']]" mode="m_off">
         <xsl:choose>
-            <xsl:when test="matches(.,'\(.+\)')">
-                <xsl:variable name="v_date" select="replace(.,'^(.*)\((.+)\)(.*)$', '$2')"/>
-                <xsl:variable name="v_remainder" select="replace(.,'^(.*)\((.+)\)(.*)$', '$1$3')"/>
+            <xsl:when test="matches(., '\(.+\)')">
+                <xsl:variable name="v_date" select="replace(., '^(.*)\((.+)\)(.*)$', '$2')"/>
+                <xsl:variable name="v_remainder" select="replace(., '^(.*)\((.+)\)(.*)$', '$1$3')"/>
                 <xsl:copy>
-                    <xsl:apply-templates select="@* " mode="m_post-process"/>
+                    <xsl:apply-templates mode="m_post-process" select="@*"/>
                     <xsl:value-of select="normalize-space($v_remainder)"/>
                 </xsl:copy>
-                <date><xsl:value-of select="$v_date"/></date>
+                <date>
+                    <xsl:value-of select="$v_date"/>
+                </date>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:copy>
-                    <xsl:apply-templates select="@* | node()" mode="m_identity-transform"/>
+                    <xsl:apply-templates mode="m_identity-transform" select="@* | node()"/>
                 </xsl:copy>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <xsl:template mode="m_post-process" match="tei:date[not(@type)][matches(.,'^(.*\w{4})-([^i]+.*)$')]">
+    <xsl:template match="tei:date[not(@type)][matches(., '^(.*\w{4})-([^i]+.*)$')]" mode="m_off">
         <xsl:copy>
             <xsl:apply-templates mode="m_identity-transform" select="@*"/>
             <xsl:attribute name="type" select="'onset'"/>
-            <xsl:value-of select="replace(.,'^(.*\w{4})-([^i]+.*)$', '$1')"/>
+            <xsl:value-of select="replace(., '^(.*\w{4})-([^i]+.*)$', '$1')"/>
         </xsl:copy>
         <xsl:copy>
             <xsl:apply-templates mode="m_identity-transform" select="@*"/>
             <xsl:attribute name="type" select="'terminus'"/>
-            <xsl:value-of select="replace(.,'^(.*\w{4})-([^i]+.*)$', '$2')"/>
+            <xsl:value-of select="replace(., '^(.*\w{4})-([^i]+.*)$', '$2')"/>
         </xsl:copy>
     </xsl:template>
 </xsl:stylesheet>
