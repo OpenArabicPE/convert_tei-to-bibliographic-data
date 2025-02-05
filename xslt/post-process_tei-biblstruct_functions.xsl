@@ -3,8 +3,8 @@
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:output indent="yes" method="xml"/>
     <xsl:import href="../../../OpenArabicPE/authority-files/xslt/functions.xsl"/>
-    <xsl:import href="convert_marc-xml-to-tei_functions.xsl"/>
-    <xsl:param name="p_source" select="'oape:org:567'"/>
+<!--    <xsl:import href="convert_marc-xml-to-tei_functions.xsl"/>-->
+    <xsl:param name="p_source" select="'oape:org:10'"/>
     <xsl:variable name="v_alphabet-arabic" select="'اأإبتثحخجدذرزسشصضطظعغفقكلمنهوؤيئىةء٠١٢٣٤٥٦٧٨٩'"/>
     <xsl:variable name="v_alphabet-latin" select="'0123456789abcdefghijklmnopqrstuvwxyz'"/>
     <xsl:variable name="v_alphabet-arabic-ijmes" select="'āīūḍġḥṣṭʼʿʾ'"/>
@@ -27,7 +27,7 @@
     </xsl:template>
     <xsl:template match="@*[. = '']" mode="m_post-process" priority="20"/>
     <!-- this is expensive: Unicode normalization -->
-    <xsl:template match="text()" mode="m_post-process" priority="20">
+    <xsl:template match="text()" mode="m_off" priority="20">
         <xsl:value-of select="normalize-unicode(., 'NFKC')"/>
     </xsl:template>
     <!-- the sorting instruction is expensive  -->
@@ -49,7 +49,7 @@
     <!-- remove all orgs which are already part of the organizationography -->
     <xsl:template match="tei:org[parent::tei:listOrg][tei:orgName[@ref]]" mode="m_off"/>
     <!-- establish language based on script -->
-    <xsl:template match="element()[ancestor::tei:biblStruct][text()][@xml:lang = 'und' or not(@xml:lang)]" mode="m_post-process" priority="5">
+    <xsl:template match="element()[ancestor::tei:biblStruct][text()][@xml:lang = 'und' or not(@xml:lang)]" mode="m_off" priority="5">
         <xsl:variable name="v_self">
             <xsl:apply-templates mode="m_plain-text" select="text()"/>
         </xsl:variable>
@@ -89,7 +89,8 @@
             <xsl:apply-templates mode="m_post-process"/>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="tei:title[contains(., ':')]" mode="m_post-process">
+    <!-- adding subtitles -->
+    <xsl:template match="tei:title[contains(., ':')]" mode="m_off">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:value-of select="replace(., '^(.*?)\s*:.*$', '$1')"/>
@@ -138,7 +139,7 @@
         <xsl:value-of select="."/>
     </xsl:template>
     <!-- dates-->
-    <xsl:template match="tei:date[matches(@when, '\d{4}-\d{1}-\d{1}$')]" mode="m_post-process" priority="12">
+    <xsl:template match="tei:date[matches(@when, '\d{4}-\d{1}-\d{1}$')]" mode="m_off" priority="12">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:attribute name="when">
@@ -151,7 +152,7 @@
             <xsl:apply-templates select="node()"/>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="tei:date[matches(@when, '\d{4}-\d{1}-\d{2}')]" mode="m_post-process" priority="2">
+    <xsl:template match="tei:date[matches(@when, '\d{4}-\d{1}-\d{2}')]" mode="m_off" priority="2">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:attribute name="when">
@@ -164,7 +165,7 @@
             <xsl:apply-templates select="node()"/>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="tei:date[matches(@when, '\d{4}-\d{2}-\d{1}$')]" mode="m_post-process" priority="2">
+    <xsl:template match="tei:date[matches(@when, '\d{4}-\d{2}-\d{1}$')]" mode="m_off" priority="2">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:attribute name="when">
@@ -199,7 +200,7 @@
         </xsl:copy>
     </xsl:template>
     <!-- this template only needs to run once -->
-    <xsl:template match="tei:date[not(@when)][not(@calendar = '#cal_islamic')][not(@notBefore)][not(@notAfter)][not(@from)][not(@to)][not(@datingMethod)]" mode="m_post-process" priority="13">
+    <xsl:template match="tei:date[not(@when)][not(@calendar = '#cal_islamic')][not(@notBefore)][not(@notAfter)][not(@from)][not(@to)][not(@datingMethod)]" mode="m_off" priority="13">
         <xsl:variable name="v_text">
             <xsl:value-of select="descendant-or-self::text()"/>
         </xsl:variable>
@@ -252,6 +253,15 @@
                     <xsl:apply-templates mode="m_post-process" select="@*"/>
                     <!--<xsl:attribute name="type" select="'onset'"/>-->
                     <xsl:attribute name="when" select="."/>
+                    <xsl:apply-templates mode="m_post-process"/>
+                </xsl:copy>
+            </xsl:when>
+            <!-- DD/MM/YYYY or MM/DD/YYYY -->
+            <xsl:when test="matches(., '\d{2}/\d{2}/\d{4}')">
+                <xsl:copy>
+                    <xsl:apply-templates mode="m_post-process" select="@*"/>
+                    <!--<xsl:attribute name="type" select="'onset'"/>-->
+                    <xsl:attribute name="when" select="replace(., '^.*(\d{2})/(\d{2})/(\d{4}).*$', '$3-$2-$1')"/>
                     <xsl:apply-templates mode="m_post-process"/>
                 </xsl:copy>
             </xsl:when>
@@ -309,6 +319,7 @@
     <xsl:template match="tei:bibl[ancestor::tei:note/@type = 'holdings']" mode="m_off" priority="2">
         <xsl:copy>
             <xsl:apply-templates mode="m_identity-transform" select="@*"/>
+            <!-- with the latest release of the TEI, @ref is available on bibl -->
             <xsl:attribute name="corresp">
                 <xsl:value-of select="oape:query-biblstruct(ancestor::tei:biblStruct[1], 'tei-ref', '', '', $p_local-authority)"/>
             </xsl:attribute>
@@ -325,29 +336,33 @@
         <xsl:choose>
             <xsl:when test="matches($v_content, '(vol\.*|السنة)\s*(\d+)', 'i')">
                 <xsl:variable name="v_value" select="replace($v_content, '^.*(vol\.*|السنة)\s*(\d+).*$', '$2', 'i')"/>
-                <xsl:element name="biblScope">
+                <xsl:copy>
                     <xsl:attribute name="unit" select="'volume'"/>
                     <xsl:attribute name="from" select="$v_value"/>
                     <xsl:attribute name="to" select="$v_value"/>
-                </xsl:element>
-                <xsl:variable name="v_content" select="replace($v_content, '^(.*)(vol\.*|السنة)\s*\d+(.*)$', '$1$3', 'i')"/>
+                    <xsl:apply-templates mode="m_post-process" select="@xml:lang"/>
+                    <xsl:apply-templates mode="m_post-process"/>
+                </xsl:copy>
+                <!--<xsl:variable name="v_content" select="replace($v_content, '^(.*)(vol\.*|السنة)\s*\d+(.*)$', '$1$3', 'i')"/>
                 <xsl:copy>
                     <xsl:apply-templates mode="m_post-process" select="@*"/>
                     <xsl:apply-templates mode="m_post-process" select="$v_content"/>
-                </xsl:copy>
+                </xsl:copy>-->
             </xsl:when>
-            <xsl:when test="matches($v_content, '(no\.*\s*)(\d+)', 'i')">
-                <xsl:variable name="v_value" select="replace($v_content, '^.*(no\.*\s*)(\d+).*$', '$2', 'i')"/>
-                <xsl:element name="biblScope">
+            <xsl:when test="matches($v_content, '(no\.*|العدد)\s*(\d+)', 'i')">
+                <xsl:variable name="v_value" select="replace($v_content, '^.*(no\.*|العدد)\s*(\d+).*$', '$2', 'i')"/>
+                <xsl:copy>
                     <xsl:attribute name="unit" select="'issue'"/>
                     <xsl:attribute name="from" select="$v_value"/>
                     <xsl:attribute name="to" select="$v_value"/>
-                </xsl:element>
-                <xsl:variable name="v_content" select="replace($v_content, '^(.*)no\.*\s*\d+(.*)$', '$1$2', 'i')"/>
+                    <xsl:apply-templates mode="m_post-process" select="@xml:lang"/>
+                    <xsl:apply-templates mode="m_post-process"/>
+                </xsl:copy>
+                <!--<xsl:variable name="v_content" select="replace($v_content, '^(.*)no\.*\s*\d+(.*)$', '$1$2', 'i')"/>
                 <xsl:copy>
                     <xsl:apply-templates mode="m_post-process" select="@*"/>
                     <xsl:apply-templates mode="m_post-process" select="$v_content"/>
-                </xsl:copy>
+                </xsl:copy>-->
             </xsl:when>
             <xsl:when test="matches($v_content, '\(\s*\d{4}\s*\)', 'i')">
                 <xsl:variable name="v_value" select="replace($v_content, '^.*(\(\s*)(\d{4})(\s*\)).*$', '$2', 'i')"/>
@@ -375,6 +390,22 @@
                 </xsl:element>
             </xsl:when>
         </xsl:choose>-->
+    </xsl:template>
+    <xsl:template match="tei:biblScope[@unit][not(@from)]" mode="m_off" priority="10">
+        <xsl:copy>
+            <xsl:apply-templates mode="m_identity-transform" select="@*"/>
+            <xsl:choose>
+                <xsl:when test="matches(., '^.*\d+\s*-\s*\d+.*$')">
+                    <xsl:attribute name="from" select="replace(., '^.*?(\d+)\s*-\s*(\d+).*?$', '$1')"/>
+                    <xsl:attribute name="to" select="replace(., '^.*?(\d+)\s*-\s*(\d+).*?$', '$2')"/>
+                </xsl:when>
+                <xsl:when test="matches(., '^.*\d+.*$')">
+                    <xsl:attribute name="from" select="replace(., '^.*?(\d+).*?$', '$1')"/>
+                    <xsl:attribute name="to" select="replace(., '^.*?(\d+).*?$', '$1')"/>
+                </xsl:when>
+            </xsl:choose>
+            <xsl:apply-templates mode="m_post-process"/>
+        </xsl:copy>        
     </xsl:template>
     <!-- notes -->
     <xsl:template match="tei:item[ancestor::tei:note/@type = 'holdings'] | tei:listBibl[ancestor::tei:note/@type = 'holdings']" mode="m_off">
@@ -421,7 +452,7 @@
             </xsl:element>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="tei:placeName[not(contains(., ']'))][matches(., '[،,]')]" mode="m_post-process" priority="2">
+    <xsl:template match="tei:placeName[not(contains(., ']'))][matches(., '[،,]')]" mode="m_off" priority="2">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:value-of select="normalize-space(replace(., '^(.+?)[،,](.+?)$', '$1'))"/>
@@ -483,7 +514,7 @@
         </xsl:variable>
         <xsl:value-of select="translate($p_input, $v_from, $v_to)"/>
     </xsl:function>
-    <xsl:template match="@oape:frequency" mode="m_post-process" priority="2">
+    <xsl:template match="@oape:frequency" mode="m_off" priority="2">
         <xsl:variable name="v_canonical-values" select="'annual|annually|biweekly|daily|fortnightly|irregular|monthly|quarterly|semimonthly|semiweekly|weekly'"/>
         <xsl:variable name="v_value" select="lower-case(normalize-space(.))"/>
         <xsl:choose>
