@@ -31,6 +31,8 @@
                 <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:text/tei:body/descendant::tei:title[not(ancestor::tei:biblStruct)][not(ancestor::tei:bibl)]"/>
                 <!-- listBibl -->
                 <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:text/tei:body/descendant::tei:listBibl[not(ancestor::tei:biblStruct)]"/>
+                <!-- biblStruct from standOff -->
+                <xsl:apply-templates mode="m_bibl-to-biblStruct" select="tei:standOff/descendant::tei:biblStruct"/>
             </xsl:variable>
             <xsl:element name="standOff">
                 <!-- already in authority file-->
