@@ -39,4 +39,34 @@
             <xsl:apply-templates mode="m_post-process"/>
         </xsl:copy>
     </xsl:template>
+        <xsl:template match="tei:biblScope[ancestor::tei:note[@type = 'holdings']]" mode="m_off">
+        <xsl:choose>
+            <xsl:when test="matches(.,'\(.+\)')">
+                <xsl:variable name="v_date" select="replace(.,'^(.*)\((.+)\)(.*)$', '$2')"/>
+                <xsl:variable name="v_remainder" select="replace(.,'^(.*)\((.+)\)(.*)$', '$1$3')"/>
+                <xsl:copy>
+                    <xsl:apply-templates select="@* " mode="m_post-process"/>
+                    <xsl:value-of select="normalize-space($v_remainder)"/>
+                </xsl:copy>
+                <date><xsl:value-of select="$v_date"/></date>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:copy>
+                    <xsl:apply-templates select="@* | node()" mode="m_identity-transform"/>
+                </xsl:copy>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template mode="m_post-process" match="tei:date[not(@type)][matches(.,'^(.*\w{4})-([^i]+.*)$')]">
+        <xsl:copy>
+            <xsl:apply-templates mode="m_identity-transform" select="@*"/>
+            <xsl:attribute name="type" select="'onset'"/>
+            <xsl:value-of select="replace(.,'^(.*\w{4})-([^i]+.*)$', '$1')"/>
+        </xsl:copy>
+        <xsl:copy>
+            <xsl:apply-templates mode="m_identity-transform" select="@*"/>
+            <xsl:attribute name="type" select="'terminus'"/>
+            <xsl:value-of select="replace(.,'^(.*\w{4})-([^i]+.*)$', '$2')"/>
+        </xsl:copy>
+    </xsl:template>
 </xsl:stylesheet>
