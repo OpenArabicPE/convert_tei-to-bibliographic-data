@@ -198,4 +198,102 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>
+    <!-- this function takes a number of tei:date nodes as input and returns an ISO string -->
+    <xsl:function name="oape:dates-get-maxima">
+        <xsl:param name="p_dates"/>
+        <xsl:param as="xs:string" name="p_maximum"/>
+        <!-- check if there is a need to run comparisons -->
+        <xsl:choose>
+            <!-- single date -->
+            <xsl:when test="count($p_dates/self::tei:date) = 1">
+                <xsl:choose>
+                    <xsl:when test="$p_maximum = 'onset'">
+                        <xsl:value-of select="oape:date-get-onset($p_dates/self::tei:date)"/>
+                    </xsl:when>
+                    <xsl:when test="$p_maximum = 'terminus'">
+                        <xsl:value-of select="oape:date-get-terminus($p_dates/self::tei:date)"/>
+                    </xsl:when>
+                    <!-- faulty param -->
+                    <xsl:otherwise>
+                        <xsl:message>
+                            <xsl:text>The value of $p_maximum must be either "onset" or "terminus"</xsl:text>
+                        </xsl:message>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:when test="count($p_dates/self::tei:date) > 1">
+                <!-- calculate the Julian day for the input -->
+                <xsl:variable name="v_dates-jd">
+                    <xsl:for-each select="$p_dates/self::tei:date">
+                        <xsl:variable name="v_date-maximum">
+                            <xsl:choose>
+                                <xsl:when test="$p_maximum = 'onset'">
+                                    <xsl:value-of select="oape:date-get-onset(.)"/>
+                                </xsl:when>
+                                <xsl:when test="$p_maximum = 'terminus'">
+                                    <xsl:value-of select="oape:date-get-terminus(.)"/>
+                                </xsl:when>
+                            </xsl:choose>
+                        </xsl:variable>
+                        <xsl:choose>
+                            <xsl:when test="$v_date-maximum = ''"/>
+                            <xsl:otherwise>
+                                <xsl:variable name="v_date-normalised">
+                                    <xsl:if test="$p_maximum = 'onset'">
+                                        <xsl:value-of select="
+                                                if (matches($v_date-maximum, '\d{4}-\d{2}-\d{2}')) then
+                                                    ($v_date-maximum)
+                                                else
+                                                    (concat($v_date-maximum, '-01-01'))"/>
+                                    </xsl:if>
+                                    <xsl:if test="$p_maximum = 'terminus'">
+                                        <xsl:value-of select="
+                                                if (matches($v_date-maximum, '\d{4}-\d{2}-\d{2}')) then
+                                                    ($v_date-maximum)
+                                                else
+                                                    (concat($v_date-maximum, '-12-31'))"/>
+                                    </xsl:if>
+                                </xsl:variable>
+                                <xsl:copy>
+                                    <xsl:attribute name="yearOnly" select="
+                                            if (matches($v_date-maximum, '^\d{4}$')) then
+                                                (true())
+                                            else
+                                                (false())"/>
+                                    <xsl:attribute name="when" select="$v_date-maximum"/>
+                                    <xsl:value-of select="oape:date-convert-date-to-julian-day($v_date-normalised, '#cal_gregorian')"/>
+                                </xsl:copy>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:for-each>
+                </xsl:variable>
+                <!-- convert the julian day of the maximum to the Gregorian date -->
+                <xsl:choose>
+                    <xsl:when test="not($v_dates-jd/tei:date)"/>
+                    <xsl:when test="$p_maximum = 'onset'">
+                        <xsl:variable name="v_onset-iso" select="oape:date-convert-julian-day-to-date(min($v_dates-jd/tei:date), '#cal_gregorian')"/>
+                        <xsl:value-of select="
+                                if ($v_dates-jd/tei:date[. = min($v_dates-jd/tei:date)]/@yearOnly = true()) then
+                                    (substring($v_onset-iso, 1, 4))
+                                else
+                                    ($v_onset-iso)"/>
+                    </xsl:when>
+                    <xsl:when test="$p_maximum = 'terminus'">
+                        <xsl:variable name="v_onset-iso" select="oape:date-convert-julian-day-to-date(max($v_dates-jd/tei:date), '#cal_gregorian')"/>
+                        <xsl:value-of select="
+                                if ($v_dates-jd/tei:date[. = max($v_dates-jd/tei:date)]/@yearOnly = true()) then
+                                    (substring($v_onset-iso, 1, 4))
+                                else
+                                    ($v_onset-iso)"/>
+                    </xsl:when>
+                    <!-- faulty param -->
+                    <xsl:otherwise>
+                        <xsl:message>
+                            <xsl:text>The value of $p_maximum must be either "onset" or "terminus"</xsl:text>
+                        </xsl:message>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:function>
 </xsl:stylesheet>

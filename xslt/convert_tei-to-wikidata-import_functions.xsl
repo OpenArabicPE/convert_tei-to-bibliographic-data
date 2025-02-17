@@ -25,7 +25,9 @@
     </xsl:template>
     <xsl:template match="element()[not(attribute())][not(text())][not(element())]" mode="m_tei2wikidata" priority="2"/>
     <!--  remove attributes  -->
-    <xsl:template match="@change | @resp | @source | @xml:id | @oape:weekday | tei:biblStruct/@xml:lang | tei:monogr/@next | tei:monogr/@prev | tei:monogr/@xml:lang | tei:title/@level | tei:title/@ref" mode="m_tei2wikidata"/>
+    <xsl:template
+        match="@change | @resp | @source | @xml:id | @oape:weekday | tei:biblStruct/@xml:lang | tei:monogr/@next | tei:monogr/@prev | tei:monogr/@xml:lang | tei:title/@level | tei:title/@ref"
+        mode="m_tei2wikidata"/>
     <!-- remove nodes -->
     <xsl:template match="tei:date[@type = 'documented']" mode="m_tei2wikidata"/>
     <xsl:template match="tei:note[@type = ('comments', 'sources', 'holdings')]" mode="m_tei2wikidata"/>
@@ -162,7 +164,7 @@
     <xsl:template match="tei:biblStruct" mode="m_tei2wikidata">
         <item>
             <xsl:choose>
-                <xsl:when test="descendant::tei:idno[@type = 'wiki']">
+                <xsl:when test="descendant::tei:idno[@type = $p_acronym-wikidata]">
                     <xsl:attribute name="xml:id" select="descendant::tei:idno[@type = $p_acronym-wikidata][1]"/>
                 </xsl:when>
                 <xsl:when test="descendant::tei:title[matches(@ref, $p_acronym-wikidata)]">
@@ -311,6 +313,7 @@
             <xsl:apply-templates mode="m_date-when" select="."/>
         </P582>
     </xsl:template>
+    <!-- aggregate data on the entire collection: note that there is a "single best value" constraint on this -->
     <xsl:template match="tei:date" mode="m_tei2wikidata_holdings">
         <xsl:choose>
             <xsl:when test="@type = ('onset')">
@@ -352,21 +355,21 @@
             </date>
         </xsl:if>
         <!-- notBefore: P1319, earliest date -->
-            <xsl:if test="@notBefore">
-                <P1319>
-                    <date>
-                        <xsl:value-of select="@notBefore"/>
-                    </date>
-                </P1319>
-            </xsl:if>
-            <!-- notAfter: P1326, latest date -->
-            <xsl:if test="@notAfter">
-                <P1326>
-                    <date>
-                        <xsl:value-of select="@notAfter"/>
-                    </date>
-                </P1326>
-            </xsl:if>
+        <xsl:if test="@notBefore">
+            <P1319>
+                <date>
+                    <xsl:value-of select="@notBefore"/>
+                </date>
+            </P1319>
+        </xsl:if>
+        <!-- notAfter: P1326, latest date -->
+        <xsl:if test="@notAfter">
+            <P1326>
+                <date>
+                    <xsl:value-of select="@notAfter"/>
+                </date>
+            </P1326>
+        </xsl:if>
     </xsl:template>
     <xsl:template match="tei:editor[tei:orgName]" mode="m_tei2wikidata"/>
     <xsl:template match="tei:editor[tei:persName]" mode="m_tei2wikidata">
@@ -905,10 +908,27 @@
                     </P214>
                 </xsl:when>
             </xsl:choose>
-            <!-- aggregate data on the entire collection -->
-            <!-- P580: start time -->
-            <!-- P582: end time -->
-            <xsl:apply-templates mode="m_tei2wikidata_holdings" select="descendant::tei:date"/>
+            <!-- aggregate data on the entire collection: note that there is a "single best value" constraint on this 
+            - P580: start time 
+            - P582: end time -->
+            <xsl:if test="descendant::tei:date[@type = 'onset']">
+                <xsl:variable name="v_onset">
+                    <tei:date type="onset">
+                        <xsl:copy-of select="@source"/>
+                        <xsl:attribute name="when" select="oape:dates-get-maxima(descendant::tei:date[@type = 'onset'], 'onset')"/>
+                    </tei:date>
+                </xsl:variable>
+                <xsl:apply-templates mode="m_tei2wikidata_holdings" select="$v_onset/tei:date"/>
+            </xsl:if>
+            <xsl:if test="descendant::tei:date[@type = 'terminus']">
+                <xsl:variable name="v_terminus">
+                    <tei:date type="terminus">
+                        <xsl:copy-of select="@source"/>
+                        <xsl:attribute name="when" select="oape:dates-get-maxima(descendant::tei:date[@type = 'terminus'], 'terminus')"/>
+                    </tei:date>
+                </xsl:variable>
+                <xsl:apply-templates mode="m_tei2wikidata_holdings" select="$v_terminus/tei:date"/>
+            </xsl:if>
             <!-- P478: volume -->
             <xsl:if test="descendant::tei:bibl/tei:biblScope[@unit = 'volume']">
                 <P478>
