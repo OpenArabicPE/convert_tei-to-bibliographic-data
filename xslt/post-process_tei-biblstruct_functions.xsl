@@ -3,7 +3,7 @@
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:output indent="yes" method="xml"/>
     <xsl:import href="../../../OpenArabicPE/authority-files/xslt/functions.xsl"/>
-<!--    <xsl:import href="convert_marc-xml-to-tei_functions.xsl"/>-->
+    <!--    <xsl:import href="convert_marc-xml-to-tei_functions.xsl"/>-->
     <xsl:param name="p_source" select="'oape:org:10'"/>
     <xsl:variable name="v_alphabet-arabic" select="'اأإبتثحخجدذرزسشصضطظعغفقكلمنهوؤيئىةء٠١٢٣٤٥٦٧٨٩'"/>
     <xsl:variable name="v_alphabet-latin" select="'0123456789abcdefghijklmnopqrstuvwxyz'"/>
@@ -29,8 +29,8 @@
     <!-- remove @source from non-sensicle places -->
     <xsl:template match="tei:monogr/@source | tei:imprint/@source" mode="m_off" priority="10"/>
     <!-- this is expensive: Unicode normalization -->
-    <xsl:template match="text()" mode="m_off" priority="20">
-        <xsl:value-of select="normalize-unicode(., 'NFKC')"/>
+    <xsl:template match="text()" mode="m_post-process" priority="20">
+        <xsl:value-of select=" normalize-space(normalize-unicode(., 'NFKC'))"/>
     </xsl:template>
     <!-- the sorting instruction is expensive  -->
     <xsl:template match="tei:listBibl" mode="m_off">
@@ -43,11 +43,18 @@
         </xsl:copy>
     </xsl:template>
     <!-- remove trailing punctuation  -->
-    <xsl:template match="text()[ancestor::tei:monogr][not(parent::tei:persName)]" mode="m_off" priority="10">
-        <xsl:value-of select="replace(., '(\s*[,|;|:|،|؛]\s*)$', '')"/>
+    <xsl:template match="text()[ancestor::tei:biblStruct][not(parent::tei:persName)]" mode="m_post-process" priority="10">
+        <xsl:value-of select="replace(., '(\s*[,|;|:|،|؛|.]\s*)$', '')"/>
     </xsl:template>
     <!-- information to be removed as I do not further process it -->
     <xsl:template match="tei:biblStruct/@xml:lang | tei:monogr/@xml:lang | tei:imprint/@xml:lang | tei:publisher/@xml:lang | tei:pubPlace/@xml:lang | tei:idno/@xml:lang" mode="m_off"/>
+    <xsl:template match="tei:biblStruct[not(@source)][ancestor::node()/@source]" mode="m_post-process">
+        <xsl:copy>
+            <xsl:apply-templates mode="m_post-process" select="@*"/>
+            <xsl:copy-of select="ancestor::node()[@source][1]/@source"/>
+            <xsl:apply-templates mode="m_post-process" select="node()"/>
+        </xsl:copy>
+    </xsl:template>
     <!-- remove all orgs which are already part of the organizationography -->
     <xsl:template match="tei:org[parent::tei:listOrg][tei:orgName[@ref]]" mode="m_off"/>
     <!-- establish language based on script -->
@@ -82,7 +89,7 @@
         </xsl:copy>
     </xsl:template>
     <!-- titles -->
-    <xsl:template match="tei:monogr/tei:title" mode="m_off">
+    <xsl:template match="tei:monogr/tei:title" mode="m_post-process">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:if test="not(@level)">
@@ -90,6 +97,28 @@
             </xsl:if>
             <xsl:apply-templates mode="m_post-process"/>
         </xsl:copy>
+        <!-- add IDs based on title -->
+        <xsl:if test="@ref">
+            <xsl:variable name="v_idnos" select="following-sibling::tei:idno"/>
+            <xsl:for-each select="tokenize(@ref, '\s+')">
+                <xsl:choose>
+                    <xsl:when test="matches(., concat($p_acronym-wikidata, ':Q'))">
+                        <xsl:if test="not($v_idnos/self::tei:idno[@type = $p_acronym-wikidata])">
+                            <idno type="{$p_acronym-wikidata}">
+                                <xsl:value-of select="substring-after(., concat($p_acronym-wikidata, ':'))"/>
+                            </idno>
+                        </xsl:if>
+                    </xsl:when>
+                    <xsl:when test="matches(., concat($p_local-authority, ':bibl:'))">
+                        <xsl:if test="not($v_idnos/self::tei:idno[@type = $p_local-authority])">
+                            <idno type="{$p_local-authority}">
+                                <xsl:value-of select="substring-after(., concat($p_local-authority, ':bibl:'))"/>
+                            </idno>
+                        </xsl:if>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:for-each>
+        </xsl:if>
     </xsl:template>
     <!-- adding subtitles -->
     <xsl:template match="tei:title[contains(., ':')]" mode="m_off">
@@ -202,7 +231,7 @@
         </xsl:copy>
     </xsl:template>
     <!-- this template only needs to run once -->
-    <xsl:template match="tei:date[not(@when)][not(@calendar = '#cal_islamic')][not(@notBefore)][not(@notAfter)][not(@from)][not(@to)][not(@datingMethod)]" mode="m_post-process" priority="13">
+    <xsl:template match="tei:date[not(@when)][not(@calendar = '#cal_islamic')][not(@notBefore)][not(@notAfter)][not(@from)][not(@to)][not(@datingMethod)]" mode="m_off" priority="13">
         <xsl:variable name="v_text">
             <xsl:value-of select="descendant-or-self::text()"/>
         </xsl:variable>
@@ -332,7 +361,7 @@
     <!-- remove bibls for individual copies after merging -->
     <xsl:template match="tei:bibl[@type = 'copy'][parent::tei:listBibl/tei:bibl[@type = 'holdings'][not(tei:idno[@type = ('url', 'URI')])]]" mode="m_off" priority="10"/>
     <!-- [parent::tei:bibl/tei:idno[@type = 'barcode']] is only needed for USJ -->
-    <xsl:template match="tei:biblScope[not(@unit)][ancestor::tei:note[@type = 'holdings']]" mode="m_post-process" priority="10">
+    <xsl:template match="tei:biblScope[not(@unit)][ancestor::tei:note[@type = 'holdings']]" mode="m_off" priority="10">
         <xsl:variable name="v_content" select="normalize-space(.)"/>
         <!--<xsl:call-template name="t_test-for-dates">
             <xsl:with-param name="p_input" select="$v_content"/>
@@ -411,7 +440,7 @@
                 </xsl:when>
             </xsl:choose>
             <xsl:apply-templates mode="m_post-process"/>
-        </xsl:copy>        
+        </xsl:copy>
     </xsl:template>
     <!-- notes -->
     <xsl:template match="tei:item[ancestor::tei:note/@type = 'holdings'] | tei:listBibl[ancestor::tei:note/@type = 'holdings']" mode="m_off">
