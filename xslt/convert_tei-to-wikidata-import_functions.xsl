@@ -955,6 +955,20 @@
         <P953>
             <xsl:apply-templates mode="m_string" select="."/>
         </P953>
+        <!-- catch Handle.net -->
+        <xsl:choose>
+            <xsl:when test="matches(., '^https*://hdl\.')">
+                <P1184>
+                    <xsl:value-of select="replace(., '^https*://hdl\.[^/]+/(.+)$', '$1')"/>
+                </P1184>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- full work available at URL -->
+                <!--<P953>
+                    <xsl:apply-templates mode="m_string" select="."/>
+                </P953>-->
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="tei:idno[@type = ('URI', 'url')][@subtype = 'self']" mode="m_tei2wikidata">
         <!-- full work available at URL -->
