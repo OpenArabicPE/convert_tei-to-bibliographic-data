@@ -943,6 +943,7 @@
             <xsl:apply-templates mode="m_tei2wikidata_qualifier" select="descendant::tei:bibl/tei:idno[@type = 'classmark']"/>
             <!-- full work available at URL -->
             <xsl:apply-templates mode="m_tei2wikidata_qualifier" select="descendant::tei:bibl/tei:idno[@type = ('URI', 'url')][@subtype = 'self']"/>
+            <xsl:apply-templates mode="m_tei2wikidata_qualifier" select="descendant::tei:bibl/tei:idno[@type = ('ARK', 'HDL', 'hdl')]"/>
         </P195>
     </xsl:template>
     <xsl:template match="tei:idno[@type = 'classmark']" mode="m_tei2wikidata_qualifier">
@@ -969,6 +970,18 @@
                 </P953>-->
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!-- archival resource key -->
+    <xsl:template match="tei:idno[@type = ('ARK')]" mode="m_tei2wikidata_qualifier">
+        <P8091>
+            <xsl:apply-templates mode="m_string" select="."/>
+        </P8091>
+    </xsl:template>
+    <!-- Handle ID -->
+    <xsl:template match="tei:idno[@type = ('hdl', 'HDL')]" mode="m_tei2wikidata_qualifier">
+        <P1184>
+            <xsl:apply-templates mode="m_string" select="."/>
+        </P1184>
     </xsl:template>
     <xsl:template match="tei:idno[@type = ('URI', 'url')][@subtype = 'self']" mode="m_tei2wikidata">
         <!-- full work available at URL -->
