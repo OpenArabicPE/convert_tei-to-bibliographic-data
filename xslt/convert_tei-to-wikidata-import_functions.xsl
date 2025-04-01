@@ -557,7 +557,92 @@
         <xsl:apply-templates mode="m_tei2wikidata" select="node()"/>
     </xsl:template>
     <xsl:template match="tei:monogr" mode="m_tei2wikidata">
-        <xsl:apply-templates mode="m_tei2wikidata" select="@oape:frequency | node()"/>
+        <xsl:apply-templates mode="m_tei2wikidata" select="@oape:frequency"/>
+        <!-- multilingual titles -->
+        <!-- group by type: problem: main titles carry no type -->
+        <xsl:call-template name="t_string-transcriptions">
+            <xsl:with-param name="p_node-set" select="tei:title[not(@type)]"/>
+            <xsl:with-param name="p_textLang" select="tei:textLang"/>
+            <xsl:with-param name="p_property" select="'P1476'"/>
+        </xsl:call-template>
+        <xsl:call-template name="t_string-transcriptions">
+            <xsl:with-param name="p_node-set" select="tei:title[@type = 'sub']"/>
+            <xsl:with-param name="p_textLang" select="tei:textLang"/>
+            <xsl:with-param name="p_property" select="'P1680'"/>
+        </xsl:call-template>
+        <!-- all other nodes -->
+        <xsl:apply-templates mode="m_tei2wikidata" select="node()[not(local-name() = 'title')]"/>
+    </xsl:template>
+    <xsl:template name="t_string-transcriptions">
+        <xsl:param name="p_node-set"/>
+        <xsl:param name="p_textLang"/>
+        <xsl:param name="p_property"/>
+        <!-- group by lang -->
+        <xsl:for-each-group group-by="tokenize(@xml:lang, '-')[1]" select="$p_node-set">
+            <xsl:variable name="v_lang" select="current-grouping-key()"/>
+            <xsl:if test="$p_debug = true()">
+                <xsl:message>
+                    <xsl:value-of select="$v_lang"/>
+                    <xsl:text> | </xsl:text>
+                    <xsl:value-of select="current-group()"/>
+                </xsl:message>
+            </xsl:if>
+            <!-- check if this lang is one of the publication languages  -->
+            <xsl:choose>
+                <xsl:when test="$v_lang = $p_textLang/@mainLang">
+                    <xsl:element name="{$p_property}">
+                        <!-- original string -->
+                        <xsl:choose>
+                            <xsl:when test="current-group()/self::node()[@xml:lang = $p_textLang/@mainLang]">
+                                <xsl:apply-templates mode="m_string" select="current-group()/self::node()[@xml:lang = $p_textLang/@mainLang]"/>
+                            </xsl:when>
+                            <!-- we frequently lack this string for Ottoman titles -->
+                            <xsl:otherwise>
+                                <xsl:element name="string">
+                                    <xsl:attribute name="xml:lang" select="$v_lang"/>
+                                </xsl:element>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <!-- group by transcription scheme -->
+                        <xsl:for-each-group group-by="self::node()/@xml:lang[matches(., concat($v_lang, '-\w{4}'))]" select="current-group()">
+                            <xsl:variable name="v_target-lang" select="current-grouping-key()"/>
+                            <!-- group by text string -->
+                            <xsl:for-each-group group-by="lower-case(.)" select="current-group()">
+                                <xsl:choose>
+                                    <!-- currently there is only a property for ALA-LC / IJMES -->
+                                    <xsl:when test="matches($v_target-lang, '-x-ijmes$')">
+                                        <P8991>
+                                            <xsl:apply-templates mode="m_string" select="current-group()[1]"/>
+                                        </P8991>
+                                    </xsl:when>
+                                    <!-- all other transcriptions -->
+                                    <xsl:otherwise>
+                                        <P2440>
+                                            <xsl:apply-templates mode="m_string" select="current-group()[1]"/>
+                                        </P2440>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:for-each-group>
+                        </xsl:for-each-group>
+                    </xsl:element>
+                </xsl:when>
+                <!-- what if we do not have the original title? -->
+                <!-- languages that are not transcribed into other alphabets -->
+                <xsl:when test="current-group()/self::node()[matches(@xml:lang, '^\w+$')]">
+                    <xsl:message>
+                        <xsl:text>title in language other than publication language</xsl:text>
+                    </xsl:message>
+                    <xsl:element name="{$p_property}">
+                        <xsl:apply-templates mode="m_string" select="current-group()/self::node()[matches(@xml:lang, '^\w+$')]"/>
+                    </xsl:element>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:message>
+                        <xsl:text>no title in its original script</xsl:text>
+                    </xsl:message>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:for-each-group>
     </xsl:template>
     <xsl:template match="tei:monogr[@type = 'reprint']" mode="m_tei2wikidata"/>
     <xsl:template match="tei:publisher" mode="m_tei2wikidata">
@@ -646,29 +731,65 @@
             <xsl:value-of select="oape:string-convert-lang-codes($p_lang, 'bcp47', 'iso639-2')"/>
         </P219>
     </xsl:template>
-    <xsl:template match="tei:title" mode="m_tei2wikidata">
-        <P1476>
-            <xsl:apply-templates mode="m_string" select="."/>
-            <!-- add qualifier for transcriptions? Problem: we have no explicit linking between an Arabic string and its various transcriptions  -->
-            <xsl:if test="@xml:lang = 'ar' and parent::node()/tei:title[not(@type)]/@xml:lang = 'ar-Latn-x-ijmes'">
-                <xsl:for-each-group group-by="lower-case(.)" select="parent::node()/tei:title[not(@type)][@xml:lang = 'ar-Latn-x-ijmes']">
-                    <P8991>
-                        <string>
-                            <xsl:apply-templates mode="m_plain-text" select="current-grouping-key()"/>
-                        </string>
-                    </P8991>
-                </xsl:for-each-group>
-            </xsl:if>
-        </P1476>
+    <!-- main titles -->
+    <xsl:template match="tei:title" mode="m_off" priority="0">
+        <!-- differentiate between main and subtitles -->
+        <xsl:variable name="v_property">
+            <xsl:choose>
+                <xsl:when test="not(@type)">
+                    <xsl:text>P1476</xsl:text>
+                </xsl:when>
+                <xsl:when test="@type = 'sub'">
+                    <xsl:text>P1680</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:message>
+                        <xsl:value-of select="@type"/>
+                    </xsl:message>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <!-- language -->
+        <xsl:variable name="v_lang">
+            <xsl:choose>
+                <xsl:when test="@xml:lang">
+                    <xsl:value-of select="@xml:lang"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>und</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <!-- check if this title is an original publication title based on the language of publication -->
+        <xsl:choose>
+            <!-- title in publication language -->
+            <xsl:when test="following-sibling::tei:textLang/@mainLang = $v_lang">
+                <xsl:element name="{$v_property}">
+                    <xsl:apply-templates mode="m_string" select="."/>
+                    <!-- add qualifier for transcriptions? Problem: we have no explicit linking between an Arabic string and its various transcriptions  -->
+                    <!-- PROBLEM: transcriptions are not limited to a specific type -->
+                    <xsl:call-template name="t_string-transcriptions-2">
+                        <xsl:with-param name="p_input" select="."/>
+                    </xsl:call-template>
+                </xsl:element>
+            </xsl:when>
+            <!-- what if we do not have the original title? -->
+            <!-- languages that are not transcribed into other alphabets -->
+            <xsl:when test="matches(@xml:lang, '^\w+$')">
+                <xsl:element name="{$v_property}">
+                    <xsl:apply-templates mode="m_string" select="."/>
+                    <!-- add qualifier for transcriptions? Problem: we have no explicit linking between an Arabic string and its various transcriptions  -->
+                    <xsl:call-template name="t_string-transcriptions-2">
+                        <xsl:with-param name="p_input" select="."/>
+                    </xsl:call-template>
+                </xsl:element>
+            </xsl:when>
+        </xsl:choose>
     </xsl:template>
     <!-- in consequence I should exclude all transcribed titles -->
-    <xsl:template match="tei:title[not(@type)][@xml:lang = 'ar-Latn-x-ijmes'][parent::node()/tei:title[not(@type)][@xml:lang = 'ar']]"/>
-    <xsl:template match="tei:title[@type = 'sub']" mode="m_tei2wikidata">
-        <P1680>
-            <xsl:apply-templates mode="m_string" select="."/>
-        </P1680>
-    </xsl:template>
-    <xsl:template match="tei:title[@type = 'alt']"/>
+    <!--    <xsl:template match="tei:title[not(@type)][@xml:lang = 'ar-Latn-x-ijmes'][parent::node()/tei:title[not(@type)][@xml:lang = 'ar']]"/>-->
+    <!-- remove alternative, mostly wrong titles -->
+    <xsl:template match="tei:title[@type = 'alt']" mode="m_tei2wikidata" priority="10"/>
     <xsl:template match="@oape:frequency" mode="m_tei2wikidata">
         <P2896>
             <xsl:call-template name="t_source">
@@ -941,6 +1062,7 @@
             </xsl:if>
             <!-- P217: inventory number -->
             <xsl:apply-templates mode="m_tei2wikidata_qualifier" select="descendant::tei:bibl/tei:idno[@type = 'classmark']"/>
+            <!-- potentially look classmarks up on the ancestor::biblStruct -->
             <!-- full work available at URL -->
             <xsl:apply-templates mode="m_tei2wikidata_qualifier" select="descendant::tei:bibl/tei:idno[@type = ('URI', 'url')][@subtype = 'self']"/>
             <xsl:apply-templates mode="m_tei2wikidata_qualifier" select="descendant::tei:bibl/tei:idno[@type = ('ARK', 'HDL', 'hdl')]"/>
@@ -967,8 +1089,7 @@
                 <!-- full work available at URL -->
                 <!--<P953>
                     <xsl:apply-templates mode="m_string" select="."/>
-                </P953>-->
-            </xsl:otherwise>
+                </P953>--> </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     <!-- archival resource key -->
