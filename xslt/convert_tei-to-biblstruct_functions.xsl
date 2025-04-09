@@ -205,7 +205,7 @@
     <xsl:template match="@xml:id | @change" mode="m_replicate"/>
     <!-- in some cases the content has been wrapped in <del>. Such content should be o -->
     <xsl:template match="tei:del" mode="m_bibl-to-biblStruct"/>
-    <xsl:template match="tei:bibl" mode="m_bibl-to-biblStruct">
+    <xsl:template match="tei:bibl" mode="m_bibl-to-biblStruct" priority="10">
         <xsl:variable name="v_source">
             <xsl:choose>
                 <xsl:when test="@source">
@@ -722,6 +722,16 @@
         <idno type="ORCID">
             <xsl:value-of select="replace(@target, 'https*://orcid.org/(.+)$', '$1')"/>
         </idno>
+    </xsl:template>
+    <xsl:template match="tei:title[parent::tei:monogr]" mode="m_off">
+        <xsl:copy>
+            <xsl:apply-templates mode="m_simple" select="@*"/>
+            <!-- add type to main title -->
+            <xsl:if test="not(@type)">
+                <xsl:attribute name="type" select="'main'"/>
+            </xsl:if>
+            <xsl:apply-templates mode="m_simple"/>
+        </xsl:copy>
     </xsl:template>
     <xsl:template match="tei:title[parent::tei:titleStmt]" mode="m_fileDesc-to-biblStruct">
         <!--        <xsl:choose>-->
