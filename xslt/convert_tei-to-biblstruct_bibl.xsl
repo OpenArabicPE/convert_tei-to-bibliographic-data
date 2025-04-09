@@ -40,7 +40,7 @@
                     <xsl:element name="head">
                         <xsl:text>linked to authority file</xsl:text>
                     </xsl:element>
-                    <xsl:for-each-group select="$v_bibls/descendant-or-self::tei:biblStruct[tei:monogr/tei:idno]" group-by=".">
+                    <xsl:for-each-group select="$v_bibls/descendant-or-self::tei:biblStruct[tei:monogr/tei:idno[@type = ($p_local-authority, $p_acronym-wikidata)]]" group-by=".">
                         <xsl:sort select="tei:monogr/tei:title[1]"/>
                         <xsl:apply-templates select="." mode="m_replicate"/>
                     </xsl:for-each-group>
@@ -91,7 +91,8 @@
     <xsl:template match="tei:listBibl" mode="m_bibl-to-biblStruct">
         <!--<xsl:copy>
             <xsl:apply-templates mode="m_replicate" select="@*"/>-->
-        <xsl:apply-templates select="tei:bibl" mode="m_bibl-to-biblStruct"/>
+        <xsl:apply-templates select="tei:bibl[not(ancestor::tei:biblStruct)]" mode="m_bibl-to-biblStruct"/>
+        <xsl:apply-templates select="tei:bibl[ancestor::tei:biblStruct]" mode="m_identity-transform"/>
         <!--</xsl:copy>-->
     </xsl:template>
     <xsl:template match="tei:teiHeader" mode="m_basic">
