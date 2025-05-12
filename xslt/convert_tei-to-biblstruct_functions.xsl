@@ -393,7 +393,7 @@
         <xsl:copy>
             <xsl:choose>
                 <!-- normalise funky attribute values -->
-                <xsl:when test="@unit != ('chapter', 'column', 'issue', 'line', 'page', 'part', 'volume')">
+                <xsl:when test="not(@unit = ('chapter', 'column', 'issue', 'line', 'page', 'part', 'volume'))">
                     <xsl:message>
                         <xsl:text>The value of @unit (</xsl:text>
                         <xsl:value-of select="@unit"/>
