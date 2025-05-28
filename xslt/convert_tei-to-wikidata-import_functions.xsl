@@ -463,6 +463,10 @@
                 <xsl:call-template name="t_QItem">
                     <xsl:with-param name="p_input" select="$p_id-wiki"/>
                 </xsl:call-template>
+                <!-- subject named as: this depends on the correct persName being passed onto this template -->
+                <P1810>
+                    <xsl:apply-templates mode="m_plain-text" select="$p_persName"/>
+                </P1810>
             </xsl:when>
             <!-- linked to VIAF -->
             <xsl:when test="$p_id-viaf != 'NA'">
@@ -477,7 +481,7 @@
     </xsl:template>
     <xsl:template match="tei:persName[parent::tei:editor]" mode="m_name-string">
         <P2093>
-            <xsl:apply-templates mode="m_string" select="."/>
+            <xsl:apply-templates mode="m_string-source" select="."/>
         </P2093>
     </xsl:template>
     <xsl:template match="tei:idno" mode="m_tei2wikidata">
@@ -486,12 +490,12 @@
                 <xsl:choose>
                     <xsl:when test="matches(., '^\d{13}$')">
                         <P212>
-                            <xsl:apply-templates mode="m_string" select="."/>
+                            <xsl:apply-templates mode="m_string-source" select="."/>
                         </P212>
                     </xsl:when>
                     <xsl:when test="matches(., '^\d{10}$')">
                         <P957>
-                            <xsl:apply-templates mode="m_string" select="."/>
+                            <xsl:apply-templates mode="m_string-source" select="."/>
                         </P957>
                     </xsl:when>
                     <xsl:otherwise>
@@ -504,14 +508,15 @@
             </xsl:when>
             <xsl:when test="@type = 'isil'">
                 <P791>
-                    <xsl:apply-templates mode="m_string" select="."/>
+                    <xsl:apply-templates mode="m_string-source" select="."/>
                 </P791>
             </xsl:when>
             <xsl:when test="@type = 'ISSN'">
                 <P236>
-                    <xsl:apply-templates mode="m_string" select="."/>
+                    <xsl:apply-templates mode="m_string-source" select="."/>
                 </P236>
             </xsl:when>
+            <!-- it would make sense to not provide sources for the identifiers based on parent elements -->
             <xsl:when test="@type = 'jid'">
                 <P953>
                     <xsl:apply-templates mode="m_string" select="concat($p_url-resolve-jid, .)"/>
@@ -524,12 +529,12 @@
             </xsl:when>
             <xsl:when test="@type = 'LCCN'">
                 <P1144>
-                    <xsl:apply-templates mode="m_string" select="."/>
+                    <xsl:apply-templates mode="m_string-source" select="."/>
                 </P1144>
             </xsl:when>
             <xsl:when test="@type = 'OCLC'">
                 <P243>
-                    <xsl:apply-templates mode="m_string" select="."/>
+                    <xsl:apply-templates mode="m_string-source" select="."/>
                 </P243>
             </xsl:when>
             <!-- untyped catalogue IDs -->
@@ -538,7 +543,7 @@
                     <!-- National Library of Israel -->
                     <xsl:when test="@source = ('https://www.nli.org.il/', 'oape:org:60')">
                         <P8189>
-                            <xsl:apply-templates mode="m_string" select="."/>
+                            <xsl:apply-templates mode="m_string-source" select="."/>
                         </P8189>
                     </xsl:when>
                 </xsl:choose>
@@ -573,7 +578,7 @@
             <!-- URIs and URLs -->
             <xsl:when test="@type = 'URI'">
                 <P953>
-                    <xsl:apply-templates mode="m_string" select="."/>
+                    <xsl:apply-templates mode="m_string-source" select="."/>
                 </P953>
             </xsl:when>
             <xsl:otherwise>
@@ -626,11 +631,13 @@
                         <!-- original string -->
                         <xsl:choose>
                             <xsl:when test="current-group()/self::node()[@xml:lang = $p_textLang/@mainLang]">
-                                <xsl:apply-templates mode="m_string" select="current-group()/self::node()[@xml:lang = $p_textLang/@mainLang]"/>
+                                <xsl:apply-templates mode="m_string-source" select="current-group()/self::node()[@xml:lang = $p_textLang/@mainLang]"/>
                             </xsl:when>
                             <!-- we frequently lack this string for Ottoman titles -->
                             <xsl:otherwise>
                                 <xsl:element name="string">
+                                    <!-- better provide an explicity NA -->
+                                    <xsl:text>NA</xsl:text>
                                     <xsl:attribute name="xml:lang" select="$v_lang"/>
                                 </xsl:element>
                             </xsl:otherwise>
@@ -644,13 +651,13 @@
                                     <!-- currently there is only a property for ALA-LC / IJMES -->
                                     <xsl:when test="matches($v_target-lang, '-x-ijmes$')">
                                         <P8991>
-                                            <xsl:apply-templates mode="m_string" select="current-group()[1]"/>
+                                            <xsl:apply-templates mode="m_string-source" select="current-group()[1]"/>
                                         </P8991>
                                     </xsl:when>
                                     <!-- all other transcriptions -->
                                     <xsl:otherwise>
                                         <P2440>
-                                            <xsl:apply-templates mode="m_string" select="current-group()[1]"/>
+                                            <xsl:apply-templates mode="m_string-source" select="current-group()[1]"/>
                                         </P2440>
                                     </xsl:otherwise>
                                 </xsl:choose>
@@ -665,7 +672,7 @@
                         <xsl:text>title in language other than publication language</xsl:text>
                     </xsl:message>
                     <xsl:element name="{$p_property}">
-                        <xsl:apply-templates mode="m_string" select="current-group()/self::node()[matches(@xml:lang, '^\w+$')]"/>
+                        <xsl:apply-templates mode="m_string-source" select="current-group()/self::node()[matches(@xml:lang, '^\w+$')]"/>
                     </xsl:element>
                 </xsl:when>
                 <xsl:otherwise>
@@ -797,7 +804,7 @@
             <!-- title in publication language -->
             <xsl:when test="following-sibling::tei:textLang/@mainLang = $v_lang">
                 <xsl:element name="{$v_property}">
-                    <xsl:apply-templates mode="m_string" select="."/>
+                    <xsl:apply-templates mode="m_string-source" select="."/>
                     <!-- add qualifier for transcriptions? Problem: we have no explicit linking between an Arabic string and its various transcriptions  -->
                     <!-- PROBLEM: transcriptions are not limited to a specific type -->
                     <xsl:call-template name="t_string-transcriptions-2">
@@ -809,7 +816,7 @@
             <!-- languages that are not transcribed into other alphabets -->
             <xsl:when test="matches(@xml:lang, '^\w+$')">
                 <xsl:element name="{$v_property}">
-                    <xsl:apply-templates mode="m_string" select="."/>
+                    <xsl:apply-templates mode="m_string-source" select="."/>
                     <!-- add qualifier for transcriptions? Problem: we have no explicit linking between an Arabic string and its various transcriptions  -->
                     <xsl:call-template name="t_string-transcriptions-2">
                         <xsl:with-param name="p_input" select="."/>
@@ -876,7 +883,7 @@
         </P2896>
     </xsl:template>
     <xsl:template match="@xml:lang" mode="m_tei2wikidata">
-        <xsl:attribute name="xml:lang">
+        <xsl:variable name="v_lang-normalised">
             <xsl:choose>
                 <xsl:when test="matches(., '-Arab-')">
                     <xsl:text>ar</xsl:text>
@@ -900,7 +907,11 @@
                     <xsl:value-of select="."/>
                 </xsl:otherwise>
             </xsl:choose>
-        </xsl:attribute>
+        </xsl:variable>
+        <!--<xsl:attribute name="lang">
+            <xsl:value-of select="oape:string-convert-lang-codes($v_lang-normalised, 'bcp47', 'wikidata')"/>
+        </xsl:attribute>-->
+         <xsl:attribute name="xml:lang" select="$v_lang-normalised"/>
     </xsl:template>
     <xsl:template match="tei:person" mode="m_tei2wikidata">
         <xsl:variable name="v_id-wiki" select="descendant::tei:idno[@type = 'wiki'][1]"/>
@@ -996,7 +1007,7 @@
     <xsl:template match="tei:persName" mode="m_tei2wikidata">
         <P2561>
             <xsl:apply-templates mode="m_tei2wikidata" select="@xml:lang"/>
-            <xsl:apply-templates mode="m_string" select="."/>
+            <xsl:apply-templates mode="m_string-source" select="."/>
         </P2561>
     </xsl:template>
     <xsl:template match="tei:occupation" mode="m_tei2wikidata"/>
@@ -1102,13 +1113,13 @@
     </xsl:template>
     <xsl:template match="tei:idno[@type = 'classmark']" mode="m_tei2wikidata_qualifier">
         <P217>
-            <xsl:apply-templates mode="m_string" select="."/>
+            <xsl:apply-templates mode="m_string-source" select="."/>
         </P217>
     </xsl:template>
     <xsl:template match="tei:idno[@type = ('URI', 'url')][@subtype = 'self']" mode="m_tei2wikidata_qualifier">
         <!-- full work available at URL -->
         <P953>
-            <xsl:apply-templates mode="m_string" select="."/>
+            <xsl:apply-templates mode="m_string-source" select="."/>
         </P953>
         <!-- catch Handle.net -->
         <xsl:choose>
@@ -1120,26 +1131,26 @@
             <xsl:otherwise>
                 <!-- full work available at URL -->
                 <!--<P953>
-                    <xsl:apply-templates mode="m_string" select="."/>
+                    <xsl:apply-templates mode="m_string-source" select="."/>
                 </P953>--> </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     <!-- archival resource key -->
     <xsl:template match="tei:idno[@type = ('ARK')]" mode="m_tei2wikidata_qualifier">
         <P8091>
-            <xsl:apply-templates mode="m_string" select="."/>
+            <xsl:apply-templates mode="m_string-source" select="."/>
         </P8091>
     </xsl:template>
     <!-- Handle ID -->
     <xsl:template match="tei:idno[@type = ('hdl', 'HDL')]" mode="m_tei2wikidata_qualifier">
         <P1184>
-            <xsl:apply-templates mode="m_string" select="."/>
+            <xsl:apply-templates mode="m_string-source" select="."/>
         </P1184>
     </xsl:template>
     <xsl:template match="tei:idno[@type = ('URI', 'url')][@subtype = 'self']" mode="m_tei2wikidata">
         <!-- full work available at URL -->
         <P953>
-            <xsl:apply-templates mode="m_string" select="."/>
+            <xsl:apply-templates mode="m_string-source" select="."/>
             <!-- add qualifiers -->
             <!-- P577: publication date -->
             <!-- P478: volume -->
@@ -1278,7 +1289,7 @@
     <xsl:template match="tei:placeName" mode="m_tei2wikidata">
         <P276>
             <!-- string and source -->
-            <xsl:apply-templates mode="m_string" select="."/>
+            <xsl:apply-templates mode="m_string-source" select="."/>
             <!-- identifiers -->
             <xsl:if test="@ref">
                 <xsl:if test="oape:query-gazetteer(., $v_gazetteer, $p_local-authority, 'id-wiki', '') != 'NA'">
@@ -1296,7 +1307,7 @@
     </xsl:template>
     <xsl:template match="tei:geo" mode="m_tei2wikidata">
         <P625>
-            <xsl:apply-templates mode="m_string" select="."/>
+            <xsl:apply-templates mode="m_string-source" select="."/>
         </P625>
     </xsl:template>
     <xsl:template match="tei:address" mode="m_tei2wikidata">
@@ -1314,7 +1325,7 @@
     </xsl:template>
     <xsl:template match="tei:postCode" mode="m_tei2wikidata">
         <P281>
-            <xsl:apply-templates mode="m_string" select="."/>
+            <xsl:apply-templates mode="m_string-source" select="."/>
         </P281>
     </xsl:template>
     <xsl:template match="@next | @prev" mode="m_tei2wikidata">
@@ -1348,6 +1359,11 @@
         </xsl:element>
     </xsl:template>
     <xsl:template match="@* | node()" mode="m_string">
+        <xsl:call-template name="t_string-value">
+            <xsl:with-param name="p_input" select="."/>
+        </xsl:call-template>
+    </xsl:template>
+    <xsl:template match="@* | node()" mode="m_string-source">
         <xsl:call-template name="t_source">
             <xsl:with-param name="p_input" select="."/>
         </xsl:call-template>
