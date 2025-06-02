@@ -1138,13 +1138,24 @@
     <!-- archival resource key -->
     <xsl:template match="tei:idno[@type = ('ARK')]" mode="m_tei2wikidata_qualifier">
         <P8091>
-            <xsl:apply-templates mode="m_string-source" select="."/>
+            <xsl:apply-templates mode="m_string" select="."/>
         </P8091>
+        <!-- Gallica ID as derivative of ARK -->
+        <xsl:if test="starts-with(., 'ark:/12148/')">
+            <P4258>
+                <xsl:value-of select="substring-after(., 'ark:/12148/')"/>
+            </P4258>
+            <!-- BnF ID -->
+            <!-- property restrains on P4258 require P268 -->
+            <P268>
+                <xsl:value-of select="replace(., 'ark:/12148/cb([\w|\d]+).*$', '$1')
+            </P268>
+        </xsl:if>
     </xsl:template>
     <!-- Handle ID -->
     <xsl:template match="tei:idno[@type = ('hdl', 'HDL')]" mode="m_tei2wikidata_qualifier">
         <P1184>
-            <xsl:apply-templates mode="m_string-source" select="."/>
+            <xsl:apply-templates mode="m_string" select="."/>
         </P1184>
     </xsl:template>
     <xsl:template match="tei:idno[@type = ('URI', 'url')][@subtype = 'self']" mode="m_tei2wikidata">
