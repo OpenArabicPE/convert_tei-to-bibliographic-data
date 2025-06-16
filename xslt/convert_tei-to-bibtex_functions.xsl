@@ -8,6 +8,8 @@
     <xsl:output method="text" encoding="UTF-8" indent="yes" omit-xml-declaration="yes" name="text"/>
     <xsl:strip-space elements="*"/>
     
+    <xsl:import href="convert_tei-to-biblstruct_functions.xsl"/>
+    
     <!-- this stylesheet translates <tei:biblStruct>s to  BibTeX -->
     
     <xsl:variable name="v_new-line" select="'&#x0A;'"/>
@@ -22,14 +24,34 @@
             - date last accessed
             - edition
         -->
+        <!-- input variables -->
+        <xsl:variable name="v_biblStruct">
+            <xsl:choose>
+                <xsl:when test="$p_input/local-name() = 'bibl'">
+                    <xsl:apply-templates mode="m_bibl-to-biblStruct" select="$p_input"/>
+                </xsl:when>
+                <xsl:when test="$p_input/local-name() = 'biblStruct'">
+                    <xsl:apply-templates mode="m_copy-from-source" select="$p_input"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:message>
+                        <xsl:text>Input is neither bibl nor biblStruct</xsl:text>
+                    </xsl:message>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="v_analytic" select="$v_biblStruct/tei:biblStruct/tei:analytic"/>
+        <xsl:variable name="v_monogr" select="$v_biblStruct/tei:biblStruct/tei:monogr"/>
+        <xsl:variable name="v_imprint" select="$v_monogr/tei:imprint"/>
+         <!-- output variables -->
         <xsl:variable name="v_bibtex-key" select="$p_input/tei:analytic/tei:idno[@type='BibTeX']"/>
         <xsl:variable name="v_publication-date">
             <xsl:choose>
-                <xsl:when test="$p_input/descendant::tei:date[string-length(@when) = 10]">
-                    <xsl:copy-of select="$p_input/descendant::tei:date[string-length(@when) = 10][1]"/>
+                <xsl:when test="$v_imprint/tei:date[string-length(@when) = 10]">
+                    <xsl:copy-of select="$v_imprint/tei:date[string-length(@when) = 10][1]"/>
                 </xsl:when>
-                <xsl:when test="$p_input/descendant::tei:date[@when]">
-                    <xsl:copy-of select="$p_input/descendant::tei:date[@when][1]"/>
+                <xsl:when test="$v_imprint/tei:date[@when]">
+                    <xsl:copy-of select="$v_imprint/tei:date[@when][1]"/>
                 </xsl:when>
                 <!-- some fallback -->
                 <xsl:otherwise/>
@@ -37,25 +59,25 @@
         </xsl:variable>
         <xsl:variable name="v_title-article">
             <xsl:choose>
-                <xsl:when test="$p_input/descendant::tei:title[@level = 'a'][@xml:lang = $p_lang]">
-                    <xsl:apply-templates select="$p_input/descendant::tei:title[@level = 'a'][@xml:lang = $p_lang][1]" mode="m_tei-to-bibtex"/>
+                <xsl:when test="$v_analytic/tei:title[@level = 'a'][@xml:lang = $p_lang]">
+                    <xsl:apply-templates select="$v_analytic/tei:title[@level = 'a'][@xml:lang = $p_lang][1]" mode="m_tei-to-bibtex"/>
                 </xsl:when>
-                <xsl:when test="$p_input/descendant::tei:title[@level = 'a']">
-                    <xsl:apply-templates select="$p_input/descendant::tei:title[@level = 'a'][1]" mode="m_tei-to-bibtex"/>
+                <xsl:when test="$v_analytic/tei:title[@level = 'a']">
+                    <xsl:apply-templates select="$v_analytic/tei:title[@level = 'a'][1]" mode="m_tei-to-bibtex"/>
                 </xsl:when>
             </xsl:choose>
         </xsl:variable> 
         <xsl:variable name="v_title-journal">
             <xsl:choose>
-                <xsl:when test="$p_input/descendant::tei:title[@level = 'j'][@xml:lang = $p_lang][not(@type = 'sub')]">
-                    <xsl:apply-templates select="$p_input/descendant::tei:title[@level = 'j'][@xml:lang = $p_lang][not(@type = 'sub')][1]" mode="m_tei-to-bibtex"/>
+                <xsl:when test="$v_imprint/tei:title[@level = 'j'][@xml:lang = $p_lang][not(@type = 'sub')]">
+                    <xsl:apply-templates select="$v_imprint/tei:title[@level = 'j'][@xml:lang = $p_lang][not(@type = 'sub')][1]" mode="m_tei-to-bibtex"/>
                 </xsl:when>
-                <xsl:when test="$p_input/descendant::tei:title[@level = 'j'][not(@type = 'sub')]">
-                    <xsl:apply-templates select="$p_input/descendant::tei:title[@level = 'j'][not(@type = 'sub')][1]" mode="m_tei-to-bibtex"/>
+                <xsl:when test="$v_imprint/tei:title[@level = 'j'][not(@type = 'sub')]">
+                    <xsl:apply-templates select="$v_imprint/tei:title[@level = 'j'][not(@type = 'sub')][1]" mode="m_tei-to-bibtex"/>
                 </xsl:when>
             </xsl:choose>
-            <xsl:if test="$p_input/descendant::tei:title[@level = 'j'][@xml:lang = $p_lang][@type = 'sub']">
-                <xsl:text>: </xsl:text><xsl:value-of select="$p_input/descendant::tei:title[@level = 'j'][@xml:lang = $p_lang][@type = 'sub']"/>
+            <xsl:if test="$v_imprint/tei:title[@level = 'j'][@xml:lang = $p_lang][@type = 'sub']">
+                <xsl:text>: </xsl:text><xsl:value-of select="$v_imprint/tei:title[@level = 'j'][@xml:lang = $p_lang][@type = 'sub']"/>
             </xsl:if>
         </xsl:variable> 
         <!-- construct BibText -->
