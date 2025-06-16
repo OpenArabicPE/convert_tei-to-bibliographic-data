@@ -36,7 +36,21 @@
         <xsl:variable name="v_monogr" select="$v_biblStruct/tei:biblStruct/tei:monogr"/>
         <xsl:variable name="v_imprint" select="$v_monogr/tei:imprint"/>
         <!-- output variables -->
-        <xsl:variable name="v_bibtex-key" select="$p_input/tei:analytic/tei:idno[@type = 'BibTeX']"/>
+        <xsl:variable name="v_bibtex-key">
+            <xsl:choose>
+                <xsl:when test="$v_analytic/tei:idno[@type = 'BibTeX']">
+                    <xsl:value-of select="$v_analytic/tei:idno[@type = 'BibTeX']"/>
+                </xsl:when>
+                <!-- fallback: construct from first author surname plus date -->
+                <xsl:when test="$v_biblStruct/descendant::tei:author">
+                    <xsl:value-of select="$v_biblStruct/descendant::tei:author[1]/tei:persName[1]/tei:surname"/>
+                    <xsl:value-of select="$v_biblStruct/descendant::tei:date[@when][1]/substring(@when,1,4)"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="generate-id($v_biblStruct)"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
         <!-- not sure this selects the correct date -->
         <xsl:variable name="v_publication-date">
             <xsl:choose>
