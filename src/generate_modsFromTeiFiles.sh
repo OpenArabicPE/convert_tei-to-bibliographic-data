@@ -2,6 +2,7 @@
 # change into the script directory
 current_dir=$(dirname "${BASH_SOURCE[0]}")
 cd $current_dir && pwd
+# set a root directory for the repository, relative to this script
 root_dir=".."
 # set input directory relative to current directory
 input_dir="example-data/tei/dhd"
@@ -12,5 +13,7 @@ echo "Extract bibliographic data from all TEI/XML files in $input_dir directory 
 for file in $input_dir/*.xml # iterate over all files in the input directory
 do
     echo "Applying XSLT to $file"
-    saxon -s:"$file" -xsl:$xslt_file p_github-action=true
+    saxon -s:"$file" -xsl:$xslt_file \
+    p_github-action=true \
+    p_output-folder=''
 done
