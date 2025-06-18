@@ -1,17 +1,17 @@
 ---
 title: "Read me: convert_tei-to-bibliographic-data"
 author: Till Grallert
-date: 2024-11-22
+date: 2025-06-16
 ORCID: orcid.org/0000-0002-5739-8094
 lang: en
 ---
 
-This repository contains XSLT stylesheets
+This repository contains XSLT stylesheets for two main purposes:
 
 1. to generate `<tei:biblStruct>`s for TEI/XML files and their fragments, such as individual `<tei:div>` nodes, which, in the case of our periodical editions contain the text of individual articles;
 2. to convert between multiple bibliographic XML formats, among them MODS/XML, MARCXML, BibTeX, and Zotero RDF.
 
-Everything is built upon `<tei:biblStruct>` as an intermediate format and XPath functions. The XSLT is split into basic stylesheets for  functions (file name: `...-functions.xsl`) and stylesheets applying these functions. Note that the functions make use of the `oape` namespace, which is mapped to `xmlns:oape="https://openarabicpe.github.io/ns"`.
+Everything is built upon XPath functions and `<tei:biblStruct>` as an intermediate format. The XSLT is organised into basic stylesheets for  functions (file name: `...-functions.xsl`) and stylesheets applying these functions. Note that the functions make use of the `oape` namespace, which is mapped to `xmlns:oape="https://openarabicpe.github.io/ns"`.
 
 Although it is advised to download the code and run it locally, everything should work with life-calls to the GitHub Pages branch of this repository at `https://openarabicpe.github.io/convert_tei-to-bibliographic-data/xsl/{name-of-the-xslt}`.
 
