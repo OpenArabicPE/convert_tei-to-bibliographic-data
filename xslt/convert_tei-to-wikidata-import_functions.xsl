@@ -1148,7 +1148,7 @@
             <!-- BnF ID -->
             <!-- property restrains on P4258 require P268 -->
             <P268>
-                <xsl:value-of select="replace(., 'ark:/12148/cb([\w|\d]+).*$', '$1')
+                <xsl:value-of select="replace(., 'ark:/12148/cb([\w|\d]+).*$', '$1')"/>
             </P268>
         </xsl:if>
     </xsl:template>
