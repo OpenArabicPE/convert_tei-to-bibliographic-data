@@ -420,6 +420,7 @@
             <xsl:apply-templates mode="m_simple" select="@*"/>
             <!-- reproduce all known titles -->
             <xsl:apply-templates mode="m_simple" select="tei:title"/>
+            <xsl:apply-templates mode="m_extract-idno" select="tei:title[@ref]"/>
             <xsl:apply-templates mode="m_simple" select="tei:idno">
                 <xsl:sort select="@type"/>
                 <xsl:sort data-type="number" select="replace(., '[^\d]', '')"/>
@@ -429,6 +430,19 @@
             <xsl:apply-templates mode="m_simple" select="tei:imprint"/>
             <xsl:apply-templates mode="m_simple" select="descendant::tei:biblScope"/>
         </xsl:copy>
+    </xsl:template>
+    <!-- extract IDs from title attributes -->
+    <xsl:template match="tei:title[@ref]" mode="m_extract-idno">
+        <xsl:if test="matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))">
+            <idno type="{$p_acronym-wikidata}">
+                <xsl:value-of select="replace(@ref, concat('^.*', $p_acronym-wikidata, ':(Q\d+).*$'), '$1')"/>
+            </idno>
+        </xsl:if>
+        <xsl:if test="matches(@ref, 'oape:bibl:\d+')">
+            <idno type="oape">
+                <xsl:value-of select="replace(@ref, '^.*oape:bibl:(\d+).*$', '$1')"/>
+            </idno>
+        </xsl:if>
     </xsl:template>
     <xsl:template match="tei:imprint" mode="m_simple">
         <xsl:copy>

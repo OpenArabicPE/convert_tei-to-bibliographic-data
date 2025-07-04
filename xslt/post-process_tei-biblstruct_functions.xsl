@@ -133,6 +133,22 @@
             <xsl:value-of select="replace(., '^(.*?)\s*:\s*(.*)$', '$2')"/>
         </xsl:copy>
     </xsl:template>
+    <!-- extract IDs from title attributes -->
+    <xsl:template match="tei:title[@ref]" mode="m_post-process">
+        <xsl:copy>
+            <xsl:apply-templates select="@* | node()" mode="m_post-process"/>
+        </xsl:copy>
+        <xsl:if test="matches(@ref, concat($p_acronym-wikidata, ':Q\d+')) and not(following-sibling::tei:idno[@type = $p_acronym-wikidata])">
+            <idno type="{$p_acronym-wikidata}">
+                <xsl:value-of select="replace(@ref, concat('^.*', $p_acronym-wikidata, ':(Q\d+).*$'), '$1')"/>
+            </idno>
+        </xsl:if>
+        <xsl:if test="matches(@ref, concat($p_local-authority, ':bibl:\d+')) and not(following-sibling::tei:idno[@type = $p_local-authority])">
+            <idno type="{$p_local-authority}">
+                <xsl:value-of select="replace(@ref, concat('^.*', $p_local-authority, ':bibl:(\d+).*$'), '$1')"/>
+            </idno>
+        </xsl:if>
+    </xsl:template>
     <!-- identifiers -->
     <xsl:template match="tei:idno[@type = 'classmark'][starts-with(., 'b')]" mode="m_off">
         <xsl:copy>
