@@ -7,6 +7,7 @@
     <xsl:param name="p_debug" select="false()"/>
     <xsl:param name="p_mods-simple-persnames" select="false()"/>
     <xsl:param name="p_add-license" select="false()"/>
+    <xsl:param name="p_stand-alone" select="false()"/>
     <xsl:variable name="v_license" select="'http://creativecommons.org/licenses/by-sa/4.0/'"/>
     <xsl:variable name="v_license-url" select="'http://creativecommons.org/licenses/by-sa/4.0/'"/>
     <xsl:param name="p_detect-language-from-title" select="false()"/>
@@ -30,7 +31,7 @@
     <xsl:variable name="vgFileId" select="substring-before(tokenize(base-uri(), '/')[last()], '.TEIP5')"/>
     <xsl:variable name="v_file-name_input">
         <xsl:variable name="v_temp" select="tokenize(base-uri(), '/')[last()]"/>
-        <xsl:value-of select="replace($v_temp, '^(.+?)(\.(MODS|TEIP5))*?(\.(xml|mrx))$', '$1')"/>
+        <xsl:value-of select="replace($v_temp, '^(.+?)(\.(MODS|TEIP5))*?(\.(xml|mrx|mrcx))$', '$1')"/>
     </xsl:variable>
     <!-- file IDs -->
     <xsl:variable name="v_id-file" select="
