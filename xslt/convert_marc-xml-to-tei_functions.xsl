@@ -56,47 +56,8 @@
         <xsl:variable name="v_id-record">
             <xsl:copy-of select="oape:query-marcx(., 'id')"/>
         </xsl:variable>
-        <xsl:variable name="v_catalogue">
-            <xsl:choose>
-                <!-- the sequence of these tests matters -->
-                <xsl:when test="$v_id-record/tei:idno/@type = 'LEAUB'">
-                    <xsl:text>aub</xsl:text>
-                </xsl:when>
-                <xsl:when test="$v_id-record/tei:idno/@type = 'ht_bib_key'">
-                    <xsl:text>hathi</xsl:text>
-                </xsl:when>
-                <xsl:when test="$v_id-record/tei:idno/@type = 'zdb'">
-                    <xsl:text>zdb</xsl:text>
-                </xsl:when>
-                <xsl:when test="$v_id-record/tei:idno/@type = 'biblio_id'">
-                    <xsl:text>koha</xsl:text>
-                </xsl:when>
-                <!-- the only other catalogue I have converted is HathiTrust. This needs to be replaced with a proper test -->
-                <xsl:otherwise>
-                    <xsl:text>hathi</xsl:text>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-        <xsl:variable name="v_url-catalogue">
-            <xsl:choose>
-                <xsl:when test="$v_catalogue = 'aub'">
-                    <xsl:value-of
-                        select="concat('https://libcat.aub.edu.lb/record=', substring($v_id-record/tei:idno[@type = 'LEAUB'][1], 1, string-length($v_id-record/tei:idno[@type = 'LEAUB'][1]) - 1))"/>
-                </xsl:when>
-                <xsl:when test="$v_catalogue = 'zdb'">
-                    <xsl:value-of select="concat('https://ld.zdb-services.de/resource/', $v_id-record/tei:idno[@type = 'zdb'][1])"/>
-                </xsl:when>
-                <xsl:when test="$v_catalogue = 'hathi'">
-                    <xsl:value-of select="concat('https://catalog.hathitrust.org/Record/', $v_id-record/tei:idno[@type = 'ht_bib_key'])"/>
-                </xsl:when>
-                <xsl:when test="$v_catalogue = 'koha'">
-                    <xsl:value-of select="concat($v_koha-url-record-web, $v_id-record/tei:idno[@type = 'biblio_id'])"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:text>NA</xsl:text>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
+        <xsl:variable name="v_catalogue" select="oape:query-marcx(., 'catalogue')"/>
+        <xsl:variable name="v_url-catalogue" select="oape:query-marcx(., 'url_record-in-catalogue')"/>
         <!-- variable to potentially pull a record from another URL based on the input record -->
         <xsl:variable name="v_record">
             <xsl:choose>
@@ -1127,43 +1088,8 @@
         <xsl:param name="p_id-record">
             <xsl:copy-of select="oape:query-marcx(ancestor::marc:record[1], 'id')"/>
         </xsl:param>
-        <xsl:variable name="v_catalogue">
-            <xsl:choose>
-                <xsl:when test="$p_id-record/tei:idno/@type = 'LEAUB'">
-                    <xsl:text>aub</xsl:text>
-                </xsl:when>
-                <xsl:when test="$p_id-record/tei:idno/@type = 'zdb'">
-                    <xsl:text>zdb</xsl:text>
-                </xsl:when>
-                <xsl:when test="$p_id-record/tei:idno/@type = 'biblio_id'">
-                    <xsl:text>koha</xsl:text>
-                </xsl:when>
-                <!-- the only other catalogue I have converted is HathiTrust. This needs to be replaced with a proper test -->
-                <xsl:otherwise>
-                    <xsl:text>hathi</xsl:text>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-        <xsl:variable name="v_url-catalogue">
-            <xsl:choose>
-                <xsl:when test="$v_catalogue = 'aub'">
-                    <xsl:value-of
-                        select="concat('https://libcat.aub.edu.lb/record=', substring($p_id-record/tei:idno[@type = 'LEAUB'][1], 1, string-length($p_id-record/tei:idno[@type = 'LEAUB'][1]) - 1))"/>
-                </xsl:when>
-                <xsl:when test="$v_catalogue = 'zdb'">
-                    <xsl:value-of select="concat('https://ld.zdb-services.de/resource/', $p_id-record/tei:idno[@type = 'zdb'][1])"/>
-                </xsl:when>
-                <xsl:when test="$v_catalogue = 'hathi'">
-                    <xsl:value-of select="concat('https://catalog.hathitrust.org/Record/', $p_id-record/tei:idno[@type = 'ht_bib_key'])"/>
-                </xsl:when>
-                <xsl:when test="$v_catalogue = 'koha'">
-                    <xsl:value-of select="concat($v_koha-url-record-web, $p_id-record/tei:idno[@type = 'biblio_id'])"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:text>NA</xsl:text>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
+        <xsl:variable name="v_catalogue" select="oape:query-marcx(ancestor::marc:record[1], 'catalogue')"/>
+        <xsl:variable name="v_url-catalogue" select="oape:query-marcx(ancestor::marc:record[1], 'url_record-in-catalogue')"/>
         <xsl:choose>
             <!-- AUB catalogue -->
             <xsl:when test="$v_catalogue = 'aub'">
@@ -1411,17 +1337,72 @@
                     </xsl:element>
                 </xsl:if>
             </xsl:when>
-            <xsl:when test="$p_output-mode = ('id_record', 'id)">
-                <!-- returns an <tei:idno> element -->
+            <!-- output:  <tei:idno> nodes -->
+            <xsl:when test="$p_output-mode = ('id_record', 'id')">
                 <!-- for other catalogues field 776 is seemingly used for related publications
                 check field 775 -->
-                <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('016')][@ind1 = '7']/marc:subfield[@code = 'a']"/>
-                <xsl:apply-templates select="$v_record//marc:datafield[@tag = '776'][@ind2 = '8']/marc:subfield[@code = 'w']"/>
-                <xsl:apply-templates select="$v_record//marc:datafield[@tag = '775'][@ind2 = '8']/marc:subfield[@code = 'w']"/>
-                <xsl:apply-templates select="$v_record//marc:datafield[@tag = 'CID']/marc:subfield[@code = 'a']"/>
-                <xsl:apply-templates select="$v_record//marc:datafield[@tag = '999']/marc:subfield[@code = 'c']"/>
+                <xsl:apply-templates select="$p_marcx-record//marc:datafield[@tag = ('016')][@ind1 = '7']/marc:subfield[@code = 'a']"/>
+                <xsl:apply-templates select="$p_marcx-record//marc:datafield[@tag = '776'][@ind2 = '8']/marc:subfield[@code = 'w']"/>
+                <xsl:apply-templates select="$p_marcx-record//marc:datafield[@tag = '775'][@ind2 = '8']/marc:subfield[@code = 'w']"/>
+                <xsl:apply-templates select="$p_marcx-record//marc:datafield[@tag = 'CID']/marc:subfield[@code = 'a']"/>
+                <xsl:apply-templates select="$p_marcx-record//marc:datafield[@tag = '999']/marc:subfield[@code = 'c']"/>
                 <!-- NLoI -->
-                <xsl:apply-templates select="$v_record//marc:datafield[@tag = 'AVA']/marc:subfield[@code = '0']"/>
+                <xsl:apply-templates select="$p_marcx-record//marc:datafield[@tag = 'AVA']/marc:subfield[@code = '0']"/>
+            </xsl:when>
+            <!-- output: string -->
+            <xsl:when test="$p_output-mode = 'catalogue'">
+                <xsl:variable name="v_id-record">
+                    <xsl:copy-of select="oape:query-marcx($p_marcx-record, 'id')"/>
+                </xsl:variable>
+                <xsl:choose>
+                    <!-- the sequence of these tests matters -->
+                    <xsl:when test="$v_id-record/tei:idno/@type = 'LEAUB'">
+                        <xsl:text>aub</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="$v_id-record/tei:idno/@type = 'ht_bib_key'">
+                        <xsl:text>hathi</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="$v_id-record/tei:idno/@type = 'zdb'">
+                        <xsl:text>zdb</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="$v_id-record/tei:idno/@type = 'biblio_id'">
+                        <xsl:text>koha</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="$v_id-record/tei:idno[@source]/@type = 'record'">
+                        <xsl:value-of select="$v_id-record/tei:idno[@type = 'record']/@source"/>
+                    </xsl:when>
+                    <!-- the only other catalogue I have converted is HathiTrust. This needs to be replaced with a proper test -->
+                    <xsl:otherwise>
+                        <xsl:text>hathi</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:when test="$p_output-mode = 'url_record-in-catalogue'">
+                <xsl:variable name="v_id-record">
+                    <xsl:copy-of select="oape:query-marcx($p_marcx-record, 'id')"/>
+                </xsl:variable>
+                <xsl:variable name="v_catalogue">
+                    <xsl:value-of select="oape:query-marcx($p_marcx-record, 'catalogue')"/>
+                </xsl:variable>
+                <xsl:choose>
+                    <xsl:when test="$v_catalogue = 'aub'">
+                        <xsl:value-of
+                            select="concat('https://libcat.aub.edu.lb/record=', substring($v_id-record/tei:idno[@type = 'LEAUB'][1], 1, string-length($v_id-record/tei:idno[@type = 'LEAUB'][1]) - 1))"
+                        />
+                    </xsl:when>
+                    <xsl:when test="$v_catalogue = 'zdb'">
+                        <xsl:value-of select="concat('https://ld.zdb-services.de/resource/', $v_id-record/tei:idno[@type = 'zdb'][1])"/>
+                    </xsl:when>
+                    <xsl:when test="$v_catalogue = 'hathi'">
+                        <xsl:value-of select="concat('https://catalog.hathitrust.org/Record/', $v_id-record/tei:idno[@type = 'ht_bib_key'])"/>
+                    </xsl:when>
+                    <xsl:when test="$v_catalogue = 'koha'">
+                        <xsl:value-of select="concat($v_koha-url-record-web, $v_id-record/tei:idno[@type = 'biblio_id'])"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>NA</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
             <!-- fallback -->
             <xsl:otherwise>
