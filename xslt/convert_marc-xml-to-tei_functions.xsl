@@ -54,14 +54,7 @@
             <xsl:apply-templates select="marc:datafield[@tag = ('016')][@ind1 = '7']/marc:subfield[@code = 'a']"/>
         </xsl:variable>-->
         <xsl:variable name="v_id-record">
-            <!-- returns an <tei:idno> element -->
-            <!-- for other catalogues field 776 is seemingly used for related publications
-                check field 775 -->
-            <xsl:apply-templates select="marc:datafield[@tag = ('016')][@ind1 = '7']/marc:subfield[@code = 'a']"/>
-            <xsl:apply-templates select="marc:datafield[@tag = '776'][@ind2 = '8']/marc:subfield[@code = 'w']"/>
-            <xsl:apply-templates select="marc:datafield[@tag = '775'][@ind2 = '8']/marc:subfield[@code = 'w']"/>
-            <xsl:apply-templates select="marc:datafield[@tag = 'CID']/marc:subfield[@code = 'a']"/>
-            <xsl:apply-templates select="marc:datafield[@tag = '999']/marc:subfield[@code = 'c']"/>
+            <xsl:copy-of select="oape:query-marcx(., 'id')"/>
         </xsl:variable>
         <xsl:variable name="v_catalogue">
             <xsl:choose>
@@ -153,6 +146,8 @@
                     <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('999')]/marc:subfield[@code = 'c']"/>
                     <!-- Hathi: non-nummeric Marc tags -->
                     <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('CID')]/marc:subfield[@code = 'a']"/>
+                    <!-- NLoI -->
+                    <xsl:apply-templates select="$v_record//marc:datafield[@tag = 'AVA']/marc:subfield[@code = '0']"/>
                     <!-- AUB record number at 776? Nope! this refers to related publications -->
                     <!--<xsl:apply-templates select="$v_record//marc:datafield[@tag = '776'][@ind2 = '8']/marc:subfield[@code = 'w']"/>-->
                     <xsl:if test="$v_analytic = false()">
@@ -277,7 +272,8 @@
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:message terminate="yes">
-                                        <xsl:text>WARNING: could not establish the catalogue / library system</xsl:text>
+                                        <xsl:text>WARNING: could not establish the catalogue / library system for </xsl:text>
+                                        <xsl:value-of select="$v_catalogue"/>
                                     </xsl:message>
                                 </xsl:otherwise>
                             </xsl:choose>
@@ -1129,13 +1125,7 @@
     <!-- it is not really clear why this isn't called on its parent datafield -->
     <xsl:template match="marc:subfield" mode="m_notes">
         <xsl:param name="p_id-record">
-            <!-- returns an <tei:idno> element -->
-            <!-- for other catalogues field 776 is seemingly used for related publications
-                check field 775 -->
-            <xsl:apply-templates select="ancestor::marc:record[1]/marc:datafield[@tag = '776'][@ind2 = '8']/marc:subfield[@code = 'w']"/>
-            <xsl:apply-templates select="ancestor::marc:record[1]/marc:datafield[@tag = '775'][@ind2 = '8']/marc:subfield[@code = 'w']"/>
-            <xsl:apply-templates select="ancestor::marc:record[1]/marc:datafield[@tag = 'CID']/marc:subfield[@code = 'a']"/>
-            <xsl:apply-templates select="ancestor::marc:record[1]/marc:datafield[@tag = '999']/marc:subfield[@code = 'c']"/>
+            <xsl:copy-of select="oape:query-marcx(ancestor::marc:record[1], 'id')"/>
         </xsl:param>
         <xsl:variable name="v_catalogue">
             <xsl:choose>
@@ -1420,6 +1410,18 @@
                         </xsl:element>
                     </xsl:element>
                 </xsl:if>
+            </xsl:when>
+            <xsl:when test="$p_output-mode = ('id_record', 'id)">
+                <!-- returns an <tei:idno> element -->
+                <!-- for other catalogues field 776 is seemingly used for related publications
+                check field 775 -->
+                <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('016')][@ind1 = '7']/marc:subfield[@code = 'a']"/>
+                <xsl:apply-templates select="$v_record//marc:datafield[@tag = '776'][@ind2 = '8']/marc:subfield[@code = 'w']"/>
+                <xsl:apply-templates select="$v_record//marc:datafield[@tag = '775'][@ind2 = '8']/marc:subfield[@code = 'w']"/>
+                <xsl:apply-templates select="$v_record//marc:datafield[@tag = 'CID']/marc:subfield[@code = 'a']"/>
+                <xsl:apply-templates select="$v_record//marc:datafield[@tag = '999']/marc:subfield[@code = 'c']"/>
+                <!-- NLoI -->
+                <xsl:apply-templates select="$v_record//marc:datafield[@tag = 'AVA']/marc:subfield[@code = '0']"/>
             </xsl:when>
             <!-- fallback -->
             <xsl:otherwise>
