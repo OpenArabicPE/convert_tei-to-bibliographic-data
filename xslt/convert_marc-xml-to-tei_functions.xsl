@@ -239,7 +239,7 @@
                                             <orgName ref="wiki:Q188915" xml:lang="en">National Library of Israel</orgName> </xsl:element>
                                         <xsl:element name="listBibl">
                                             <xsl:attribute name="source" select="$v_url-catalogue"/>
-                                            <xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = 'AVA']"/>
+                                            <xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = ('AVA', 'AVD')]"/>
                                         </xsl:element>
                                     </xsl:element>
                                 </xsl:when>
@@ -1003,7 +1003,7 @@
                 </xsl:choose>
             </xsl:when>
             <!-- private tag: NLoI -->
-            <xsl:when test="$v_tag = ('AVA')">
+            <xsl:when test="$v_tag = ('AVA', 'AVD')">
                 <xsl:variable name="v_catalogue" select="oape:query-marcx(ancestor::marc:record[1], 'catalogue')"/>
                 <xsl:choose>
                     <xsl:when test="$v_code = '0'">
@@ -1027,6 +1027,14 @@
                     <xsl:when test="$v_code = 'v'">
                         <xsl:element name="biblScope">
                             <xsl:value-of select="$v_content"/>
+                        </xsl:element>
+                    </xsl:when>
+                    <xsl:when test="$v_tag = 'AVD' and $v_code = 'b'">
+                        <xsl:element name="idno">
+                            <xsl:attribute name="source" select="$v_catalogue"/>
+                            <xsl:attribute name="type" select="'URI'"/>
+                            <xsl:attribute name="subtype" select="'self'"/>
+                            <xsl:value-of select="concat('https://nli.alma.exlibrisgroup.com/view/UniversalViewer/', preceding-sibling::marc:subfield[@code = 'a'], '/', $v_content)"/>
                         </xsl:element>
                     </xsl:when>
                     <xsl:when test="$v_code = 'e'">
@@ -1083,6 +1091,13 @@
                 <xsl:attribute name="type" select="'comments'"/>
                 <xsl:apply-templates select="marc:subfield[@code = 'e']"/>
             </xsl:element>
+        </xsl:element>
+    </xsl:template>
+    <xsl:template match="marc:datafield[@tag = ('AVD')]" mode="m_notes">
+        <xsl:element name="bibl">
+            <!-- dates -->
+            <!-- IDs -->
+            <xsl:apply-templates select="marc:subfield[@code = 'b']"/>
         </xsl:element>
     </xsl:template>
     <xsl:template match="marc:datafield[@tag = ('362')]" mode="m_notes">
@@ -1485,7 +1500,7 @@
                         <xsl:value-of select="concat($v_koha-url-record-web, $v_id-record/tei:idno[@type = 'biblio_id'])"/>
                     </xsl:when>
                     <xsl:when test="$v_catalogue = ('https://www.nli.org.il/', 'oape:org:60', 'wiki:Q188915')">
-                        <xsl:value-of select="concat($p_url-resolve-nloi_periodicals, $v_id-record/tei:idno[@type = 'record'])"/>
+                        <xsl:value-of select="concat($p_url-resolve-nloi_periodicals, $v_id-record/tei:idno[@type = 'record'][1])"/>
                     </xsl:when>
 
                     <xsl:otherwise>
