@@ -7,9 +7,9 @@
     <xsl:import href="convert_marc-xml-to-tei_functions.xsl"/>
     <!-- output: everything is wrapped in a listBibl -->
     <xsl:template match="/">
-            <xsl:choose>
-                <xsl:when test="$p_stand-alone = true()">
-                    <xsl:result-document href="{$v_base-directory}{$p_output-folder}{$v_file-name_input}.TEIP5.xml" method="xml">
+        <xsl:choose>
+            <xsl:when test="$p_stand-alone = true()">
+                <xsl:result-document href="{$p_output-folder}{$v_file-name_input}.TEIP5.xml" method="xml">
                     <TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
                         <teiHeader xml:lang="en">
                             <fileDesc>
@@ -53,11 +53,22 @@
                             </listPerson>
                         </tei:standOff>
                     </TEI>
-                    </xsl:result-document>
-                </xsl:when>
-                <xsl:when test="$p_stand-alone = false()">
-                    <xsl:apply-templates mode="m_marc-to-tei" select="descendant::marc:record"/>
-                </xsl:when>
-            </xsl:choose>
+                </xsl:result-document>
+            </xsl:when>
+            <xsl:when test="$p_stand-alone = false()">
+                <xsl:result-document href="{$p_output-folder}{$v_file-name_input}.TEIP5.xml" method="xml">
+                    <xsl:choose>
+                        <xsl:when test="count(descendant::marc:record) > 1">
+                            <xsl:element name="listBibl">
+                                <xsl:apply-templates mode="m_marc-to-tei" select="descendant::marc:record"/>
+                            </xsl:element>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates mode="m_marc-to-tei" select="descendant::marc:record"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:result-document>
+            </xsl:when>
+        </xsl:choose>
     </xsl:template>
 </xsl:stylesheet>
