@@ -1464,7 +1464,7 @@
                     </xsl:when>
                     <!-- Some generic fallback -->
                     <xsl:when test="$v_id-record/tei:idno[@type = 'record'][@source]">
-                        <xsl:value-of select="$v_id-record/tei:idno[@type = 'record']/@source"/>
+                        <xsl:value-of select="$v_id-record/tei:idno[@type = 'record'][1]/@source"/>
                     </xsl:when>
                     <!-- missing source -->
                     <xsl:when test="$v_id-record/tei:idno[@type = 'record']">
