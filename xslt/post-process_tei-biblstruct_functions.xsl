@@ -186,7 +186,7 @@
         <xsl:value-of select="."/>
     </xsl:template>
     <!-- dates-->
-    <xsl:template match="tei:date[matches(@when, '\d{4}-\d{1}-\d{1}$')]" mode="m_off" priority="12">
+    <xsl:template match="tei:date[matches(@when, '\d{4}-\d{1}-\d{1}$')]" mode="m_post-process" priority="12">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:attribute name="when">
@@ -199,7 +199,7 @@
             <xsl:apply-templates select="node()"/>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="tei:date[matches(@when, '\d{4}-\d{1}-\d{2}')]" mode="m_off" priority="2">
+    <xsl:template match="tei:date[matches(@when, '\d{4}-\d{1}-\d{2}')]" mode="m_post-process" priority="2">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:attribute name="when">
@@ -212,7 +212,7 @@
             <xsl:apply-templates select="node()"/>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="tei:date[matches(@when, '\d{4}-\d{2}-\d{1}$')]" mode="m_off" priority="2">
+    <xsl:template match="tei:date[matches(@when, '\d{4}-\d{2}-\d{1}$')]" mode="m_post-process" priority="2">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:attribute name="when">
@@ -226,7 +226,7 @@
         </xsl:copy>
     </xsl:template>
     <!-- make dates machine readable -->
-    <xsl:template match="tei:date" mode="m_off" priority="1">
+    <xsl:template match="tei:date" mode="m_post-process" priority="1">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@type"/>
             <xsl:choose>
@@ -247,16 +247,16 @@
         </xsl:copy>
     </xsl:template>
     <!-- this template only needs to run once -->
-    <xsl:template match="tei:date[not(@when)][not(@calendar = '#cal_islamic')][not(@notBefore)][not(@notAfter)][not(@from)][not(@to)][not(@datingMethod)]" mode="m_off" priority="13">
+    <xsl:template match="tei:date[not(@when)][not(@calendar = '#cal_islamic')][not(@notBefore)][not(@notAfter)][not(@from)][not(@to)][not(@datingMethod)]" mode="m_post-process" priority="13">
         <xsl:variable name="v_text">
             <xsl:value-of select="descendant-or-self::text()"/>
         </xsl:variable>
         <xsl:variable name="v_text" select="normalize-space($v_text)"/>
         <xsl:choose>
             <!-- date ranges -->
-            <xsl:when test="matches($v_text, '^\d{4}(هـ)*\s*-\s*\d{4}(هـ)*')">
-                <xsl:variable name="v_onset" select="replace($v_text, '^(\d{4})(هـ)*\s*-\s*(\d{4})(هـ)*.*', '$1')"/>
-                <xsl:variable name="v_terminus" select="replace($v_text, '^(\d{4})(هـ)*\s*-\s*(\d{4})(هـ)*.*', '$3')"/>
+            <xsl:when test="matches($v_text, '^\d{4}(هـ|هج)*\s*-\s*\d{4}(هـ|هج)*')">
+                <xsl:variable name="v_onset" select="replace($v_text, '^(\d{4})(هـ|هج)*\s*-\s*(\d{4})(هـ|هج)*.*', '$1')"/>
+                <xsl:variable name="v_terminus" select="replace($v_text, '^(\d{4})(هـ|هج)*\s*-\s*(\d{4})(هـ|هج)*.*', '$3')"/>
                 <xsl:variable name="v_calendar-onset" select="
                         if (number($v_onset) lt $p_islamic-last-year) then
                             ('#cal_islamic')
@@ -328,7 +328,7 @@
                     <xsl:apply-templates mode="m_post-process"/>
                 </xsl:copy>
             </xsl:when>
-            <xsl:when test="matches(., '^\d{4}\s*(هـ)')">
+            <xsl:when test="matches(., '^\d{4}\s*(هـ|هج)')">
                 <xsl:copy>
                     <xsl:apply-templates mode="m_post-process" select="@*"/>
                     <xsl:attribute name="datingMethod" select="'#cal_islamic'"/>

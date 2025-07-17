@@ -28,14 +28,14 @@
             </placeName>
         </pubPlace>
     </xsl:template>
-    <xsl:template match="tei:publisher[not(element())][text()]" mode="m_post-process">
+    <xsl:template match="tei:publisher[not(element())][text()]" mode="m_off">
         <xsl:copy>
             <xsl:apply-templates select="@*"/>
             <orgName><xsl:value-of select="normalize-space(.)"/></orgName>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="tei:publisher[. = '[اسم الناشر غير معروف]']" mode="m_post-process"/>
-    <xsl:template match="tei:title[matches(., '^.+\[.+\]$')]" mode="m_post-process">
+    <xsl:template match="tei:publisher[. = '[اسم الناشر غير معروف]']" mode="m_off"/>
+    <xsl:template match="tei:title[matches(., '^.+\[.+\]$')]" mode="m_off">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:value-of select="replace(., '(\s*\[.+\])$', '')"/>
@@ -65,9 +65,9 @@
         </xsl:copy>
     </xsl:template>
     <!-- remove the note -->
-    <xsl:template match="tei:monogr/tei:note[@type = 'temp'][. = ('مجلة', 'جريدة')]" mode="m_post-process"/>
+    <xsl:template match="tei:monogr/tei:note[@type = 'temp'][. = ('مجلة', 'جريدة')]" mode="m_off"/>
     
-    <xsl:template match="@when | @notBefore | @notAfter" mode="m_post-process" priority="20">
+    <xsl:template match="@when | @notBefore | @notAfter" mode="m_off" priority="20">
         <xsl:attribute name="{name()}">
             <xsl:value-of select="oape:transpose-digits(., 'arabic', 'western')"/>
         </xsl:attribute>
