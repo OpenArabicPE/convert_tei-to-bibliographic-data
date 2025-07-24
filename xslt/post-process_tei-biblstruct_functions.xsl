@@ -20,16 +20,17 @@
             <xsl:apply-templates mode="m_post-process" select="@* | node()"/>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="@*" mode="m_post-process">
-        <xsl:copy>
-            <xsl:value-of select="translate(., $v_alphabet-arabic, $v_alphabet-latin)"/>
-        </xsl:copy>
+    <!-- translate Arabic digits in attributes to Latin digits -->
+    <xsl:template match="@*" mode="m_post-process" priority="10">
+        <xsl:attribute name="{name(.)}">
+            <xsl:value-of select="translate(., $v_string-digits-ar, $v_string-digits-latn)"/>
+        </xsl:attribute>
     </xsl:template>
     <xsl:template match="@*[. = '']" mode="m_post-process" priority="20"/>
     <!-- remove @source from non-sensicle places -->
     <xsl:template match="tei:monogr/@source | tei:imprint/@source" mode="m_off" priority="10"/>
     <!-- this is expensive: Unicode normalization -->
-    <xsl:template match="text()" mode="m_post-process" priority="20">
+    <xsl:template match="text()" mode="m_off" priority="20">
         <xsl:value-of select=" normalize-space(normalize-unicode(., 'NFKC'))"/>
     </xsl:template>
     <!-- the sorting instruction is expensive  -->
@@ -43,12 +44,12 @@
         </xsl:copy>
     </xsl:template>
     <!-- remove trailing punctuation  -->
-    <xsl:template match="text()[ancestor::tei:biblStruct][not(parent::tei:persName)]" mode="m_post-process" priority="10">
+    <xsl:template match="text()[ancestor::tei:biblStruct][not(parent::tei:persName)]" mode="m_off" priority="10">
         <xsl:value-of select="replace(., '(\s*[,|;|:|،|؛|.]\s*)$', '')"/>
     </xsl:template>
     <!-- information to be removed as I do not further process it -->
     <xsl:template match="tei:biblStruct/@xml:lang | tei:monogr/@xml:lang | tei:imprint/@xml:lang | tei:publisher/@xml:lang | tei:pubPlace/@xml:lang | tei:idno/@xml:lang" mode="m_off"/>
-    <xsl:template match="tei:biblStruct[not(@source)][ancestor::node()/@source]" mode="m_post-process">
+    <xsl:template match="tei:biblStruct[not(@source)][ancestor::node()/@source]" mode="m_post-process" priority="1">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:copy-of select="ancestor::node()[@source][1]/@source"/>
@@ -58,7 +59,7 @@
     <!-- remove all orgs which are already part of the organizationography -->
     <xsl:template match="tei:org[parent::tei:listOrg][tei:orgName[@ref]]" mode="m_off"/>
     <!-- establish language based on script -->
-    <xsl:template match="element()[ancestor::tei:biblStruct][text()][@xml:lang = 'und' or not(@xml:lang)]" mode="m_off" priority="5">
+    <xsl:template match="element()[ancestor::tei:biblStruct][text()][@xml:lang = 'und' or not(@xml:lang)]" mode="m_post-process" priority="5">
         <xsl:variable name="v_self">
             <xsl:apply-templates mode="m_plain-text" select="text()"/>
         </xsl:variable>
