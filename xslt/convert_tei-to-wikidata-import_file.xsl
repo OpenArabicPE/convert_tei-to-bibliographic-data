@@ -13,7 +13,7 @@
                         <items>
                             <head>Holdings</head>
                             <xsl:apply-templates mode="m_tei2wikidata_holdings"
-                                select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical'][tei:note[@type = 'holdings']][descendant::tei:idno/@type = $p_acronym-wikidata]"/>
+                                select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical' or tei:monogr/tei:title[@level = 'j']][tei:note[@type = 'holdings']][descendant::tei:idno/@type = $p_acronym-wikidata]"/>
                         </items>
                     </collection>
                 </xsl:result-document>
