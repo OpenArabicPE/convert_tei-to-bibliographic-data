@@ -592,7 +592,9 @@
                 <xsl:variable name="v_editionStmt" select="tei:editionStmt"/>
                 <biblStruct>
                     <analytic>
-                        <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="$v_titleStmt/tei:title"/>
+                        <!-- titles: select the lowest titles in a potential hierarchy -->
+                        <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="$v_titleStmt/descendant::tei:title[not(tei:title)]"/>
+                        <!-- authors -->
                         <xsl:choose>
                             <!-- dealing with DHQ files -->
                             <xsl:when test="$v_titleStmt/descendant::dhq:authorInfo">
@@ -747,7 +749,7 @@
             <xsl:apply-templates mode="m_simple"/>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="tei:title[parent::tei:titleStmt]" mode="m_fileDesc-to-biblStruct">
+    <xsl:template match="tei:title[ancestor::tei:titleStmt]" mode="m_fileDesc-to-biblStruct">
         <!--        <xsl:choose>-->
         <!-- some titles nest. for instance, in the case of reviews -->
         <!--<xsl:when test="tei:title">
