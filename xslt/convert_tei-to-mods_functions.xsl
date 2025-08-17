@@ -333,6 +333,18 @@
             <!-- URLs -->
             <!-- MODS allows for more than one URL! -->
             <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/descendant::tei:idno[@type = ('url', 'URI')][not(ancestor::tei:note)]"/>
+            <!-- if no URL provided, use the local URL of the input file -->
+            <xsl:if test="not($v_biblStruct/descendant::tei:idno[@type = ('url', 'URI')][not(ancestor::tei:note)])">
+                <xsl:message>
+                    <xsl:text>TEI contains no URL, using local path instead</xsl:text>
+                </xsl:message>
+                <location>
+                    <url>
+                        <xsl:attribute name="dateLastAccessed" select="$p_today-iso"/>
+                        <xsl:value-of select="concat($v_file-name_input, '.xml')"/>
+                    </url>
+                </location>
+            </xsl:if>
             <!--<url dateLastAccessed="{$p_date-accessed}" usage="primary display">-->
             <!-- language information -->
             <xsl:choose>
