@@ -739,6 +739,10 @@
                 </roleTerm>
             </role>
             <xsl:apply-templates mode="m_tei-to-mods" select="tei:resp"/>
+            <!-- add an explicit count -->
+            <description>
+                <xsl:value-of select="count(preceding-sibling::node()[local-name() = ('author', 'editor')]) +1"/>
+            </description>
         </name>
     </xsl:template>
     <xsl:template match="tei:resp" mode="m_tei-to-mods">
