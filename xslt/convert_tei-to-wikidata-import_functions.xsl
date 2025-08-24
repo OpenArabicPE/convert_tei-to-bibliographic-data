@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet exclude-result-prefixes="#all" version="3.0" xmlns="http://www.wikidata.org/" xmlns:oape="https://openarabicpe.github.io/ns" xmlns:tei="http://www.tei-c.org/ns/1.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.wikidata.org/">
-    <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no" version="1.0"/>
+    <xsl:output encoding="UTF-8" indent="yes" method="xml" name="xml" omit-xml-declaration="no" version="1.0"/>
+    <xsl:output encoding="UTF-8" indent="yes" method="text" name="text" omit-xml-declaration="yes"/>
     <xsl:import href="../../authority-files/xslt/functions.xsl"/>
     <xsl:import href="functions.xsl"/>
     <!-- This stylesheets transform bibliographic data from TEI/XML to a custom Wikidata XML format, which utilises Property IDs as element names for easy import and reconciliation with OpenRefine -->
@@ -365,6 +366,49 @@
                     <xsl:text>date: @type not present or not supported</xsl:text>
                 </xsl:message>
             </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="tei:date" mode="m_tei2qs_holdings">
+        <xsl:choose>
+            <xsl:when test="@type = ('onset')">
+                <!-- start time -->
+                <xsl:value-of select="concat($v_tab, 'P580', $v_tab)"/>
+                <xsl:apply-templates mode="m_date-qs" select="."/>
+            </xsl:when>
+            <xsl:when test="@type = ('terminus')">
+                <!-- start time -->
+                <xsl:value-of select="concat($v_tab, 'P582', $v_tab)"/>
+                <xsl:apply-templates mode="m_date-qs" select="."/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:message>
+                    <xsl:text>date: @type not present or not supported</xsl:text>
+                </xsl:message>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="tei:date" mode="m_date-qs">
+        <xsl:variable name="v_date">
+            <xsl:choose>
+                <xsl:when test="@when">
+                    <xsl:value-of select="@when"/>
+                </xsl:when>
+                <xsl:when test="(@type = 'onset') and @from">
+                    <xsl:value-of select="@from"/>
+                </xsl:when>
+                <xsl:when test="(@type = 'terminus') and @to">
+                    <xsl:value-of select="@to"/>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:choose>
+            <!-- iso dates -->
+            <xsl:when test="matches($v_date, '\d{4}-\d{2}-\d{2}')">
+                <xsl:value-of select="concat('+', $v_date, 'T00:00:00Z/11')"/>
+            </xsl:when>
+            <xsl:when test="matches($v_date, '^\d{4}$')">
+                <xsl:value-of select="concat('+', $v_date, '-00-00T00:00:00Z/9')"/>
+            </xsl:when>
         </xsl:choose>
     </xsl:template>
     <xsl:template match="tei:date[ancestor::tei:biblStruct][1]/tei:monogr/tei:title[@level = 'm']" mode="m_tei2wikidata">
@@ -911,7 +955,7 @@
         <!--<xsl:attribute name="lang">
             <xsl:value-of select="oape:string-convert-lang-codes($v_lang-normalised, 'bcp47', 'wikidata')"/>
         </xsl:attribute>-->
-         <xsl:attribute name="xml:lang" select="$v_lang-normalised"/>
+        <xsl:attribute name="xml:lang" select="$v_lang-normalised"/>
     </xsl:template>
     <xsl:template match="tei:person" mode="m_tei2wikidata">
         <xsl:variable name="v_id-wiki" select="descendant::tei:idno[@type = 'wiki'][1]"/>
@@ -1075,43 +1119,77 @@
             <!-- aggregate data on the entire collection: note that there is a "single best value" constraint on this 
             - P580: start time 
             - P582: end time -->
-            <xsl:if test="descendant::tei:date[@type = 'onset']">
-                <xsl:variable name="v_onset">
-                    <tei:date type="onset">
-                        <xsl:copy-of select="@source"/>
-                        <xsl:attribute name="when" select="oape:dates-get-maxima(descendant::tei:date[@type = 'onset'], 'onset')"/>
-                    </tei:date>
-                </xsl:variable>
-                <xsl:apply-templates mode="m_tei2wikidata_holdings" select="$v_onset/tei:date"/>
-            </xsl:if>
-            <xsl:if test="descendant::tei:date[@type = 'terminus']">
-                <xsl:variable name="v_terminus">
-                    <tei:date type="terminus">
-                        <xsl:copy-of select="@source"/>
-                        <xsl:attribute name="when" select="oape:dates-get-maxima(descendant::tei:date[@type = 'terminus'], 'terminus')"/>
-                    </tei:date>
-                </xsl:variable>
-                <xsl:apply-templates mode="m_tei2wikidata_holdings" select="$v_terminus/tei:date"/>
-            </xsl:if>
-            <!-- P478: volume -->
-            <xsl:if test="descendant::tei:bibl/tei:biblScope[@unit = 'volume']">
-                <P478>
-                    <xsl:value-of select="min(descendant::tei:bibl/tei:biblScope[@unit = 'volume']/@from)"/>
-                    <xsl:if test="min(descendant::tei:bibl/tei:biblScope[@unit = 'volume']/@from) lt max(descendant::tei:bibl/tei:biblScope[@unit = 'volume']/@to)">
-                        <xsl:text>-</xsl:text>
-                        <xsl:value-of select="max(descendant::tei:bibl/tei:biblScope[@unit = 'volume']/@to)"/>
+            <xsl:choose>
+                <!-- test if holdings have already be collated in a bibl[@type='holdings'] -->
+                <xsl:when test="descendant::tei:bibl[@type = 'holdings']">
+                    <!--<xsl:text>PRECOMPILED</xsl:text>-->
+                    <xsl:apply-templates mode="m_tei2wikidata_holdings" select="descendant::tei:bibl[@type = 'holdings']/tei:date[@type = 'onset']"/>
+                    <xsl:apply-templates mode="m_tei2wikidata_holdings" select="descendant::tei:bibl[@type = 'holdings']/tei:date[@type = 'terminus']"/>
+                    <xsl:apply-templates mode="m_tei2wikidata_holdings" select="descendant::tei:bibl[@type = 'holdings']/tei:biblScope[@unit = 'volume']"/>
+                    <!-- P217: inventory number -->
+                    <xsl:apply-templates mode="m_tei2wikidata_qualifier" select="descendant::tei:bibl[@type = 'holdings']/tei:idno[@type = ('classmark', 'record')]"/>
+                    <!-- potentially look classmarks up on the ancestor::biblStruct -->
+                    <!-- full work available at URL -->
+                    <xsl:apply-templates mode="m_tei2wikidata_qualifier" select="descendant::tei:bibl[@type = 'holdings']/tei:idno[@type = ('URI', 'url')][@subtype = 'self']"/>
+                    <xsl:apply-templates mode="m_tei2wikidata_qualifier" select="descendant::tei:bibl[@type = 'holdings']/tei:idno[@type = ('ARK', 'HDL', 'hdl')]"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <!--<xsl:text>INDIV. BIBLs</xsl:text>-->
+                    <xsl:if test="descendant::tei:date[@type = 'onset']">
+                        <xsl:variable name="v_onset">
+                            <tei:date type="onset">
+                                <xsl:copy-of select="@source"/>
+                                <xsl:attribute name="when" select="oape:dates-get-maxima(descendant::tei:date[@type = 'onset'], 'onset')"/>
+                            </tei:date>
+                        </xsl:variable>
+                        <xsl:apply-templates mode="m_tei2wikidata_holdings" select="$v_onset/tei:date"/>
                     </xsl:if>
-                </P478>
-            </xsl:if>
-            <!-- P217: inventory number -->
-            <xsl:apply-templates mode="m_tei2wikidata_qualifier" select="descendant::tei:bibl/tei:idno[@type = 'classmark']"/>
-            <!-- potentially look classmarks up on the ancestor::biblStruct -->
-            <!-- full work available at URL -->
-            <xsl:apply-templates mode="m_tei2wikidata_qualifier" select="descendant::tei:bibl/tei:idno[@type = ('URI', 'url')][@subtype = 'self']"/>
-            <xsl:apply-templates mode="m_tei2wikidata_qualifier" select="descendant::tei:bibl/tei:idno[@type = ('ARK', 'HDL', 'hdl')]"/>
+                    <xsl:if test="descendant::tei:date[@type = 'terminus']">
+                        <xsl:variable name="v_terminus">
+                            <tei:date type="terminus">
+                                <xsl:copy-of select="@source"/>
+                                <xsl:attribute name="when" select="oape:dates-get-maxima(descendant::tei:date[@type = 'terminus'], 'terminus')"/>
+                            </tei:date>
+                        </xsl:variable>
+                        <xsl:apply-templates mode="m_tei2wikidata_holdings" select="$v_terminus/tei:date"/>
+                    </xsl:if>
+                    <!-- P478: volume -->
+                    <xsl:if test="descendant::tei:bibl/tei:biblScope[@unit = 'volume']">
+                        <P478>
+                            <xsl:value-of select="min(descendant::tei:bibl/tei:biblScope[@unit = 'volume']/@from)"/>
+                            <xsl:if test="min(descendant::tei:bibl/tei:biblScope[@unit = 'volume']/@from) lt max(descendant::tei:bibl/tei:biblScope[@unit = 'volume']/@to)">
+                                <xsl:text>-</xsl:text>
+                                <xsl:value-of select="max(descendant::tei:bibl/tei:biblScope[@unit = 'volume']/@to)"/>
+                            </xsl:if>
+                        </P478>
+                    </xsl:if>
+                    <!-- P217: inventory number -->
+                    <xsl:apply-templates mode="m_tei2wikidata_qualifier" select="descendant::tei:bibl/tei:idno[@type = 'classmark']"/>
+                    <!-- potentially look classmarks up on the ancestor::biblStruct -->
+                    <!-- full work available at URL -->
+                    <xsl:apply-templates mode="m_tei2wikidata_qualifier" select="descendant::tei:bibl/tei:idno[@type = ('URI', 'url')][@subtype = 'self']"/>
+                    <xsl:apply-templates mode="m_tei2wikidata_qualifier" select="descendant::tei:bibl/tei:idno[@type = ('ARK', 'HDL', 'hdl')]"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </P195>
     </xsl:template>
-    <xsl:template match="tei:idno[@type = 'classmark']" mode="m_tei2wikidata_qualifier">
+    <xsl:template match="tei:biblScope" mode="m_tei2wikidata_holdings">
+        <xsl:variable name="v_unit">
+            <xsl:choose>
+                <xsl:when test="@unit = 'volume'">
+                    <xsl:text>P478</xsl:text>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:element name="{$v_unit}">
+            <xsl:value-of select="min(@from)"/>
+            <xsl:if test="min(@from) lt max(@to)">
+                <xsl:text>-</xsl:text>
+                <xsl:value-of select="max(@to)"/>
+            </xsl:if>
+        </xsl:element>
+    </xsl:template>
+    <xsl:template match="tei:idno[@type = ('classmark', 'record')]" mode="m_tei2wikidata_qualifier">
         <P217>
             <xsl:apply-templates mode="m_string-source" select="."/>
         </P217>
@@ -1135,6 +1213,7 @@
                 </P953>--> </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+     
     <!-- archival resource key -->
     <xsl:template match="tei:idno[@type = ('ARK')]" mode="m_tei2wikidata_qualifier">
         <P8091>
@@ -1381,5 +1460,185 @@
         <xsl:call-template name="t_string-value">
             <xsl:with-param name="p_input" select="."/>
         </xsl:call-template>
+    </xsl:template>
+    <xsl:template match="@* | node()" mode="m_string-quoted">
+        <xsl:value-of select="$v_quot"/>
+        <xsl:call-template name="t_string-value">
+            <xsl:with-param name="p_input" select="."/>
+        </xsl:call-template>
+        <xsl:value-of select="$v_quot"/>
+    </xsl:template>
+    <!-- generate quick statements -->
+    <xsl:template match="node() | @*" mode="m_tei2qs_holdings"/>
+    <xsl:template match="tei:biblStruct" mode="m_tei2qs_holdings">
+        <!-- holdings -->
+        <xsl:apply-templates mode="m_tei2qs" select="tei:note[@type = 'holdings']/tei:list/tei:item"/>
+    </xsl:template>
+    <xsl:template match="tei:item[parent::tei:list/parent::tei:note[@type = 'holdings']][tei:label/tei:orgName]" mode="m_tei2qs">
+        <xsl:variable name="v_id-wikidata" select="oape:query-biblstruct(ancestor::tei:biblStruct[1], 'id-wiki', '', '', $p_local-authority)"/>
+        <!-- collections must have a QID -->
+        <xsl:variable name="v_collection">
+            <xsl:value-of select="concat($v_id-wikidata, $v_tab, 'P195', $v_tab, oape:query-organizationography(tei:label/tei:orgName, $v_organizationography, $p_local-authority, 'id-wiki', ''))"/>
+        </xsl:variable>
+        <!-- start line with QID -->
+        <xsl:value-of select="$v_new-line"/>
+        <!-- add collection -->
+        <xsl:value-of select="$v_collection"/>
+        <!-- add qualifiers -->
+        <!-- aggregate data on the entire collection: note that there is a "single best value" constraint on this 
+            - P580: start time 
+            - P582: end time -->
+        <xsl:choose>
+            <!-- test if holdings have already be collated in a bibl[@type='holdings'] -->
+            <xsl:when test="descendant::tei:bibl[@type = 'holdings']">
+                <!--<xsl:text>PRECOMPILED</xsl:text>-->
+                <xsl:apply-templates mode="m_tei2qs_holdings" select="descendant::tei:bibl[@type = 'holdings']/tei:date[@type = 'onset']"/>
+                <xsl:apply-templates mode="m_tei2qs_holdings" select="descendant::tei:bibl[@type = 'holdings']/tei:date[@type = 'terminus']"/>
+                <xsl:apply-templates mode="m_tei2qs_holdings" select="descendant::tei:bibl[@type = 'holdings']/tei:biblScope[@unit = 'volume']"/>
+                <!-- P217: inventory number -->
+                <xsl:apply-templates mode="m_tei2qs_qualifier" select="descendant::tei:bibl[@type = 'holdings']/tei:idno[@type = ('classmark', 'record')]"/>
+                <!-- potentially look classmarks up on the ancestor::biblStruct -->
+                <!-- full work available at URL -->
+                <xsl:apply-templates mode="m_tei2qs_qualifier" select="descendant::tei:bibl[@type = 'holdings']/tei:idno[@type = ('URI', 'url')][@subtype = 'self']"/>
+<!--                <xsl:apply-templates mode="m_tei2wikidata_qualifier" select="descendant::tei:bibl[@type = 'holdings']/tei:idno[@type = ('ARK', 'HDL', 'hdl')]"/>-->
+            </xsl:when>
+        </xsl:choose>
+        <!-- add source -->
+        <xsl:call-template name="t_source-qs">
+            <xsl:with-param name="p_input" select="."/>
+        </xsl:call-template>
+    </xsl:template>
+    <xsl:template name="t_source-qs">
+        <xsl:param as="node()" name="p_input"/>
+        <xsl:variable name="v_source" select="
+                if ($p_input/@source) then
+                    ($p_input/@source)
+                else
+                    (ancestor::node()[@source][1]/@source)"/>
+        <xsl:for-each-group group-by="." select="tokenize($v_source, '\s+')">
+            <xsl:variable name="v_source" select="current-grouping-key()"/>
+            <!-- reference URL: P854 -->
+            <xsl:variable name="v_url-source">
+                <xsl:choose>
+                    <xsl:when test="starts-with($v_source, 'http')">
+                        <xsl:value-of select="$v_source"/>
+                    </xsl:when>
+                    <!-- local URLs need to be resolved or omitted -->
+                    <xsl:when test="starts-with($v_source, '../')">
+                        <xsl:choose>
+                            <xsl:when test="matches($v_source, 'oclc_618896732/|oclc_165855925/')">
+                                <xsl:value-of select="replace($v_source, '^(\.\./)+TEI/', 'https://tillgrallert.github.io/')"/>
+                            </xsl:when>
+                            <xsl:when test="matches($v_source, '/OpenArabicPE/')">
+                                <xsl:value-of select="replace($v_source, '^^(\.\./)+OpenArabicPE/', 'https://openarabicpe.github.io/')"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:message>
+                                    <xsl:text>WARNING: </xsl:text>
+                                    <xsl:value-of select="$v_source"/>
+                                    <xsl:text> could not be resolved</xsl:text>
+                                </xsl:message>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:if test="$v_url-source != ''">
+                <xsl:value-of select="concat($v_tab, 'S854', $v_tab)"/>
+                <xsl:apply-templates mode="m_string-quoted" select="$v_url-source"/>
+            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="starts-with($v_source, concat($p_local-authority, ':org:'))">
+                    <xsl:variable name="v_orgName">
+                        <tei:orgName ref="{$v_source}"/>
+                    </xsl:variable>
+                    <!-- query the organisationography -->
+                    <xsl:variable name="v_id-wiki" select="oape:query-organizationography($v_orgName/descendant-or-self::tei:orgName, $v_organizationography, $p_local-authority, 'id-wiki', '')"/>
+                    <xsl:variable name="v_url-source" select="oape:query-organizationography($v_orgName/descendant-or-self::tei:orgName, $v_organizationography, $p_local-authority, 'url', '')"/>
+                    <xsl:choose>
+                        <xsl:when test="$v_id-wiki != 'NA'">
+                            <!-- QID -->
+                            <xsl:value-of select="concat($v_tab, 'S248', $v_tab, $v_id-wiki)"/>
+                            <!-- additional URLs -->
+                            <xsl:choose>
+                                <!-- provide full URIs for ZDB -->
+                                <xsl:when test="$v_id-wiki = 'Q186844'">
+                                    <xsl:for-each select="$p_input/ancestor::tei:monogr[1]/tei:idno[@type = 'zdb']">
+                                        <xsl:value-of select="concat($v_tab, 'S854', $v_tab)"/>
+                                        <xsl:apply-templates mode="m_string-quoted" select="concat($p_url-resolve-zdb, .)"/>
+                                    </xsl:for-each>
+                                </xsl:when>
+                                <!-- provide full URIs for AUB -->
+                                <xsl:when test="$v_id-wiki = 'Q124855340'">
+                                    <xsl:for-each select="$p_input/ancestor::tei:monogr[1]/tei:idno[@type = 'LEAUB']">
+                                        <xsl:value-of select="concat($v_tab, 'S854', $v_tab)"/>
+                                        <xsl:apply-templates mode="m_string-quoted" select="concat($p_url-resolve-aub, .)"/>
+                                    </xsl:for-each>
+                                </xsl:when>
+                                <!-- provide full URIs for Hathi -->
+                                <xsl:when test="$v_id-wiki = 'Q3128305'">
+                                    <xsl:for-each select="$p_input/ancestor::tei:monogr[1]/tei:idno[@type = 'ht_bib_key']">
+                                        <xsl:value-of select="concat($v_tab, 'S854', $v_tab)"/>
+                                        <xsl:apply-templates mode="m_string-quoted" select="concat($p_url-resolve-hathi, .)"/>
+                                    </xsl:for-each>
+                                </xsl:when>
+                            </xsl:choose>
+                        </xsl:when>
+                        <xsl:when test="$v_url-source != 'NA'">
+                            <xsl:value-of select="concat($v_tab, 'S854', $v_tab)"/>
+                            <xsl:apply-templates mode="m_string-quoted" select="$v_url-source"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:message>
+                                <xsl:text>WARNING: no URL for </xsl:text>
+                                <xsl:value-of select="$v_source"/>
+                            </xsl:message>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
+                <!-- local bibliographies -->
+                <xsl:when test="matches($v_source, ':bibl:')">
+                    <xsl:variable name="v_title">
+                        <tei:title ref="{$v_source}"/>
+                    </xsl:variable>
+                    <xsl:variable name="v_id-wiki" select="oape:query-bibliography($v_title/tei:title, $v_bibliography, '', $p_local-authority, 'id-wiki', '')"/>
+                    <xsl:choose>
+                        <xsl:when test="$v_id-wiki != 'NA'">
+                            <P248>
+                                <xsl:value-of select="$v_id-wiki"/>
+                            </P248>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>WARNING: could not find a QID for "</xsl:text>
+                            <xsl:value-of select="$v_source"/>
+                            <xsl:text>" in our bibliography</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
+                <!-- stated in: P248, requires a QItem -->
+                <xsl:when test="matches($v_source, 'Q\d+')">
+                    <xsl:value-of select="concat($v_tab, 'S248', $v_tab, replace($v_source, '^.*(Q\d+).*$', '$1'))"/>
+                </xsl:when>
+                <!-- remove pandoc references -->
+                <xsl:when test="starts-with($v_source, '@')"/>
+                <xsl:otherwise>
+                    <xsl:message>
+                        <xsl:text>WARNING: the source "</xsl:text>
+                        <xsl:value-of select="$v_source"/>
+                        <xsl:text>" is not yet supported</xsl:text>
+                    </xsl:message>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:for-each-group>
+    </xsl:template>
+     <xsl:template match="tei:idno[@type = ('classmark', 'record')]" mode="m_tei2qs_qualifier">
+        <xsl:value-of select="concat($v_tab, 'P217', $v_tab)"/>
+        <xsl:apply-templates mode="m_string-quoted" select="."/>
+    </xsl:template>
+     <xsl:template match="tei:idno[@type = ('URI', 'url')][@subtype = 'self']" mode="m_tei2qs_qualifier">
+        <!-- full work available at URL -->
+         <xsl:value-of select="concat($v_tab, 'P953', $v_tab)"/>
+         <xsl:apply-templates mode="m_string-quoted" select="."/>
+        <!-- catch Handle.net -->
     </xsl:template>
 </xsl:stylesheet>

@@ -56,4 +56,10 @@
     <!-- URLs -->
     <xsl:variable name="v_url-server-zdb-ld" select="'http://ld.zdb-services.de/data/'"/>
     <xsl:variable name="v_url-gnd-resolve" select="'https://d-nb.info/gnd/'"/>
+    <!-- strings -->
+    <xsl:variable name="v_new-line" select="'&#x0A;'"/>
+    <xsl:variable name="v_quot" select="'&quot;'"/>
+    <xsl:variable name="v_comma" select="','"/>
+    <xsl:variable name="v_tab" select="'&#0009;'"/>
+    <xsl:variable name="v_space" select="' '"/>
 </xsl:stylesheet>
