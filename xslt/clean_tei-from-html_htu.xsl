@@ -3,6 +3,7 @@
     xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:output indent="yes" method="xml"/>
     <xsl:import href="post-process_tei-biblstruct_functions.xsl"/>
+    <xsl:import href="/Users/Shared/BachUni/BachBibliothek/GitHub/xslt-calendar-conversion/functions/date-functions.xsl"/>
     <xsl:param name="p_source" select="'oape:org:31'"/>
     <!-- use @mode = 'm_off' to toggle templates off -->
     <xsl:template match="tei:date[contains(., '/')]" mode="m_off">
@@ -17,12 +18,12 @@
             <xsl:value-of select="substring-after(., '/')"/>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="tei:biblScope[matches(., '^\d+(\.\s+)*defa\s*$')]" mode="m_off">
+    <xsl:template match="tei:biblScope[not(@from)][matches(., '^\d+(\.\s+)*(defa|dosya)\s*$')]" mode="m_post-process">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:attribute name="unit" select="'volume'"/>
-            <xsl:attribute name="from" select="replace(., '^(\d+)(\.\s+)*defa\s*$', '$1')"/>
-            <xsl:attribute name="to" select="replace(., '^(\d+)(\.\s+)*defa\s*$', '$1')"/>
+            <xsl:attribute name="from" select="replace(., '^(\d+)(\.\s+)*(defa|dosya)\s*$', '$1')"/>
+            <xsl:attribute name="to" select="replace(., '^(\d+)(\.\s+)*(defa|dosya)\s*$', '$1')"/>
             <xsl:apply-templates mode="m_post-process"/>
         </xsl:copy>
     </xsl:template>
@@ -39,6 +40,62 @@
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:attribute name="calendar" select="@datingMethod"/>
             <xsl:apply-templates mode="m_post-process"/>
+        </xsl:copy>
+    </xsl:template>
+    <!-- establish calendar -->
+    <xsl:template match="tei:date[not(normalize-space(.) = '')]" mode="m_post-process" priority="100">
+        <xsl:copy>
+            <xsl:apply-templates mode="m_post-process" select="@*"/>
+            <xsl:choose>
+                <xsl:when test="@calendar and not(@datingMethod) and @whenCustom">
+                    <xsl:attribute name="datingMethod" select="@calendar"/>
+                </xsl:when>
+                <xsl:when test="not(@datingMethod)">
+                    <xsl:variable name="v_calendar" select="oape:date-establish-calendar(., 'date', false())"/>
+                    <xsl:if test="$v_calendar != 'NA'">
+                        <xsl:variable name="v_date-normalised" select="oape:date-normalise-input(., 'en', $v_calendar)"/>
+                        <xsl:attribute name="calendar" select="$v_calendar"/>
+                        <xsl:attribute name="datingMethod" select="$v_calendar"/>
+                        <xsl:attribute name="when-custom" select="$v_date-normalised"/>
+                    </xsl:if>
+                </xsl:when>
+            </xsl:choose>
+            <xsl:apply-templates mode="m_post-process"/>
+        </xsl:copy>
+    </xsl:template>
+    <!--<xsl:template match="tei:date[@datingMethod]" mode="m_post-process" priority="80">
+        <xsl:copy>
+            <xsl:apply-templates select="@* | node()" mode="m_post-process"/>
+        </xsl:copy>
+    </xsl:template>-->
+    <!-- clean up faulty calendars
+        Mālī
+    -->
+    <xsl:template match="tei:date[@datingMethod = ('#cal_ottomanfiscal', '#cal_islamic')][matches(@when-custom, '^1[8-9]\d{2}')]" mode="m_post-process" priority="10">
+        <xsl:copy>
+            <xsl:attribute name="when" select="@when-custom"/>
+            <xsl:apply-templates mode="m_post-process" select="@type | node()"/>
+        </xsl:copy>
+    </xsl:template>
+    <!-- Gregorian -->
+    <xsl:template match="tei:date[matches(@when, '^1[2-4]\d{2}')]" mode="m_post-process" priority="10">
+        <xsl:copy>
+            <xsl:apply-templates mode="m_post-process" select="@type | node()"/>
+        </xsl:copy>
+    </xsl:template>
+    <!-- onset with  missing year -->
+    <xsl:template match="tei:date[@type = 'onset'][not(matches(., '\d{4}(R|H)*$'))]" mode="m_post-process">
+        <xsl:copy>
+            <xsl:apply-templates mode="m_post-process" select="@*"/>
+            <xsl:choose>
+                <!-- following terminus has year information -->
+                <xsl:when test="following-sibling::tei:date[@type = 'terminus'][1][matches(., '\d{4}(R|H)*$')]">
+                    <xsl:value-of select="concat(., ' ', replace(following-sibling::tei:date[@type = 'terminus'][1][matches(., '\d{4}$')], '^.+(\d{4}(R|H)*)$', '$1'))"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates mode="m_post-process"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:copy>
     </xsl:template>
     <xsl:template match="tei:biblScope[not(@unit)]" mode="m_off" priority="20">
@@ -77,7 +134,7 @@
         </xsl:choose>
     </xsl:template>
     <!-- this doesn't work at all -->
-    <xsl:template match="tei:biblScope[@unit = 'volume']" mode="m_post-process">
+    <xsl:template match="tei:biblScope[@unit = 'volume']" mode="m_off">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:copy-of select="oape:translate-roman-numerals(.)"/>
@@ -170,7 +227,7 @@
         <num value="7">VII</num>
         <num value="8">VIII</num>
         <num value="9">IX</num>
-<!--        <xsl:text>;i=1;v=5;x=10;l=50;c=100;d=500;m=1000;</xsl:text>-->
+        <!--        <xsl:text>;i=1;v=5;x=10;l=50;c=100;d=500;m=1000;</xsl:text>-->
     </xsl:variable>
     <xsl:variable name="ckbk:roman-nums">
         <ckbk:roman value="1">i</ckbk:roman>
