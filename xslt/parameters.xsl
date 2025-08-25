@@ -62,4 +62,5 @@
     <xsl:variable name="v_comma" select="','"/>
     <xsl:variable name="v_tab" select="'&#0009;'"/>
     <xsl:variable name="v_space" select="' '"/>
+    <xsl:variable name="v_seperator-qs" select="'|'"/>
 </xsl:stylesheet>
