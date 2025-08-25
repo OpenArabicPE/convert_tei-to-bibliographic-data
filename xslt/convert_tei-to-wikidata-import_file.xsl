@@ -24,8 +24,16 @@
                                 select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical' or tei:monogr/tei:title[@level = 'j']][tei:note[@type = 'holdings']][descendant::tei:idno/@type = $p_acronym-wikidata]"/>
                 </xsl:result-document>
              </xsl:when>
+             <xsl:when test="$p_output-mode = 'qs'">
+                 <xsl:result-document href="{$v_base-directory}{$v_output-directory}{$v_file-name_input}.qs" method="text">
+                 <!-- periodicals with QID-->
+                 <xsl:apply-templates mode="m_tei2qs"
+                                    select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical'][descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))]]"
+                                />
+                 </xsl:result-document>
+             </xsl:when>
             <xsl:otherwise>
-                <xsl:result-document href="{$v_base-directory}{$v_output-directory}{$v_file-name_input}.Wikidata.xml">
+                <xsl:result-document href="{$v_base-directory}{$v_output-directory}{$v_file-name_input}.Wikidata.xml" method="xml">
                     <collection>
                         <xsl:if test="descendant::tei:standOff/descendant::tei:biblStruct">
                             <!-- periodicals -->
