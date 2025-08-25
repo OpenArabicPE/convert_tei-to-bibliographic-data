@@ -3,8 +3,9 @@
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:output indent="yes" method="xml"/>
     <xsl:import href="../../../OpenArabicPE/authority-files/xslt/functions.xsl"/>
+    <xsl:import href="functions.xsl"/>
     <!--    <xsl:import href="convert_marc-xml-to-tei_functions.xsl"/>-->
-    <xsl:param name="p_source" select="'oape:org:10'"/>
+    <xsl:param name="p_source" select="'oape:org:31'"/>
     <xsl:variable name="v_alphabet-arabic" select="'اأإبتثحخجدذرزسشصضطظعغفقكلمنهوؤيئىةء٠١٢٣٤٥٦٧٨٩'"/>
     <xsl:variable name="v_alphabet-latin" select="'0123456789abcdefghijklmnopqrstuvwxyz'"/>
     <xsl:variable name="v_alphabet-arabic-ijmes" select="'āīūḍġḥṣṭʼʿʾ'"/>
@@ -21,9 +22,9 @@
         </xsl:copy>
     </xsl:template>
     <!-- translate Arabic digits in attributes to Latin digits -->
-    <xsl:template match="@*" mode="m_post-process" priority="10">
-        <xsl:attribute name="{name(.)}">
-            <xsl:value-of select="translate(., $v_string-digits-ar, $v_string-digits-latn)"/>
+    <xsl:template match="@*" mode="m_post-process" priority="20">
+        <xsl:attribute name="{name()}">
+            <xsl:value-of select="oape:transpose-digits(., 'arabic', 'western')"/>
         </xsl:attribute>
     </xsl:template>
     <xsl:template match="@*[. = '']" mode="m_post-process" priority="20"/>
@@ -31,7 +32,7 @@
     <xsl:template match="tei:monogr/@source | tei:imprint/@source" mode="m_off" priority="10"/>
     <!-- this is expensive: Unicode normalization -->
     <xsl:template match="text()" mode="m_off" priority="20">
-        <xsl:value-of select=" normalize-space(normalize-unicode(., 'NFKC'))"/>
+        <xsl:value-of select="normalize-space(normalize-unicode(., 'NFKC'))"/>
     </xsl:template>
     <!-- the sorting instruction is expensive  -->
     <xsl:template match="tei:listBibl" mode="m_off">
@@ -43,6 +44,57 @@
             <xsl:apply-templates select="tei:bibl"/>
         </xsl:copy>
     </xsl:template>
+    <!-- add explicit bibl for holdings -->
+    <xsl:template match="tei:listBibl[ancestor::tei:note[@type = 'holdings']]" mode="m_post-process" priority="20">
+        <xsl:variable name="v_bibls">
+            <xsl:apply-templates mode="m_identity-transform" select="tei:bibl[not(@type = 'holdings')]"/>
+        </xsl:variable>
+        <xsl:copy>
+            <xsl:apply-templates mode="m_identity-transform" select="@*"/>
+            <bibl resp="#xslt" type="holdings">
+                <!-- IDs -->
+                <xsl:apply-templates mode="m_identity-transform" select="ancestor::tei:biblStruct/tei:monogr/tei:idno[@source = current()/@source]"/>
+                <xsl:apply-templates mode="m_identity-transform" select="ancestor::tei:biblStruct/tei:monogr/tei:idno[@source = $p_source]"/>
+                <xsl:for-each-group group-by="." select="$v_bibls/descendant::tei:idno[not(@type = 'URI')]">
+                    <xsl:apply-templates mode="m_identity-transform" select="current-group()[1]"/>
+                </xsl:for-each-group>
+                <!-- URL if HTU -->
+                <xsl:if test="ancestor::tei:biblStruct[1][@source = 'oape:org:31']">
+                    <xsl:apply-templates mode="m_identity-transform" select="$v_bibls/descendant::tei:idno[@type = 'URI'][matches(., '/htu/data/HTU')]"/>
+                    <xsl:apply-templates mode="m_identity-transform" select="ancestor::tei:biblStruct/tei:monogr/tei:idno[@type = 'htu']"/>
+                </xsl:if>
+                <!-- scope -->
+                <xsl:choose>
+                    <!-- as issue counting usually restarts every year, it doesn't make sense to provide min and max issue numbers -->
+                    <xsl:when test="$v_bibls/descendant::tei:biblScope[@unit = 'volume']">
+                        <biblScope unit="volume">
+                            <xsl:attribute name="from" select="min($v_bibls/descendant::tei:biblScope[@unit = 'volume']/@from)"/>
+                            <xsl:attribute name="to" select="max($v_bibls/descendant::tei:biblScope[@unit = 'volume']/@to)"/>
+                        </biblScope>
+                    </xsl:when>
+                    <xsl:when test="$v_bibls/descendant::tei:biblScope[@unit = 'issue']">
+                        <biblScope unit="issue">
+                            <xsl:attribute name="from" select="min($v_bibls/descendant::tei:biblScope[@unit = 'issue']/@from)"/>
+                            <xsl:attribute name="to" select="max($v_bibls/descendant::tei:biblScope[@unit = 'issue']/@to)"/>
+                        </biblScope>
+                    </xsl:when>
+                </xsl:choose>
+                <!-- add dates -->
+                <xsl:if test="$v_bibls/descendant::tei:date[@when, @from, @to]">
+                    <date type="onset">
+                        <xsl:attribute name="when" select="oape:dates-get-maxima($v_bibls/descendant::tei:date[@when, @from], 'onset')"/>
+                    </date>
+                    <date type="terminus">
+                        <xsl:attribute name="when" select="oape:dates-get-maxima($v_bibls/descendant::tei:date[@when, @to], 'terminus')"/>
+                    </date>
+                </xsl:if>
+            </bibl>
+            <!-- reproduce the original -->
+            <xsl:apply-templates mode="m_post-process"/>
+        </xsl:copy>
+    </xsl:template>
+    <!-- remove exisiting <bibl resp="#xslt" type="holdings"> -->
+    <xsl:template match="tei:bibl[@type = 'holdings'][@resp = '#xslt']" mode="m_post-process" priority="20"/>
     <!-- remove trailing punctuation  -->
     <xsl:template match="text()[ancestor::tei:biblStruct][not(parent::tei:persName)]" mode="m_off" priority="10">
         <xsl:value-of select="replace(., '(\s*[,|;|:|،|؛|.]\s*)$', '')"/>
@@ -59,7 +111,7 @@
     <!-- remove all orgs which are already part of the organizationography -->
     <xsl:template match="tei:org[parent::tei:listOrg][tei:orgName[@ref]]" mode="m_off"/>
     <!-- establish language based on script -->
-    <xsl:template match="element()[ancestor::tei:biblStruct][text()][@xml:lang = 'und' or not(@xml:lang)]" mode="m_post-process" priority="5">
+    <xsl:template match="element()[ancestor::tei:biblStruct][text()][@xml:lang = 'und' or not(@xml:lang)]" mode="m_off" priority="0">
         <xsl:variable name="v_self">
             <xsl:apply-templates mode="m_plain-text" select="text()"/>
         </xsl:variable>
@@ -135,9 +187,9 @@
         </xsl:copy>
     </xsl:template>
     <!-- extract IDs from title attributes -->
-    <xsl:template match="tei:title[@ref]" mode="m_post-process">
+    <xsl:template match="tei:title[@ref]" mode="m_off">
         <xsl:copy>
-            <xsl:apply-templates select="@* | node()" mode="m_post-process"/>
+            <xsl:apply-templates mode="m_post-process" select="@* | node()"/>
         </xsl:copy>
         <xsl:if test="matches(@ref, concat($p_acronym-wikidata, ':Q\d+')) and not(following-sibling::tei:idno[@type = $p_acronym-wikidata])">
             <idno type="{$p_acronym-wikidata}">
@@ -297,7 +349,27 @@
                     <xsl:apply-templates mode="m_post-process"/>
                 </xsl:copy>
             </xsl:when>
-            <xsl:when test="matches(., '^\d{4}-\d{2}-\d{2}$')">
+            <!-- YYYY/YY -->
+            <xsl:when test="matches($v_text, '^\d{4}/\d{2}$')">
+                <xsl:copy>
+                    <xsl:apply-templates mode="m_post-process" select="@*"/>
+                    <xsl:attribute name="from" select="replace($v_text, '^(\d{4})/(\d{2})$', '$1')"/>
+                    <xsl:attribute name="to" select="replace($v_text, '^(\d{2})(\d{2})/(\d{2})$', '$1$3')"/>
+                    <xsl:apply-templates mode="m_post-process"/>
+                </xsl:copy>
+            </xsl:when>
+            <!-- YYYY/YY -->
+            <xsl:when test="matches($v_text, '^\d{4}/\d{2}\s*(هـ|هج).*$')">
+                <xsl:copy>
+                    <xsl:apply-templates mode="m_post-process" select="@*"/>
+                    <xsl:attribute name="datingMethod" select="'#cal_islamic'"/>
+                    <xsl:attribute name="from-custom" select="replace($v_text, '^(\d{4})/(\d{2}).+$', '$1')"/>
+                    <xsl:attribute name="to-custom" select="replace($v_text, '^(\d{2})(\d{2})/(\d{2}).+$', '$1$3')"/>
+                    <xsl:apply-templates mode="m_post-process"/>
+                </xsl:copy>
+            </xsl:when>
+            <!-- ISO dates -->
+            <xsl:when test="matches($v_text, '^\d{4}-\d{2}-\d{2}$')">
                 <xsl:copy>
                     <xsl:apply-templates mode="m_post-process" select="@*"/>
                     <!--<xsl:attribute name="type" select="'onset'"/>-->
@@ -306,7 +378,7 @@
                 </xsl:copy>
             </xsl:when>
             <!-- DD/MM/YYYY or MM/DD/YYYY -->
-            <xsl:when test="matches(., '\d{2}/\d{2}/\d{4}')">
+            <xsl:when test="matches($v_text, '\d{2}/\d{2}/\d{4}')">
                 <xsl:copy>
                     <xsl:apply-templates mode="m_post-process" select="@*"/>
                     <!--<xsl:attribute name="type" select="'onset'"/>-->
@@ -314,7 +386,7 @@
                     <xsl:apply-templates mode="m_post-process"/>
                 </xsl:copy>
             </xsl:when>
-            <xsl:when test="matches(., '^\d{4}-')">
+            <xsl:when test="matches($v_text, '^\d{4}-')">
                 <xsl:copy>
                     <xsl:apply-templates mode="m_post-process" select="@*"/>
                     <xsl:attribute name="type" select="'onset'"/>
@@ -329,7 +401,7 @@
                     <xsl:apply-templates mode="m_post-process"/>
                 </xsl:copy>
             </xsl:when>
-            <xsl:when test="matches(., '^\d{4}\s*(هـ|هج)')">
+            <xsl:when test="matches($v_text, '^\d{4}\s*(هـ|هج)')">
                 <xsl:copy>
                     <xsl:apply-templates mode="m_post-process" select="@*"/>
                     <xsl:attribute name="datingMethod" select="'#cal_islamic'"/>
@@ -443,7 +515,7 @@
             </xsl:when>
         </xsl:choose>-->
     </xsl:template>
-    <xsl:template match="tei:biblScope[@unit][not(@from)]" mode="m_off" priority="10">
+    <xsl:template match="tei:biblScope[@unit][not(@from)]" mode="m_post-process" priority="10">
         <xsl:copy>
             <xsl:apply-templates mode="m_identity-transform" select="@*"/>
             <xsl:choose>
