@@ -680,9 +680,9 @@
                             <!-- we frequently lack this string for Ottoman titles -->
                             <xsl:otherwise>
                                 <xsl:element name="string">
+                                    <xsl:attribute name="xml:lang" select="$v_lang"/>
                                     <!-- better provide an explicity NA -->
                                     <xsl:text>NA</xsl:text>
-                                    <xsl:attribute name="xml:lang" select="$v_lang"/>
                                 </xsl:element>
                             </xsl:otherwise>
                         </xsl:choose>
