@@ -1615,7 +1615,7 @@
                 <!-- potentially look classmarks up on the ancestor::biblStruct -->
                 <!-- full work available at URL -->
                 <xsl:apply-templates mode="m_tei2qs_qualifier" select="descendant::tei:bibl[@type = 'holdings']/tei:idno[@type = ('URI', 'url')][@subtype = 'self']"/>
-                <!--                <xsl:apply-templates mode="m_tei2wikidata_qualifier" select="descendant::tei:bibl[@type = 'holdings']/tei:idno[@type = ('ARK', 'HDL', 'hdl')]"/>-->
+                <xsl:apply-templates mode="m_tei2qs_qualifier" select="descendant::tei:bibl[@type = 'holdings']/tei:idno[@type = ('ARK', 'HDL', 'hdl', 'URN')]"/>
             </xsl:when>
         </xsl:choose>
         <!-- add source -->
