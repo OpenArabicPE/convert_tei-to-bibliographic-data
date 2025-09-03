@@ -13,7 +13,7 @@
         - periodicals published in Istanbul
         - idno/@type: not yet converted
             - [ ] url
-            - [ ] urn
+            - [x] urn
             - [ ] DOI
     -->
     <!-- identity transform -->
@@ -1131,7 +1131,7 @@
                     <!-- potentially look classmarks up on the ancestor::biblStruct -->
                     <!-- full work available at URL -->
                     <xsl:apply-templates mode="m_tei2wikidata_qualifier" select="descendant::tei:bibl[@type = 'holdings']/tei:idno[@type = ('URI', 'url')][@subtype = 'self']"/>
-                    <xsl:apply-templates mode="m_tei2wikidata_qualifier" select="descendant::tei:bibl[@type = 'holdings']/tei:idno[@type = ('ARK', 'HDL', 'hdl')]"/>
+                    <xsl:apply-templates mode="m_tei2wikidata_qualifier" select="descendant::tei:bibl[@type = 'holdings']/tei:idno[@type = ('ARK', 'HDL', 'hdl', 'URN')]"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <!--<xsl:text>INDIV. BIBLs</xsl:text>-->
@@ -1168,7 +1168,7 @@
                     <!-- potentially look classmarks up on the ancestor::biblStruct -->
                     <!-- full work available at URL -->
                     <xsl:apply-templates mode="m_tei2wikidata_qualifier" select="descendant::tei:bibl/tei:idno[@type = ('URI', 'url')][@subtype = 'self']"/>
-                    <xsl:apply-templates mode="m_tei2wikidata_qualifier" select="descendant::tei:bibl/tei:idno[@type = ('ARK', 'HDL', 'hdl')]"/>
+                    <xsl:apply-templates mode="m_tei2wikidata_qualifier" select="descendant::tei:bibl/tei:idno[@type = ('ARK', 'HDL', 'hdl', 'URN')]"/>
                 </xsl:otherwise>
             </xsl:choose>
         </P195>
@@ -1235,6 +1235,21 @@
         <P1184>
             <xsl:apply-templates mode="m_string" select="."/>
         </P1184>
+    </xsl:template>
+    <!-- urn -->
+    <xsl:template match="tei:idno[@type = 'URN']" mode="m_tei2wikidata_qualifier">
+        <xsl:choose>
+            <xsl:when test="starts-with(., 'urn:nbn:')">
+                <P4109>
+                    <xsl:apply-templates mode="m_string" select="."/>
+                </P4109>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:message>
+                    <xsl:text>This URN namespace is not implemented</xsl:text>
+                </xsl:message>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="tei:idno[@type = ('URI', 'url')][@subtype = 'self']" mode="m_tei2wikidata">
         <!-- full work available at URL -->
@@ -1480,26 +1495,26 @@
             <xsl:when test="@type = 'isil'">
                 <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
                 <xsl:value-of select="concat('P791', $v_seperator-qs)"/>
-                <xsl:apply-templates select="." mode="m_string-quoted"/>
+                <xsl:apply-templates mode="m_string-quoted" select="."/>
                 <xsl:value-of select="$v_source"/>
             </xsl:when>
             <xsl:when test="@type = 'ISSN'">
                 <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
                 <xsl:value-of select="concat('P236', $v_seperator-qs)"/>
-                <xsl:apply-templates select="." mode="m_string-quoted"/>
+                <xsl:apply-templates mode="m_string-quoted" select="."/>
                 <xsl:value-of select="$v_source"/>
             </xsl:when>
             <!-- it would make sense to not provide sources for the identifiers based on parent elements -->
             <xsl:when test="@type = 'jid'">
                 <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
                 <xsl:value-of select="concat('P953', $v_seperator-qs)"/>
-                <xsl:apply-templates select="concat($p_url-resolve-jid, .)" mode="m_string-quoted"/>
+                <xsl:apply-templates mode="m_string-quoted" select="concat($p_url-resolve-jid, .)"/>
                 <xsl:value-of select="$v_source"/>
             </xsl:when>
             <xsl:when test="@type = 'ht_bib_key'">
                 <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
                 <xsl:value-of select="concat('P1844', $v_seperator-qs)"/>
-                <xsl:apply-templates select="." mode="m_string-quoted"/>
+                <xsl:apply-templates mode="m_string-quoted" select="."/>
                 <xsl:value-of select="$v_source"/>
             </xsl:when>
             <xsl:when test="@type = 'OCLC'">
@@ -1529,25 +1544,25 @@
             <xsl:when test="@type = 'shamela'">
                 <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
                 <xsl:value-of select="concat('P953', $v_seperator-qs)"/>
-                <xsl:apply-templates select="concat($p_url-resolve-shamela, .)" mode="m_string-quoted"/>
+                <xsl:apply-templates mode="m_string-quoted" select="concat($p_url-resolve-shamela, .)"/>
                 <xsl:value-of select="$v_source"/>
             </xsl:when>
             <xsl:when test="@type = 'VIAF'">
                 <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
                 <xsl:value-of select="concat('P214', $v_seperator-qs)"/>
-                <xsl:apply-templates select="." mode="m_string-quoted"/>
+                <xsl:apply-templates mode="m_string-quoted" select="."/>
                 <xsl:value-of select="$v_source"/>
             </xsl:when>
             <xsl:when test="@type = 'zdb'">
                 <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
                 <xsl:value-of select="concat('P1042', $v_seperator-qs)"/>
-                <xsl:apply-templates select="." mode="m_string-quoted"/>
+                <xsl:apply-templates mode="m_string-quoted" select="."/>
                 <xsl:value-of select="$v_source"/>
             </xsl:when>
             <xsl:when test="@type = 'zenodo'">
                 <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
                 <xsl:value-of select="concat('P4901', $v_seperator-qs)"/>
-                <xsl:apply-templates select="." mode="m_string-quoted"/>
+                <xsl:apply-templates mode="m_string-quoted" select="."/>
                 <xsl:value-of select="$v_source"/>
             </xsl:when>
             <!-- Identifiers that should be skipped -->
@@ -1556,7 +1571,7 @@
             <xsl:when test="@type = 'URI'">
                 <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
                 <xsl:value-of select="concat('P953', $v_seperator-qs)"/>
-                <xsl:apply-templates select="." mode="m_string-quoted"/>
+                <xsl:apply-templates mode="m_string-quoted" select="."/>
                 <xsl:value-of select="$v_source"/>
             </xsl:when>
             <xsl:otherwise>
@@ -1734,6 +1749,39 @@
     <xsl:template match="tei:idno[@type = ('classmark', 'record')]" mode="m_tei2qs_qualifier">
         <xsl:value-of select="concat($v_seperator-qs, 'P217', $v_seperator-qs)"/>
         <xsl:apply-templates mode="m_string-quoted" select="."/>
+    </xsl:template>
+    <!-- archival resource key -->
+    <xsl:template match="tei:idno[@type = ('ARK')]" mode="m_tei2wikidata_qualifier">
+        <xsl:value-of select="concat($v_seperator-qs, 'P8091', $v_seperator-qs)"/>
+        <xsl:apply-templates mode="m_string-quoted" select="."/>
+        <!-- Gallica ID as derivative of ARK -->
+        <xsl:if test="starts-with(., 'ark:/12148/')">
+            <xsl:value-of select="concat($v_seperator-qs, 'P4258', $v_seperator-qs)"/>
+            <xsl:apply-templates mode="m_string-quoted" select="substring-after(., 'ark:/12148/')"/>
+            <!-- BnF ID -->
+            <!-- property restrains on P4258 require P268 -->
+            <xsl:value-of select="concat($v_seperator-qs, 'P268', $v_seperator-qs)"/>
+            <xsl:apply-templates mode="m_string-quoted" select="replace(., 'ark:/12148/cb([\w|\d]+).*$', '$1')"/>
+        </xsl:if>
+    </xsl:template>
+    <!-- Handle ID -->
+    <xsl:template match="tei:idno[@type = ('hdl', 'HDL')]" mode="m_tei2wikidata_qualifier">
+        <xsl:value-of select="concat($v_seperator-qs, 'P1184', $v_seperator-qs)"/>
+        <xsl:apply-templates mode="m_string-quoted" select="."/>
+    </xsl:template>
+    <!-- urn -->
+    <xsl:template match="tei:idno[@type = 'URN']" mode="m_tei2wikidata_qualifier">
+        <xsl:choose>
+            <xsl:when test="starts-with(., 'urn:nbn:')">
+                <xsl:value-of select="concat($v_seperator-qs, 'P4109', $v_seperator-qs)"/>
+                <xsl:apply-templates mode="m_string-quoted" select="."/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:message>
+                    <xsl:text>This URN namespace is not implemented</xsl:text>
+                </xsl:message>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="tei:idno[@type = ('URI', 'url')][@subtype = 'self']" mode="m_tei2qs_qualifier">
         <!-- full work available at URL -->
