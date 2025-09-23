@@ -673,4 +673,6 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <!-- remove duplicate IDs -->
+    <xsl:template mode="m_post-process" match="tei:idno[. = following-sibling::tei:idno[@type = current()/@type]]"/>
 </xsl:stylesheet>
