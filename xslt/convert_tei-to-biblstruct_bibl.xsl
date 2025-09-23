@@ -33,6 +33,7 @@
                 <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:text/tei:body/descendant::tei:listBibl[not(ancestor::tei:biblStruct)]"/>
                 <!-- biblStruct from standOff -->
                 <xsl:apply-templates mode="m_bibl-to-biblStruct" select="tei:standOff/descendant::tei:biblStruct"/>
+                 <xsl:apply-templates mode="m_bibl-to-biblStruct" select="tei:standOff/descendant::tei:bibl"/>
             </xsl:variable>
             <xsl:element name="standOff">
                 <!-- already in authority file-->
@@ -50,7 +51,7 @@
                     <xsl:element name="head">
                         <xsl:text>new or unlinked</xsl:text>
                     </xsl:element>
-                    <xsl:for-each-group select="$v_bibls/descendant-or-self::tei:biblStruct[not(tei:monogr/tei:idno)]" group-by=".">
+                    <xsl:for-each-group select="$v_bibls/descendant-or-self::tei:biblStruct[not(tei:monogr/tei:idno[@type = ($p_local-authority, $p_acronym-wikidata)])]" group-by=".">
                         <xsl:sort select="tei:monogr/tei:title[1]"/>
                         <xsl:apply-templates select="." mode="m_replicate"/>
                     </xsl:for-each-group>
