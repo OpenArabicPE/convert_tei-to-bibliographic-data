@@ -58,6 +58,8 @@
                 <xsl:for-each-group group-by="." select="$v_bibls/descendant::tei:idno[not(@type = 'URI')]">
                     <xsl:apply-templates mode="m_identity-transform" select="current-group()[1]"/>
                 </xsl:for-each-group>
+                <!-- URL -->
+                <xsl:apply-templates mode="m_identity-transform" select="$v_bibls/descendant::tei:idno[@type = 'URI'][@subtype = 'self']"/>
                 <!-- URL if HTU -->
                 <xsl:if test="ancestor::tei:biblStruct[1][@source = 'oape:org:31']">
                     <xsl:apply-templates mode="m_identity-transform" select="$v_bibls/descendant::tei:idno[@type = 'URI'][matches(., '/htu/data/HTU')]"/>
