@@ -63,8 +63,10 @@
             <xsl:choose>
                 <!-- this test will cause to load ZDB data for Hathitrust data sets: $v_id-record/tei:idno/@type = 'zdb'  -->
                 <xsl:when test="$v_catalogue = 'zdb'">
-                    <xsl:variable name="v_url-record" select="concat($v_url-server-zdb-ld, $v_id-record/tei:idno[@type = 'zdb'][1], '.plus-1.mrcx')"/>
-                    <xsl:copy-of select="doc($v_url-record)/descendant-or-self::marc:record"/>
+                    <!-- it is not necessary to again load MARCXML from ZDB, if I convert the MARCXML already downloaded from ZDB -->
+                    <!--<xsl:variable name="v_url-record" select="concat($v_url-server-zdb-ld, $v_id-record/tei:idno[@type = 'zdb'][1], '.plus-1.mrcx')"/>
+                    <xsl:copy-of select="doc($v_url-record)/descendant-or-self::marc:record"/>-->
+                    <xsl:copy-of select="."/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:copy-of select="."/>
@@ -1217,20 +1219,34 @@
                 <!-- we can pull information on holding informations from the ISIL number -->
                 <xsl:variable name="v_id-isil" select="parent::marc:datafield/marc:subfield[@code = 'b']"/>
                 <xsl:variable name="v_org">
-                    <xsl:apply-templates mode="m_isil-to-tei" select="doc(concat('http://ld.zdb-services.de/data/organisations/', $v_id-isil, '.rdf'))/descendant::rdf:Description"/>
+                    <xsl:choose>
+                        <xsl:when test="$v_id-isil != ''">
+                            <xsl:apply-templates mode="m_isil-to-tei" select="doc(concat('http://ld.zdb-services.de/data/organisations/', $v_id-isil, '.rdf'))/descendant::rdf:Description"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>NA</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:variable>
                 <xsl:element name="item">
                     <xsl:attribute name="source" select="$v_url-catalogue"/>
                     <xsl:element name="label">
-                        <!-- location -->
-                        <xsl:copy-of select="oape:query-org($v_org/descendant-or-self::tei:org, 'location-tei', 'en', $p_local-authority)"/>
-                        <xsl:text>, </xsl:text>
-                        <!-- institution -->
-                        <xsl:element name="orgName">
-                            <xsl:attribute name="ref"
-                                select="oape:query-organizationography($v_org/descendant::tei:orgName[@type = 'short'][1], $v_organizationography, $p_local-authority, 'tei-ref', '')"/>
-                            <xsl:value-of select="oape:query-org($v_org/descendant-or-self::tei:org, 'name', 'en', $p_local-authority)"/>
-                        </xsl:element>
+                        <xsl:choose>
+                            <xsl:when test="$v_org != 'NA'">
+                                <!-- location -->
+                                <xsl:copy-of select="oape:query-org($v_org/descendant-or-self::tei:org, 'location-tei', 'en', $p_local-authority)"/>
+                                <xsl:text>, </xsl:text>
+                                <!-- institution -->
+                                <xsl:element name="orgName">
+                                    <xsl:attribute name="ref"
+                                        select="oape:query-organizationography($v_org/descendant::tei:orgName[@type = 'short'][1], $v_organizationography, $p_local-authority, 'tei-ref', '')"/>
+                                    <xsl:value-of select="oape:query-org($v_org/descendant-or-self::tei:org, 'name', 'en', $p_local-authority)"/>
+                                </xsl:element>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>NA</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:element>
                     <!-- machine readible holding information -->
                     <xsl:element name="listBibl">
@@ -1277,8 +1293,10 @@
         <xsl:variable name="v_record">
             <xsl:choose>
                 <xsl:when test="$v_id-record/tei:idno/@type = 'zdb'">
-                    <xsl:variable name="v_url-record" select="concat($v_url-server-zdb-ld, $v_id-record/tei:idno[@type = 'zdb'], '.plus-1.mrcx')"/>
-                    <xsl:copy-of select="doc($v_url-record)/descendant-or-self::marc:record"/>
+                    <!-- it is not necessary to again load MARCXML from ZDB, if I convert the MARCXML already downloaded from ZDB -->
+                    <!--<xsl:variable name="v_url-record" select="concat($v_url-server-zdb-ld, $v_id-record/tei:idno[@type = 'zdb'], '.plus-1.mrcx')"/>
+                    <xsl:copy-of select="doc($v_url-record)/descendant-or-self::marc:record"/>-->
+                     <xsl:copy-of select="."/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:copy-of select="."/>
@@ -1317,7 +1335,6 @@
             </xsl:when>
         </xsl:choose>
     </xsl:template>
-    
     <xsl:template match="tei:idno[@type = 'isil']" mode="m_isil-to-tei">
         <xsl:apply-templates mode="m_isil-to-tei" select="doc(concat('http://ld.zdb-services.de/data/organisations/', ., '.rdf'))/rdf:RDF/rdf:Description"/>
     </xsl:template>
@@ -1485,9 +1502,7 @@
                 </xsl:variable>
                 <xsl:choose>
                     <xsl:when test="$v_catalogue = 'aub'">
-                        <xsl:value-of
-                            select="concat($p_url-resolve-aub, substring($v_id-record/tei:idno[@type = 'LEAUB'][1], 1, string-length($v_id-record/tei:idno[@type = 'LEAUB'][1]) - 1))"
-                        />
+                        <xsl:value-of select="concat($p_url-resolve-aub, substring($v_id-record/tei:idno[@type = 'LEAUB'][1], 1, string-length($v_id-record/tei:idno[@type = 'LEAUB'][1]) - 1))"/>
                     </xsl:when>
                     <xsl:when test="$v_catalogue = 'zdb'">
                         <xsl:value-of select="concat($p_url-resolve-zdb, $v_id-record/tei:idno[@type = 'zdb'][1])"/>
@@ -1502,7 +1517,6 @@
                     <xsl:when test="$v_catalogue = ('https://www.nli.org.il/', 'oape:org:60', 'wiki:Q188915')">
                         <xsl:value-of select="concat($p_url-resolve-nloi_periodicals, $v_id-record/tei:idno[@type = 'record'][1])"/>
                     </xsl:when>
-
                     <xsl:otherwise>
                         <xsl:text>NA</xsl:text>
                     </xsl:otherwise>
