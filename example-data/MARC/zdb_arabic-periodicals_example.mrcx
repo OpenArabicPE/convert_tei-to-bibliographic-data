@@ -128,6 +128,290 @@
       </recordData>
       <recordPosition>244</recordPosition>
     </record>
+    <record type="Bibliographic" xmlns="http://www.loc.gov/MARC21/slim">
+      <leader>00000nas a2200000 c 4500</leader>
+      <controlfield tag="001">016391764</controlfield>
+      <controlfield tag="003">DE-101</controlfield>
+      <controlfield tag="005">20220903130838.0</controlfield>
+      <controlfield tag="007">tu</controlfield>
+      <controlfield tag="008">991121d18891915ua d||n|  ||| 0||||1ara c</controlfield>
+      <datafield ind1="7" ind2=" " tag="016">
+        <subfield code="2">DE-600</subfield>
+        <subfield code="a">1109399-7</subfield>
+      </datafield>
+      <datafield ind1="7" ind2=" " tag="016">
+        <subfield code="2">DE-101</subfield>
+        <subfield code="a">016391764</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="035">
+        <subfield code="a">(DE-599)ZDB1109399-7</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="035">
+        <subfield code="a">(OCoLC)1366436900</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="040">
+        <subfield code="a">9001</subfield>
+        <subfield code="b">ger</subfield>
+        <subfield code="c">DE-101</subfield>
+        <subfield code="d">9999</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="041">
+        <subfield code="a">ara</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="042">
+        <subfield code="a">zdb</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="044">
+        <subfield code="c">XC-EG</subfield>
+      </datafield>
+      <datafield ind1="7" ind2="4" tag="082">
+        <subfield code="a">050</subfield>
+        <subfield code="q">DE-600</subfield>
+        <subfield code="2">22sdnb</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="084">
+        <subfield code="a">26</subfield>
+        <subfield code="2">ssgn</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="245">
+        <subfield code="a">&#152;al-&#156; Mu'aiyad</subfield>
+        <subfield code="b">ǧarīda yaumīya siyāsīya tiǧārīya = &#152;al-&#156; Moayad</subfield>
+      </datafield>
+      <datafield ind1="1" ind2="1" tag="246">
+        <subfield code="a">&#152;al-&#156; Moayad</subfield>
+      </datafield>
+      <datafield ind1="3" ind2="1" tag="264">
+        <subfield code="a">al-Qāhira</subfield>
+        <subfield code="b">Mukātabāt al-mu'ayyad</subfield>
+        <subfield code="c">1889-1915</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="336">
+        <subfield code="a">Text</subfield>
+        <subfield code="b">txt</subfield>
+        <subfield code="2">rdacontent</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="337">
+        <subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+        <subfield code="b">n</subfield>
+        <subfield code="2">rdamedia</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="338">
+        <subfield code="a">Band</subfield>
+        <subfield code="b">nc</subfield>
+        <subfield code="2">rdacarrier</subfield>
+      </datafield>
+      <datafield ind1="0" ind2=" " tag="362">
+        <subfield code="a">1889,1.Dez=1307,8.Ǧumādā I. - 1915=1333/34[?]; auch mit durchgehender Nr.-Zählung</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="363">
+        <subfield code="8">1.1\x</subfield>
+        <subfield code="i">1889</subfield>
+      </datafield>
+      <datafield ind1="1" ind2="0" tag="363">
+        <subfield code="8">1.2\x</subfield>
+        <subfield code="i">1915</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="515">
+        <subfield code="a">Datumsangaben in Hiǧra, später auch nach kopt. Zeitrechnung; Periodizität: tägl.</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="591">
+        <subfield code="a">(üa/Z) Autopsie</subfield>
+      </datafield>
+      <datafield ind1=" " ind2="7" tag="655">
+        <subfield code="0">(DE-588)4067510-5</subfield>
+        <subfield code="0">https://d-nb.info/gnd/4067510-5</subfield>
+        <subfield code="0">(DE-101)040675106</subfield>
+        <subfield code="a">Zeitung</subfield>
+        <subfield code="2">gnd-content</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="751">
+        <subfield code="0">(DE-588)4029236-8</subfield>
+        <subfield code="0">https://d-nb.info/gnd/4029236-8</subfield>
+        <subfield code="0">(DE-101)040292363</subfield>
+        <subfield code="a">Kairo</subfield>
+        <subfield code="e">Verbreitungsort</subfield>
+        <subfield code="4">dbp</subfield>
+        <subfield code="2">gnd</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="8" tag="776">
+        <subfield code="i">Elektronische Reproduktion</subfield>
+        <subfield code="t">&#152;al-&#156; Mu'aiyad</subfield>
+        <subfield code="d">al-Qāhira : Mukātabāt al-mu'ayyad, 1896-1898</subfield>
+        <subfield code="h">Online-Ressource</subfield>
+        <subfield code="w">(DE-600)2668766-5</subfield>
+        <subfield code="w">(DE-101)1023715414</subfield>
+      </datafield>
+    </record>
+    <record type="Bibliographic" xmlns="http://www.loc.gov/MARC21/slim">
+      <leader>00000nas a2200000 c 4500</leader>
+      <controlfield tag="001">1046553941</controlfield>
+      <controlfield tag="003">DE-101</controlfield>
+      <controlfield tag="005">20240308161615.0</controlfield>
+      <controlfield tag="007">cr||||||||||||</controlfield>
+      <controlfield tag="008">140120d18401864vp w||n|o ||| 0||||1tur c</controlfield>
+      <datafield ind1="7" ind2=" " tag="016">
+        <subfield code="2">DE-600</subfield>
+        <subfield code="a">2752566-1</subfield>
+      </datafield>
+      <datafield ind1="7" ind2=" " tag="016">
+        <subfield code="2">DE-101</subfield>
+        <subfield code="a">1046553941</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="035">
+        <subfield code="a">(DE-599)ZDB2752566-1</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="035">
+        <subfield code="a">(OCoLC)1366406924</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="040">
+        <subfield code="a">9001</subfield>
+        <subfield code="b">ger</subfield>
+        <subfield code="c">DE-101</subfield>
+        <subfield code="d">9999</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="041">
+        <subfield code="a">tur</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="042">
+        <subfield code="a">zdb</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="044">
+        <subfield code="c">XV</subfield>
+      </datafield>
+      <datafield ind1="7" ind2="4" tag="082">
+        <subfield code="a">070</subfield>
+        <subfield code="a">890</subfield>
+        <subfield code="q">DE-600</subfield>
+        <subfield code="2">23sdnb</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="090">
+        <subfield code="n">la</subfield>
+        <subfield code="n">dm</subfield>
+        <subfield code="n">ld</subfield>
+        <subfield code="n">ao</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="242">
+        <subfield code="a">Übers.: Bericht der Ereignisse</subfield>
+        <subfield code="y">ger</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="245">
+        <subfield code="a">Ǧerīde-i ḥawādiṯ</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="247">
+        <subfield code="a">Ǧarīda-i ḥawādis̱</subfield>
+        <subfield code="f">Abweichende Umschr. d. Hauptsacht.</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="247">
+        <subfield code="a">Ǧarīda-i ḥavādis̱</subfield>
+        <subfield code="f">Abweichende Umschr. d. Hauptsacht.</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="247">
+        <subfield code="a">Ǧerīde-i havādis</subfield>
+        <subfield code="f">Abweichende Umschr. d. Hauptsacht.</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="247">
+        <subfield code="a">Ceride-i havadis</subfield>
+        <subfield code="f">Abweichende Umschr. d. Hauptsacht.</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="247">
+        <subfield code="a">Ǧarīda-i ḥawādiṯ</subfield>
+        <subfield code="f">Abweichende Umschr. d. Hauptsacht.</subfield>
+      </datafield>
+      <datafield ind1="3" ind2="1" tag="264">
+        <subfield code="a">Istanbul</subfield>
+        <subfield code="b">[Verlag nicht ermittelbar]</subfield>
+        <subfield code="c">1840-1864</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="300">
+        <subfield code="a">Online-Ressource</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="336">
+        <subfield code="a">Text</subfield>
+        <subfield code="b">txt</subfield>
+        <subfield code="2">rdacontent</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="337">
+        <subfield code="a">Computermedien</subfield>
+        <subfield code="b">c</subfield>
+        <subfield code="2">rdamedia</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="338">
+        <subfield code="a">Online-Ressource</subfield>
+        <subfield code="b">cr</subfield>
+        <subfield code="2">rdacarrier</subfield>
+      </datafield>
+      <datafield ind1="0" ind2=" " tag="362">
+        <subfield code="a">Urheberrechtsfreie Bände digitalisiert oder im Digitalisierungsprozess 1270=[1853/54] - 1272=[1855/56],701-799</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="363">
+        <subfield code="8">1.1\x</subfield>
+        <subfield code="i">1270</subfield>
+      </datafield>
+      <datafield ind1="1" ind2="0" tag="363">
+        <subfield code="8">1.2\x</subfield>
+        <subfield code="i">1272</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="515">
+        <subfield code="a">Periodizität: wöchentl.</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="530">
+        <subfield code="a">Digital. Ausg.: München : Münchener Digitalisierungszentrum, 2008-2013</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="533">
+        <subfield code="7">d20082013</subfield>
+        <subfield code="a">Digital. Ausg.</subfield>
+        <subfield code="b">München</subfield>
+        <subfield code="c">Münchener Digitalisierungszentrum</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="546">
+        <subfield code="a">In arab. Schr.</subfield>
+      </datafield>
+      <datafield ind1="1" ind2=" " tag="583">
+        <subfield code="a">Archivierung/Langzeitarchivierung gewährleistet</subfield>
+        <subfield code="5">DE-12</subfield>
+        <subfield code="2">pdager</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="591">
+        <subfield code="a">85640SF3!Volltext</subfield>
+      </datafield>
+      <datafield ind1=" " ind2="7" tag="655">
+        <subfield code="0">(DE-588)4067510-5</subfield>
+        <subfield code="0">https://d-nb.info/gnd/4067510-5</subfield>
+        <subfield code="0">(DE-101)040675106</subfield>
+        <subfield code="a">Zeitung</subfield>
+        <subfield code="2">gnd-content</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="751">
+        <subfield code="0">(DE-588)4027821-9</subfield>
+        <subfield code="0">https://d-nb.info/gnd/4027821-9</subfield>
+        <subfield code="0">(DE-101)040278212</subfield>
+        <subfield code="a">Istanbul</subfield>
+        <subfield code="e">Verbreitungsort</subfield>
+        <subfield code="4">dbp</subfield>
+        <subfield code="2">gnd</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="751">
+        <subfield code="0">(DE-588)4073697-0</subfield>
+        <subfield code="0">https://d-nb.info/gnd/4073697-0</subfield>
+        <subfield code="0">(DE-101)040736970</subfield>
+        <subfield code="a">Konstantinopel</subfield>
+        <subfield code="e">Verbreitungsort</subfield>
+        <subfield code="4">dbp</subfield>
+        <subfield code="2">gnd</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="8" tag="776">
+        <subfield code="i">Elektronische Reproduktion von</subfield>
+        <subfield code="t">Ǧerīde-i ḥawādiṯ</subfield>
+        <subfield code="d">Istanbul : [Verlag nicht ermittelbar], 1840-1864</subfield>
+        <subfield code="w">(DE-600)1072874-0</subfield>
+        <subfield code="w">(DE-101)016039904</subfield>
+      </datafield>
+      <datafield ind1="4" ind2=" " tag="856">
+        <subfield code="u">https://www.digitale-sammlungen.de/search?query=manifestation_id%3A%22ZDB%7C1072874-0%7C%22&amp;sortField=date&amp;sortOrder=asc&amp;handler=simple-metadata</subfield>
+        <subfield code="x">Langzeitarchivierung</subfield>
+        <subfield code="z">kostenfrei</subfield>
+      </datafield>
+    </record>
   </records>
   <nextRecordPosition>245</nextRecordPosition>
   <echoedSearchRetrieveRequest>

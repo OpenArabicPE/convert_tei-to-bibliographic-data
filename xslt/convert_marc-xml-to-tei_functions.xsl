@@ -56,6 +56,15 @@
         <xsl:variable name="v_id-record">
             <xsl:copy-of select="oape:query-marcx(., 'id')"/>
         </xsl:variable>
+        <xsl:variable name="v_text-record">
+            <xsl:text>record "</xsl:text>
+            <xsl:value-of select="$v_id-record/tei:idno[1]"/>
+            <xsl:text>"</xsl:text>
+        </xsl:variable>
+        <xsl:message>
+            <xsl:value-of select="$v_text-record"/>
+            <xsl:text>: begin conversion</xsl:text>
+        </xsl:message>
         <xsl:variable name="v_catalogue" select="oape:query-marcx(., 'catalogue')"/>
         <xsl:variable name="v_url-catalogue" select="oape:query-marcx(., 'url_record-in-catalogue')"/>
         <!-- variable to potentially pull a record from another URL based on the input record -->
@@ -63,10 +72,20 @@
             <xsl:choose>
                 <!-- this test will cause to load ZDB data for Hathitrust data sets: $v_id-record/tei:idno/@type = 'zdb'  -->
                 <xsl:when test="$v_catalogue = 'zdb'">
-                    <!-- it is not necessary to again load MARCXML from ZDB, if I convert the MARCXML already downloaded from ZDB -->
-                    <!--<xsl:variable name="v_url-record" select="concat($v_url-server-zdb-ld, $v_id-record/tei:idno[@type = 'zdb'][1], '.plus-1.mrcx')"/>
-                    <xsl:copy-of select="doc($v_url-record)/descendant-or-self::marc:record"/>-->
-                    <xsl:copy-of select="."/>
+                    <!-- somehow IT IS necessary to again load MARCXML from ZDB, because holding information is not part of the main MARC  -->
+                    <xsl:variable name="v_url-record" select="concat($v_url-server-zdb-ld, $v_id-record/tei:idno[@type = 'zdb'][1], '.plus-1.mrcx')"/>
+                    <xsl:choose>
+                        <xsl:when test="doc-available($v_url-record) = true()">
+                            <xsl:copy-of select="doc($v_url-record)/descendant-or-self::marc:record"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:message>
+                                <xsl:value-of select="$v_text-record"/>
+                                <xsl:text>: the MARCXML with holding could not be downloaded</xsl:text>
+                            </xsl:message>
+                            <xsl:copy-of select="."/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:copy-of select="."/>
@@ -99,6 +118,8 @@
                         <!-- titles: 245, 246. 246 can contain a plethora of alternative, related etc. titles and should not be used at this stage -->
                         <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('245')]/marc:subfield[@code = ('a', 'b')]"/>
                         <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('246')][@ind1 = '3'][@ind2 = '3']/marc:subfield[@code = 'a']"/>
+                        <!-- transliterations -->
+                        <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('247')]/marc:subfield[@code = ('a')]"/>
                     </xsl:if>
                     <!-- IDs -->
                     <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('010', '019', '020', '022', '035', '856')]/marc:subfield"/>
@@ -165,27 +186,44 @@
                 <!-- the infamous field 500: notes -->
                 <xsl:apply-templates select="$v_record//marc:datafield[@tag = '500'][1]/marc:subfield"/>
                 <!-- general holding information -->
-                <!-- AUB holdings -->
-                <xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '866'][@ind2 = '1']/marc:subfield[@code = 'a']"/>
-                <!-- holdings in ZDB record served over SRU: has been replaced -->
-                <xsl:if test="$v_catalogue = 'zdb'">
-                    <xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '362'][@ind1 = '0']/marc:subfield[@code = 'a']"/>
+                <xsl:if test="$p_debug = true()">
+                    <xsl:message>
+                        <xsl:text>Adding holding information from </xsl:text>
+                        <xsl:value-of select="$v_catalogue"/>
+                        <xsl:text> catalogue.</xsl:text>
+                    </xsl:message>
                 </xsl:if>
-                <!-- KOHA / USJ -->
-                <xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '362']">
-                    <xsl:with-param name="p_record" select="$v_record"/>
-                    <xsl:with-param name="p_catalogue" select="$v_catalogue"/>
-                    <xsl:with-param name="p_url-catalogue" select="$v_url-catalogue"/>
-                </xsl:apply-templates>
-                <!-- Hathi: holding information -->
-                <!--<xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = 'HOL']">
+                <xsl:choose>
+                    <xsl:when test="$v_catalogue = 'aub'">
+                        <!-- AUB holdings -->
+                        <xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '866'][@ind2 = '1']/marc:subfield[@code = 'a']"/>
+                    </xsl:when>
+                    <xsl:when test="$v_catalogue = 'koha'">
+                        <!-- KOHA / USJ -->
+                        <xsl:copy-of select="oape:query-marcx($v_record, 'holdings')"/>
+                       <!-- <xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '362']">
+                            <xsl:with-param name="p_record" select="$v_record"/>
+                            <xsl:with-param name="p_catalogue" select="$v_catalogue"/>
+                            <xsl:with-param name="p_url-catalogue" select="$v_url-catalogue"/>
+                        </xsl:apply-templates>-->
+                    </xsl:when>
+                    <!-- Hathi: holding information -->
+                    <!--<xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = 'HOL']">
                 <xsl:with-param name="p_id-record" select="$v_id-record"/>
             </xsl:apply-templates>-->
-                <!-- detailed holding information: one entry per physical or digital item -->
-                <!-- ZDB holding information -->
-                <xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '924'][1]">
-                    <xsl:with-param name="p_id-record" select="$v_id-record"/>
-                </xsl:apply-templates>
+                    <!-- detailed holding information: one entry per physical or digital item -->
+                    <xsl:when test="$v_catalogue = 'zdb'">
+                        <!-- ZDB holding information -->
+                        <!--<xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '924'][1]">
+                            <xsl:with-param name="p_id-record" select="$v_id-record"/>
+                        </xsl:apply-templates>
+-->                        <xsl:copy-of select="oape:query-marcx($v_record, 'holdings')"/>
+                        <!-- holdings in ZDB record served over SRU: has been replaced -->
+                        <!--<xsl:if test="$v_catalogue = 'zdb'">
+                            <xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '362'][@ind1 = '0']/marc:subfield[@code = 'a']"/>
+                        </xsl:if>-->
+                    </xsl:when>
+                </xsl:choose>
                 <!-- Hathi: digitised items -->
                 <!-- USJ holding information: KOHA library systems -->
                 <xsl:if test="$v_record//marc:datafield[@tag = ('974', '952')]">
@@ -602,7 +640,7 @@
                 - 246: varying form of title
             -->
             <!-- 222: duplicate of the title field -->
-            <xsl:when test="$v_tag = ('241', '242', '243', '245', '246')">
+            <xsl:when test="$v_tag = ('241', '242', '243', '245', '246', '247')">
                 <xsl:choose>
                     <xsl:when test="$v_code = ('a', 'b')">
                         <xsl:element name="title">
@@ -610,6 +648,10 @@
                                 <xsl:attribute name="type" select="'sub'"/>
                             </xsl:if>
                             <xsl:if test="$v_tag = '246' and $v_ind1 = '3' and $v_ind2 = '3'">
+                                <xsl:attribute name="type" select="'alt'"/>
+                            </xsl:if>
+                            <!-- ZDB uses 247 for alternative transliterations, sub titles  -->
+                            <xsl:if test="$v_tag = '247'">
                                 <xsl:attribute name="type" select="'alt'"/>
                             </xsl:if>
                             <xsl:choose>
@@ -1046,22 +1088,22 @@
             </xsl:when>
         </xsl:choose>
     </xsl:template>
-    <!-- when and from where is this called? -->
+    <!-- This is called for holdings in ZDB -->
     <xsl:template match="marc:datafield[@tag = ('924')]" mode="m_notes">
         <xsl:param name="p_id-record"/>
-        <xsl:element name="note">
-            <xsl:attribute name="type" select="'holdings'"/>
-            <xsl:element name="list">
-                <!-- initial item -->
-                <xsl:apply-templates mode="m_notes" select="marc:subfield[@code = 'b']">
-                    <xsl:with-param name="p_id-record" select="$p_id-record"/>
-                </xsl:apply-templates>
-                <!-- following items -->
-                <xsl:apply-templates mode="m_notes" select="following-sibling::marc:datafield[@tag = '924']/marc:subfield[@code = 'b']">
-                    <xsl:with-param name="p_id-record" select="$p_id-record"/>
-                </xsl:apply-templates>
-            </xsl:element>
-        </xsl:element>
+        <xsl:if test="$p_debug = true()">
+            <xsl:message>
+                <xsl:text>match="marc:datafield[@tag = ('924')]" mode="m_notes]</xsl:text>
+            </xsl:message>
+        </xsl:if>
+        <!-- initial item -->
+        <xsl:apply-templates mode="m_notes" select="marc:subfield[@code = 'b']">
+            <xsl:with-param name="p_id-record" select="$p_id-record"/>
+        </xsl:apply-templates>
+        <!-- following items -->
+        <xsl:apply-templates mode="m_notes" select="following-sibling::marc:datafield[@tag = '924']/marc:subfield[@code = 'b']">
+            <xsl:with-param name="p_id-record" select="$p_id-record"/>
+        </xsl:apply-templates>
     </xsl:template>
     <!-- this has beeen changed to group Hathi holdings by institution -->
     <xsl:template match="marc:datafield[@tag = ('974')]" mode="m_notes" priority="2">
@@ -1103,15 +1145,16 @@
         </xsl:element>
     </xsl:template>
     <xsl:template match="marc:datafield[@tag = ('362')]" mode="m_notes">
-        <xsl:param name="p_record"/>
-        <xsl:param name="p_catalogue"/>
-        <xsl:param name="p_url-catalogue"/>
-        <xsl:element name="note">
+        <xsl:param name="p_record" select="ancestor::marc:record[1]"/>
+        <xsl:param name="p_catalogue" select="oape:query-marcx($p_record, 'catalogue')"/>
+<!--        <xsl:param name="p_url-catalogue"/>-->
+       <!-- <xsl:element name="note">
             <xsl:attribute name="type" select="'holdings'"/>
-            <xsl:element name="list">
+            <xsl:element name="list">-->
                 <xsl:choose>
                     <xsl:when test="$p_catalogue = 'koha'">
-                        <xsl:variable name="v_id-record" select="$p_record//marc:datafield[@tag = '999']/marc:subfield[@code = 'c']/text()"/>
+                        <!--<xsl:variable name="v_id-record" select="$p_record//marc:datafield[@tag = '999']/marc:subfield[@code = 'c']/text()"/>-->
+                        <xsl:variable name="v_id-record" select="oape:query-marcx($p_record, 'id')"/>
                         <xsl:element name="item">
                             <xsl:attribute name="source" select="concat($v_koha-url-record-web, $v_id-record)"/>
                             <xsl:element name="label">
@@ -1158,8 +1201,8 @@
                         </xsl:message>
                     </xsl:otherwise>
                 </xsl:choose>
-            </xsl:element>
-        </xsl:element>
+            <!--</xsl:element>
+        </xsl:element>-->
     </xsl:template>
     <!-- it is not really clear why this isn't called on its parent datafield -->
     <xsl:template match="marc:subfield" mode="m_notes">
@@ -1293,10 +1336,10 @@
         <xsl:variable name="v_record">
             <xsl:choose>
                 <xsl:when test="$v_id-record/tei:idno/@type = 'zdb'">
-                    <!-- it is not necessary to again load MARCXML from ZDB, if I convert the MARCXML already downloaded from ZDB -->
-                    <!--<xsl:variable name="v_url-record" select="concat($v_url-server-zdb-ld, $v_id-record/tei:idno[@type = 'zdb'], '.plus-1.mrcx')"/>
-                    <xsl:copy-of select="doc($v_url-record)/descendant-or-self::marc:record"/>-->
-                     <xsl:copy-of select="."/>
+                    <!-- it is necessary to again load MARCXML from ZDB, because holding information is not part of the main MARC  -->
+                    <xsl:variable name="v_url-record" select="concat($v_url-server-zdb-ld, $v_id-record/tei:idno[@type = 'zdb'], '.plus-1.mrcx')"/>
+                    <xsl:copy-of select="doc($v_url-record)/descendant-or-self::marc:record"/>
+                    <!--                     <xsl:copy-of select="."/>-->
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:copy-of select="."/>
@@ -1400,51 +1443,71 @@
     </xsl:template>
     <!-- 
         this function allows to query a given MARC XML file for various bits of information.
-        currently, only the query for holding information is implemented
+        currently, the query for holding information is only partially implemented
     -->
     <xsl:function name="oape:query-marcx">
         <xsl:param as="node()" name="p_marcx-record"/>
         <xsl:param as="xs:string" name="p_output-mode"/>
-        <xsl:variable name="v_record" select="$p_marcx-record"/>
+        <xsl:variable name="v_record" select="$p_marcx-record/descendant-or-self::marc:record"/>
         <xsl:choose>
+            <!-- mode 'holdings' is not used and not properly implemented -->
             <xsl:when test="$p_output-mode = 'holdings'">
-                <!-- zdb holdings -->
+                <!-- some common variables -->
                 <xsl:variable name="v_id-record">
-                    <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('016')][@ind1 = '7']/marc:subfield[@code = 'a']"/>
+                    <xsl:copy-of select="oape:query-marcx($v_record, 'id')"/>
                 </xsl:variable>
-                <xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '924'][1]">
-                    <xsl:with-param name="p_id-record" select="$v_id-record"/>
-                </xsl:apply-templates>
+                <xsl:variable name="v_catalogue">
+                    <xsl:value-of select="oape:query-marcx($v_record, 'catalogue')"/>
+                </xsl:variable>
+                <!-- scaffolding the necessary note -->
+                <xsl:element name="note">
+                    <xsl:attribute name="type" select="'holdings'"/>
+                    <xsl:element name="list">
+                        <xsl:choose>
+                            <xsl:when test="$v_catalogue = 'zdb'">
+                                <xsl:apply-templates mode="m_notes" select="$v_record/marc:datafield[@tag = ('924')][1]"/>
+                            </xsl:when>
+                             <xsl:when test="$v_catalogue = 'koha'">
+                                <xsl:apply-templates mode="m_notes" select="$v_record/marc:datafield[@tag = ('362')]"/>
+                            </xsl:when>
+                            <!-- Hathi: digitised items -->
+                            <xsl:when test="$v_record//marc:datafield[@tag = '974']">
+                                <xsl:variable name="v_id-record">
+                                    <!-- returns an <tei:idno> element -->
+                                    <xsl:apply-templates select="$v_record//marc:datafield[@tag = 'CID']/marc:subfield[@code = 'a']"/>
+                                </xsl:variable>
+                                <xsl:element name="note">
+                                    <xsl:attribute name="type" select="'holdings'"/>
+                                    <xsl:element name="list">
+                                        <!-- group by holding institution -->
+                                        <xsl:for-each-group group-by="marc:subfield[@code = 'b']" select="$v_record//marc:datafield[@tag = '974']">
+                                            <xsl:element name="item">
+                                                <xsl:attribute name="source" select="concat('https://catalog.hathitrust.org/Record/', $v_id-record/tei:idno[@type = 'ht_bib_key'])"/>
+                                                <xsl:element name="label">
+                                                    <xsl:apply-templates select="current-group()[1]/marc:subfield[@code = 'b']"/>
+                                                </xsl:element>
+                                                <!-- this should be converted to listBibl -->
+                                                <xsl:element name="listBibl">
+                                                    <!-- machine-readible holding information -->
+                                                    <xsl:apply-templates mode="m_notes" select="current-group()"/>
+                                                </xsl:element>
+                                            </xsl:element>
+                                        </xsl:for-each-group>
+                                    </xsl:element>
+                                </xsl:element>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:message>
+                                    <xsl:text>Could not retrieve holdings for unsupported catalogue</xsl:text>
+                                </xsl:message>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:element>
+                </xsl:element>
                 <!-- Hathi: holding information -->
                 <!--<xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = 'HOL']">
                 <xsl:with-param name="p_id-record" select="$v_id-record"/>
             </xsl:apply-templates>-->
-                <!-- Hathi: digitised items -->
-                <xsl:if test="$v_record//marc:datafield[@tag = '974']">
-                    <xsl:variable name="v_id-record">
-                        <!-- returns an <tei:idno> element -->
-                        <xsl:apply-templates select="$v_record//marc:datafield[@tag = 'CID']/marc:subfield[@code = 'a']"/>
-                    </xsl:variable>
-                    <xsl:element name="note">
-                        <xsl:attribute name="type" select="'holdings'"/>
-                        <xsl:element name="list">
-                            <!-- group by holding institution -->
-                            <xsl:for-each-group group-by="marc:subfield[@code = 'b']" select="$v_record//marc:datafield[@tag = '974']">
-                                <xsl:element name="item">
-                                    <xsl:attribute name="source" select="concat('https://catalog.hathitrust.org/Record/', $v_id-record/tei:idno[@type = 'ht_bib_key'])"/>
-                                    <xsl:element name="label">
-                                        <xsl:apply-templates select="current-group()[1]/marc:subfield[@code = 'b']"/>
-                                    </xsl:element>
-                                    <!-- this should be converted to listBibl -->
-                                    <xsl:element name="listBibl">
-                                        <!-- machine-readible holding information -->
-                                        <xsl:apply-templates mode="m_notes" select="current-group()"/>
-                                    </xsl:element>
-                                </xsl:element>
-                            </xsl:for-each-group>
-                        </xsl:element>
-                    </xsl:element>
-                </xsl:if>
             </xsl:when>
             <!-- output:  <tei:idno> nodes -->
             <xsl:when test="$p_output-mode = ('id_record', 'id')">
@@ -1506,7 +1569,7 @@
                     </xsl:when>
                     <xsl:when test="$v_catalogue = 'zdb'">
                         <xsl:value-of select="concat($p_url-resolve-zdb, $v_id-record/tei:idno[@type = 'zdb'][1])"/>
-                        <xsl:value-of select="$p_url-resolve-zdb"/>
+                        <!--                        <xsl:value-of select="$p_url-resolve-zdb"/>-->
                     </xsl:when>
                     <xsl:when test="$v_catalogue = 'hathi'">
                         <xsl:value-of select="concat($p_url-resolve-hathi, $v_id-record/tei:idno[@type = 'ht_bib_key'])"/>

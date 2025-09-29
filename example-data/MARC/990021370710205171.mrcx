@@ -1,0 +1,221 @@
+<record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>04891nas a2200397 a 4500</leader>
+  <controlfield tag="001">990021370710205171</controlfield>
+  <controlfield tag="005">20240725180831.0</controlfield>
+  <controlfield tag="008">191104c19029999ua || p       0   ||ara d</controlfield>
+  <datafield ind1=" " ind2=" " tag="035">
+    <subfield code="a">(IsJJNL)002137071NNL01-Aleph</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="035">
+    <subfield code="a">(OCoLC)243455293</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="040">
+    <subfield code="b">ara</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="041">
+    <subfield code="a">ara</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="090">
+    <subfield code="a">AP 5749</subfield>
+  </datafield>
+  <datafield ind1="0" ind2="0" tag="245">
+    <subfield code="a">مجلة الاحكام الشرعية.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="260">
+    <subfield code="a">مصر :</subfield>
+    <subfield code="b">[اسم الناشر غير معروف]،</subfield>
+    <subfield code="c">١٣٢٠هج ١٩٠٢م-.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="500">
+    <subfield code="a">"مجلة قضائية شرعية علمية ادبية تصدر فى منتصف كل شهر عربى".</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="500">
+    <subfield code="a">يوجد في المكتبة (غ.ك. = غير كامل):</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="500">
+    <subfield code="a">١، ١٣٢٠هج(١٩٠٢/٠٣م)؛ ٢، ١٣٢١هج(١٩٠٣/٠٤م)؛ ٣، ١٣٢٢هج(١٩٠٤م)(غ.ك.)؛ ٤، ١٣٢٣هج(١٩٠٥م)(غ.ك.)؛ ٥، ١٣٢٤هج(١٩٠٦/٠٧م)؛ ٦، ١٣٢٥هج(١٩٠٧/٠٨م)؛</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="500">
+    <subfield code="a">٧، ١٣٢٦هج(١٩٠٨/٠٩م)؛ ٨، ١٣٢٦هج(١٩١٠م)؛ ٩، ١٣٢٨/٣٣هج(١٩١٠/١٥)؛ ١٠، ١٣٣٤هج(١٩١٥/١٦م)؛ ١١، ١٣٣٥هج(١٩١٦/١٧)؛</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="500">
+    <subfield code="a">نسخة واحدة أو أكثر من هذا الكتاب تابعة لمجموعة أملاك الغائبين AP.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="500">
+    <subfield code="a">עותק אחד או יותר של ספר זה שייכים לאוסף נכסי נפקדים AP.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="500">
+    <subfield code="a">One copy or more of this book belong to the Absentee Property Collection (AP).</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="7" tag="650">
+    <subfield code="a">Arabic newspapers</subfield>
+    <subfield code="9">lat</subfield>
+    <subfield code="2">NLI</subfield>
+    <subfield code="8">PreferredLanguageHeading</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="7" tag="650">
+    <subfield code="a">Arabic periodicals</subfield>
+    <subfield code="9">lat</subfield>
+    <subfield code="2">NLI</subfield>
+    <subfield code="8">PreferredLanguageHeading</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="7" tag="650">
+    <subfield code="a">Arabic periodicals</subfield>
+    <subfield code="z">Egypt</subfield>
+    <subfield code="9">lat</subfield>
+    <subfield code="2">NLI</subfield>
+    <subfield code="8">PreferredLanguageHeading</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="7" tag="650">
+    <subfield code="a">Islam</subfield>
+    <subfield code="v">Periodicals</subfield>
+    <subfield code="9">lat</subfield>
+    <subfield code="2">NLI</subfield>
+    <subfield code="8">PreferredLanguageHeading</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="7" tag="650">
+    <subfield code="a">Islamic law</subfield>
+    <subfield code="v">Periodicals</subfield>
+    <subfield code="9">lat</subfield>
+    <subfield code="2">NLI</subfield>
+    <subfield code="8">PreferredLanguageHeading</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="7" tag="650">
+    <subfield code="a">Muslims</subfield>
+    <subfield code="v">Periodicals</subfield>
+    <subfield code="9">lat</subfield>
+    <subfield code="2">NLI</subfield>
+    <subfield code="8">PreferredLanguageHeading</subfield>
+  </datafield>
+  <datafield ind1="2" ind2=" " tag="740">
+    <subfield code="a">الاحكام الشرعية</subfield>
+  </datafield>
+  <datafield ind1="2" ind2=" " tag="740">
+    <subfield code="a">الاحكام الشرعية</subfield>
+    <subfield code="h">[مجلة]</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="903">
+    <subfield code="a">Library premises only;</subfield>
+    <subfield code="b">000000008</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="906">
+    <subfield code="a">GEN</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="921">
+    <subfield code="a">ia</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="939">
+    <subfield code="a">איסור העתקה</subfield>
+    <subfield code="u">http://web.nli.org.il/sites/NLI/Hebrew/library/items-terms-of-use/Pages/nli-copying-prohibited.aspx</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="952">
+    <subfield code="a">Copyright status not determined; No contract</subfield>
+    <subfield code="b">No copyright analysis</subfield>
+    <subfield code="c">Automatic profile</subfield>
+    <subfield code="d">No copyright analysis</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="999">
+    <subfield code="a">SER</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="AVA">
+    <subfield code="0">990021370710205171</subfield>
+    <subfield code="8">22493426030005171</subfield>
+    <subfield code="a">972NNL_INST</subfield>
+    <subfield code="b">NLI</subfield>
+    <subfield code="c">NLX Stacks</subfield>
+    <subfield code="d">AP 5749</subfield>
+    <subfield code="e">available</subfield>
+    <subfield code="f">8</subfield>
+    <subfield code="g">0</subfield>
+    <subfield code="j">NLX_STACKS</subfield>
+    <subfield code="k">8</subfield>
+    <subfield code="p">1</subfield>
+    <subfield code="q">NLI Library</subfield>
+    <subfield code="t">AP 5749 / Not for loan</subfield>
+    <subfield code="t">For holdings see full view</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="AVD">
+    <subfield code="a">972NNL_INST</subfield>
+    <subfield code="b">12517467060005171</subfield>
+    <subfield code="c">REPRESENTATION</subfield>
+    <subfield code="e">990021370710205171_2137071-50_Scan from the item</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="AVD">
+    <subfield code="a">972NNL_INST</subfield>
+    <subfield code="b">12517467070005171</subfield>
+    <subfield code="c">REPRESENTATION</subfield>
+    <subfield code="e">990021370710205171_2137071-50_Title page</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="AVD">
+    <subfield code="a">972NNL_INST</subfield>
+    <subfield code="b">12517485780005171</subfield>
+    <subfield code="c">REPRESENTATION</subfield>
+    <subfield code="e">990021370710205171_2137071-30_Scan from the item</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="AVD">
+    <subfield code="a">972NNL_INST</subfield>
+    <subfield code="b">12517485840005171</subfield>
+    <subfield code="c">REPRESENTATION</subfield>
+    <subfield code="e">990021370710205171_2137071-30_Title page</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="AVD">
+    <subfield code="a">972NNL_INST</subfield>
+    <subfield code="b">12517485850005171</subfield>
+    <subfield code="c">REPRESENTATION</subfield>
+    <subfield code="e">990021370710205171_2137071-60_Scan from the item</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="AVD">
+    <subfield code="a">972NNL_INST</subfield>
+    <subfield code="b">12517485860005171</subfield>
+    <subfield code="c">REPRESENTATION</subfield>
+    <subfield code="e">990021370710205171_2137071-60_Title page</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="AVD">
+    <subfield code="a">972NNL_INST</subfield>
+    <subfield code="b">12517467080005171</subfield>
+    <subfield code="c">REPRESENTATION</subfield>
+    <subfield code="e">990021370710205171_2137071-10_Scan from the item</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="AVD">
+    <subfield code="a">972NNL_INST</subfield>
+    <subfield code="b">12517467090005171</subfield>
+    <subfield code="c">REPRESENTATION</subfield>
+    <subfield code="e">990021370710205171_2137071-10_Title page</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="AVD">
+    <subfield code="a">972NNL_INST</subfield>
+    <subfield code="b">12517467200005171</subfield>
+    <subfield code="c">REPRESENTATION</subfield>
+    <subfield code="e">990021370710205171_2137071-80_Title page</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="AVD">
+    <subfield code="a">972NNL_INST</subfield>
+    <subfield code="b">12517467510005171</subfield>
+    <subfield code="c">REPRESENTATION</subfield>
+    <subfield code="e">990021370710205171_2137071-70_Scan from the item</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="AVD">
+    <subfield code="a">972NNL_INST</subfield>
+    <subfield code="b">12517467520005171</subfield>
+    <subfield code="c">REPRESENTATION</subfield>
+    <subfield code="e">990021370710205171_2137071-70_Title page</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="AVD">
+    <subfield code="a">972NNL_INST</subfield>
+    <subfield code="b">12517467530005171</subfield>
+    <subfield code="c">REPRESENTATION</subfield>
+    <subfield code="e">990021370710205171_2137071-20_Title page</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="AVD">
+    <subfield code="a">972NNL_INST</subfield>
+    <subfield code="b">12517467610005171</subfield>
+    <subfield code="c">REPRESENTATION</subfield>
+    <subfield code="e">990021370710205171_2137071-40_Scan from the item</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="AVD">
+    <subfield code="a">972NNL_INST</subfield>
+    <subfield code="b">12517467620005171</subfield>
+    <subfield code="c">REPRESENTATION</subfield>
+    <subfield code="e">990021370710205171_2137071-40_Title page</subfield>
+  </datafield>
+</record>

@@ -1,0 +1,1046 @@
+ <record xmlns="http://www.loc.gov/MARC21/slim">
+          <leader>02311nas a2200397 a 4500</leader>
+          <controlfield tag="001">990022519390205171</controlfield>
+          <controlfield tag="005">20250325135351.0</controlfield>
+          <controlfield tag="008">060210c19469999is || p       0   ||ara d</controlfield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(IsJJNL)002251939NNL01-Aleph</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="035">
+            <subfield code="a">(OCoLC)243462657</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="040">
+            <subfield code="b">ara</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="041">
+            <subfield code="a">ara</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="090">
+            <subfield code="a">PC 42957=X2</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="091">
+            <subfield code="a">PV 4199=X2</subfield>
+          </datafield>
+          <datafield ind1="0" ind2="2" tag="245">
+            <subfield code="a">الشعب</subfield>
+            <subfield code="h">[جريدة].</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="260">
+            <subfield code="a">يافا :</subfield>
+            <subfield code="b">[اسم الناشر غير معروف]،</subfield>
+            <subfield code="c">١٣٦٦[هج] ١٩٤٦[م]-.</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="500">
+            <subfield code="a">"جريدة يومية".</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="500">
+            <subfield code="a">يوجد في المكتبة (غ.ك. = غير كامل):</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="500">
+            <subfield code="a">١، ١٩٤٦/٤٧(غ.ك.)؛ ٢، ١٩٤٧(غ.ك.)؛</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="590">
+            <subfield code="a">הסגנטורה הישנה:</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="590">
+            <subfield code="a">E07</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="590">
+            <subfield code="a">----- =2</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="590">
+            <subfield code="a">SHAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="a">Arabic newspapers</subfield>
+            <subfield code="9">lat</subfield>
+            <subfield code="2">NLI</subfield>
+            <subfield code="8">PreferredLanguageHeading</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="a">Arabic newspapers</subfield>
+            <subfield code="z">Israel</subfield>
+            <subfield code="9">lat</subfield>
+            <subfield code="2">NLI</subfield>
+            <subfield code="8">PreferredLanguageHeading</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="a">Arabic periodicals</subfield>
+            <subfield code="9">lat</subfield>
+            <subfield code="2">NLI</subfield>
+            <subfield code="8">PreferredLanguageHeading</subfield>
+          </datafield>
+          <datafield ind1=" " ind2="7" tag="650">
+            <subfield code="a">Arabic periodicals</subfield>
+            <subfield code="z">Israel</subfield>
+            <subfield code="9">lat</subfield>
+            <subfield code="2">NLI</subfield>
+            <subfield code="8">PreferredLanguageHeading</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="751">
+            <subfield code="a">Jaffa (Tel Aviv-Yafo, Israel)</subfield>
+            <subfield code="9">lat</subfield>
+            <subfield code="e">place of publication</subfield>
+            <subfield code="8">PreferredLanguageHeading</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="903">
+            <subfield code="a">Library premises only;</subfield>
+            <subfield code="b">000000008</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="906">
+            <subfield code="a">GEN</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="921">
+            <subfield code="a">ia</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="939">
+            <subfield code="a">איסור העתקה</subfield>
+            <subfield code="u">http://web.nli.org.il/sites/NLI/Hebrew/library/items-terms-of-use/Pages/nli-copying-prohibited.aspx</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="952">
+            <subfield code="a">Copyright status not determined; No contract</subfield>
+            <subfield code="b">No copyright analysis</subfield>
+            <subfield code="c">Automatic profile</subfield>
+            <subfield code="d">No copyright analysis</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="995">
+            <subfield code="a">001227260</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="998">
+            <subfield code="u">001227260</subfield>
+            <subfield code="l">NNL</subfield>
+            <subfield code="h">For holdings see library</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="999">
+            <subfield code="a">SER</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVA">
+            <subfield code="0">990022519390205171</subfield>
+            <subfield code="8">22478996410005171</subfield>
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">NLI</subfield>
+            <subfield code="c">NLX Stacks</subfield>
+            <subfield code="d">PC 42957=X2</subfield>
+            <subfield code="e">available</subfield>
+            <subfield code="f">2</subfield>
+            <subfield code="g">0</subfield>
+            <subfield code="v">from:1946-1947 1946/1947 until:1947 1947</subfield>
+            <subfield code="j">NLX_STACKS</subfield>
+            <subfield code="k">8</subfield>
+            <subfield code="p">1</subfield>
+            <subfield code="q">NLI Library</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVA">
+            <subfield code="0">990022519390205171</subfield>
+            <subfield code="8">22478996380005171</subfield>
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">NLI</subfield>
+            <subfield code="c">NLX Stacks</subfield>
+            <subfield code="d">PC 42957=X2</subfield>
+            <subfield code="e">available</subfield>
+            <subfield code="f">2</subfield>
+            <subfield code="g">0</subfield>
+            <subfield code="v">from:1 1947 until:1-2 1947</subfield>
+            <subfield code="j">NLX_STACKS</subfield>
+            <subfield code="k">8</subfield>
+            <subfield code="p">2</subfield>
+            <subfield code="q">NLI Library</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32349371600005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32349371940005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32349398460005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461968220005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461968300005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461968340005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461979610005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461979670005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461979750005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461979770005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461979890005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461979910005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461979930005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32349398900005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461979950005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461979970005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32462517270005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32462517510005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32462517590005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32462517710005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32462517890005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32462518010005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32462518130005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32462518170005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32349399720005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32462528790005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32462528830005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32462529010005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32462529090005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32462529190005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32462529290005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32462529370005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32349406900005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32349408080005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32349408420005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418524810005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418525610005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418525990005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418535980005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32349381620005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418536520005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418537040005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418537280005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418537500005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418537720005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418538040005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418538320005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418538480005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418538620005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418538820005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32349382120005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418539300005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418539480005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418539680005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418540000005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418540060005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418540120005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418540160005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418540740005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418541110005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418541230005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32349382860005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418541750005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418542090005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418551310005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418551350005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418551430005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418551570005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418551870005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418552190005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418552550005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418553610005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32349383340005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418554430005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32418554530005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">AL SHAAB</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460461640005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460461740005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460461820005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460461880005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460461920005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460461960005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460481640005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460481800005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32349383540005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460481820005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460481880005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460482040005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460482140005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460482240005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460494490005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460494990005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460950130005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460950170005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460950290005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32349384540005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460950330005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460950350005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460950430005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460950490005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460960040005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460960120005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460960180005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460960220005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460960280005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460960300005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32349396240005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460960320005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32460960360005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461476050005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461476090005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461476130005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461476150005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461476190005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461476330005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461476350005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461488140005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32349398240005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461488180005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461488200005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461488260005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461488320005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461488340005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461488360005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461488380005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461968140005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461968160005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVD">
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="b">32461968180005171</subfield>
+            <subfield code="c">REMOTE_REPRESENTATION</subfield>
+            <subfield code="d">Rosetta MARC</subfield>
+            <subfield code="e">Al-Shab</subfield>
+          </datafield>
+          <datafield ind1=" " ind2=" " tag="AVE">
+            <subfield code="8">53344947800005171</subfield>
+            <subfield code="e">Available</subfield>
+            <subfield code="n">لجريدة الشعب في موقع جرايد اضغط هنا [مجانا]</subfield>
+            <subfield code="a">972NNL_INST</subfield>
+            <subfield code="0">990022519390205171</subfield>
+          </datafield>
+        </record>
+      
