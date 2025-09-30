@@ -412,6 +412,139 @@
         <subfield code="z">kostenfrei</subfield>
       </datafield>
     </record>
+    <record type="Bibliographic" xmlns="http://www.loc.gov/MARC21/slim">
+      <leader>00000nas a2200000 c 4500</leader>
+      <controlfield tag="001">015341550</controlfield>
+      <controlfield tag="003">DE-101</controlfield>
+      <controlfield tag="005">20220903114510.0</controlfield>
+      <controlfield tag="007">tu</controlfield>
+      <controlfield tag="008">991120d18941928tu d||n|  ||| 0||||1tur c</controlfield>
+      <datafield ind1="7" ind2=" " tag="016">
+        <subfield code="2">DE-600</subfield>
+        <subfield code="a">1000639-4</subfield>
+      </datafield>
+      <datafield ind1="7" ind2=" " tag="016">
+        <subfield code="2">DE-101</subfield>
+        <subfield code="a">015341550</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="035">
+        <subfield code="a">(DE-599)ZDB1000639-4</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="035">
+        <subfield code="a">(OCoLC)238743793</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="040">
+        <subfield code="a">9001</subfield>
+        <subfield code="b">ger</subfield>
+        <subfield code="c">DE-101</subfield>
+        <subfield code="d">9999</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="041">
+        <subfield code="a">tur</subfield>
+        <subfield code="a">ara</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="042">
+        <subfield code="a">zdb</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="044">
+        <subfield code="c">XB-TR</subfield>
+      </datafield>
+      <datafield ind1="7" ind2="4" tag="082">
+        <subfield code="a">070</subfield>
+        <subfield code="a">320</subfield>
+        <subfield code="q">DE-600</subfield>
+        <subfield code="2">22sdnb</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="084">
+        <subfield code="a">26</subfield>
+        <subfield code="2">ssgn</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="242">
+        <subfield code="a">Übers.: Vorwärts</subfield>
+        <subfield code="y">ger</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="245">
+        <subfield code="a">Iqdām</subfield>
+        <subfield code="b">= Ikdam yurdu</subfield>
+      </datafield>
+      <datafield ind1="1" ind2="1" tag="246">
+        <subfield code="a">Ikdam yurdu</subfield>
+      </datafield>
+      <datafield ind1="3" ind2="1" tag="264">
+        <subfield code="a">İstanbul</subfield>
+        <subfield code="b">[Verlag nicht ermittelbar]</subfield>
+        <subfield code="c">1894-1928</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="336">
+        <subfield code="a">Text</subfield>
+        <subfield code="b">txt</subfield>
+        <subfield code="2">rdacontent</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="337">
+        <subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+        <subfield code="b">n</subfield>
+        <subfield code="2">rdamedia</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="338">
+        <subfield code="a">Band</subfield>
+        <subfield code="b">nc</subfield>
+        <subfield code="2">rdacarrier</subfield>
+      </datafield>
+      <datafield ind1="0" ind2=" " tag="362">
+        <subfield code="a">1894=1300 - 36.1928,14.Dez.[?]; auch mit durchgehender Nr.-Zählung</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="0" tag="363">
+        <subfield code="8">1.1\x</subfield>
+        <subfield code="i">1894</subfield>
+      </datafield>
+      <datafield ind1="1" ind2="0" tag="363">
+        <subfield code="8">1.2\x</subfield>
+        <subfield code="a">36</subfield>
+        <subfield code="i">1928</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="515">
+        <subfield code="a">Jg.-Zählung anfangs nicht ermittelt; später nur christl. Jahreszählung; Periodizität: tägl.</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="546">
+        <subfield code="a">In arab., ab 1928 teils in Ant.</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="591">
+        <subfield code="a">(üa/Z)Autopsie</subfield>
+      </datafield>
+      <datafield ind1=" " ind2="7" tag="655">
+        <subfield code="0">(DE-588)4067510-5</subfield>
+        <subfield code="0">https://d-nb.info/gnd/4067510-5</subfield>
+        <subfield code="0">(DE-101)040675106</subfield>
+        <subfield code="a">Zeitung</subfield>
+        <subfield code="2">gnd-content</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="751">
+        <subfield code="0">(DE-588)4027821-9</subfield>
+        <subfield code="0">https://d-nb.info/gnd/4027821-9</subfield>
+        <subfield code="0">(DE-101)040278212</subfield>
+        <subfield code="a">Istanbul</subfield>
+        <subfield code="e">Verbreitungsort</subfield>
+        <subfield code="4">dbp</subfield>
+        <subfield code="2">gnd</subfield>
+      </datafield>
+      <datafield ind1=" " ind2=" " tag="751">
+        <subfield code="0">(DE-588)4073697-0</subfield>
+        <subfield code="0">https://d-nb.info/gnd/4073697-0</subfield>
+        <subfield code="0">(DE-101)040736970</subfield>
+        <subfield code="a">Konstantinopel</subfield>
+        <subfield code="e">Verbreitungsort</subfield>
+        <subfield code="4">dbp</subfield>
+        <subfield code="2">gnd</subfield>
+      </datafield>
+      <datafield ind1="0" ind2="8" tag="776">
+        <subfield code="i">Elektronische Reproduktion</subfield>
+        <subfield code="t">Ikdam</subfield>
+        <subfield code="d">İstanbul : [Verlag nicht ermittelbar], 1897-1915</subfield>
+        <subfield code="h">Online-Ressource</subfield>
+        <subfield code="w">(DE-600)2704981-4</subfield>
+        <subfield code="w">(DE-101)1031586881</subfield>
+      </datafield>
+    </record>
   </records>
   <nextRecordPosition>245</nextRecordPosition>
   <echoedSearchRetrieveRequest>

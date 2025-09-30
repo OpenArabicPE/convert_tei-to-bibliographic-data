@@ -56,6 +56,30 @@
                 </xsl:result-document>
             </xsl:when>
             <xsl:when test="$p_stand-alone = false()">
+                <!-- save individual files for each record -->
+                <xsl:for-each select="descendant::marc:record">
+                    <xsl:variable name="v_id-record">
+                        <xsl:copy-of select="oape:query-marcx(., 'id')"/>
+                    </xsl:variable>
+                    <xsl:variable name="v_file-path_output" select="concat($p_output-folder, $v_id-record/tei:idno[1], '.TEIP5.xml')"/>
+                    <xsl:choose>
+                        <!-- somehow this test does not work -->
+                        <xsl:when test="doc-available($v_file-path_output) = true()">
+                            <xsl:message terminate="yes">
+                                <xsl:text>Output file </xsl:text>
+                                <xsl:value-of select="$v_file-path_output"/>
+                                <xsl:text> already exists.</xsl:text>
+                            </xsl:message>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:result-document href="{$v_file-path_output}" method="xml">
+                                <xsl:apply-templates mode="m_marc-to-tei" select="."/>
+                            </xsl:result-document>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:for-each>
+            </xsl:when>
+            <!--<xsl:when test="$p_stand-alone = false()">
                 <xsl:result-document href="{$p_output-folder}{$v_file-name_input}.TEIP5.xml" method="xml">
                     <xsl:choose>
                         <xsl:when test="count(descendant::marc:record) > 1">
@@ -68,7 +92,7 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:result-document>
-            </xsl:when>
+            </xsl:when>-->
         </xsl:choose>
     </xsl:template>
 </xsl:stylesheet>
