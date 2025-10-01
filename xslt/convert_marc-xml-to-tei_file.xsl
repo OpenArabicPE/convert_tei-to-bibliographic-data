@@ -65,7 +65,7 @@
                     <xsl:choose>
                         <!-- somehow this test does not work -->
                         <xsl:when test="doc-available($v_file-path_output) = true()">
-                            <xsl:message terminate="yes">
+                            <xsl:message terminate="no">
                                 <xsl:text>Output file </xsl:text>
                                 <xsl:value-of select="$v_file-path_output"/>
                                 <xsl:text> already exists.</xsl:text>

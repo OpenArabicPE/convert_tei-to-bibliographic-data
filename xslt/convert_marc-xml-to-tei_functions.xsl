@@ -299,7 +299,7 @@
         </xsl:variable>
         <!--<xsl:apply-templates mode="m_postprocess" select="$v_biblStruct/descendant-or-self::tei:biblStruct"/>-->
         <xsl:apply-templates mode="m_post-process" select="$v_biblStruct/descendant-or-self::tei:biblStruct"/>
-<!--        <xsl:apply-templates mode="m_identity-transform" select="$v_biblStruct/descendant-or-self::tei:biblStruct"/>-->
+        <!--        <xsl:apply-templates mode="m_identity-transform" select="$v_biblStruct/descendant-or-self::tei:biblStruct"/>-->
     </xsl:template>
     <!-- one template to convert marc:subfields into TEI -->
     <xsl:template match="marc:subfield">
@@ -658,18 +658,14 @@
                             <xsl:if test="$v_tag = '247'">
                                 <xsl:attribute name="type" select="'alt'"/>
                             </xsl:if>
-                            <xsl:choose>
-                                <xsl:when test="$v_tag = '245'">
-                                    <xsl:attribute name="xml:lang">
-                                        <xsl:value-of select="$v_lang-entry"/>
-                                    </xsl:attribute>
-                                </xsl:when>
-                                <!-- AUB uses 246 for entries in IJMES transcription -->
-                                <!--<xsl:when test="$v_tag = '246'">
+                            <xsl:if test="$v_tag = '245'">
+                                <xsl:attribute name="xml:lang" select="$v_lang-entry"/>
+                            </xsl:if>
+                            <!-- AUB uses 246 for entries in IJMES transcription -->
+                            <!--<xsl:when test="$v_tag = '246'">
                                         <xsl:value-of select=""/>
                                     </xsl:when>-->
-                                <!-- fallback? -->
-                            </xsl:choose>
+                            <!-- fallback? -->
                             <!-- content -->
                             <xsl:value-of select="$v_content"/>
                         </xsl:element>
