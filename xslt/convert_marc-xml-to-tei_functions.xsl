@@ -1290,6 +1290,15 @@
                 <xsl:variable name="v_org">
                     <xsl:choose>
                         <xsl:when test="$v_id-isil != ''">
+                            <xsl:message>
+                                <xsl:text>Downloading RDF/XML for </xsl:text>
+                                <xsl:value-of select="$v_id-isil"/>
+                                <xsl:text> from ZDB and saving it to file</xsl:text>
+                            </xsl:message>
+                            <!-- 1. create a local file name based on the ISIL ID
+                                   2. check if such a file is already available at a target location
+                                   3. download the RDF from ZDB
+                            -->
                             <xsl:apply-templates mode="m_isil-to-tei" select="doc(concat('http://ld.zdb-services.de/data/organisations/', $v_id-isil, '.rdf'))/descendant::rdf:Description"/>
                         </xsl:when>
                         <xsl:otherwise>
@@ -1362,9 +1371,44 @@
         <xsl:variable name="v_record">
             <xsl:choose>
                 <xsl:when test="$v_id-record/tei:idno/@type = 'zdb'">
-                    <!-- it is necessary to again load MARCXML from ZDB, because holding information is not part of the main MARC  -->
-                    <xsl:variable name="v_url-record" select="concat($v_url-server-zdb-ld, $v_id-record/tei:idno[@type = 'zdb'], '.plus-1.mrcx')"/>
-                    <xsl:copy-of select="doc($v_url-record)/descendant-or-self::marc:record"/>
+                    
+                    <xsl:variable name="v_id-zdb" select="$v_id-record/tei:idno[@type = 'zdb']"/>
+                    <xsl:variable name="v_file-name_marc-plus" select="concat($v_id-zdb, '.plus-1.mrcx')"/>
+                    <xsl:variable name="v_path_marc-plus_local" select="concat($p_output-folder, $v_file-name_marc-plus)"/>
+                     <xsl:variable name="v_url_marc-plus" select="concat($v_url-server-zdb-ld, $v_file-name_marc-plus)"/>
+                    <!-- it is necessary to again load MARCXML from ZDB, because holding information is not part of the main MARC  -->                    
+                    <xsl:choose>
+                        <!-- check if extended MARCXML is available locally -->
+                        <xsl:when test="doc-available($v_path_marc-plus_local) = true()">
+                             <xsl:message>
+                                <xsl:text>Found local copy of MARC record </xsl:text>
+                                <xsl:value-of select="$v_id-zdb"/>
+                                <xsl:text> from ZDB</xsl:text>
+                            </xsl:message>
+                            <xsl:copy-of select="doc($v_path_marc-plus_local)/descendant-or-self::marc:record"/>
+                        </xsl:when>
+                        <!-- download extended MARCXML from ZDB -->
+                        <xsl:when test="doc-available($v_url_marc-plus) = true()">
+                            <!-- these messages are important to document progress in very large MARC files -->
+                            <xsl:message>
+                                <xsl:text>Downloading MARC record </xsl:text>
+                                <xsl:value-of select="$v_id-zdb"/>
+                                <xsl:text> from ZDB and saving it to file</xsl:text>
+                            </xsl:message>
+                            <xsl:variable name="v_marc-plus" select="doc($v_url_marc-plus)"/>
+                            <!-- save to file -->
+                            <!-- copy record to variable -->
+                            <xsl:copy-of select="$v_marc-plus/descendant-or-self::marc:record"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:message>
+                                <xsl:text>Warning: MARC record </xsl:text>
+                                <xsl:value-of select="$v_id-zdb"/>
+                                <xsl:text> is not available</xsl:text>
+                            </xsl:message>
+                            <xsl:copy-of select="."/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                     <!--                     <xsl:copy-of select="."/>-->
                 </xsl:when>
                 <xsl:otherwise>
