@@ -44,7 +44,7 @@
                                 <xsl:for-each-group group-by="." select="$v_holding-institutions/descendant-or-self::tei:idno[@type = 'isil']">
                                     <xsl:message>
                                         <xsl:text>Processing </xsl:text>
-                                        <xsl:value-of select="$v_holding-institutions/descendant-or-self::tei:idno[@type = 'isil']"/>
+                                        <xsl:value-of select="current-grouping-key()"/>
                                     </xsl:message>
                                     <xsl:apply-templates mode="m_isil-to-tei" select="."/>
                                 </xsl:for-each-group>
