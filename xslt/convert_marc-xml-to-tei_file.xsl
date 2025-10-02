@@ -9,6 +9,9 @@
     <xsl:template match="/">
         <xsl:choose>
             <xsl:when test="$p_stand-alone = true()">
+                <xsl:message>
+                    <xsl:text>Output: stand-alone TEI/XML file</xsl:text>
+                </xsl:message>
                 <xsl:result-document href="{$p_output-folder}{$v_file-name_input}.TEIP5.xml" method="xml">
                     <TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
                         <teiHeader xml:lang="en">
@@ -39,6 +42,10 @@
                                     <xsl:apply-templates mode="m_get-holding-institutions" select="descendant::marc:record"/>
                                 </xsl:variable>
                                 <xsl:for-each-group group-by="." select="$v_holding-institutions/descendant-or-self::tei:idno[@type = 'isil']">
+                                    <xsl:message>
+                                        <xsl:text>Processing </xsl:text>
+                                        <xsl:value-of select="$v_holding-institutions/descendant-or-self::tei:idno[@type = 'isil']"/>
+                                    </xsl:message>
                                     <xsl:apply-templates mode="m_isil-to-tei" select="."/>
                                 </xsl:for-each-group>
                             </listOrg>
@@ -56,6 +63,9 @@
                 </xsl:result-document>
             </xsl:when>
             <xsl:when test="$p_stand-alone = false()">
+                <xsl:message>
+                    <xsl:text>Output: TEI/XML fragments</xsl:text>
+                </xsl:message>
                 <!-- save individual files for each record -->
                 <xsl:for-each select="descendant::marc:record">
                     <xsl:variable name="v_id-record">
