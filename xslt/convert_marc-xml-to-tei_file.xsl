@@ -33,12 +33,28 @@
                             </revisionDesc>
                         </teiHeader>
                         <tei:standOff>
-                            <listBibl>
+                            <!-- <listBibl>
                                 <xsl:apply-templates mode="m_marc-to-tei" select="descendant::marc:record"/>
-                            </listBibl>
+                            </listBibl>-->
                             <!-- list of holding organisations -->
                             <listOrg>
-                                <xsl:variable name="v_holding-institutions">
+                                <!-- get IDs  -->
+                                <xsl:for-each select="descendant::marc:record">
+                                    <xsl:variable name="v_id-record">
+                                        <xsl:apply-templates select="marc:datafield[@tag = ('016')][@ind1 = '7']/marc:subfield[@code = 'a']"/>
+                                    </xsl:variable>
+                                    <!-- trying to make sure that the files are present before running on them -->
+                                    <xsl:variable name="v_record-location" select="oape:get-marcx($v_id-record, 'test')"/>
+                                    <xsl:if test="$v_record-location = 'remote'">
+                                        <xsl:variable name="v_id-zdb" select="$v_id-record/descendant-or-self::tei:idno[@type = 'zdb']"/>
+                                        <xsl:variable name="v_file-name_marc-plus" select="concat($v_id-zdb, '.plus-1.mrcx')"/>
+                                        <xsl:variable name="v_path_marc-plus_local" select="concat($p_output-folder, $v_file-name_marc-plus)"/>
+                                        <xsl:result-document href="{$v_path_marc-plus_local}" method="xml">
+                                            <xsl:copy-of select="oape:get-marcx($v_id-record, 'save')"/>
+                                        </xsl:result-document>
+                                    </xsl:if>
+                                </xsl:for-each>
+                                <!--<xsl:variable name="v_holding-institutions">
                                     <xsl:apply-templates mode="m_get-holding-institutions" select="descendant::marc:record"/>
                                 </xsl:variable>
                                 <xsl:for-each-group group-by="." select="$v_holding-institutions/descendant-or-self::tei:idno[@type = 'isil']">
@@ -47,7 +63,7 @@
                                         <xsl:value-of select="$v_holding-institutions/descendant-or-self::tei:idno[@type = 'isil']"/>
                                     </xsl:message>
                                     <xsl:apply-templates mode="m_isil-to-tei" select="."/>
-                                </xsl:for-each-group>
+                                </xsl:for-each-group>-->
                             </listOrg>
                             <!-- list of people mentioned -->
                             <listPerson>

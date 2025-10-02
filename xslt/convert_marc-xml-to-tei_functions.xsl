@@ -1367,58 +1367,97 @@
         <xsl:variable name="v_id-record">
             <xsl:apply-templates select="marc:datafield[@tag = ('016')][@ind1 = '7']/marc:subfield[@code = 'a']"/>
         </xsl:variable>
-        <!-- variable to potentially pull a record from another URL based on the input record -->
-        <xsl:variable name="v_record">
-            <xsl:choose>
-                <xsl:when test="$v_id-record/tei:idno/@type = 'zdb'">
-                    
-                    <xsl:variable name="v_id-zdb" select="$v_id-record/tei:idno[@type = 'zdb']"/>
-                    <xsl:variable name="v_file-name_marc-plus" select="concat($v_id-zdb, '.plus-1.mrcx')"/>
-                    <xsl:variable name="v_path_marc-plus_local" select="concat($p_output-folder, $v_file-name_marc-plus)"/>
-                     <xsl:variable name="v_url_marc-plus" select="concat($v_url-server-zdb-ld, $v_file-name_marc-plus)"/>
-                    <!-- it is necessary to again load MARCXML from ZDB, because holding information is not part of the main MARC  -->                    
-                    <xsl:choose>
-                        <!-- check if extended MARCXML is available locally -->
-                        <xsl:when test="doc-available($v_path_marc-plus_local) = true()">
-                             <xsl:message>
-                                <xsl:text>Found local copy of MARC record </xsl:text>
-                                <xsl:value-of select="$v_id-zdb"/>
-                                <xsl:text> from ZDB</xsl:text>
-                            </xsl:message>
-                            <xsl:copy-of select="doc($v_path_marc-plus_local)/descendant-or-self::marc:record"/>
-                        </xsl:when>
-                        <!-- download extended MARCXML from ZDB -->
-                        <xsl:when test="doc-available($v_url_marc-plus) = true()">
-                            <!-- these messages are important to document progress in very large MARC files -->
-                            <xsl:message>
-                                <xsl:text>Downloading MARC record </xsl:text>
-                                <xsl:value-of select="$v_id-zdb"/>
-                                <xsl:text> from ZDB and saving it to file</xsl:text>
-                            </xsl:message>
-                            <xsl:variable name="v_marc-plus" select="doc($v_url_marc-plus)"/>
-                            <!-- save to file -->
-                            <!-- copy record to variable -->
-                            <xsl:copy-of select="$v_marc-plus/descendant-or-self::marc:record"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:message>
-                                <xsl:text>Warning: MARC record </xsl:text>
-                                <xsl:value-of select="$v_id-zdb"/>
-                                <xsl:text> is not available</xsl:text>
-                            </xsl:message>
-                            <xsl:copy-of select="."/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                    <!--                     <xsl:copy-of select="."/>-->
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:copy-of select="."/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
+        <!-- trying to make sure that the files are present before running on them -->
+        <xsl:variable name="v_record-location" select="oape:get-marcx($v_id-record, 'test')"/>
+        <xsl:if test="$v_record-location = 'remote'">
+            <xsl:variable name="v_id-zdb" select="$v_id-record/descendant-or-self::tei:idno[@type = 'zdb']"/>
+            <xsl:variable name="v_file-name_marc-plus" select="concat($v_id-zdb, '.plus-1.mrcx')"/>
+            <xsl:variable name="v_path_marc-plus_local" select="concat($p_output-folder, $v_file-name_marc-plus)"/>
+            <xsl:result-document href="{$v_path_marc-plus_local}" method="xml">
+                <xsl:copy-of select="oape:get-marcx($v_id-record, 'save')"/>
+            </xsl:result-document>
+        </xsl:if>
         <!-- content -->
-        <xsl:apply-templates mode="m_get-holding-institutions" select="$v_record/descendant::marc:datafield[@tag = '924']/marc:subfield[@code = 'b']"/>
+        <!--        <xsl:apply-templates mode="m_get-holding-institutions" select="oape:get-marcx($v_id-record)/descendant::marc:datafield[@tag = '924']/marc:subfield[@code = 'b']"/>-->
     </xsl:template>
+    <xsl:function name="oape:get-marcx">
+        <xsl:param as="node()" name="p_idno"/>
+        <!-- modes: 
+            - test
+            - get -->
+        <xsl:param name="p_mode"/>
+        <xsl:choose>
+            <xsl:when test="$p_idno/descendant-or-self::tei:idno/@type = 'zdb'">
+                <xsl:variable name="v_id-zdb" select="$p_idno/descendant-or-self::tei:idno[@type = 'zdb']"/>
+                <xsl:variable name="v_file-name_marc-plus" select="concat($v_id-zdb, '.plus-1.mrcx')"/>
+                <xsl:variable name="v_path_marc-plus_local" select="concat($p_output-folder, $v_file-name_marc-plus)"/>
+                <xsl:variable name="v_url_marc-plus" select="concat($v_url-server-zdb-ld, $v_file-name_marc-plus)"/>
+                <!-- it is necessary to again load MARCXML from ZDB, because holding information is not part of the main MARC  -->
+                <xsl:choose>
+                    <!-- check if extended MARCXML is available locally -->
+                    <xsl:when test="doc-available($v_path_marc-plus_local) = true()">
+                        <xsl:message>
+                            <xsl:text>Found local copy of MARC record </xsl:text>
+                            <xsl:value-of select="$v_id-zdb"/>
+                            <xsl:text> from ZDB</xsl:text>
+                        </xsl:message>
+                        <xsl:choose>
+                            <xsl:when test="$p_mode = 'test'">
+                                <xsl:value-of select="'local'"/>
+                            </xsl:when>
+                            <xsl:when test="$p_mode = 'get'">
+                                <xsl:copy-of select="doc($v_path_marc-plus_local)/descendant-or-self::marc:record"/>
+                            </xsl:when>
+                        </xsl:choose>
+                    </xsl:when>
+                    <!-- download extended MARCXML from ZDB -->
+                    <xsl:when test="doc-available($v_url_marc-plus) = true()">
+                        <!-- these messages are important to document progress in very large MARC files -->
+                        <xsl:message>
+                            <xsl:text>MARC record </xsl:text>
+                            <xsl:value-of select="$v_id-zdb"/>
+                            <xsl:text> available from ZDB</xsl:text>
+                        </xsl:message>
+                        <xsl:choose>
+                            <xsl:when test="$p_mode = 'test'">
+                                <xsl:value-of select="'remote'"/>
+                                <!-- save to file: not allowed inside functions -->
+                                <!--<xsl:result-document href="{$v_path_marc-plus_local}" method="xml">
+                                    <xsl:copy-of select="$v_marc-plus"/>
+                                </xsl:result-document>-->
+                            </xsl:when>
+                            <xsl:when test="$p_mode = 'get'">
+                                <xsl:message>
+                                    <xsl:text>Downloading MARC record </xsl:text>
+                                    <xsl:value-of select="$v_id-zdb"/>
+                                    <xsl:text>  from ZDB</xsl:text>
+                                </xsl:message>
+                                <xsl:copy-of select="doc($v_url_marc-plus)/descendant-or-self::marc:record"/>
+                            </xsl:when>
+                            <xsl:when test="$p_mode = 'save'">
+                                <xsl:message>
+                                    <xsl:text>Downloading MARC record </xsl:text>
+                                    <xsl:value-of select="$v_id-zdb"/>
+                                    <xsl:text>  from ZDB</xsl:text>
+                                </xsl:message>
+                                <!-- copy record to variable -->
+                                <xsl:copy-of select="doc($v_url_marc-plus)"/>
+                            </xsl:when>
+                        </xsl:choose>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:message>
+                            <xsl:text>Warning: MARC record </xsl:text>
+                            <xsl:value-of select="$v_id-zdb"/>
+                            <xsl:text> is not available</xsl:text>
+                        </xsl:message>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <!--<xsl:copy-of select="."/>--> </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
     <xsl:template match="marc:record" mode="m_get-people">
         <xsl:apply-templates mode="m_get-people" select="marc:datafield[@tag = '100']"/>
     </xsl:template>
