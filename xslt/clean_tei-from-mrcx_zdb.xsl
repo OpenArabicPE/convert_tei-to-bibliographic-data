@@ -59,6 +59,42 @@
             <!-- parse content
                 - this should not parse every four-digit string as a year
             -->
+            <!-- starting with dates -->
+            <xsl:when test="matches(., '^\d{4},\s*\d{1,2}\.\s*\w{3}\.')">
+                <xsl:variable name="v_string-date" select="replace(., '^(\d{4},\s*\d{1,2}\.\s*\w{3}\.).*$', '$1')"/>
+                <xsl:variable name="v_string-remain" select="replace(., '^(\d{4},\s*\d{1,2}\.\s*\w{3}\.)(.*)$', '$2')"/>
+                <xsl:variable name="v_type" select="@type"/>
+                <xsl:element name="bibl">
+<!--                    <xsl:apply-templates mode="m_identity-transform" select="@*"/>-->
+                    <xsl:element name="date">
+                        <xsl:analyze-string regex="^(\d{{4}}),\s*(\d{{1,2}})\.\s*(\w{{3}})\." select="$v_string-date">
+                            <xsl:matching-substring>
+                                <xsl:variable name="v_year" select="regex-group(1)"/>
+                                <xsl:variable name="v_month" select="oape:date-convert-months( regex-group(3), 'number', 'de', '#cal_gregorian')"/>
+                                <xsl:variable name="v_month-number">
+                                    <xsl:choose>
+                                        <xsl:when test="$v_month = ''">
+                                            <xsl:value-of select="'xx'"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:value-of select="format-number(number($v_month), '00')"/>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:variable>
+                                <xsl:variable name="v_day" select="format-number(number(regex-group(2)), '00')"/>
+                                <xsl:if test="$v_type != ''">
+                                    <xsl:attribute name="type" select="$v_type"/>
+                                </xsl:if>
+                                <xsl:attribute name="when">
+                                    <xsl:value-of select="concat($v_year, '-', $v_month-number, '-', $v_day)"/>
+                                </xsl:attribute>
+                            </xsl:matching-substring>
+                        </xsl:analyze-string>
+                        <xsl:value-of select="$v_string-date"/>
+                    </xsl:element>
+                    <xsl:value-of select="$v_string-remain"/>
+                </xsl:element>
+            </xsl:when>
             <xsl:when test="matches(., '((\d+)\.)*(1\d{3}(=\d{4})*)(,(\d+))*')">
                 <xsl:variable name="v_type" select="@type"/>
                 <xsl:analyze-string regex="((\d+)\.)*(1\d{{3}}(=\d{{4}})*)(,(\d+))*(.*)$" select=".">
@@ -123,7 +159,6 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
     <!--  ONLY DO THIS AT THE END OF A TRANSFORMATION  -->
     <!-- unnest bibls -->
     <xsl:template match="tei:bibl[ancestor::tei:note[@type = 'holdings']][tei:bibl]" mode="m_off" priority="20">
