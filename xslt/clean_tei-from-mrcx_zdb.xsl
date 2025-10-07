@@ -18,24 +18,19 @@
         - separate along "-"
         - parse volume, issue, date
     -->
-    <xsl:template match="tei:biblScope[ancestor::tei:note[@type = 'holdings']]" mode="m_post-process" priority="200">
+    <xsl:template match="tei:biblScope[ancestor::tei:note[@type = 'holdings']][not(@unit)]" mode="m_post-process" priority="200">
         <xsl:choose>
             <!-- split sequences -->
             <xsl:when test="matches(., '.;.')">
-                <!-- 1. bit -->
-                <xsl:copy>
-                    <!--                <xsl:element name="bibl">-->
+                <xsl:variable name="v_attr">
                     <xsl:apply-templates mode="m_identity-transform" select="@*"/>
-                    <xsl:value-of select="replace(., '^(.*?);.+$', '$1')"/>
-                    <!--</xsl:element>-->
-                </xsl:copy>
-                <!-- 2. bit -->
-                <xsl:copy>
-                    <!--                <xsl:element name="bibl">-->
-                    <xsl:apply-templates mode="m_identity-transform" select="@*"/>
-                    <xsl:value-of select="replace(., '^(.*?);\s*(.+)$', '$2')"/>
-                    <!--</xsl:element>-->
-                </xsl:copy>
+                </xsl:variable>
+                <xsl:for-each select="tokenize(., ';')">
+                    <xsl:element name="biblScope">
+                        <xsl:copy-of select="$v_attr"/>
+                        <xsl:value-of select="normalize-space(.)"/>
+                    </xsl:element>
+                </xsl:for-each>
             </xsl:when>
             <!-- split ranges -->
             <xsl:when test="matches(., '.\s-\s.')">
@@ -61,16 +56,16 @@
             -->
             <!-- starting with dates -->
             <xsl:when test="matches(., '^\d{4},\s*\d{1,2}\.\s*\w{3}\.')">
-                <xsl:variable name="v_string-date" select="replace(., '^(\d{4},\s*\d{1,2}\.\s*\w{3}\.).*$', '$1')"/>
-                <xsl:variable name="v_string-remain" select="replace(., '^(\d{4},\s*\d{1,2}\.\s*\w{3}\.)(.*)$', '$2')"/>
+                <xsl:variable name="v_string-date" select="replace(., '^(\d{4},\s*\d{1,2}\.\s*\w{3,4}\.).*$', '$1')"/>
+                <xsl:variable name="v_string-remain" select="replace(., '^(\d{4},\s*\d{1,2}\.\s*\w{3,4}\.)(.*)$', '$2')"/>
                 <xsl:variable name="v_type" select="@type"/>
                 <xsl:element name="bibl">
-<!--                    <xsl:apply-templates mode="m_identity-transform" select="@*"/>-->
+                    <!--                    <xsl:apply-templates mode="m_identity-transform" select="@*"/>-->
                     <xsl:element name="date">
                         <xsl:analyze-string regex="^(\d{{4}}),\s*(\d{{1,2}})\.\s*(\w{{3}})\." select="$v_string-date">
                             <xsl:matching-substring>
                                 <xsl:variable name="v_year" select="regex-group(1)"/>
-                                <xsl:variable name="v_month" select="oape:date-convert-months( regex-group(3), 'number', 'de', '#cal_gregorian')"/>
+                                <xsl:variable name="v_month" select="oape:date-convert-months(regex-group(3), 'number', 'de', '#cal_gregorian')"/>
                                 <xsl:variable name="v_month-number">
                                     <xsl:choose>
                                         <xsl:when test="$v_month = ''">
@@ -161,21 +156,22 @@
     </xsl:template>
     <!--  ONLY DO THIS AT THE END OF A TRANSFORMATION  -->
     <!-- unnest bibls -->
-    <xsl:template match="tei:bibl[ancestor::tei:note[@type = 'holdings']][tei:bibl]" mode="m_off" priority="20">
+    <xsl:template match="tei:bibl[ancestor::tei:note[@type = 'holdings']][tei:bibl]" mode="m_post-process" priority="30">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@* | node()[not(local-name() = 'bibl')]"/>
         </xsl:copy>
         <xsl:apply-templates mode="m_post-process" select="tei:bibl"/>
     </xsl:template>
     <!-- merge ranges of bibl -->
-    <xsl:template match="tei:bibl[ancestor::tei:note[@type = 'holdings']][tei:date[@type = 'onset']][tei:biblScope[@from][not(@to)]]" mode="m_off" priority="20">
+    <!-- delete [not(@to)] -->
+    <xsl:template match="tei:bibl[ancestor::tei:note[@type = 'holdings']][tei:date[@type = 'onset']][tei:biblScope[@from]][not(tei:date[@type = 'terminus'])]" mode="m_post-process" priority="20">
         <xsl:copy>
             <!-- IDs from potential parent -->
             <xsl:if test="parent::tei:bibl">
                 <xsl:apply-templates mode="m_identity-transform" select="parent::tei:bibl/tei:idno"/>
             </xsl:if>
             <!-- dates -->
-            <xsl:apply-templates mode="m_post-process" select="tei:date | following-sibling::tei:bibl[tei:date[@type = 'terminus']][tei:biblScope[@to][not(@from)]][1]/tei:date"/>
+            <xsl:apply-templates mode="m_post-process" select="tei:date | following-sibling::tei:bibl[tei:date[@type = 'terminus']][tei:biblScope[@to]][1]/tei:date"/>
             <!-- biblScope -->
             <xsl:for-each select="tei:biblScope">
                 <xsl:copy select=".">
@@ -192,5 +188,6 @@
             </xsl:for-each>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="tei:bibl[ancestor::tei:note[@type = 'holdings']][tei:date[@type = 'terminus']][tei:biblScope[@to][not(@from)]]" mode="m_off" priority="20"/>
+    <!-- delete [not(@from)] -->
+    <xsl:template match="tei:bibl[ancestor::tei:note[@type = 'holdings']][tei:date[@type = 'terminus']][tei:biblScope[@to]][not(tei:date[@type = 'onset'])]" mode="m_post-process" priority="20"/>
 </xsl:stylesheet>

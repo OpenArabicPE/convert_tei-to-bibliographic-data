@@ -399,6 +399,7 @@
             <!-- YYYY -->
             <xsl:when test="matches($v_text, '^\d{4}$') and (number($v_text) &lt; 1450)">
                 <xsl:copy>
+                    <xsl:apply-templates mode="m_post-process" select="@*"/>
                     <xsl:attribute name="calendar" select="'#cal_islamic'"/>
                     <xsl:attribute name="datingMethod" select="'#cal_islamic'"/>
                     <xsl:attribute name="when-custom" select="$v_text"/>
@@ -407,6 +408,7 @@
             </xsl:when>
             <xsl:when test="matches($v_text, '^\d{4}$') and (number($v_text) &gt; 2050)">
                 <xsl:copy>
+                    <xsl:apply-templates mode="m_post-process" select="@*"/>
                     <xsl:attribute name="calendar" select="'#cal_jewish'"/>
                     <xsl:attribute name="datingMethod" select="'#cal_jewish'"/>
                     <xsl:attribute name="when-custom" select="$v_text"/>
