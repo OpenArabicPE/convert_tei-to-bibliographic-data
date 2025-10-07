@@ -428,6 +428,14 @@
                     <xsl:apply-templates mode="m_post-process"/>
                 </xsl:copy>
             </xsl:when>
+            <!-- ZDB often provides normalised dates -->
+            <xsl:when test="matches($v_text, '^\d{4}=\d{4}$')">
+                <xsl:copy>
+                    <xsl:apply-templates mode="m_post-process" select="@*"/>
+                    <xsl:attribute name="when" select="replace($v_text, '^\d{4}=(\d{4})$', '$1')"/>
+                    <xsl:apply-templates mode="m_post-process"/>
+                </xsl:copy>
+            </xsl:when>
             <xsl:otherwise>
                 <xsl:copy>
                     <xsl:apply-templates mode="m_post-process" select="@* | node()"/>
