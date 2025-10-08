@@ -9,10 +9,9 @@
     <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no"/>
     <xsl:template match="node() | @*" mode="m_identity-transform">
         <xsl:copy>
-            <xsl:apply-templates select="@* | node()" mode="m_identity-transform"/>
+            <xsl:apply-templates mode="m_identity-transform" select="@* | node()"/>
         </xsl:copy>
     </xsl:template>
-    
     <xsl:function name="oape:string-convert-lang-codes">
         <xsl:param as="xs:string" name="p_input"/>
         <xsl:param name="p_source-encoding"/>
@@ -22,30 +21,41 @@
         <xsl:variable name="v_bcp47_wikidata"
             >;ar=Q13955;arz=Q29919;az=Q9292;ba=Q13389;cop=Q36155;de=Q188;el=Q9129;en=Q1860;es=Q1321;fa=Q9168;fr=Q150;gr=Q9129;he=Q9288;hy=Q8785;it=Q652;ja=Q5287;jrb=Q37733;la=Q397;lad=Q36196;ota=Q36730;ps=Q58680;pt=Q5146;ru=Q7737;syc=Q33538;tr=Q256;ur=Q1617;zh=Q7850</xsl:variable>
         <xsl:choose>
-            <xsl:when test="$p_source-encoding = 'iso639-2' and $p_target-encoding = 'bcp47'">
-                <xsl:value-of select="replace($v_iso639-2_bcp47, concat('^.*;', $p_input, '=(\w{2});.*$'), '$1')"/>
-            </xsl:when>
-            <xsl:when test="$p_source-encoding = 'bcp47' and $p_target-encoding = 'iso639-2' and matches($v_iso639-2_bcp47, concat('=', $p_input))">
-                <xsl:value-of select="replace($v_iso639-2_bcp47, concat('^.*;(\w{3})=', $p_input, ';.*$'), '$1')"/>
-            </xsl:when>
-            <xsl:when test="$p_source-encoding = 'bcp47' and $p_target-encoding = 'wikidata' and matches($v_bcp47_wikidata, concat(';', $p_input, '='))">
-                <xsl:value-of select="replace($v_bcp47_wikidata, concat('^.*;', $p_input, '=(Q\d+);.*$'), '$1')"/>
-            </xsl:when>
-            <xsl:when test="$p_source-encoding = 'wikidata' and $p_target-encoding = 'bcp47'">
-                <xsl:value-of select="replace($v_iso639-2_bcp47, concat('^.*;(\w{2})=', $p_input, ';.*$'), '$1')"/>
+            <xsl:when test="matches($p_input, '^([a-z]{2,3}|Q\d+)$')">
+                <xsl:choose>
+                    <xsl:when test="$p_source-encoding = 'iso639-2' and $p_target-encoding = 'bcp47' and matches($v_iso639-2_bcp47, concat(';', $p_input, '='))">
+                        <xsl:value-of select="replace($v_iso639-2_bcp47, concat('^.*;', $p_input, '=(\w{2});.*$'), '$1')"/>
+                    </xsl:when>
+                    <xsl:when test="$p_source-encoding = 'bcp47' and $p_target-encoding = 'iso639-2' and matches($v_iso639-2_bcp47, concat('=', $p_input))">
+                        <xsl:value-of select="replace($v_iso639-2_bcp47, concat('^.*;(\w{3})=', $p_input, ';.*$'), '$1')"/>
+                    </xsl:when>
+                    <xsl:when test="$p_source-encoding = 'bcp47' and $p_target-encoding = 'wikidata' and matches($v_bcp47_wikidata, concat(';', $p_input, '='))">
+                        <xsl:value-of select="replace($v_bcp47_wikidata, concat('^.*;', $p_input, '=(Q\d+);.*$'), '$1')"/>
+                    </xsl:when>
+                    <xsl:when test="$p_source-encoding = 'wikidata' and $p_target-encoding = 'bcp47'">
+                        <xsl:value-of select="replace($v_iso639-2_bcp47, concat('^.*;(\w{2})=', $p_input, ';.*$'), '$1')"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="'NA'"/>
+                        <xsl:message>
+                            <xsl:text>FAILURE: Combination of language encodings not supported</xsl:text>
+                            <xsl:text> (</xsl:text>
+                            <xsl:value-of select="$p_input"/>
+                            <xsl:text>|</xsl:text>
+                            <xsl:value-of select="$p_source-encoding"/>
+                            <xsl:text>|</xsl:text>
+                            <xsl:value-of select="$p_target-encoding"/>
+                            <xsl:text>)</xsl:text>
+                        </xsl:message>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:value-of select="'NA'"/>
                 <xsl:message>
-                    <xsl:text>FAILURE: Combination of language encodings not supported</xsl:text>
-                    <xsl:text> (</xsl:text>
+                    <xsl:text>FAILURE: input is not a language code: </xsl:text>
                     <xsl:value-of select="$p_input"/>
-                    <xsl:text>|</xsl:text>
-                    <xsl:value-of select="$p_source-encoding"/>
-                    <xsl:text>|</xsl:text>
-                    <xsl:value-of select="$p_target-encoding"/>
-                    <xsl:text>)</xsl:text>
                 </xsl:message>
+                <xsl:value-of select="'NA'"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>
