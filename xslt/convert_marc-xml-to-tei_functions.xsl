@@ -323,7 +323,7 @@
                     <xsl:value-of select="oape:string-convert-lang-codes(ancestor::marc:record/marc:datafield[@tag = '041']/marc:subfield[@code = 'a'][1], 'iso639-2', 'bcp47')"/>
                 </xsl:when>
                 <!-- language code at 36 -->
-                <xsl:when test="substring(ancestor::marc:record[1]/marc:controlfield[@tag = '008'], 36, 3) != '   '">
+                <xsl:when test="matches(substring(ancestor::marc:record[1]/marc:controlfield[@tag = '008'], 36, 3), '\w+')">
                     <xsl:value-of select="oape:string-convert-lang-codes(substring(ancestor::marc:record[1]/marc:controlfield[@tag = '008'], 36, 3), 'iso639-2', 'bcp47')"/>
                 </xsl:when>
                 <!-- fallback: undefined -->
@@ -1371,16 +1371,15 @@
         <xsl:variable name="v_record">
             <xsl:choose>
                 <xsl:when test="$v_id-record/tei:idno/@type = 'zdb'">
-                    
                     <xsl:variable name="v_id-zdb" select="$v_id-record/tei:idno[@type = 'zdb']"/>
                     <xsl:variable name="v_file-name_marc-plus" select="concat($v_id-zdb, '.plus-1.mrcx')"/>
                     <xsl:variable name="v_path_marc-plus_local" select="concat($p_output-folder, $v_file-name_marc-plus)"/>
-                     <xsl:variable name="v_url_marc-plus" select="concat($v_url-server-zdb-ld, $v_file-name_marc-plus)"/>
-                    <!-- it is necessary to again load MARCXML from ZDB, because holding information is not part of the main MARC  -->                    
+                    <xsl:variable name="v_url_marc-plus" select="concat($v_url-server-zdb-ld, $v_file-name_marc-plus)"/>
+                    <!-- it is necessary to again load MARCXML from ZDB, because holding information is not part of the main MARC  -->
                     <xsl:choose>
                         <!-- check if extended MARCXML is available locally -->
                         <xsl:when test="doc-available($v_path_marc-plus_local) = true()">
-                             <xsl:message>
+                            <xsl:message>
                                 <xsl:text>Found local copy of MARC record </xsl:text>
                                 <xsl:value-of select="$v_id-zdb"/>
                                 <xsl:text> from ZDB</xsl:text>
@@ -1484,9 +1483,11 @@
                         <xsl:value-of select="concat($v_auth, ':', $v_id)"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:message>
-                            <xsl:value-of select="$v_error-message"/>
-                        </xsl:message>
+                        <xsl:if test="$p_verbose = true()">
+                            <xsl:message>
+                                <xsl:value-of select="$v_error-message"/>
+                            </xsl:message>
+                        </xsl:if>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>

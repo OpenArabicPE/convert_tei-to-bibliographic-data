@@ -67,9 +67,9 @@
                     <xsl:text>Output: TEI/XML fragments</xsl:text>
                 </xsl:message>
                 <!-- save individual files for each record -->
-                <xsl:for-each select="descendant::marc:record">
+                <xsl:for-each-group select="descendant::marc:record" group-by=".">
                     <xsl:variable name="v_id-record">
-                        <xsl:copy-of select="oape:query-marcx(., 'id')"/>
+                        <xsl:copy-of select="oape:query-marcx(current-group()[1], 'id')"/>
                     </xsl:variable>
                     <xsl:variable name="v_file-path_output" select="concat($p_output-folder, $v_id-record/tei:idno[1], '.TEIP5.xml')"/>
                     <xsl:choose>
@@ -83,11 +83,11 @@
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:result-document href="{$v_file-path_output}" method="xml">
-                                <xsl:apply-templates mode="m_marc-to-tei" select="."/>
+                                <xsl:apply-templates mode="m_marc-to-tei" select="current-group()[1]"/>
                             </xsl:result-document>
                         </xsl:otherwise>
                     </xsl:choose>
-                </xsl:for-each>
+                </xsl:for-each-group>
             </xsl:when>
             <!--<xsl:when test="$p_stand-alone = false()">
                 <xsl:result-document href="{$p_output-folder}{$v_file-name_input}.TEIP5.xml" method="xml">
