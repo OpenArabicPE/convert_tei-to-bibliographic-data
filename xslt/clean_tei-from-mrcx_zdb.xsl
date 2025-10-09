@@ -164,14 +164,13 @@
     </xsl:template>
     <!-- merge ranges of bibl -->
     <!-- delete [not(@to)] -->
-    <xsl:template match="tei:bibl[ancestor::tei:note[@type = 'holdings']][tei:date[@type = 'onset']][tei:biblScope[@from]][not(tei:date[@type = 'terminus'])]" mode="m_post-process" priority="20">
+    <xsl:template match="tei:bibl[ancestor::tei:note[@type = 'holdings']][tei:date[@type = 'onset']][not(tei:date[@type = 'terminus'])][tei:biblScope[@from]]" mode="m_post-process" priority="20">
         <xsl:copy>
+            <xsl:apply-templates mode="m_identity-transform" select="tei:idno"/>
             <!-- IDs from potential parent -->
-            <xsl:if test="parent::tei:bibl">
-                <xsl:apply-templates mode="m_identity-transform" select="parent::tei:bibl/tei:idno"/>
-            </xsl:if>
+             <xsl:apply-templates mode="m_identity-transform" select="parent::tei:bibl/tei:idno"/>
             <!-- dates -->
-            <xsl:apply-templates mode="m_post-process" select="tei:date | following-sibling::tei:bibl[tei:date[@type = 'terminus']][tei:biblScope[@to]][1]/tei:date"/>
+            <xsl:apply-templates mode="m_post-process" select="tei:date | following-sibling::tei:bibl[tei:date[@type = 'terminus']][not(tei:date[@type = 'onset'])][tei:biblScope[@to]][1]/tei:date"/>
             <!-- biblScope -->
             <xsl:for-each select="tei:biblScope">
                 <xsl:copy select=".">
@@ -181,13 +180,15 @@
                     <xsl:apply-templates mode="m_identity-transform"
                         select="parent::tei:bibl/following-sibling::tei:bibl[tei:date[@type = 'terminus']][not(tei:date[@type = 'onset'])][tei:biblScope[@unit = current()/@unit][@to]][1]/tei:biblScope[@unit = current()/@unit]/@to"/>
                     <!-- content -->
-                    <!--<xsl:value-of select="."/>
+                   <!-- <xsl:value-of select="."/>
                     <xsl:value-of select="'-'"/>
-                    <xsl:value-of select="parent::tei:bibl/following-sibling::tei:bibl[tei:date[@type = 'terminus']][tei:biblScope[@unit = current()/@unit][@to][not(@from)]][1]/tei:biblScope[@unit = current()/@unit]"/>-->
+                    <xsl:value-of select="parent::tei:bibl/following-sibling::tei:bibl[tei:date[@type = 'terminus']][not(tei:date[@type = 'onset'])][tei:biblScope[@unit = current()/@unit][@to]][1]/tei:biblScope[@unit = current()/@unit]"/>-->
                 </xsl:copy>
             </xsl:for-each>
+            <xsl:apply-templates select="text()" mode="m_identity-transform"/>
+            <xsl:apply-templates select="following-sibling::tei:bibl[tei:date[@type = 'terminus']][not(tei:date[@type = 'onset'])][tei:biblScope[@to]][1]/text()" mode="m_identity-transform"/>
         </xsl:copy>
     </xsl:template>
     <!-- delete [not(@from)] -->
-    <xsl:template match="tei:bibl[ancestor::tei:note[@type = 'holdings']][tei:date[@type = 'terminus']][not(tei:date[@type = 'onset'])][tei:biblScope[@to]]" mode="m_post-process" priority="20"/>
+    <xsl:template match="tei:bibl[ancestor::tei:note[@type = 'holdings']][tei:date[@type = 'terminus']][not(tei:date[@type = 'onset'])][tei:biblScope[@to]][preceding-sibling::tei:bibl[tei:date[@type = 'onset']][not(tei:date[@type = 'terminus'])]]" mode="m_post-process" priority="20"/>
 </xsl:stylesheet>
