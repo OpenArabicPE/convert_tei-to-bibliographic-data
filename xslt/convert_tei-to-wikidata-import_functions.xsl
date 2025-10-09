@@ -209,7 +209,8 @@
                 <xsl:otherwise>
                     <!--                    <xsl:attribute name="xml:id" select="concat('temp_', generate-id(.))"/>-->
                     <xsl:message terminate="yes">
-                        <xsl:text>The biblStruct has no ID that would alow to link back to it</xsl:text>
+                        <xsl:value-of select="descendant::tei:title[1]"/>
+                        <xsl:text>: The biblStruct has no ID that would alow to link back to it</xsl:text>
                     </xsl:message>
                 </xsl:otherwise>
             </xsl:choose>
