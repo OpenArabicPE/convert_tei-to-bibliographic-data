@@ -9,7 +9,7 @@
     <!-- remove redundant IDs -->
     <xsl:template match="tei:idno[@type = 'zdb'][starts-with(., 'ZDB')]" mode="m_post-process">
         <xsl:copy>
-            <xsl:apply-templates select="@*"/>
+            <xsl:apply-templates select="@*" mode="m_identity-transform"/>
             <xsl:value-of select="substring-after(., 'ZDB')"/>
         </xsl:copy>
     </xsl:template>
@@ -179,7 +179,7 @@
                     <xsl:apply-templates mode="m_identity-transform" select="./@*"/>
                     <!-- to -->
                     <xsl:apply-templates mode="m_identity-transform"
-                        select="parent::tei:bibl/following-sibling::tei:bibl[tei:date[@type = 'terminus']][tei:biblScope[@unit = current()/@unit][@to][not(@from)]][1]/tei:biblScope[@unit = current()/@unit]/@to"/>
+                        select="parent::tei:bibl/following-sibling::tei:bibl[tei:date[@type = 'terminus']][not(tei:date[@type = 'onset'])][tei:biblScope[@unit = current()/@unit][@to]][1]/tei:biblScope[@unit = current()/@unit]/@to"/>
                     <!-- content -->
                     <!--<xsl:value-of select="."/>
                     <xsl:value-of select="'-'"/>
@@ -189,5 +189,5 @@
         </xsl:copy>
     </xsl:template>
     <!-- delete [not(@from)] -->
-    <xsl:template match="tei:bibl[ancestor::tei:note[@type = 'holdings']][tei:date[@type = 'terminus']][tei:biblScope[@to]][not(tei:date[@type = 'onset'])]" mode="m_post-process" priority="20"/>
+    <xsl:template match="tei:bibl[ancestor::tei:note[@type = 'holdings']][tei:date[@type = 'terminus']][not(tei:date[@type = 'onset'])][tei:biblScope[@to]]" mode="m_post-process" priority="20"/>
 </xsl:stylesheet>
