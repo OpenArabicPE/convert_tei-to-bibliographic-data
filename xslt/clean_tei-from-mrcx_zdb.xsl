@@ -18,6 +18,12 @@
         - separate along "-"
         - parse volume, issue, date
     -->
+    <xsl:template match="tei:biblStruct[not(@source)]" mode="m_post-process">
+        <xsl:copy>
+            <xsl:attribute name="source" select="concat($p_url-resolve-zdb, descendant::tei:idno[@type = 'zdb'][1])"/>
+            <xsl:apply-templates select="@* | node()" mode="m_identity-transform"/>
+        </xsl:copy>
+    </xsl:template>
     <xsl:template match="tei:biblScope[ancestor::tei:note[@type = 'holdings']][not(@unit)]" mode="m_post-process" priority="200">
         <xsl:choose>
             <!-- split sequences -->
@@ -156,7 +162,7 @@
     </xsl:template>
     <!--  ONLY DO THIS AT THE END OF A TRANSFORMATION  -->
     <!-- unnest bibls -->
-    <xsl:template match="tei:bibl[ancestor::tei:note[@type = 'holdings']][tei:bibl]" mode="m_post-process" priority="30">
+    <xsl:template match="tei:bibl[ancestor::tei:note[@type = 'holdings']][tei:bibl]" mode="m_off" priority="30">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@* | node()[not(local-name() = 'bibl')]"/>
         </xsl:copy>
@@ -164,7 +170,7 @@
     </xsl:template>
     <!-- merge ranges of bibl -->
     <!-- delete [not(@to)] -->
-    <xsl:template match="tei:bibl[ancestor::tei:note[@type = 'holdings']][tei:date[@type = 'onset']][not(tei:date[@type = 'terminus'])][tei:biblScope[@from]]" mode="m_post-process" priority="20">
+    <xsl:template match="tei:bibl[ancestor::tei:note[@type = 'holdings']][tei:date[@type = 'onset']][not(tei:date[@type = 'terminus'])][tei:biblScope[@from]]" mode="m_off" priority="20">
         <xsl:copy>
             <xsl:apply-templates mode="m_identity-transform" select="tei:idno"/>
             <!-- IDs from potential parent -->
@@ -190,5 +196,5 @@
         </xsl:copy>
     </xsl:template>
     <!-- delete [not(@from)] -->
-    <xsl:template match="tei:bibl[ancestor::tei:note[@type = 'holdings']][tei:date[@type = 'terminus']][not(tei:date[@type = 'onset'])][tei:biblScope[@to]][preceding-sibling::tei:bibl[tei:date[@type = 'onset']][not(tei:date[@type = 'terminus'])]]" mode="m_post-process" priority="20"/>
+    <xsl:template match="tei:bibl[ancestor::tei:note[@type = 'holdings']][tei:date[@type = 'terminus']][not(tei:date[@type = 'onset'])][tei:biblScope[@to]][preceding-sibling::tei:bibl[tei:date[@type = 'onset']][not(tei:date[@type = 'terminus'])]]" mode="m_off" priority="20"/>
 </xsl:stylesheet>
