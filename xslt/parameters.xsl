@@ -54,7 +54,7 @@
     <xsl:variable name="v_url-base" select="replace($v_url-file, '^(.+)/([^/]+?)$', '$1')"/>
     <xsl:param name="p_output-folder" select="concat($v_base-directory,'metadata/')"/>
     <!-- URLs -->
-    <xsl:variable name="v_url-server-zdb-ld" select="'http://ld.zdb-services.de/data/'"/>
+    <xsl:variable name="v_url-server-zdb-ld" select="'https://ld.zdb-services.de/data/'"/>
     <xsl:variable name="v_url-gnd-resolve" select="'https://d-nb.info/gnd/'"/>
     <!-- strings -->
     <xsl:variable name="v_new-line" select="'&#x0A;'"/>

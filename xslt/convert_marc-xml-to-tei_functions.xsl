@@ -897,7 +897,7 @@
                         <xsl:element name="idno">
                             <xsl:attribute name="type" select="'classmark'"/>
                             <xsl:attribute name="subtype" select="$v_id-isil"/>
-                            <xsl:attribute name="source" select="concat('http://ld.zdb-services.de/data/organisations/', $v_id-isil, '.rdf')"/>
+                            <xsl:attribute name="source" select="concat($v_url-server-zdb-ld, 'organisations/', $v_id-isil, '.rdf')"/>
                             <xsl:value-of select="$v_content"/>
                         </xsl:element>
                     </xsl:when>
@@ -1299,7 +1299,7 @@
                                    2. check if such a file is already available at a target location
                                    3. download the RDF from ZDB
                             -->
-                            <xsl:apply-templates mode="m_isil-to-tei" select="doc(concat('http://ld.zdb-services.de/data/organisations/', $v_id-isil, '.rdf'))/descendant::rdf:Description"/>
+                            <xsl:apply-templates mode="m_isil-to-tei" select="doc(concat($v_url-server-zdb-ld, 'organisations/', $v_id-isil, '.rdf'))/descendant::rdf:Description"/>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:text>NA</xsl:text>
@@ -1448,7 +1448,7 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template match="tei:idno[@type = 'isil']" mode="m_isil-to-tei">
-        <xsl:apply-templates mode="m_isil-to-tei" select="doc(concat('http://ld.zdb-services.de/data/organisations/', ., '.rdf'))/rdf:RDF/rdf:Description"/>
+        <xsl:apply-templates mode="m_isil-to-tei" select="doc(concat($v_url-server-zdb-ld, 'organisations/', ., '.rdf'))/rdf:RDF/rdf:Description"/>
     </xsl:template>
     <xsl:template name="t_normalize-authority-id">
         <xsl:param as="xs:string" name="p_input"/>
@@ -1548,7 +1548,7 @@
                                         <xsl:choose>
                                             <xsl:when test="$v_id-isil != ''">
                                                 <xsl:apply-templates mode="m_isil-to-tei"
-                                                    select="doc(concat('http://ld.zdb-services.de/data/organisations/', $v_id-isil, '.rdf'))/descendant::rdf:Description"/>
+                                                    select="doc(concat($v_url-server-zdb-ld, 'organisations/', $v_id-isil, '.rdf'))/descendant::rdf:Description"/>
                                             </xsl:when>
                                             <xsl:otherwise>
                                                 <xsl:text>NA</xsl:text>
