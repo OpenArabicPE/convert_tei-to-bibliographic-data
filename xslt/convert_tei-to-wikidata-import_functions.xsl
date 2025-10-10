@@ -852,9 +852,9 @@
                     <xsl:apply-templates mode="m_string-source" select="."/>
                     <!-- add qualifier for transcriptions? Problem: we have no explicit linking between an Arabic string and its various transcriptions  -->
                     <!-- PROBLEM: transcriptions are not limited to a specific type -->
-                    <xsl:call-template name="t_string-transcriptions-2">
+                    <!--<xsl:call-template name="t_string-transcriptions-2">
                         <xsl:with-param name="p_input" select="."/>
-                    </xsl:call-template>
+                    </xsl:call-template>-->
                 </xsl:element>
             </xsl:when>
             <!-- what if we do not have the original title? -->
@@ -863,9 +863,9 @@
                 <xsl:element name="{$v_property}">
                     <xsl:apply-templates mode="m_string-source" select="."/>
                     <!-- add qualifier for transcriptions? Problem: we have no explicit linking between an Arabic string and its various transcriptions  -->
-                    <xsl:call-template name="t_string-transcriptions-2">
+                    <!--<xsl:call-template name="t_string-transcriptions-2">
                         <xsl:with-param name="p_input" select="."/>
-                    </xsl:call-template>
+                    </xsl:call-template>-->
                 </xsl:element>
             </xsl:when>
         </xsl:choose>
@@ -1478,7 +1478,11 @@
     </xsl:template>
     <xsl:template match="@* | node()" mode="m_string-quoted">
         <xsl:value-of select="$v_quot"/>
-        <xsl:value-of select="normalize-space(.)"/>
+<!--        <xsl:value-of select="normalize-space(.)"/>-->
+        <!-- quotation marks need some escaping, but it the form is undocumented.
+            I have tried "", """, \", &quot;, but none produces the correct result
+        -->
+        <xsl:value-of select="normalize-space(replace(., '(&quot;)', '\\$1'))" />
         <xsl:value-of select="$v_quot"/>
     </xsl:template>
     <!-- generate quick statements -->
