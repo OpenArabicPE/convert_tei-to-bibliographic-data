@@ -16,6 +16,15 @@ Everything is built upon XPath functions and `<tei:biblStruct>` as an intermedia
 Although it is advised to download the code and run it locally, everything should work with life-calls to the GitHub Pages branch of this repository at `https://openarabicpe.github.io/convert_tei-to-bibliographic-data/xsl/{name-of-the-xslt}`.
 
 # XSLT stylesheets
+
+The stylesheets can easily be called from the commandline using variations of the following command
+
+```bash
+saxon -s:"path-to-xml-file" -xsl:"path-to-xslt"   \
+p_stand-alone=false p_verbose=false p_debug=false \
+p_output-folder=""
+```
+
 ## Generate `<tei:biblStruct>` as intermediary format
 
 Output of the stylesheets is always is a self-contained TEI/XML file with all bibliographic data from the input written to `tei:TEI/tei:standOff`. 
