@@ -13,31 +13,22 @@
     <!-- postprocessing specific to JISC -->
     <!-- delete all elements, which have no value -->
     <xsl:template match="element()[. = 's.n.']" mode="m_post-process" priority="22"/>
-    <!-- remove trailing punctuation marks -->
-    <xsl:template match="tei:title | tei:orgName | tei:placeName" mode="m_off" priority="20">
-        <xsl:copy>
-            <xsl:apply-templates mode="m_post-process" select="@*"/>
-            <xsl:choose>
-                <xsl:when test="matches(., '\s*\.{2}\s*$')">
-                    <xsl:apply-templates mode="m_post-process"/>
-                </xsl:when>
-                <!--<xsl:when test="matches(., '^\s*[\.\]]\s*')">
-                    <xsl:value-of select="replace(., '(\s*[\.\]]\s*)', '')"/>
-                </xsl:when>
--->
-                <xsl:when test="matches(., '\s*[\.]\s*$')">
-                    <xsl:value-of select="replace(., '(\s*[\.]\s*)$', '')"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:apply-templates mode="m_post-process"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:copy>
-    </xsl:template>
     <!-- transcription:
            - initial hamza
            - ʻ for ʿayn
     -->
+    <!-- remove online holdings -->
+    <xsl:template match="tei:item[ancestor::tei:note[@type = 'holdings']][descendant::tei:note[@type = 'format'][matches(., '^(online|electronic)')]]" mode="m_post-process"/>
+    <!-- partial dates -->
+    <xsl:template match="tei:imprint/tei:date[matches(., '^1\du+$')]" mode="m_post-process" priority="30">
+        <xsl:copy>
+            <xsl:apply-templates select="@*" mode="m_identity-transform"/>
+            <xsl:attribute name="notBefore" select="concat(replace(., '^(1\d)u+$', '$1'), '00-01-01')"/>
+            <xsl:attribute name="notAfter" select="concat(replace(., '^(1\d)u+$', '$1'), '99-12-01')"/>
+            <xsl:attribute name="cert" select="'low'"/>
+            <xsl:apply-templates mode="m_post-process"/>
+        </xsl:copy>
+    </xsl:template>
     <!-- correct level -->
     <xsl:template match="tei:monogr/tei:title[@level = 'a']" mode="m_post-process">
         <xsl:copy>
