@@ -5,7 +5,7 @@
     <xsl:import href="../../../OpenArabicPE/authority-files/xslt/functions.xsl"/>
     <xsl:import href="functions.xsl"/>
     <!--    <xsl:import href="convert_marc-xml-to-tei_functions.xsl"/>-->
-    <xsl:param name="p_source" select="'oape:org:31'"/>
+    <xsl:param name="p_source" select="''"/>
     <xsl:variable name="v_alphabet-arabic" select="'اأإبتثحخجدذرزسشصضطظعغفقكلمنهوؤيئىةء٠١٢٣٤٥٦٧٨٩'"/>
     <xsl:variable name="v_alphabet-latin" select="'0123456789abcdefghijklmnopqrstuvwxyz'"/>
     <xsl:variable name="v_alphabet-arabic-ijmes" select="'āīūḍġḥṣṭʼʿʾ'"/>
@@ -49,12 +49,17 @@
         <xsl:variable name="v_bibls">
             <xsl:apply-templates mode="m_identity-transform" select="tei:bibl[not(@type = 'holdings')]"/>
         </xsl:variable>
+        <xsl:variable name="v_org-id" select="replace(preceding-sibling::tei:label/tei:orgName/@ref, concat('^.*(', $p_local-authority, ':org:\d+)'), '$1')"/>
         <xsl:copy>
             <xsl:apply-templates mode="m_identity-transform" select="@*"/>
             <bibl resp="#xslt" type="holdings">
                 <!-- IDs -->
+                <xsl:for-each-group group-by="." select="ancestor::tei:biblStruct/tei:monogr/tei:idno[@source = $v_org-id]">
+                    <xsl:apply-templates mode="m_identity-transform" select="."/>
+                </xsl:for-each-group>
                 <xsl:apply-templates mode="m_identity-transform" select="ancestor::tei:biblStruct/tei:monogr/tei:idno[@source = current()/@source]"/>
-                <xsl:apply-templates mode="m_identity-transform" select="ancestor::tei:biblStruct/tei:monogr/tei:idno[@source = $p_source]"/>
+                
+               <!-- <xsl:apply-templates mode="m_identity-transform" select="ancestor::tei:biblStruct/tei:monogr/tei:idno[@source = $p_source]"/>-->
                 <xsl:for-each-group group-by="." select="$v_bibls/descendant::tei:idno[not(@type = 'URI')]">
                     <xsl:apply-templates mode="m_identity-transform" select="current-group()[1]"/>
                 </xsl:for-each-group>
@@ -62,7 +67,7 @@
                 <xsl:apply-templates mode="m_identity-transform" select="$v_bibls/descendant::tei:idno[@type = 'URI'][@subtype = 'self']"/>
                 <!-- URL if HTU -->
                 <xsl:if test="ancestor::tei:biblStruct[1][@source = 'oape:org:31']">
-                    <xsl:apply-templates mode="m_identity-transform" select="$v_bibls/descendant::tei:idno[@type = 'URI'][matches(., '/htu/data/HTU')]"/>
+                    <!--<xsl:apply-templates mode="m_identity-transform" select="$v_bibls/descendant::tei:idno[@type = 'URI'][matches(., '/htu/data/HTU')]"/>-->
                     <xsl:apply-templates mode="m_identity-transform" select="ancestor::tei:biblStruct/tei:monogr/tei:idno[@type = 'htu']"/>
                 </xsl:if>
                 <!-- scope -->
@@ -144,7 +149,7 @@
         </xsl:copy>
     </xsl:template>
     <!-- titles -->
-    <xsl:template match="tei:monogr/tei:title" mode="m_post-process">
+    <xsl:template match="tei:monogr/tei:title" mode="m_post-process" priority="20">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:if test="not(@level)">
