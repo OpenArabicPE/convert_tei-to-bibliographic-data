@@ -347,6 +347,24 @@
             <xsl:apply-templates mode="m_date-when" select="."/>
         </P582>
     </xsl:template>
+    <!-- not implemented -->
+    <xsl:template match="tei:date" mode="m_tei2qs"/>
+    <xsl:template match="tei:date[@type = ('onset', 'official')]" mode="m_tei2qs">
+        <!--<!-\- inception -\->
+        <P571>
+            <xsl:apply-templates mode="m_date-when" select="."/>
+        </P571>
+        <!-\- start time -\->
+        <P580>
+            <xsl:apply-templates mode="m_date-when" select="."/>
+        </P580>-->
+    </xsl:template>
+    <xsl:template match="tei:date[@type = 'terminus']" mode="m_tei2qs">
+        <!--<!-\- end time -\->
+        <P582>
+            <xsl:apply-templates mode="m_date-when" select="."/>
+        </P582>-->
+    </xsl:template>
     <!-- aggregate data on the entire collection: note that there is a "single best value" constraint on this -->
     <xsl:template match="tei:date" mode="m_tei2wikidata_holdings">
         <xsl:choose>
@@ -729,6 +747,7 @@
         </xsl:for-each-group>
     </xsl:template>
     <xsl:template match="tei:monogr[@type = 'reprint']" mode="m_tei2wikidata"/>
+    <xsl:template match="tei:monogr[@type = 'reprint']" mode="m_tei2qs"/>
     <xsl:template match="tei:publisher" mode="m_tei2wikidata">
         <!-- converting to a reconciled Wikidata item! -->
         <xsl:choose>
@@ -752,6 +771,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <xsl:template match="tei:publisher" mode="m_tei2qs"/>
     <xsl:template match="tei:pubPlace" mode="m_tei2wikidata">
         <xsl:choose>
             <xsl:when test="tei:placeName[matches(@ref, 'wiki:Q\d+|geon:\d+')]">
@@ -778,6 +798,24 @@
                         </xsl:when>
                     </xsl:choose>
                 </P291>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:message>
+                    <xsl:text>Unidentified place of publication: </xsl:text>
+                    <xsl:value-of select="tei:placeName[1]"/>
+                </xsl:message>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="tei:pubPlace" mode="m_tei2qs">
+        <xsl:choose>
+            <xsl:when test="tei:placeName[matches(@ref, 'wiki:Q\d+')]">
+                <xsl:variable name="v_placeName" select="oape:query-gazetteer(tei:placeName[@ref][1], $v_gazetteer, $p_local-authority, 'tei-ref', '')"/>
+                <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
+                <xsl:variable name="v_source" select="oape:qs-get-source(.)"/>
+                 <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
+                <xsl:value-of select="concat('P291', $v_seperator-qs, replace($v_placeName, '^.*wiki:(Q\d+).*$', '$1'))"/>
+                <xsl:value-of select="$v_source"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:message>
@@ -1478,16 +1516,18 @@
     </xsl:template>
     <xsl:template match="@* | node()" mode="m_string-quoted">
         <xsl:value-of select="$v_quot"/>
-<!--        <xsl:value-of select="normalize-space(.)"/>-->
+        <!--        <xsl:value-of select="normalize-space(.)"/>-->
         <!-- quotation marks need some escaping, but it the form is undocumented.
             I have tried "", """, \", &quot;, but none produces the correct result
         -->
-        <xsl:value-of select="normalize-space(replace(., '(&quot;)', '\\$1'))" />
+        <xsl:value-of select="normalize-space(replace(., '(&quot;)', '\\$1'))"/>
         <xsl:value-of select="$v_quot"/>
     </xsl:template>
     <!-- generate quick statements -->
     <xsl:template match="node() | @*" mode="m_tei2qs_holdings"/>
     <xsl:template match="tei:biblStruct" mode="m_tei2qs">
+        <!-- imprint -->
+        <xsl:apply-templates mode="m_tei2qs" select="tei:monogr/tei:imprint/node()"/>
         <!-- IDs -->
         <xsl:apply-templates mode="m_tei2qs" select="tei:monogr/tei:idno"/>
         <!-- holdings -->
