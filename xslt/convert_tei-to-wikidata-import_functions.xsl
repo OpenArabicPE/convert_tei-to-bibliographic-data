@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet exclude-result-prefixes="#all" version="3.0" xmlns="http://www.wikidata.org/" xmlns:oape="https://openarabicpe.github.io/ns" xmlns:tei="http://www.tei-c.org/ns/1.0"
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.wikidata.org/">
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.wikidata.org/" xmlns:wd="http://www.wikidata.org/">
     <xsl:output encoding="UTF-8" indent="yes" method="xml" name="xml" omit-xml-declaration="no" version="1.0"/>
     <xsl:output encoding="UTF-8" indent="yes" method="text" name="text" omit-xml-declaration="yes"/>
     <xsl:import href="../../authority-files/xslt/functions.xsl"/>
@@ -312,6 +312,18 @@
             <xsl:apply-templates mode="m_tei2wikidata_holdings" select="tei:note[@type = 'holdings']"/>
         </item>
     </xsl:template>
+    <xsl:template match="tei:biblStruct/@subtype | tei:biblStruct/@type" mode="m_tei2qs">
+        <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
+        <xsl:variable name="v_source" select="oape:qs-get-source(.)"/>
+        <xsl:variable name="v_instance-wiki">
+            <xsl:apply-templates select="." mode="m_tei2wikidata"/>
+        </xsl:variable>
+        <xsl:if test="$v_instance-wiki/wd:P31/wd:QItem">
+              <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
+               <xsl:value-of select="concat('P31', $v_seperator-qs, $v_instance-wiki/wd:P31/wd:QItem)"/>
+               <xsl:value-of select="$v_source"/>
+        </xsl:if>
+    </xsl:template>
     <xsl:template match="tei:biblStruct/@subtype | tei:biblStruct/@type" mode="m_tei2wikidata">
         <P31>
             <xsl:call-template name="t_source">
@@ -327,6 +339,9 @@
                 </xsl:when>
                 <xsl:when test=". = 'periodical'">
                     <QItem>Q1002697</QItem>
+                </xsl:when>
+                <xsl:when test=". = 'yearbook'">
+                    <QItem>Q9311446</QItem>
                 </xsl:when>
             </xsl:choose>
         </P31>
@@ -732,6 +747,12 @@
                 <xsl:apply-templates mode="m_string-quoted" select="."/>
                 <xsl:value-of select="$v_source"/>
             </xsl:when>
+            <xsl:when test="not(@type)">
+                <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
+                <xsl:value-of select="concat('P1476', $v_seperator-qs)"/>
+                <xsl:apply-templates mode="m_string-quoted" select="."/>
+                <xsl:value-of select="$v_source"/>
+            </xsl:when>
             <xsl:otherwise>
                 <xsl:if test="$p_verbose = true()">
                     <xsl:message>WARNING: conversion has not been implemented for this type of title</xsl:message>
@@ -837,7 +858,6 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <xsl:template match="tei:publisher" mode="m_tei2qs"/>
     <xsl:template match="tei:pubPlace" mode="m_tei2wikidata">
         <xsl:choose>
             <xsl:when test="tei:placeName[matches(@ref, 'wiki:Q\d+|geon:\d+')]">
@@ -915,6 +935,29 @@
             </xsl:for-each>
         </P407>
     </xsl:template>
+    <xsl:template match="tei:textLang" mode="m_tei2qs">
+        <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
+        <xsl:variable name="v_source" select="oape:qs-get-source(.)"/>
+        <xsl:for-each select="tokenize(@mainLang, '\s')">
+            <xsl:variable name="v_qid-lang" select="oape:string-convert-lang-codes(., 'bcp47', 'wikidata')"/>
+            <xsl:choose>
+                <xsl:when test="$v_qid-lang != 'NA'">
+                    <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
+                    <xsl:value-of select="concat('P407', $v_seperator-qs, $v_qid-lang)"/>
+                    <xsl:value-of select="$v_source"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:if test="$p_verbose">
+                        <xsl:message>
+                            <xsl:text>WARNING: the language code "</xsl:text>
+                            <xsl:value-of select="."/>
+                            <xsl:text>" has not been reconciliated with Wikidata</xsl:text>
+                        </xsl:message>
+                    </xsl:if>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:for-each>
+    </xsl:template>
     <!-- this template is currently unused and not necessary -->
     <xsl:template name="t_reconcile-lang">
         <xsl:param name="p_lang"/>
@@ -981,6 +1024,19 @@
     <!--    <xsl:template match="tei:title[not(@type)][@xml:lang = 'ar-Latn-x-ijmes'][parent::node()/tei:title[not(@type)][@xml:lang = 'ar']]"/>-->
     <!-- remove alternative, mostly wrong titles -->
     <xsl:template match="tei:title[@type = 'alt']" mode="m_tei2wikidata" priority="10"/>
+    <xsl:template match="@*" mode="m_tei2qs"/>
+    <xsl:template match="@oape:frequency" mode="m_tei2qs">
+        <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
+        <xsl:variable name="v_source" select="oape:qs-get-source(.)"/>
+        <xsl:variable name="v_frequency-wiki">
+            <xsl:apply-templates select="." mode="m_tei2wikidata"/>
+        </xsl:variable>
+        <xsl:if test="$v_frequency-wiki/wd:P2896/wd:amount">
+              <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
+               <xsl:value-of select="concat('P2896', $v_seperator-qs, $v_frequency-wiki/wd:P2896/wd:amount, 'U', replace($v_frequency-wiki/wd:P2896/wd:unit, '^Q(\d+)$', '$1'))"/>
+               <xsl:value-of select="$v_source"/>
+        </xsl:if>
+    </xsl:template>
     <xsl:template match="@oape:frequency" mode="m_tei2wikidata">
         <P2896>
             <xsl:call-template name="t_source">
@@ -990,39 +1046,39 @@
             <xsl:choose>
                 <xsl:when test=". = 'annually'">
                     <amount>1</amount>
-                    <unit>year</unit>
+                    <unit>Q577</unit>
                 </xsl:when>
-                <xsl:when test=". = 'annually'">
+                <xsl:when test=". = 'biannually'">
                     <amount>2</amount>
-                    <unit>year</unit>
+                    <unit>Q577</unit>
                 </xsl:when>
                 <xsl:when test=". = 'biweekly'">
                     <amount>2</amount>
-                    <unit>week</unit>
+                    <unit>Q23387</unit>
                 </xsl:when>
                 <xsl:when test=". = 'daily'">
                     <amount>1</amount>
-                    <unit>day</unit>
+                    <unit>Q573</unit>
                 </xsl:when>
                 <xsl:when test=". = 'fortnightly'">
                     <amount>2</amount>
-                    <unit>month</unit>
+                    <unit>Q5151</unit>
                 </xsl:when>
                 <xsl:when test=". = 'monthly'">
                     <amount>1</amount>
-                    <unit>month</unit>
+                    <unit>Q5151</unit>
                 </xsl:when>
                 <xsl:when test=". = 'quarterly'">
                     <amount>4</amount>
-                    <unit>year</unit>
+                    <unit>Q577</unit>
                 </xsl:when>
                 <xsl:when test=". = 'triweekly'">
                     <amount>3</amount>
-                    <unit>week</unit>
+                    <unit>Q23387</unit>
                 </xsl:when>
                 <xsl:when test=". = 'weekly'">
                     <amount>1</amount>
-                    <unit>week</unit>
+                    <unit>Q23387</unit>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:message>
@@ -1574,9 +1630,16 @@
     </xsl:template>
     <!-- generate quick statements -->
     <xsl:template match="node() | @*" mode="m_tei2qs_holdings"/>
-    <xsl:template match="node()" mode="m_tei2qs">
+    <xsl:template match="element()" mode="m_tei2qs">
         <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
         <xsl:value-of select="concat($v_new-line, $v_qid)"/>
+        <xsl:if test="$p_verbose">
+            <xsl:message>
+                <xsl:text>WARNING: conversion of element "</xsl:text>
+                <xsl:value-of select="local-name(.)"/>
+                <xsl:text>" is not yet implemented</xsl:text>
+            </xsl:message>
+        </xsl:if>
     </xsl:template>
     <xsl:template match="tei:biblStruct" mode="m_tei2qs">
         <xsl:variable name="v_qid" select="oape:query-biblstruct(., 'id-wiki', '', '', '')"/>
@@ -1590,10 +1653,10 @@
                         <xsl:text> to QuickStatements</xsl:text>
                     </xsl:message>
                 </xsl:if>
-                <!-- titles -->
+                <xsl:apply-templates select="@*" mode="m_tei2qs"/>
                 <xsl:apply-templates mode="m_tei2qs" select="tei:monogr/tei:title"/>
-                <!-- editors -->
                 <xsl:apply-templates mode="m_tei2qs" select="tei:monogr/tei:editor"/>
+                <xsl:apply-templates mode="m_tei2qs" select="tei:monogr/tei:textLang"/>
                 <!-- imprint -->
                 <xsl:apply-templates mode="m_tei2qs" select="tei:monogr/tei:imprint/node()"/>
                 <!-- IDs -->
