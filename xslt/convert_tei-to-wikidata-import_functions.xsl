@@ -370,19 +370,19 @@
                 <!-- inception -->
                 <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
                 <xsl:value-of select="concat('P571', $v_seperator-qs)"/>
-                <xsl:apply-templates mode="m_date-when" select="."/>
+                <xsl:apply-templates mode="m_date-qs" select="."/>
                 <xsl:value-of select="$v_source"/>
                 <!-- start time -->
                 <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
                 <xsl:value-of select="concat('P580', $v_seperator-qs)"/>
-                <xsl:apply-templates mode="m_date-when" select="."/>
+                <xsl:apply-templates mode="m_date-qs" select="."/>
                 <xsl:value-of select="$v_source"/>
             </xsl:when>
             <!-- end time -->
             <xsl:when test="@type = 'terminus'">
                 <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
                 <xsl:value-of select="concat('P582', $v_seperator-qs)"/>
-                <xsl:apply-templates mode="m_date-when" select="."/>
+                <xsl:apply-templates mode="m_date-qs" select="."/>
                 <xsl:value-of select="$v_source"/>
             </xsl:when>
             <!-- not implemented -->
@@ -445,8 +445,14 @@
                 <xsl:when test="(@type = 'onset') and @from">
                     <xsl:value-of select="@from"/>
                 </xsl:when>
+                <xsl:when test="(@type = 'onset') and @notBefore">
+                    <xsl:value-of select="@notBefore"/>
+                </xsl:when>
                 <xsl:when test="(@type = 'terminus') and @to">
                     <xsl:value-of select="@to"/>
+                </xsl:when>
+                <xsl:when test="(@type = 'terminus') and @notAfter">
+                    <xsl:value-of select="@notAfter"/>
                 </xsl:when>
             </xsl:choose>
         </xsl:variable>
