@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet exclude-result-prefixes="#all" version="3.0" xmlns="http://www.wikidata.org/" xmlns:oape="https://openarabicpe.github.io/ns" xmlns:tei="http://www.tei-c.org/ns/1.0"
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.wikidata.org/" xmlns:wd="http://www.wikidata.org/">
+    xmlns:wd="http://www.wikidata.org/" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.wikidata.org/">
     <xsl:output encoding="UTF-8" indent="yes" method="xml" name="xml" omit-xml-declaration="no" version="1.0"/>
     <xsl:output encoding="UTF-8" indent="yes" method="text" name="text" omit-xml-declaration="yes"/>
     <xsl:import href="../../authority-files/xslt/functions.xsl"/>
@@ -316,12 +316,12 @@
         <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
         <xsl:variable name="v_source" select="oape:qs-get-source(.)"/>
         <xsl:variable name="v_instance-wiki">
-            <xsl:apply-templates select="." mode="m_tei2wikidata"/>
+            <xsl:apply-templates mode="m_tei2wikidata" select="."/>
         </xsl:variable>
         <xsl:if test="$v_instance-wiki/wd:P31/wd:QItem">
-              <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
-               <xsl:value-of select="concat('P31', $v_seperator-qs, $v_instance-wiki/wd:P31/wd:QItem)"/>
-               <xsl:value-of select="$v_source"/>
+            <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
+            <xsl:value-of select="concat('P31', $v_seperator-qs, $v_instance-wiki/wd:P31/wd:QItem)"/>
+            <xsl:value-of select="$v_source"/>
         </xsl:if>
     </xsl:template>
     <xsl:template match="tei:biblStruct/@subtype | tei:biblStruct/@type" mode="m_tei2wikidata">
@@ -1029,12 +1029,12 @@
         <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
         <xsl:variable name="v_source" select="oape:qs-get-source(.)"/>
         <xsl:variable name="v_frequency-wiki">
-            <xsl:apply-templates select="." mode="m_tei2wikidata"/>
+            <xsl:apply-templates mode="m_tei2wikidata" select="."/>
         </xsl:variable>
         <xsl:if test="$v_frequency-wiki/wd:P2896/wd:amount">
-              <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
-               <xsl:value-of select="concat('P2896', $v_seperator-qs, $v_frequency-wiki/wd:P2896/wd:amount, 'U', replace($v_frequency-wiki/wd:P2896/wd:unit, '^Q(\d+)$', '$1'))"/>
-               <xsl:value-of select="$v_source"/>
+            <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
+            <xsl:value-of select="concat('P2896', $v_seperator-qs, $v_frequency-wiki/wd:P2896/wd:amount, 'U', replace($v_frequency-wiki/wd:P2896/wd:unit, '^Q(\d+)$', '$1'))"/>
+            <xsl:value-of select="$v_source"/>
         </xsl:if>
     </xsl:template>
     <xsl:template match="@oape:frequency" mode="m_tei2wikidata">
@@ -1644,27 +1644,27 @@
     <xsl:template match="tei:biblStruct" mode="m_tei2qs">
         <xsl:variable name="v_qid" select="oape:query-biblstruct(., 'id-wiki', '', '', '')"/>
         <xsl:variable name="v_source" select="oape:qs-get-source(.)"/>
-        <xsl:choose>
-            <xsl:when test="$v_qid != 'NA'">
-                <xsl:if test="$p_verbose = true()">
-                    <xsl:message>
-                        <xsl:text>Converting </xsl:text>
-                        <xsl:value-of select="$v_qid"/>
-                        <xsl:text> to QuickStatements</xsl:text>
-                    </xsl:message>
-                </xsl:if>
-                <xsl:apply-templates select="@*" mode="m_tei2qs"/>
-                <xsl:apply-templates mode="m_tei2qs" select="tei:monogr/tei:title"/>
-                <xsl:apply-templates mode="m_tei2qs" select="tei:monogr/tei:editor"/>
-                <xsl:apply-templates mode="m_tei2qs" select="tei:monogr/tei:textLang"/>
-                <!-- imprint -->
-                <xsl:apply-templates mode="m_tei2qs" select="tei:monogr/tei:imprint/node()"/>
-                <!-- IDs -->
-                <xsl:apply-templates mode="m_tei2qs" select="tei:monogr/tei:idno"/>
-                <!-- holdings -->
-                <!--        <xsl:apply-templates mode="m_tei2qs" select="tei:note[@type = 'holdings']/tei:list/tei:item"/>-->
-            </xsl:when>
-        </xsl:choose>
+        <xsl:if test="$p_verbose = true()">
+            <xsl:message>
+                <xsl:text>Converting </xsl:text>
+                <xsl:value-of select="$v_qid"/>
+                <xsl:text> to QuickStatements</xsl:text>
+            </xsl:message>
+        </xsl:if>
+        <!-- new items -->
+        <xsl:if test="$v_qid = 'NA'">
+            <xsl:value-of select="concat($v_new-line, 'CREATE')"/>
+        </xsl:if>
+        <xsl:apply-templates mode="m_tei2qs" select="@*"/>
+        <xsl:apply-templates mode="m_tei2qs" select="tei:monogr/tei:title"/>
+        <xsl:apply-templates mode="m_tei2qs" select="tei:monogr/tei:editor"/>
+        <xsl:apply-templates mode="m_tei2qs" select="tei:monogr/tei:textLang"/>
+        <!-- imprint -->
+        <xsl:apply-templates mode="m_tei2qs" select="tei:monogr/tei:imprint/node()"/>
+        <!-- IDs -->
+        <xsl:apply-templates mode="m_tei2qs" select="tei:monogr/tei:idno"/>
+        <!-- holdings -->
+        <!--        <xsl:apply-templates mode="m_tei2qs" select="tei:note[@type = 'holdings']/tei:list/tei:item"/>-->
     </xsl:template>
     <xsl:template match="tei:idno" mode="m_tei2qs">
         <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
@@ -1834,7 +1834,15 @@
     </xsl:function>
     <xsl:function name="oape:qs-get-qid">
         <xsl:param as="node()" name="p_input"/>
-        <xsl:value-of select="oape:query-biblstruct($p_input/ancestor-or-self::tei:biblStruct[1], 'id-wiki', '', '', $p_local-authority)"/>
+        <xsl:variable name="v_qid" select="oape:query-biblstruct($p_input/ancestor-or-self::tei:biblStruct[1], 'id-wiki', '', '', $p_local-authority)"/>
+        <xsl:choose>
+            <xsl:when test="$v_qid = 'NA'">
+                <xsl:text>LAST</xsl:text>
+            </xsl:when>
+            <xsl:when test="$v_qid != 'NA'">
+                <xsl:value-of select="$v_qid"/>
+            </xsl:when>
+        </xsl:choose>
     </xsl:function>
     <xsl:function name="oape:qs-get-source">
         <xsl:param as="node()" name="p_input"/>

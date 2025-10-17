@@ -30,6 +30,8 @@
                  <xsl:apply-templates mode="m_tei2qs"
                                     select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical'][descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))]]"
                                 />
+                     <!-- new items -->
+                     <xsl:apply-templates mode="m_tei2qs" select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical'][not(descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))])]"/>
                  </xsl:result-document>
              </xsl:when>
             <xsl:otherwise>
