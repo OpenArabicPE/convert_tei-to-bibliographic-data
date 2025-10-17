@@ -1635,7 +1635,7 @@
         <xsl:value-of select="$v_quot"/>
     </xsl:template>
     <!-- generate quick statements -->
-    <xsl:template match="node() | @*" mode="m_tei2qs_holdings"/>
+    <xsl:template match="node() | @*" mode="m_tei2qs_holdings m_tei2qs_ids"/>
     <xsl:template match="element()" mode="m_tei2qs">
         <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
         <xsl:value-of select="concat($v_new-line, $v_qid)"/>
@@ -1649,7 +1649,6 @@
     </xsl:template>
     <xsl:template match="tei:biblStruct" mode="m_tei2qs">
         <xsl:variable name="v_qid" select="oape:query-biblstruct(., 'id-wiki', '', '', '')"/>
-        <xsl:variable name="v_source" select="oape:qs-get-source(.)"/>
         <xsl:if test="$p_verbose = true()">
             <xsl:message>
                 <xsl:text>Converting </xsl:text>
@@ -1671,6 +1670,17 @@
         <xsl:apply-templates mode="m_tei2qs" select="tei:monogr/tei:idno"/>
         <!-- holdings -->
         <!--        <xsl:apply-templates mode="m_tei2qs" select="tei:note[@type = 'holdings']/tei:list/tei:item"/>-->
+    </xsl:template>
+    <xsl:template match="tei:biblStruct" mode="m_tei2qs_ids">
+        <xsl:if test="$p_verbose = true()">
+            <xsl:message>
+                <xsl:text>Converting </xsl:text>
+                <xsl:value-of select="oape:query-biblstruct(., 'id-wiki', '', '', '')"/>
+                <xsl:text> to QuickStatements: IDs</xsl:text>
+            </xsl:message>
+        </xsl:if>
+        <!-- IDs -->
+        <xsl:apply-templates mode="m_tei2qs" select="tei:monogr/tei:idno"/>
     </xsl:template>
     <xsl:template match="tei:idno" mode="m_tei2qs">
         <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>

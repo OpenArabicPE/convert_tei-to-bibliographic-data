@@ -3,7 +3,7 @@
     xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.wikidata.org/">
     <xsl:import href="convert_tei-to-wikidata-import_functions.xsl"/>
     <xsl:param name="p_output-mode" select="'holdings'"/>
-    <xsl:variable name="v_output-directory" select="'OpenRefine/input/'"/>
+    <xsl:variable name="v_output-directory" select="'Wikidata/QuickStatements/'"/>
     <xsl:template match="/">
         <xsl:choose>
             <xsl:when test="$p_output-mode = 'holdings'">
@@ -18,21 +18,29 @@
                     </collection>
                 </xsl:result-document>
             </xsl:when>
-             <xsl:when test="$p_output-mode = 'holdings-qs'">
-                <xsl:result-document href="{$v_base-directory}{$v_output-directory}{$v_file-name_input}_holdings.qs" method="text">
-                    <xsl:apply-templates mode="m_tei2qs_holdings"
-                                select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical' or tei:monogr/tei:title[@level = 'j']][tei:note[@type = 'holdings']][descendant::tei:idno/@type = $p_acronym-wikidata]"/>
-                </xsl:result-document>
-             </xsl:when>
              <xsl:when test="$p_output-mode = 'qs'">
                  <xsl:result-document href="{$v_base-directory}{$v_output-directory}{$v_file-name_input}.qs" method="text">
                  <!-- periodicals with QID-->
                  <xsl:apply-templates mode="m_tei2qs"
-                                    select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical'][descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))]]"
+                                    select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical' or tei:monogr/tei:title[@level = 'j']][descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))]]"
                                 />
                      <!-- new items -->
-                     <xsl:apply-templates mode="m_tei2qs" select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical'][not(descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))])]"/>
+                     <xsl:apply-templates mode="m_tei2qs" select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical 'or tei:monogr/tei:title[@level = 'j']][not(descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))])][tei:monogr/tei:title[@ref = 'NA'][not(@resp = '#xslt')]]"/>
                  </xsl:result-document>
+             </xsl:when>
+            <xsl:when test="$p_output-mode = 'qs-holdings'">
+                <xsl:result-document href="{$v_base-directory}{$v_output-directory}{$v_file-name_input}_holdings.qs" method="text">
+                     <xsl:apply-templates mode="m_tei2qs_holdings"
+                                    select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical' or tei:monogr/tei:title[@level = 'j']][descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))]]"
+                                />
+                </xsl:result-document>
+             </xsl:when>
+            <xsl:when test="$p_output-mode = 'qs-ids'">
+                <xsl:result-document href="{$v_base-directory}{$v_output-directory}{$v_file-name_input}_ids.qs" method="text">
+                     <xsl:apply-templates mode="m_tei2qs_ids"
+                                    select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical' or tei:monogr/tei:title[@level = 'j']][descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))]]"
+                                />
+                </xsl:result-document>
              </xsl:when>
             <xsl:otherwise>
                 <xsl:result-document href="{$v_base-directory}{$v_output-directory}{$v_file-name_input}.Wikidata.xml" method="xml">
