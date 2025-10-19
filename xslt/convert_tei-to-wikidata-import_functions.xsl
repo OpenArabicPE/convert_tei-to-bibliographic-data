@@ -1755,7 +1755,20 @@
         <xsl:choose>
             <xsl:when test="$v_property != 'NA'">
                 <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs, $v_property, $v_seperator-qs)"/>
-                <xsl:value-of select="oape:qs-quoted-string(.)"/>
+                <!-- some necessary preprocessing -->
+                <xsl:choose>
+                    <!-- LCCN -->
+                    <xsl:when test="$v_property = 'P1144'">
+                        <xsl:choose>
+                            <xsl:when test="matches(., '^([a-z]{1,2})*\s*\d+.*$')">
+                                <xsl:value-of select="oape:qs-quoted-string(replace(.,  '^([a-z]{1,2})\s*(\d+).*$', '$1$2'))"/>
+                            </xsl:when>
+                        </xsl:choose>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="oape:qs-quoted-string(.)"/>
+                    </xsl:otherwise>
+                </xsl:choose>
                 <xsl:value-of select="$v_source"/>
             </xsl:when>
         </xsl:choose>
