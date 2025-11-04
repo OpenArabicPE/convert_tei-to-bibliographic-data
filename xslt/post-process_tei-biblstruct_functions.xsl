@@ -307,7 +307,7 @@
         </xsl:copy>
     </xsl:template>
     <!-- this template only needs to run once -->
-    <xsl:template match="tei:date[not(@when)][not(@calendar = '#cal_islamic')][not(@notBefore)][not(@notAfter)][not(@from)][not(@to)][not(@datingMethod)]" mode="m_post-process" priority="13">
+    <xsl:template match="tei:date[not(@when)][not(@calendar = '#cal_islamic')][not(@notBefore)][not(@notAfter)][not(@from)][not(@to)][not(@datingMethod)][not(@type = 'acquisition')]" mode="m_post-process" priority="13">
         <xsl:variable name="v_text">
             <xsl:value-of select="descendant-or-self::text()"/>
         </xsl:variable>
