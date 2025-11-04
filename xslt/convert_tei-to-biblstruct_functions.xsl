@@ -205,7 +205,7 @@
     <xsl:template match="@xml:id | @change" mode="m_replicate"/>
     <!-- in some cases the content has been wrapped in <del>. Such content should be o -->
     <xsl:template match="tei:del" mode="m_bibl-to-biblStruct"/>
-    <xsl:template match="tei:bibl" mode="m_bibl-to-biblStruct" priority="10">
+    <xsl:template match="tei:bibl" mode="m_bibl-to-biblStruct" priority="100">
         <xsl:variable name="v_source">
             <xsl:choose>
                 <xsl:when test="@source">
@@ -280,7 +280,7 @@
                 </xsl:for-each>
                 <xsl:choose>
                     <xsl:when test="tei:textLang">
-                        <xsl:apply-templates mode="m_replicate" select="tei:textLang"/>
+                        <xsl:apply-templates mode="m_replicate" select="descendant::tei:textLang"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:if test="$p_verbose = true()">
@@ -291,13 +291,13 @@
                         <xsl:variable name="v_lang">
                             <xsl:choose>
                                 <!-- chose the language of the title -->
-                                <xsl:when test="$p_detect-language-from-title = true() and tei:title[@level = ('j', 'm')]/@xml:lang">
+                                <xsl:when test="$p_detect-language-from-title = true() and descendant::tei:title[@level = ('j', 'm')]/@xml:lang">
                                     <xsl:if test="$p_verbose = true()">
                                         <xsl:message>
                                             <xsl:text>taking implicit language information from title</xsl:text>
                                         </xsl:message>
                                     </xsl:if>
-                                    <xsl:value-of select="tei:title[@level = ('j', 'm')][@xml:lang][1]/@xml:lang"/>
+                                    <xsl:value-of select="descendant::tei:title[@level = ('j', 'm')][@xml:lang][1]/@xml:lang"/>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:value-of select="'NA'"/>
@@ -315,26 +315,34 @@
                 <!-- author: depending on which level we are on -->
                 <xsl:choose>
                     <!-- if this is for a book section, article etc., the author has been part of <analytic> -->
-                    <xsl:when test="tei:title[@level = 'a']"/>
+                    <xsl:when test="descendant::tei:title[@level = 'a']"/>
                     <xsl:otherwise>
-                        <xsl:apply-templates mode="m_bibl-to-biblStruct" select="tei:author"/>
+                        <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:author"/>
                     </xsl:otherwise>
                 </xsl:choose>
-                <xsl:apply-templates mode="m_bibl-to-biblStruct" select="tei:editor"/>
-                <xsl:apply-templates mode="m_bibl-to-biblStruct" select="tei:respStmt"/>
+                <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:editor"/>
+                <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:respStmt"/>
                 <imprint>
-                    <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:date"/>
+                    <xsl:for-each-group select="descendant::tei:date" group-by=".">
+                        <xsl:apply-templates mode="m_bibl-to-biblStruct" select="."/>
+                    </xsl:for-each-group>
                     <!-- add a date at which this bibl was documented in the source file -->
                     <xsl:if test="$v_source-date != ''">
                         <date source="{$v_source}" type="documented" when="{$v_source-date}"/>
                     </xsl:if>
-                    <xsl:apply-templates mode="m_bibl-to-biblStruct" select="tei:pubPlace"/>
-                    <xsl:apply-templates mode="m_bibl-to-biblStruct" select="tei:publisher"/>
+                    <xsl:for-each-group select="descendant::tei:pubPlace" group-by=".">
+                        <xsl:apply-templates mode="m_bibl-to-biblStruct" select="."/>
+                    </xsl:for-each-group>
+                    <xsl:for-each-group select="descendant::tei:publisher" group-by=".">
+                        <xsl:apply-templates mode="m_bibl-to-biblStruct" select="."/>
+                    </xsl:for-each-group>
                 </imprint>
-                <xsl:apply-templates mode="m_replicate" select="tei:biblScope"/>
+                <xsl:for-each-group select="descendant::tei:biblScope" group-by=".">
+                        <xsl:apply-templates mode="m_bibl-to-biblStruct" select="."/>
+                    </xsl:for-each-group>
             </monogr>
             <!-- retain all potential notes  -->
-            <xsl:apply-templates mode="m_replicate" select="tei:note"/>
+            <xsl:apply-templates mode="m_replicate" select="descendant::tei:note"/>
         </biblStruct>
     </xsl:template>
     <xsl:template match="node() | @*" mode="m_bibl-to-biblStruct">
