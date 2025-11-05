@@ -239,10 +239,19 @@
                 </analytic>
             </xsl:if>
             <monogr>
-                <xsl:apply-templates mode="m_bibl-to-biblStruct" select="tei:title[@level != 'a']"/>
-                <xsl:apply-templates mode="m_replicate" select="tei:title[not(@level)]"/>
+                <xsl:for-each-group group-by="." select="descendant::tei:title[(@level != 'a') or not(@level)]">
+                    <xsl:apply-templates mode="m_bibl-to-biblStruct" select="."/>
+                </xsl:for-each-group>
                 <xsl:apply-templates mode="m_replicate" select="tei:idno"/>
-                <xsl:for-each select="tokenize(tei:title[(@level != 'a') or not(@level)][@ref][1]/@ref, '\s+')">
+                <xsl:variable name="v_refs">
+                    <xsl:for-each select="descendant::tei:title[(@level != 'a') or not(@level)][@ref[not(. = 'NA')]]/@ref">
+                        <xsl:for-each select="tokenize(., '\s+')">
+                            <item><xsl:value-of select="."/></item>
+                        </xsl:for-each>
+                    </xsl:for-each>
+                </xsl:variable>
+                <xsl:for-each-group select="$v_refs/tei:item" group-by=".">
+                    <xsl:sort select="."/>
                     <xsl:variable name="v_authority">
                         <xsl:choose>
                             <xsl:when test="contains(., concat($p_acronym-wikidata, ':'))">
@@ -277,7 +286,7 @@
                             <xsl:value-of select="$v_idno"/>
                         </idno>
                     </xsl:if>
-                </xsl:for-each>
+                </xsl:for-each-group>
                 <xsl:choose>
                     <xsl:when test="tei:textLang">
                         <xsl:apply-templates mode="m_replicate" select="descendant::tei:textLang"/>
@@ -323,23 +332,23 @@
                 <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:editor"/>
                 <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:respStmt"/>
                 <imprint>
-                    <xsl:for-each-group select="descendant::tei:date" group-by=".">
+                    <xsl:for-each-group group-by="." select="descendant::tei:date">
                         <xsl:apply-templates mode="m_bibl-to-biblStruct" select="."/>
                     </xsl:for-each-group>
                     <!-- add a date at which this bibl was documented in the source file -->
                     <xsl:if test="$v_source-date != ''">
                         <date source="{$v_source}" type="documented" when="{$v_source-date}"/>
                     </xsl:if>
-                    <xsl:for-each-group select="descendant::tei:pubPlace" group-by=".">
+                    <xsl:for-each-group group-by="." select="descendant::tei:pubPlace">
                         <xsl:apply-templates mode="m_bibl-to-biblStruct" select="."/>
                     </xsl:for-each-group>
-                    <xsl:for-each-group select="descendant::tei:publisher" group-by=".">
+                    <xsl:for-each-group group-by="." select="descendant::tei:publisher">
                         <xsl:apply-templates mode="m_bibl-to-biblStruct" select="."/>
                     </xsl:for-each-group>
                 </imprint>
-                <xsl:for-each-group select="descendant::tei:biblScope" group-by=".">
-                        <xsl:apply-templates mode="m_bibl-to-biblStruct" select="."/>
-                    </xsl:for-each-group>
+                <xsl:for-each-group group-by="." select="descendant::tei:biblScope">
+                    <xsl:apply-templates mode="m_bibl-to-biblStruct" select="."/>
+                </xsl:for-each-group>
             </monogr>
             <!-- retain all potential notes  -->
             <xsl:apply-templates mode="m_replicate" select="descendant::tei:note"/>
@@ -347,7 +356,7 @@
     </xsl:template>
     <xsl:template match="node() | @*" mode="m_bibl-to-biblStruct">
         <xsl:copy>
-            <xsl:apply-templates select="@* | node()" mode="m_bibl-to-biblStruct"/>
+            <xsl:apply-templates mode="m_bibl-to-biblStruct" select="@* | node()"/>
         </xsl:copy>
     </xsl:template>
     <!-- remove attributes -->
