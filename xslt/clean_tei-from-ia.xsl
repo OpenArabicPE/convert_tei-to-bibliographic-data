@@ -47,10 +47,9 @@
             <listBibl>
                 <head>with out titles and resolvable IDs</head>
                 <xsl:for-each select="tei:biblStruct[not(descendant::tei:idno[@type = 'wiki'])][not(tei:monogr/tei:title)]">
-                    <xsl:sort select="current-grouping-key()"/>
                     <xsl:variable name="v_listBibl">
                         <listBibl>
-                            <xsl:copy-of select="current-group()"/>
+                            <xsl:copy-of select="."/>
                         </listBibl>
                     </xsl:variable>
                     <xsl:call-template name="t_group-biblStruct">
