@@ -24,7 +24,7 @@
                  <xsl:apply-templates mode="m_tei2qs"
                                     select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical' or tei:monogr/tei:title[@level = 'j']][descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))]]"
                                 />
-                     <!-- new items -->
+                     <!-- new items: without an idno pointing to Wikidata and confirmed to be missing from Wikidata by a human -->
                      <xsl:apply-templates mode="m_tei2qs" select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical 'or tei:monogr/tei:title[@level = 'j']][not(descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))])][tei:monogr/tei:title[@ref = 'NA'][not(@resp = '#xslt')]]"/>
                  </xsl:result-document>
              </xsl:when>

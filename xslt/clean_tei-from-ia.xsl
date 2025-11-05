@@ -15,7 +15,7 @@
             <xsl:apply-templates mode="m_identity-transform" select="tei:head"/>
             <!-- group biblStruct with IDs by IDs -->
             <listBibl>
-                <head>with IDs</head>
+                <head><xsl:value-of select="count(distinct-values(tei:biblStruct/descendant::tei:idno[@type = 'wiki']))"/><xsl:text> periocicals with IDs</xsl:text></head>
                 <xsl:for-each-group group-by="descendant::tei:idno[@type = 'wiki']" select="tei:biblStruct[descendant::tei:idno[@type = 'wiki']]">
                     <xsl:sort select="current-grouping-key()"/>
                     <xsl:variable name="v_listBibl">
@@ -90,7 +90,7 @@
                     </imprint>
                 </xsl:if>
             </monogr>
-            <!-- group existing notes -->
+            <!-- group existing notes by type -->
             <xsl:for-each-group group-by="@type" select="$p_input/descendant::tei:biblStruct/tei:note">
                 <note source="oape:org:440">
                     <xsl:attribute name="type" select="current-grouping-key()"/>
@@ -98,12 +98,12 @@
                         <!-- notes by content to reduce redundancy, this reduces the tracability of the source for individual claims -->
                         <xsl:for-each select="current-group()">
                             <item>
-                                <!-- add source information -->
+                                <!-- add source information: there is no way to look behind the grouping function from which $p_input originated -->
                                 <!--<xsl:attribute name="source" select="$p_input/descendant::tei:biblStruct[descendant::tei:idno[@type = 'ARK']][1]/descendant::tei:idno[@type = 'ARK']"/>-->
-                                <xsl:attribute name="source"
-                                    select="concat($p_url-resolve-ia, $p_input/descendant::tei:biblStruct[descendant::tei:idno[@type = 'classmark']][1]/descendant::tei:idno[@type = 'classmark'])"/>
+                                <!--<xsl:attribute name="source"
+                                    select="concat($p_url-resolve-ia, current-group()/ancestor::tei:biblStruct[descendant::tei:idno[@type = 'classmark']][1]/tei:monogr/tei:idno[@type = 'classmark'])"/>-->
                                 <!-- remove the surrounding note -->
-                                <xsl:apply-templates mode="m_identity-transform" select="./node()"/>
+                                <xsl:apply-templates mode="m_identity-transform" select="./@source |./node()"/>
                             </item>
                         </xsl:for-each>
                     </list>
