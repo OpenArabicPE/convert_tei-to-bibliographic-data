@@ -3,60 +3,74 @@
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:output indent="yes" method="xml"/>
     <xsl:import href="post-process_tei-biblstruct_functions.xsl"/>
-    <!-- remove nested bibls -->
-    <xsl:template match="tei:note/tei:bibl" mode="m_post-process" priority="100">
+    <xsl:param name="p_group" select="false()"/>
+    <xsl:param name="p_source" select="'oape:org:440'"/>
+    <!-- remove nested bibls and dates -->
+    <xsl:template match="tei:note/tei:bibl | tei:date/tei:date" mode="m_post-process" priority="100">
         <xsl:text> </xsl:text>
         <xsl:apply-templates mode="m_post-process"/>
+        <xsl:text> </xsl:text>
     </xsl:template>
+    <xsl:template mode="m_post-process" match="tei:title[@ref = 'NA'][preceding-sibling::tei:note[@type = 'title']/tei:title]"/>
     <!-- group -->
     <xsl:template match="tei:standOff/tei:listBibl" mode="m_post-process">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
-            <xsl:apply-templates mode="m_identity-transform" select="tei:head"/>
-            <!-- group biblStruct with IDs by IDs -->
-            <listBibl>
-                <head><xsl:value-of select="count(distinct-values(tei:biblStruct/descendant::tei:idno[@type = 'wiki']))"/><xsl:text> periocicals with IDs</xsl:text></head>
-                <xsl:for-each-group group-by="descendant::tei:idno[@type = 'wiki']" select="tei:biblStruct[descendant::tei:idno[@type = 'wiki']]">
-                    <xsl:sort select="current-grouping-key()"/>
-                    <xsl:variable name="v_listBibl">
-                        <listBibl>
-                            <xsl:copy-of select="current-group()"/>
-                        </listBibl>
-                    </xsl:variable>
-                    <xsl:call-template name="t_group-biblStruct">
-                        <xsl:with-param name="p_input" select="$v_listBibl"/>
-                    </xsl:call-template>
-                </xsl:for-each-group>
-            </listBibl>
-            <!-- group biblStruct with titles by titles -->
-            <listBibl>
-                <head>with titles but no resolved IDs</head>
-                <xsl:for-each-group group-by="tei:monogr/tei:title" select="tei:biblStruct[not(descendant::tei:idno[@type = 'wiki'])][tei:monogr/tei:title]">
-                    <xsl:sort select="current-grouping-key()"/>
-                    <xsl:variable name="v_listBibl">
-                        <listBibl>
-                            <xsl:copy-of select="current-group()"/>
-                        </listBibl>
-                    </xsl:variable>
-                    <xsl:call-template name="t_group-biblStruct">
-                        <xsl:with-param name="p_input" select="$v_listBibl"/>
-                    </xsl:call-template>
-                </xsl:for-each-group>
-            </listBibl>
-            <!-- group biblStruct without both titles and IDs-->
-            <listBibl>
-                <head>with out titles and resolvable IDs</head>
-                <xsl:for-each select="tei:biblStruct[not(descendant::tei:idno[@type = 'wiki'])][not(tei:monogr/tei:title)]">
-                    <xsl:variable name="v_listBibl">
-                        <listBibl>
-                            <xsl:copy-of select="."/>
-                        </listBibl>
-                    </xsl:variable>
-                    <xsl:call-template name="t_group-biblStruct">
-                        <xsl:with-param name="p_input" select="$v_listBibl"/>
-                    </xsl:call-template>
-                </xsl:for-each>
-            </listBibl>
+            <xsl:choose>
+                <xsl:when test="$p_group = false()">
+                    <xsl:apply-templates mode="m_post-process" select="node()"/>
+                </xsl:when>
+                <xsl:when test="$p_group = true()">
+                    <xsl:apply-templates mode="m_identity-transform" select="tei:head"/>
+                    <!-- group biblStruct with IDs by IDs -->
+                    <listBibl>
+                        <head>
+                            <xsl:value-of select="count(distinct-values(tei:biblStruct[@type = 'periodical']/descendant::tei:idno[@type = 'wiki']))"/>
+                            <xsl:text> periocicals with IDs</xsl:text>
+                        </head>
+                        <xsl:for-each-group group-by="descendant::tei:idno[@type = 'wiki']" select="tei:biblStruct[@type = 'periodical'][descendant::tei:idno[@type = 'wiki']]">
+                            <xsl:sort select="current-grouping-key()"/>
+                            <xsl:variable name="v_listBibl">
+                                <listBibl>
+                                    <xsl:copy-of select="current-group()"/>
+                                </listBibl>
+                            </xsl:variable>
+                            <xsl:call-template name="t_group-biblStruct">
+                                <xsl:with-param name="p_input" select="$v_listBibl"/>
+                            </xsl:call-template>
+                        </xsl:for-each-group>
+                    </listBibl>
+                    <!-- group biblStruct with titles by titles -->
+                    <listBibl>
+                        <head>with titles but no resolved IDs</head>
+                        <xsl:for-each-group group-by="tei:monogr/tei:title" select="tei:biblStruct[@type = 'periodical'][not(descendant::tei:idno[@type = 'wiki'])][tei:monogr/tei:title]">
+                            <xsl:sort select="current-grouping-key()"/>
+                            <xsl:variable name="v_listBibl">
+                                <listBibl>
+                                    <xsl:copy-of select="current-group()"/>
+                                </listBibl>
+                            </xsl:variable>
+                            <xsl:call-template name="t_group-biblStruct">
+                                <xsl:with-param name="p_input" select="$v_listBibl"/>
+                            </xsl:call-template>
+                        </xsl:for-each-group>
+                    </listBibl>
+                    <!-- group biblStruct without both titles and IDs-->
+                    <listBibl>
+                        <head>with out titles and resolvable IDs</head>
+                        <xsl:for-each select="tei:biblStruct[not(descendant::tei:idno[@type = 'wiki'])][not(tei:monogr/tei:title)]">
+                            <xsl:variable name="v_listBibl">
+                                <listBibl>
+                                    <xsl:copy-of select="."/>
+                                </listBibl>
+                            </xsl:variable>
+                            <xsl:call-template name="t_group-biblStruct">
+                                <xsl:with-param name="p_input" select="$v_listBibl"/>
+                            </xsl:call-template>
+                        </xsl:for-each>
+                    </listBibl>
+                </xsl:when>
+            </xsl:choose>
         </xsl:copy>
     </xsl:template>
     <xsl:template name="t_group-biblStruct">
@@ -103,7 +117,7 @@
                                 <!--<xsl:attribute name="source"
                                     select="concat($p_url-resolve-ia, current-group()/ancestor::tei:biblStruct[descendant::tei:idno[@type = 'classmark']][1]/tei:monogr/tei:idno[@type = 'classmark'])"/>-->
                                 <!-- remove the surrounding note -->
-                                <xsl:apply-templates mode="m_identity-transform" select="./@source |./node()"/>
+                                <xsl:apply-templates mode="m_identity-transform" select="./@source | ./node()"/>
                             </item>
                         </xsl:for-each>
                     </list>
@@ -132,5 +146,64 @@
                 </list>
             </note>
         </biblStruct>
+    </xsl:template>
+    <!-- titles ending in dates -->
+    <xsl:template match="tei:note[@type = 'title'][not(child::element())][matches(., '^(.*?\D)((\d{4})\s*-\s*)?(\d{4})$')]" mode="m_post-process">
+        <xsl:analyze-string regex="^(.*?\D)((\d{{4}})\s*-\s*)?(\d{{4}})$" select=".">
+            <xsl:matching-substring>
+                <xsl:variable name="v_content" select="regex-group(1)"/>
+                <xsl:variable name="v_onset" select="regex-group(3)"/>
+                <xsl:variable name="v_terminus" select="regex-group(4)"/>
+                <!-- title -->
+                <xsl:element name="note">
+                    <xsl:attribute name="type" select="'title'"/>
+                    <xsl:value-of select="normalize-space($v_content)"/>
+                    <xsl:text> </xsl:text>
+                    <!-- dates -->
+                    <xsl:choose>
+                        <xsl:when test="$v_onset != '' and $v_terminus != ''">
+                            <xsl:element name="date">
+                                <xsl:attribute name="type" select="'onset'"/>
+                                <xsl:value-of select="$v_onset"/>
+                            </xsl:element>
+                            <xsl:element name="date">
+                                <xsl:attribute name="type" select="'terminus'"/>
+                                <xsl:value-of select="$v_terminus"/>
+                            </xsl:element>
+                        </xsl:when>
+                        <xsl:when test="$v_terminus != ''">
+                            <xsl:element name="date">
+                                <xsl:value-of select="$v_terminus"/>
+                            </xsl:element>
+                        </xsl:when>
+                    </xsl:choose>
+                </xsl:element>
+            </xsl:matching-substring>
+            <xsl:non-matching-substring>
+                <xsl:copy-of select="."/>
+            </xsl:non-matching-substring>
+        </xsl:analyze-string>
+    </xsl:template>
+    <!-- initial steps -->
+    <xsl:template match="tei:idno" mode="m_off">
+        <xsl:copy>
+            <!-- add attributes -->
+            <xsl:choose>
+                <xsl:when test="not(preceding-sibling::tei:idno)">
+                    <xsl:attribute name="type" select="'classmark'"/>
+                    <xsl:attribute name="source" select="$p_source"/>
+                </xsl:when>
+                <xsl:when test="matches(., '^ark:')">
+                    <xsl:attribute name="type" select="'ARK'"/>
+                </xsl:when>
+            </xsl:choose>
+            <xsl:apply-templates mode="m_post-process"/>
+        </xsl:copy>
+    </xsl:template>
+    <xsl:template match="tei:dateAdded" mode="m_post-process">
+        <xsl:element name="date">
+            <xsl:attribute name="type" select="'acquisition'"/>
+            <xsl:apply-templates mode="m_post-process"/>
+        </xsl:element>
     </xsl:template>
 </xsl:stylesheet>
