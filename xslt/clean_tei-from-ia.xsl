@@ -110,7 +110,7 @@
                     <xsl:attribute name="type" select="current-grouping-key()"/>
                     <list>
                         <!-- notes by content to reduce redundancy, this reduces the tracability of the source for individual claims -->
-                        <xsl:for-each select="current-group()">
+                        <xsl:for-each-group select="current-group()" group-by=".">
                             <item>
                                 <!-- add source information: there is no way to look behind the grouping function from which $p_input originated -->
                                 <!--<xsl:attribute name="source" select="$p_input/descendant::tei:biblStruct[descendant::tei:idno[@type = 'ARK']][1]/descendant::tei:idno[@type = 'ARK']"/>-->
@@ -119,7 +119,7 @@
                                 <!-- remove the surrounding note -->
                                 <xsl:apply-templates mode="m_identity-transform" select="./@source | ./node()"/>
                             </item>
-                        </xsl:for-each>
+                        </xsl:for-each-group>
                     </list>
                 </note>
             </xsl:for-each-group>
