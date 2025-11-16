@@ -5,7 +5,6 @@
     <!-- this stylesheet generates a TEI/XML bibliography from all <bibl> elements found in the text of a TEI/XML document -->
     <xsl:import href="../../../OpenArabicPE/authority-files/xslt/functions.xsl"/>
     <xsl:import href="convert_tei-to-biblstruct_functions.xsl"/>
-    <!-- all parameters and variables are set in convert_tei-to-mods_functions.xsl -->
     <xsl:template match="/">
         <xsl:result-document href="{$p_output-folder}{$v_file-name_input}-bibl_biblStruct.TEIP5.xml">
             <xsl:copy>
