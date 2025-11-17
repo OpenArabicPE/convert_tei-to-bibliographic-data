@@ -58,7 +58,7 @@
                     <!-- group biblStruct without both titles and IDs-->
                     <listBibl>
                         <head>with out titles and resolvable IDs</head>
-                        <xsl:for-each select="tei:biblStruct[not(descendant::tei:idno[@type = 'wiki'])][not(tei:monogr/tei:title)]">
+                        <xsl:for-each select="tei:biblStruct[@type = 'periodical'][not(descendant::tei:idno[@type = 'wiki'])][not(tei:monogr/tei:title)]">
                             <xsl:variable name="v_listBibl">
                                 <listBibl>
                                     <xsl:copy-of select="."/>
