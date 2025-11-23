@@ -1919,6 +1919,9 @@
                     <!-- query the organisationography -->
                     <xsl:variable name="v_id-wiki" select="oape:query-organizationography($v_orgName/descendant-or-self::tei:orgName, $v_organizationography, $p_local-authority, 'id-wiki', '')"/>
                     <xsl:variable name="v_url-source" select="oape:query-organizationography($v_orgName/descendant-or-self::tei:orgName, $v_organizationography, $p_local-authority, 'url', '')"/>
+                    <!--<xsl:message>
+                        <xsl:value-of select="$v_id-wiki"/>
+                    </xsl:message>-->
                     <xsl:choose>
                         <xsl:when test="$v_id-wiki != 'NA'">
                             <!-- QID -->
@@ -1927,21 +1930,21 @@
                             <xsl:choose>
                                 <!-- provide full URIs for ZDB -->
                                 <xsl:when test="$v_id-wiki = 'Q186844'">
-                                    <xsl:for-each select="$p_input/ancestor::tei:monogr[1]/tei:idno[@type = 'zdb']">
+                                    <xsl:for-each select="$p_input/ancestor::tei:biblStruct[1]/ancestor::tei:monogr[1]/tei:idno[@type = 'zdb']">
                                         <xsl:value-of select="concat($v_seperator-qs, 'S854', $v_seperator-qs)"/>
                                         <xsl:value-of select="oape:qs-quoted-string(concat($p_url-resolve-zdb, .))"/>
                                     </xsl:for-each>
                                 </xsl:when>
                                 <!-- provide full URIs for AUB -->
                                 <xsl:when test="$v_id-wiki = 'Q124855340'">
-                                    <xsl:for-each select="$p_input/ancestor::tei:monogr[1]/tei:idno[@type = 'LEAUB']">
+                                    <xsl:for-each select="$p_input/ancestor::tei:biblStruct[1]/ancestor::tei:monogr[1]/tei:idno[@type = 'LEAUB']">
                                         <xsl:value-of select="concat($v_seperator-qs, 'S854', $v_seperator-qs)"/>
                                         <xsl:value-of select="oape:qs-quoted-string(concat($p_url-resolve-aub, .))"/>
                                     </xsl:for-each>
                                 </xsl:when>
                                 <!-- provide full URIs for Hathi -->
                                 <xsl:when test="$v_id-wiki = 'Q3128305'">
-                                    <xsl:for-each select="$p_input/ancestor::tei:monogr[1]/tei:idno[@type = 'ht_bib_key']">
+                                    <xsl:for-each select="$p_input/ancestor::tei:biblStruct[1]/ancestor::tei:monogr[1]/tei:idno[@type = 'ht_bib_key']">
                                         <xsl:value-of select="concat($v_seperator-qs, 'S854', $v_seperator-qs)"/>
                                         <xsl:value-of select="oape:qs-quoted-string(concat($p_url-resolve-hathi, .))"/>
                                     </xsl:for-each>
@@ -1949,7 +1952,7 @@
                                  <!-- provide full URIs for USEK -->
                                 <xsl:when test="$v_id-wiki = 'Q1310333'">
                                     <!-- this only work on single-source bibliographies -->
-                                    <xsl:for-each select="$p_input/ancestor::tei:monogr[1]/tei:idno[@type = 'record']">
+                                    <xsl:for-each select="$p_input/ancestor::tei:biblStruct[1]/tei:monogr[1]/tei:idno[@type = 'record']">
                                         <xsl:value-of select="concat($v_seperator-qs, 'S854', $v_seperator-qs)"/>
                                         <xsl:value-of select="oape:qs-quoted-string(concat($p_url-resolve-usek, .))"/>
                                     </xsl:for-each>
