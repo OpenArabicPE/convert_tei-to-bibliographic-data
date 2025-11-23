@@ -218,14 +218,14 @@
         </xsl:copy>
     </xsl:template>
     <!-- imprint -->
-    <xsl:template match="tei:publisher[not(tei:orgName)]" mode="m_off">
+    <xsl:template match="tei:publisher[not(tei:orgName)]" mode="m_post-process">
         <xsl:copy>
             <xsl:element name="orgName">
                 <xsl:apply-templates mode="m_post-process"/>
             </xsl:element>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="tei:pubPlace[not(tei:placeName)]" mode="m_off">
+    <xsl:template match="tei:pubPlace[not(tei:placeName)]" mode="m_post-process">
         <xsl:copy>
             <xsl:element name="placeName">
                 <xsl:apply-templates mode="m_post-process"/>
