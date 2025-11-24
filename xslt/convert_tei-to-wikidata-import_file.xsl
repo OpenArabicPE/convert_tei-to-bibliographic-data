@@ -28,7 +28,7 @@
                      <xsl:apply-templates mode="m_tei2qs" select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical 'or tei:monogr/tei:title[@level = 'j']][not(descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))])][tei:monogr/tei:title[@ref = 'NA'][not(@resp = '#xslt')]]"/>
                  </xsl:result-document>
              </xsl:when>
-            <xsl:when test="$p_output-mode = 'qs-holdings'">
+            <xsl:when test="$p_output-mode = ('qs-holdings', 'holdings-qs')">
                 <xsl:result-document href="{$v_base-directory}{$v_output-directory}QuickStatements/{$v_file-name_input}_holdings.qs" method="text">
                      <xsl:apply-templates mode="m_tei2qs_holdings"
                                     select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical' or tei:monogr/tei:title[@level = 'j']][descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))]]"
