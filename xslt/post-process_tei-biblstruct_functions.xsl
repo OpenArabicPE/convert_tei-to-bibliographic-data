@@ -6,6 +6,7 @@
     <xsl:import href="functions.xsl"/>
     <!--    <xsl:import href="convert_marc-xml-to-tei_functions.xsl"/>-->
     <xsl:param name="p_source" select="''"/>
+    <xsl:param name="p_group" select="false()"/>
     <xsl:variable name="v_alphabet-arabic" select="'اأإبتثحخجدذرزسشصضطظعغفقكلمنهوؤيئىةء٠١٢٣٤٥٦٧٨٩'"/>
     <xsl:variable name="v_alphabet-latin" select="'0123456789abcdefghijklmnopqrstuvwxyz'"/>
     <xsl:variable name="v_alphabet-arabic-ijmes" select="'āīūḍġḥṣṭʼʿʾ'"/>
@@ -22,12 +23,12 @@
         </xsl:copy>
     </xsl:template>
     <!-- translate Arabic digits in attributes to Latin digits -->
-    <xsl:template match="@*" mode="m_post-process" priority="20">
+    <xsl:template match="@*" mode="m_post-process" priority="1">
         <xsl:attribute name="{name()}">
             <xsl:value-of select="oape:transpose-digits(., 'arabic', 'western')"/>
         </xsl:attribute>
     </xsl:template>
-    <xsl:template match="@*[. = '']" mode="m_post-process" priority="20"/>
+    <xsl:template match="@*[. = '']" mode="m_post-process" priority="1"/>
     <!-- remove @source from non-sensicle places -->
     <xsl:template match="tei:monogr/@source | tei:imprint/@source" mode="m_off" priority="10"/>
     <!-- this is expensive: Unicode normalization -->
@@ -58,8 +59,7 @@
                     <xsl:apply-templates mode="m_identity-transform" select="."/>
                 </xsl:for-each-group>
                 <xsl:apply-templates mode="m_identity-transform" select="ancestor::tei:biblStruct/tei:monogr/tei:idno[@source = current()/@source]"/>
-                
-               <!-- <xsl:apply-templates mode="m_identity-transform" select="ancestor::tei:biblStruct/tei:monogr/tei:idno[@source = $p_source]"/>-->
+                <!-- <xsl:apply-templates mode="m_identity-transform" select="ancestor::tei:biblStruct/tei:monogr/tei:idno[@source = $p_source]"/>-->
                 <xsl:for-each-group group-by="." select="$v_bibls/descendant::tei:idno[not(@type = 'URI')]">
                     <xsl:apply-templates mode="m_identity-transform" select="current-group()[1]"/>
                 </xsl:for-each-group>
@@ -107,11 +107,30 @@
         <xsl:value-of select="replace(., '(\s*[,|;|:|،|؛|.]\s*)$', '')"/>
     </xsl:template>
     <!-- information to be removed as I do not further process it -->
-    <xsl:template match="tei:biblStruct/@xml:lang | tei:monogr/@xml:lang | tei:imprint/@xml:lang | tei:publisher/@xml:lang | tei:pubPlace/@xml:lang | tei:idno/@xml:lang" mode="m_off"/>
+    <xsl:template match="tei:biblStruct/@xml:lang | tei:monogr/@xml:lang | tei:imprint/@xml:lang | tei:publisher/@xml:lang | tei:pubPlace/@xml:lang | tei:idno/@xml:lang" mode="m_post-process"/>
     <xsl:template match="tei:biblStruct[not(@source)][ancestor::node()/@source]" mode="m_post-process" priority="1">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:copy-of select="ancestor::node()[@source][1]/@source"/>
+            <xsl:apply-templates mode="m_post-process" select="node()"/>
+        </xsl:copy>
+    </xsl:template>
+    <xsl:template match="tei:biblStruct[not(@type)][tei:monogr/tei:title[@level]]" mode="m_post-process">
+        <xsl:copy>
+            <xsl:apply-templates mode="m_post-process" select="@*"/>
+            <xsl:attribute name="type">
+                <xsl:choose>
+                    <xsl:when test="tei:monogr/tei:title[@level = 'j']">
+                        <xsl:text>periodical</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="tei:monogr/tei:title[@level = 'm']">
+                        <xsl:text>book</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>unknown</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
             <xsl:apply-templates mode="m_post-process" select="node()"/>
         </xsl:copy>
     </xsl:template>
@@ -307,7 +326,8 @@
         </xsl:copy>
     </xsl:template>
     <!-- this template only needs to run once -->
-    <xsl:template match="tei:date[not(@when)][not(@calendar = '#cal_islamic')][not(@notBefore)][not(@notAfter)][not(@from)][not(@to)][not(@datingMethod)][not(@type = 'acquisition')]" mode="m_post-process" priority="13">
+    <xsl:template match="tei:date[not(@when)][not(@calendar = '#cal_islamic')][not(@notBefore)][not(@notAfter)][not(@from)][not(@to)][not(@datingMethod)][not(@type = 'acquisition')]"
+        mode="m_post-process" priority="13">
         <xsl:variable name="v_text">
             <xsl:value-of select="descendant-or-self::text()"/>
         </xsl:variable>
@@ -489,44 +509,80 @@
     <!-- remove bibls for individual copies after merging -->
     <xsl:template match="tei:bibl[@type = 'copy'][parent::tei:listBibl/tei:bibl[@type = 'holdings'][not(tei:idno[@type = ('url', 'URI')])]]" mode="m_off" priority="10"/>
     <!-- [parent::tei:bibl/tei:idno[@type = 'barcode']] is only needed for USJ -->
-    <xsl:template match="tei:biblScope[not(@unit)][ancestor::tei:note[@type = 'holdings']]" mode="m_off" priority="10">
+    <xsl:template name="t_find-biblScope">
+        <xsl:param as="node()" name="p_input"/>
+        <xsl:variable name="v_input" select="normalize-space($p_input)"/>
+        <!-- variables with regex strings: each is a group -->
+        <xsl:variable name="v_string-regex-volume" select="'(al-Sanah|v\.|vol\.*|السنة|المجلد|\Wم)'"/>
+        <xsl:variable name="v_string-regex-issue" select="'(no\.*|العدد|\Wع)'"/>
+        <xsl:variable name="v_string-regex-range" select="'(-|حتى|الى)'"/>
+        <!-- 3 groups -->
+        <xsl:variable name="v_string-regex-unit" select="concat('(', $v_string-regex-volume, '|', $v_string-regex-issue, ')')"/>
+        <!-- full regex for range -->
+        <xsl:variable name="v_string-regex-full" select="concat($v_string-regex-unit, '\s*(\d+)(\s*', $v_string-regex-range, '\s*', $v_string-regex-unit, '*\s*(\d+))*')"/>
+        <xsl:choose>
+            <xsl:when test="matches($v_input, $v_string-regex-full)">
+                <xsl:analyze-string regex="{$v_string-regex-full}" select="normalize-space($p_input)">
+                    <xsl:matching-substring>
+                        <xsl:choose>
+                            <!-- volume -->
+                            <xsl:when test="regex-group(2)">
+                                <xsl:if test="$p_debug = true()">
+                                    <xsl:message>
+                                        <xsl:text>found volume information</xsl:text>
+                                    </xsl:message>
+                                </xsl:if>
+                                <xsl:element name="biblScope">
+                                    <xsl:attribute name="unit" select="'volume'"/>
+                                    <xsl:attribute name="from" select="regex-group(4)"/>
+                                    <xsl:attribute name="to" select="
+                                            if (regex-group(10)) then
+                                                (regex-group(10))
+                                            else
+                                                (regex-group(4))"/>
+                                    <xsl:value-of select="$v_input"/>
+                                </xsl:element>
+                            </xsl:when>
+                            <!-- issue -->
+                            <xsl:when test="regex-group(3)">
+                                <xsl:if test="$p_debug = true()">
+                                    <xsl:message>
+                                        <xsl:text>found issue information</xsl:text>
+                                    </xsl:message>
+                                </xsl:if>
+                                <xsl:element name="biblScope">
+                                    <xsl:attribute name="unit" select="'issue'"/>
+                                    <xsl:attribute name="from" select="regex-group(4)"/>
+                                    <xsl:attribute name="to" select="
+                                            if (regex-group(10)) then
+                                                (regex-group(10))
+                                            else
+                                                (regex-group(4))"/>
+                                    <xsl:value-of select="$v_input"/>
+                                </xsl:element>
+                            </xsl:when>
+                        </xsl:choose>
+                    </xsl:matching-substring>
+                </xsl:analyze-string>
+            </xsl:when>
+            <!-- fallback -->
+            <xsl:otherwise>
+                <xsl:copy select="$p_input">
+                    <xsl:apply-templates mode="m_post-process" select="$p_input/@* | $p_input/node()"/>
+                </xsl:copy>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="tei:biblScope[not(@unit)][ancestor::tei:note[@type = 'holdings']]" mode="m_post-process" priority="10">
         <xsl:variable name="v_content" select="normalize-space(.)"/>
         <!--<xsl:call-template name="t_test-for-dates">
             <xsl:with-param name="p_input" select="$v_content"/>
         </xsl:call-template>-->
         <!-- unfortunately, one cannot change the value of a variable as the result of an iff condition -->
+        <xsl:call-template name="t_find-biblScope">
+            <xsl:with-param name="p_input" select="."/>
+        </xsl:call-template>
         <xsl:choose>
-            <!-- volume -->
-            <xsl:when test="matches($v_content, '(al-Sanah|v\.|vol\.*|السنة)\s*(\d+)', 'i')">
-                <xsl:variable name="v_value" select="replace($v_content, '^.*(al-Sanah|v\.|vol\.*|السنة)\s*(\d+).*$', '$2', 'i')"/>
-                <xsl:copy>
-                    <xsl:attribute name="unit" select="'volume'"/>
-                    <xsl:attribute name="from" select="$v_value"/>
-                    <xsl:attribute name="to" select="$v_value"/>
-                    <xsl:apply-templates mode="m_post-process" select="@xml:lang"/>
-                    <xsl:apply-templates mode="m_post-process"/>
-                </xsl:copy>
-                <!--<xsl:variable name="v_content" select="replace($v_content, '^(.*)(vol\.*|السنة)\s*\d+(.*)$', '$1$3', 'i')"/>
-                <xsl:copy>
-                    <xsl:apply-templates mode="m_post-process" select="@*"/>
-                    <xsl:apply-templates mode="m_post-process" select="$v_content"/>
-                </xsl:copy>-->
-            </xsl:when>
-            <xsl:when test="matches($v_content, '(no\.*|العدد)\s*(\d+)', 'i')">
-                <xsl:variable name="v_value" select="replace($v_content, '^.*(no\.*|العدد)\s*(\d+).*$', '$2', 'i')"/>
-                <xsl:copy>
-                    <xsl:attribute name="unit" select="'issue'"/>
-                    <xsl:attribute name="from" select="$v_value"/>
-                    <xsl:attribute name="to" select="$v_value"/>
-                    <xsl:apply-templates mode="m_post-process" select="@xml:lang"/>
-                    <xsl:apply-templates mode="m_post-process"/>
-                </xsl:copy>
-                <!--<xsl:variable name="v_content" select="replace($v_content, '^(.*)no\.*\s*\d+(.*)$', '$1$2', 'i')"/>
-                <xsl:copy>
-                    <xsl:apply-templates mode="m_post-process" select="@*"/>
-                    <xsl:apply-templates mode="m_post-process" select="$v_content"/>
-                </xsl:copy>-->
-            </xsl:when>
             <xsl:when test="matches($v_content, '\(\s*\d{4}\s*\)', 'i')">
                 <xsl:variable name="v_value" select="replace($v_content, '^.*(\(\s*)(\d{4})(\s*\)).*$', '$2', 'i')"/>
                 <xsl:element name="date">
@@ -539,20 +595,8 @@
                     <xsl:apply-templates mode="m_post-process" select="$v_content"/>
                 </xsl:copy>
             </xsl:when>
-            <xsl:otherwise>
-                <xsl:copy>
-                    <xsl:apply-templates mode="m_post-process" select="@* | node()"/>
-                </xsl:copy>
-            </xsl:otherwise>
+            <!-- fallback is already in the called template -->
         </xsl:choose>
-        <!--<xsl:choose>
-            <xsl:when test="contains($v_content, '#')">
-                <xsl:element name="biblScope">
-                    <xsl:attribute name="unit" select="'issue'"/>
-                    <xsl:value-of select="substring-after($v_content, '#')"/>
-                </xsl:element>
-            </xsl:when>
-        </xsl:choose>-->
     </xsl:template>
     <xsl:template match="tei:biblScope[@unit][not(@from)]" mode="m_post-process" priority="10">
         <xsl:copy>
@@ -677,8 +721,8 @@
         </xsl:variable>
         <xsl:value-of select="translate($p_input, $v_from, $v_to)"/>
     </xsl:function>
-    <xsl:template match="@oape:frequency" mode="m_off" priority="2">
-        <xsl:variable name="v_canonical-values" select="'annual|annually|biweekly|daily|fortnightly|irregular|monthly|quarterly|semimonthly|semiweekly|weekly'"/>
+    <xsl:template match="@oape:frequency" mode="m_post-process" priority="2">
+        <xsl:variable name="v_canonical-values" select="'annual|annually|biannually|biennially|bimonthly|biweekly|daily|fortnightly|irregular|monthly|quarterly|semimonthly|semiweekly|weekly'"/>
         <xsl:variable name="v_value" select="lower-case(normalize-space(.))"/>
         <xsl:choose>
             <xsl:when test="matches($v_value, $v_canonical-values)">
@@ -699,6 +743,22 @@
                     </xsl:choose>
                 </xsl:attribute>
             </xsl:when>
+            <!-- translate values -->
+            <xsl:when test="$v_value = ('12 no. a year')">
+                <xsl:attribute name="oape:frequency" select="'monthly'"/>
+            </xsl:when>
+            <xsl:when test="$v_value = ('four no. a year')">
+                <xsl:attribute name="oape:frequency" select="'quarterly'"/>
+            </xsl:when>
+            <xsl:when test="$v_value = ('six no. a year')">
+                <xsl:attribute name="oape:frequency" select="'bimonthly'"/>
+            </xsl:when>
+            <xsl:when test="$v_value = ('Two no. a year')">
+                <xsl:attribute name="oape:frequency" select="'biannually'"/>
+            </xsl:when>
+            <xsl:when test="$v_value = ('biennial')">
+                <xsl:attribute name="oape:frequency" select="'biennially'"/>
+            </xsl:when>
             <xsl:otherwise>
                 <xsl:message terminate="no">
                     <xsl:value-of select="$v_value"/>
@@ -709,4 +769,146 @@
     </xsl:template>
     <!-- remove duplicate IDs -->
     <xsl:template match="tei:idno[text() = following-sibling::tei:idno[@type = current()/@type]/text()]" mode="m_post-process"/>
+    <!-- group periodicals by Wikidata ID -->
+    <xsl:template match="tei:standOff/tei:listBibl" mode="m_post-process">
+        <xsl:copy>
+            <xsl:apply-templates mode="m_post-process" select="@*"/>
+            <xsl:choose>
+                <xsl:when test="$p_group = false()">
+                    <xsl:apply-templates mode="m_post-process" select="node()"/>
+                </xsl:when>
+                <xsl:when test="$p_group = true()">
+                    <xsl:apply-templates mode="m_identity-transform" select="tei:head"/>
+                    <!-- group biblStruct with IDs by IDs: this should not produce any erroneous merges / groups -->
+                    <listBibl>
+                        <head>
+                            <xsl:value-of select="count(distinct-values(tei:biblStruct[@type = 'periodical']/descendant::tei:idno[@type = 'wiki']))"/>
+                            <xsl:text> periocicals with IDs</xsl:text>
+                        </head>
+                        <xsl:for-each-group group-by="descendant::tei:idno[@type = 'wiki']" select="tei:biblStruct[@type = 'periodical'][descendant::tei:idno[@type = 'wiki']]">
+                            <xsl:sort select="current-grouping-key()"/>
+                            <xsl:variable name="v_listBibl">
+                                <listBibl>
+                                    <xsl:copy-of select="current-group()"/>
+                                </listBibl>
+                            </xsl:variable>
+                            <xsl:call-template name="t_group-biblStruct">
+                                <xsl:with-param name="p_input" select="$v_listBibl"/>
+                            </xsl:call-template>
+                        </xsl:for-each-group>
+                    </listBibl>
+                    <!-- group biblStruct with titles by titles: this is error prone as all other parameters are discarded -->
+                    <listBibl>
+                        <head>with titles but no resolved IDs</head>
+                        <xsl:for-each-group group-by="tei:monogr/tei:title" select="tei:biblStruct[@type = 'periodical'][not(descendant::tei:idno[@type = 'wiki'])][tei:monogr/tei:title]">
+                            <xsl:sort select="current-grouping-key()"/>
+                            <xsl:variable name="v_listBibl">
+                                <listBibl>
+                                    <xsl:copy-of select="current-group()"/>
+                                </listBibl>
+                            </xsl:variable>
+                            <xsl:call-template name="t_group-biblStruct">
+                                <xsl:with-param name="p_input" select="$v_listBibl"/>
+                            </xsl:call-template>
+                        </xsl:for-each-group>
+                    </listBibl>
+                    <!-- list biblStruct without both titles and IDs-->
+                    <listBibl>
+                        <head>without titles and resolvable IDs</head>
+                        <xsl:for-each select="tei:biblStruct[@type = 'periodical'][not(descendant::tei:idno[@type = 'wiki'])][not(tei:monogr/tei:title)]">
+                            <xsl:variable name="v_listBibl">
+                                <listBibl>
+                                    <xsl:copy-of select="."/>
+                                </listBibl>
+                            </xsl:variable>
+                            <xsl:call-template name="t_group-biblStruct">
+                                <xsl:with-param name="p_input" select="$v_listBibl"/>
+                            </xsl:call-template>
+                        </xsl:for-each>
+                    </listBibl>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:copy>
+    </xsl:template>
+    <xsl:template name="t_group-biblStruct">
+        <xsl:param name="p_input"/>
+        <!-- reproduce the main bibliographic information -->
+        <biblStruct>
+            <xsl:apply-templates mode="m_identity-transform" select="$p_input/descendant::tei:biblStruct[1]/@*"/>
+            <!-- add source information if there is only a single record at the Internet Archive -->
+            <xsl:if test="count($p_input/descendant::tei:biblStruct) = 1">
+                <xsl:attribute name="source" select="concat($p_source, ' ', concat($p_url-resolve-ia, $p_input/descendant::tei:biblStruct/descendant::tei:idno[@type = 'classmark'][1]))"/>
+            </xsl:if>
+            <monogr>
+                <!--                <xsl:apply-templates mode="m_identity-transform" select="$p_input/descendant::tei:biblStruct[1]/descendant::tei:title[1]"/>-->
+                <xsl:for-each-group group-by="." select="$p_input/descendant::tei:biblStruct/tei:monogr/tei:title">
+                    <xsl:apply-templates mode="m_identity-transform" select="."/>
+                </xsl:for-each-group>
+                <xsl:for-each-group group-by="." select="$p_input/descendant::tei:idno[@type = ('jaraid', 'oape', 'OCLC', 'wiki')]">
+                    <xsl:apply-templates mode="m_identity-transform" select="."/>
+                </xsl:for-each-group>
+                <xsl:for-each-group group-by="." select="$p_input/descendant::tei:textLang">
+                    <xsl:apply-templates mode="m_identity-transform" select="."/>
+                </xsl:for-each-group>
+                <xsl:for-each-group group-by="." select="$p_input/descendant::tei:editor">
+                    <xsl:apply-templates mode="m_identity-transform" select="."/>
+                </xsl:for-each-group>
+                <xsl:for-each-group group-by="." select="$p_input/descendant::tei:respStmt">
+                    <xsl:apply-templates mode="m_identity-transform" select="."/>
+                </xsl:for-each-group>
+                <xsl:if test="$p_input/descendant::tei:imprint/tei:pubPlace">
+                    <imprint>
+                        <!-- merging of places needs some more sophistication -->
+                        <xsl:for-each-group group-by="." select="$p_input/descendant::tei:imprint/node()">
+                            <xsl:apply-templates mode="m_identity-transform" select="."/>
+                        </xsl:for-each-group>
+                    </imprint>
+                </xsl:if>
+            </monogr>
+            <!-- group existing notes with lists by type -->
+            <xsl:for-each-group group-by="@type" select="$p_input/descendant::tei:biblStruct/tei:note[tei:list]">
+                <note source="{$p_source}">
+                    <xsl:attribute name="type" select="current-grouping-key()"/>
+                    <list>
+                        <!-- notes by content to reduce redundancy, this reduces the tracability of the source for individual claims -->
+                        <xsl:for-each-group group-by="." select="current-group()/tei:list/tei:item">
+                            <item>
+                                <!-- add source information: there is no way to look behind the grouping function from which $p_input originated -->
+                                <!--<xsl:attribute name="source" select="$p_input/descendant::tei:biblStruct[descendant::tei:idno[@type = 'ARK']][1]/descendant::tei:idno[@type = 'ARK']"/>-->
+                                <!--<xsl:attribute name="source"
+                                    select="concat($p_url-resolve-ia, current-group()/ancestor::tei:biblStruct[descendant::tei:idno[@type = 'classmark']][1]/tei:monogr/tei:idno[@type = 'classmark'])"/>-->
+                                <!-- remove the surrounding note -->
+                                <xsl:apply-templates mode="m_identity-transform" select="./@source | ./node()"/>
+                            </item>
+                        </xsl:for-each-group>
+                    </list>
+                </note>
+            </xsl:for-each-group>
+            <!-- existing notes without lists -->
+            <!-- note for holdings at the internet archive -->
+            <xsl:if test="$p_source = 'oape:org:440'">
+                <note resp="#xslt" type="holdings">
+                    <list>
+                        <item source="{$p_source}">
+                            <label>
+                                <orgName ref="{$p_source}">Internet Archive</orgName>
+                            </label>
+                            <listBibl>
+                                <xsl:for-each select="$p_input/descendant::tei:biblStruct">
+                                    <xsl:sort select="tei:monogr/tei:imprint/tei:date[@when][1]/@when"/>
+                                    <xsl:sort select="tei:monogr/tei:biblScope[@unit = 'volume'][1]/@from"/>
+                                    <xsl:sort select="tei:monogr/tei:biblScope[@unit = 'issue'][1]/@from"/>
+                                    <bibl resp="#xslt" type="copy">
+                                        <!-- select inclusions -->
+                                        <xsl:apply-templates mode="m_identity-transform"
+                                            select="descendant::tei:idno[@type = ('classmark', 'ARK')] | tei:monogr/tei:biblScope | tei:monogr/tei:imprint/tei:date"/>
+                                    </bibl>
+                                </xsl:for-each>
+                            </listBibl>
+                        </item>
+                    </list>
+                </note>
+            </xsl:if>
+        </biblStruct>
+    </xsl:template>
 </xsl:stylesheet>
