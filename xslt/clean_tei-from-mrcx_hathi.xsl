@@ -3,18 +3,19 @@
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:output indent="yes" method="xml"/>
     <xsl:import href="post-process_tei-biblstruct_functions.xsl"/>
+    <xsl:param name="p_source" select="'oape:org:417'"/>
     <!-- use @mode = 'm_off' to toggle templates off -->
     <!-- to do
         - hamza, ayn
         - commas in Arabic strings
     -->
-    <xsl:template mode="m_post-process" match="tei:bibl[tei:idno[starts-with(., 'https://hdl.handle.net/2027/')]]" priority="10">
+    <!--<xsl:template mode="m_post-process" match="tei:bibl[tei:idno[starts-with(., 'https://hdl.handle.net/2027/')]]" priority="10">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:attribute name="type" select="'copy'"/>
             <xsl:apply-templates mode="m_post-process"/>
         </xsl:copy>
-    </xsl:template>
+    </xsl:template>-->
     <!-- switch off post processing for notes -->
     <xsl:template match="tei:note" mode="m_off">
         <xsl:copy-of select="."/>
