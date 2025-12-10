@@ -5,10 +5,10 @@ cd $current_dir && pwd
 # set a root directory for the repository, relative to this script
 root_dir=".."
 # set input directory relative to current directory
-input_dir="/Users/Shared/BachUni/BachBibliothek/GitHub/Sihafa/sihafa_data/bibliographic-data/sources/nloi/marcxml"
+input_dir="/Users/Shared/BachUni/BachBibliothek/GitHub/Sihafa/sihafa_data/bibliographic-data/sources/hathi/marc"
 output_dir=$input_dir
-# path to XSLT stylesheet
-xslt_file="xslt/convert_marc-xml-to-tei_file.xsl"
+# path to XSLT stylesheet relativ to this script
+xslt_file="$current_dir/../xslt/convert_marc-xml-to-tei_file.xsl"
 cd $root_dir # change into root directory
 echo "Convert all MARC/XML files in $input_dir directory and convert them to TEI/XML"
 for file in $input_dir/*.mrcx # iterate over all files in the input directory
