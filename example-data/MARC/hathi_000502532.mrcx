@@ -1,0 +1,2230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://www.loc.gov/MARC21/slim"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://www.loc.gov/MARC21/slim http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">
+   <record>
+      <leader>02159cas a2200529   4500</leader>
+      <controlfield tag="001">000502532</controlfield>
+      <controlfield tag="003">MiAaHDL</controlfield>
+      <controlfield tag="005">20181218000000.0</controlfield>
+      <controlfield tag="006">m        d        </controlfield>
+      <controlfield tag="007">cr bn ---auaua</controlfield>
+      <controlfield tag="008">780801c19779999su mr p       0    0ara  </controlfield>
+      <datafield tag="010" ind1=" " ind2=" ">
+         <subfield code="a">   77961297 </subfield>
+      </datafield>
+      <datafield tag="012" ind1=" " ind2=" ">
+         <subfield code="a">4</subfield>
+         <subfield code="i">8703</subfield>
+      </datafield>
+      <datafield tag="016" ind1="7" ind2=" ">
+         <subfield code="a">008527545</subfield>
+         <subfield code="2">Uk</subfield>
+      </datafield>
+      <datafield tag="022" ind1="0" ind2=" ">
+         <subfield code="a">0258-1140</subfield>
+         <subfield code="l">0258-1140</subfield>
+         <subfield code="2">32</subfield>
+      </datafield>
+      <datafield tag="035" ind1=" " ind2=" ">
+         <subfield code="a">sdr-ucla20682</subfield>
+      </datafield>
+      <datafield tag="035" ind1=" " ind2=" ">
+         <subfield code="a">sdr-inu2148959</subfield>
+      </datafield>
+      <datafield tag="035" ind1=" " ind2=" ">
+         <subfield code="a">sdr-miu.990005025320106381</subfield>
+      </datafield>
+      <datafield tag="035" ind1=" " ind2=" ">
+         <subfield code="a">sdr-umn002363536</subfield>
+      </datafield>
+      <datafield tag="035" ind1=" " ind2=" ">
+         <subfield code="9">07-AOS-5180</subfield>
+      </datafield>
+      <datafield tag="035" ind1=" " ind2=" ">
+         <subfield code="a">(OCoLC)4099327</subfield>
+      </datafield>
+      <datafield tag="040" ind1=" " ind2=" ">
+         <subfield code="a">DLC</subfield>
+         <subfield code="b">eng</subfield>
+         <subfield code="c">DLC</subfield>
+         <subfield code="d">NST</subfield>
+         <subfield code="d">COO</subfield>
+         <subfield code="d">OCL</subfield>
+         <subfield code="d">IUL</subfield>
+         <subfield code="d">SYS</subfield>
+         <subfield code="d">WAU</subfield>
+         <subfield code="d">IUL</subfield>
+         <subfield code="d">OCLCQ</subfield>
+         <subfield code="d">UKMGB</subfield>
+         <subfield code="d">OCLCA</subfield>
+         <subfield code="d">OCLCF</subfield>
+         <subfield code="d">WAU</subfield>
+         <subfield code="d">DLC</subfield>
+      </datafield>
+      <datafield tag="042" ind1=" " ind2=" ">
+         <subfield code="a">pcc</subfield>
+      </datafield>
+      <datafield tag="043" ind1=" " ind2=" ">
+         <subfield code="a">ma-----</subfield>
+         <subfield code="a">a-su---</subfield>
+      </datafield>
+      <datafield tag="049" ind1=" " ind2=" ">
+         <subfield code="a">VBIB</subfield>
+      </datafield>
+      <datafield tag="050" ind1="0" ind2="0">
+         <subfield code="a">DS36</subfield>
+         <subfield code="b">.F38</subfield>
+      </datafield>
+      <datafield tag="066" ind1=" " ind2=" ">
+         <subfield code="c">(3</subfield>
+      </datafield>
+      <datafield tag="222" ind1=" " ind2="0">
+         <subfield code="a">Mağallaẗ al-Fayṣal</subfield>
+      </datafield>
+      <datafield tag="245" ind1="0" ind2="3">
+         <subfield code="6">880-01</subfield>
+         <subfield code="a">al-Fayṣal.</subfield>
+      </datafield>
+      <datafield tag="246" ind1="3" ind2="1">
+         <subfield code="a">Alfaisal</subfield>
+         <subfield code="f">Jan./Feb. 2014-&lt;July/Aug. 2014&gt;</subfield>
+      </datafield>
+      <datafield tag="246" ind1="3" ind2="1">
+         <subfield code="a">Alfaisal magazine</subfield>
+         <subfield code="f">&lt;Nov. 1977&gt;-Nov./Dec. 2008</subfield>
+      </datafield>
+      <datafield tag="260" ind1=" " ind2=" ">
+         <subfield code="6">880-02</subfield>
+         <subfield code="a">[al-Riyāḍ,</subfield>
+         <subfield code="b">al-Mamlakah al-ʻArabīyah al-Saʻūdīyah, Dār al-Fayṣal al-Thaqāfīyah]</subfield>
+      </datafield>
+      <datafield tag="300" ind1=" " ind2=" ">
+         <subfield code="a">v.</subfield>
+         <subfield code="b">ill.</subfield>
+         <subfield code="c">27 cm.</subfield>
+      </datafield>
+      <datafield tag="336" ind1=" " ind2=" ">
+         <subfield code="a">text</subfield>
+         <subfield code="b">txt</subfield>
+         <subfield code="2">rdacontent</subfield>
+      </datafield>
+      <datafield tag="337" ind1=" " ind2=" ">
+         <subfield code="a">unmediated</subfield>
+         <subfield code="b">n</subfield>
+         <subfield code="2">rdamedia</subfield>
+      </datafield>
+      <datafield tag="338" ind1=" " ind2=" ">
+         <subfield code="a">volume</subfield>
+         <subfield code="b">nc</subfield>
+         <subfield code="2">rdacarrier</subfield>
+      </datafield>
+      <datafield tag="362" ind1="0" ind2=" ">
+         <subfield code="a">al-sanah 1.-   Yūniyah 1977-</subfield>
+      </datafield>
+      <datafield tag="525" ind1=" " ind2=" ">
+         <subfield code="a">Supplements accompany some issues.</subfield>
+      </datafield>
+      <datafield tag="538" ind1=" " ind2=" ">
+         <subfield code="a">Mode of access: Internet.</subfield>
+      </datafield>
+      <datafield tag="555" ind1=" " ind2=" ">
+         <subfield code="a">Separately published supplement to no. 241 indexes no. 229-240.</subfield>
+      </datafield>
+      <datafield tag="588" ind1=" " ind2=" ">
+         <subfield code="a">Latest issue consulted: al-Sanah 39, 459/460 (Yūliyū/Aghusṭus 2014 M.)</subfield>
+      </datafield>
+      <datafield tag="599" ind1=" " ind2=" ">
+         <subfield code="a">UPDATED</subfield>
+         <subfield code="b">UclaCollMgr</subfield>
+         <subfield code="b">Serials1</subfield>
+         <subfield code="b">Master record variable field(s) change: 588</subfield>
+      </datafield>
+      <datafield tag="651" ind1=" " ind2="0">
+         <subfield code="a">Saudi Arabia</subfield>
+         <subfield code="v">Periodicals.</subfield>
+      </datafield>
+      <datafield tag="651" ind1=" " ind2="0">
+         <subfield code="a">Arab countries</subfield>
+         <subfield code="v">Periodicals.</subfield>
+      </datafield>
+      <datafield tag="655" ind1=" " ind2="7">
+         <subfield code="a">Periodicals.</subfield>
+         <subfield code="2">fast</subfield>
+         <subfield code="0">(OCoLC)fst01411641</subfield>
+      </datafield>
+      <datafield tag="710" ind1="2" ind2=" ">
+         <subfield code="a">Dār al-Fayṣal al-Thaqāfīyah.</subfield>
+      </datafield>
+      <datafield tag="776" ind1="0" ind2="8">
+         <subfield code="i">Online version:</subfield>
+         <subfield code="t">Fayṣal</subfield>
+         <subfield code="w">(OCoLC)607786901</subfield>
+      </datafield>
+      <datafield tag="776" ind1="0" ind2="8">
+         <subfield code="i">Online version:</subfield>
+         <subfield code="t">Fayṣal</subfield>
+         <subfield code="w">(OCoLC)606987173</subfield>
+      </datafield>
+      <datafield tag="850" ind1=" " ind2=" ">
+         <subfield code="a">DLC</subfield>
+         <subfield code="a">InU</subfield>
+         <subfield code="a">NIC</subfield>
+         <subfield code="a">OU</subfield>
+      </datafield>
+      <datafield tag="880" ind1=" " ind2=" ">
+         <subfield code="6">260-02/(3/r</subfield>
+         <subfield code="a">[الرياض :</subfield>
+         <subfield code="b">المملكة العربية السعودية، دار الفيصل الثقافية]،</subfield>
+      </datafield>
+      <datafield tag="880" ind1="0" ind2="2">
+         <subfield code="6">245-01/(3/r</subfield>
+         <subfield code="a">الفيصل.</subfield>
+      </datafield>
+      <datafield tag="CID" ind1=" " ind2=" ">
+         <subfield code="a">000502532</subfield>
+      </datafield>
+      <datafield tag="DAT" ind1="0" ind2=" ">
+         <subfield code="a">20170605080107.0</subfield>
+         <subfield code="b">20181218000000.0</subfield>
+      </datafield>
+      <datafield tag="DAT" ind1="1" ind2=" ">
+         <subfield code="a">20181219090616.0</subfield>
+         <subfield code="b">2022-07-18T18:00:14Z</subfield>
+      </datafield>
+      <datafield tag="CAT" ind1=" " ind2=" ">
+         <subfield code="a">SDR-UCLA</subfield>
+         <subfield code="d">EX LIBRIS - VOYAGER</subfield>
+         <subfield code="l">prepare.pl-004-008</subfield>
+      </datafield>
+      <datafield tag="FMT" ind1=" " ind2=" ">
+         <subfield code="a">SE</subfield>
+      </datafield>
+      <datafield tag="HOL" ind1=" " ind2=" ">
+         <subfield code="0">sdr-ucla20682</subfield>
+         <subfield code="a">uc1</subfield>
+         <subfield code="b">SDR</subfield>
+         <subfield code="c">UCLA</subfield>
+         <subfield code="p">uc1.l0099802886</subfield>
+         <subfield code="s">UC</subfield>
+         <subfield code="z">v.30 no.354-358 yr.2006</subfield>
+         <subfield code="1">20682</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UC</subfield>
+         <subfield code="c">UCLA</subfield>
+         <subfield code="d">20220718</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">uc1.l0099802886</subfield>
+         <subfield code="z">v.30 no.354-358 yr.2006</subfield>
+         <subfield code="y">2006</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UC</subfield>
+         <subfield code="c">UCLA</subfield>
+         <subfield code="d">20220718</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">uc1.l0099802837</subfield>
+         <subfield code="z">v.30 no.359-362 yr.2006</subfield>
+         <subfield code="y">2006</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UC</subfield>
+         <subfield code="c">UCLA</subfield>
+         <subfield code="d">20220718</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">uc1.l0099802787</subfield>
+         <subfield code="z">v.31 no.363-366 yr.2006/2007</subfield>
+         <subfield code="y">2007</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UC</subfield>
+         <subfield code="c">UCLA</subfield>
+         <subfield code="d">20220718</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">uc1.l0099802738</subfield>
+         <subfield code="z">v.31 no.371-378 yr.2007</subfield>
+         <subfield code="y">2007</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UC</subfield>
+         <subfield code="c">UCLA</subfield>
+         <subfield code="d">20220718</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">uc1.l0099803645</subfield>
+         <subfield code="z">v.31 no.367-370 yr.2007</subfield>
+         <subfield code="y">2007</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UC</subfield>
+         <subfield code="c">UCLA</subfield>
+         <subfield code="d">20220718</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">uc1.l0100647502</subfield>
+         <subfield code="z">v.32 no.379-381 yr.2008</subfield>
+         <subfield code="y">2008</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UC</subfield>
+         <subfield code="c">UCLA</subfield>
+         <subfield code="d">20220718</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">uc1.l0100647544</subfield>
+         <subfield code="z">v.32 no.382-384 yr.2008</subfield>
+         <subfield code="y">2008</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UC</subfield>
+         <subfield code="c">UCLA</subfield>
+         <subfield code="d">20220902</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">uc1.l0100647585</subfield>
+         <subfield code="z">v.33 no.385-390 yr.2008</subfield>
+         <subfield code="y">2008</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UC</subfield>
+         <subfield code="c">UCLA</subfield>
+         <subfield code="d">20220902</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">uc1.l0104478516</subfield>
+         <subfield code="z">v.33 no.391-396 yr.2008/09</subfield>
+         <subfield code="y">2009</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UC</subfield>
+         <subfield code="c">UCLA</subfield>
+         <subfield code="d">20220902</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">uc1.l0104478474</subfield>
+         <subfield code="z">v.34 no.397-402 yr.2009/10</subfield>
+         <subfield code="y">2010</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UC</subfield>
+         <subfield code="c">UCLA</subfield>
+         <subfield code="d">20220902</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">uc1.l0104478433</subfield>
+         <subfield code="z">v.34 no.403-406 yr.2010</subfield>
+         <subfield code="y">2010</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UC</subfield>
+         <subfield code="c">UCLA</subfield>
+         <subfield code="d">20220902</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">uc1.l0104478391</subfield>
+         <subfield code="z">v.34 no.407-410 yr.2009/10</subfield>
+         <subfield code="y">2010</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UC</subfield>
+         <subfield code="c">UCLA</subfield>
+         <subfield code="d">20220718</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">uc1.l0104478359</subfield>
+         <subfield code="z">v.35 no.411-416 yr.2010/11</subfield>
+         <subfield code="y">2011</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UC</subfield>
+         <subfield code="c">UCLA</subfield>
+         <subfield code="d">20220718</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">uc1.l0104478318</subfield>
+         <subfield code="z">v.35 no.417-420 yr.2011</subfield>
+         <subfield code="y">2011</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UC</subfield>
+         <subfield code="c">UCLA</subfield>
+         <subfield code="d">20220718</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">uc1.l0104478276</subfield>
+         <subfield code="z">no.421-424 yr.2010/11 +Suppl.</subfield>
+         <subfield code="y">2011</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230302</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000004464446</subfield>
+         <subfield code="z">no.162-168 1990-1991</subfield>
+         <subfield code="y">1991</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230302</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000002948655</subfield>
+         <subfield code="z">no.156-158 1990</subfield>
+         <subfield code="y">1990</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230302</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000002948648</subfield>
+         <subfield code="z">no.153-155 1989</subfield>
+         <subfield code="y">1989</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.39000004547480</subfield>
+         <subfield code="z">no.150-152 1989</subfield>
+         <subfield code="y">1989</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123013876</subfield>
+         <subfield code="z">1979 Jan.-Apr.</subfield>
+         <subfield code="y">1979</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123013850</subfield>
+         <subfield code="z">1978 July-Oct.</subfield>
+         <subfield code="y">1978</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123013868</subfield>
+         <subfield code="z">1978 Oct.-Dec.</subfield>
+         <subfield code="y">1978</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123013827</subfield>
+         <subfield code="z">1977 June-Aug.</subfield>
+         <subfield code="y">1977</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123013843</subfield>
+         <subfield code="z">1978 Jan.-Apr.</subfield>
+         <subfield code="y">1978</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123013835</subfield>
+         <subfield code="z">1978 Apr.-July</subfield>
+         <subfield code="y">1978</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123013819</subfield>
+         <subfield code="z">1977 Sept.-Dec.</subfield>
+         <subfield code="y">1977</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123014056</subfield>
+         <subfield code="z">1984 May-Aug.</subfield>
+         <subfield code="y">1984</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123014049</subfield>
+         <subfield code="z">1984 Jan.-Apr.</subfield>
+         <subfield code="y">1984</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123014023</subfield>
+         <subfield code="z">1983 July-Sept.</subfield>
+         <subfield code="y">1983</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123014015</subfield>
+         <subfield code="z">1983 Jan.-Mar.</subfield>
+         <subfield code="y">1983</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123014007</subfield>
+         <subfield code="z">1983 Apr.-June</subfield>
+         <subfield code="y">1983</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123013975</subfield>
+         <subfield code="z">1982 Nov.-Dec.</subfield>
+         <subfield code="y">1982</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123013967</subfield>
+         <subfield code="z">1982 Aug.</subfield>
+         <subfield code="y">1982</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123013959</subfield>
+         <subfield code="z">1982 Apr.-June</subfield>
+         <subfield code="y">1982</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123013991</subfield>
+         <subfield code="z">1981 Oct.-Dec.</subfield>
+         <subfield code="y">1981</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123013983</subfield>
+         <subfield code="z">1981 July-Sept.</subfield>
+         <subfield code="y">1981</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123013918</subfield>
+         <subfield code="z">1981 Jan.-Mar.</subfield>
+         <subfield code="y">1981</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123013926</subfield>
+         <subfield code="z">1981 Apr.-June</subfield>
+         <subfield code="y">1981</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123013942</subfield>
+         <subfield code="z">1980-1981 Oct.-Jan.</subfield>
+         <subfield code="y">1981</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123013934</subfield>
+         <subfield code="z">1980 July-Oct.</subfield>
+         <subfield code="y">1980</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123013900</subfield>
+         <subfield code="z">1979 Sept.-Dec.</subfield>
+         <subfield code="y">1979</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123013884</subfield>
+         <subfield code="z">1979 May-Aug.</subfield>
+         <subfield code="y">1979</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000046127175</subfield>
+         <subfield code="z">no.247-252 1997</subfield>
+         <subfield code="y">1997</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000046862722</subfield>
+         <subfield code="z">no.241-246 1996-1997</subfield>
+         <subfield code="y">1997</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000008446654</subfield>
+         <subfield code="z">no.236-240 Suppl. 1996</subfield>
+         <subfield code="y">1996</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000046251157</subfield>
+         <subfield code="z">no.230-235 1995-1996</subfield>
+         <subfield code="y">1996</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000046650416</subfield>
+         <subfield code="z">no.224-229 1995</subfield>
+         <subfield code="y">1995</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230705</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000046093716</subfield>
+         <subfield code="z">no.218-223 1995</subfield>
+         <subfield code="y">1995</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000007883840</subfield>
+         <subfield code="z">no.211-217 1994-1995</subfield>
+         <subfield code="y">1995</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000007883832</subfield>
+         <subfield code="z">no.205-210 1993-1994</subfield>
+         <subfield code="y">1994</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000008558458</subfield>
+         <subfield code="z">no.199-204 1993</subfield>
+         <subfield code="y">1993</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000028782799</subfield>
+         <subfield code="z">no.193-198 1993</subfield>
+         <subfield code="y">1993</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000027904642</subfield>
+         <subfield code="z">no.187-192 1992</subfield>
+         <subfield code="y">1992</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000070306075</subfield>
+         <subfield code="z">Index no.253-264 1997-1998</subfield>
+         <subfield code="y">1998</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000046650424</subfield>
+         <subfield code="z">Index,no.217-228 1994-1995</subfield>
+         <subfield code="y">1995</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000002948663</subfield>
+         <subfield code="z">no.159-161 1990</subfield>
+         <subfield code="y">1990</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000046776682</subfield>
+         <subfield code="z">Index no.229-240 1995-1996</subfield>
+         <subfield code="y">1996</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000046127183</subfield>
+         <subfield code="z">Index no.241-252 1996-1997</subfield>
+         <subfield code="y">1997</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123014882</subfield>
+         <subfield code="z">1989 Apr.-June</subfield>
+         <subfield code="y">1989</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123014890</subfield>
+         <subfield code="z">1989 Jan.-Apr.</subfield>
+         <subfield code="y">1989</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123014924</subfield>
+         <subfield code="z">1988 Jan.-Apr.</subfield>
+         <subfield code="y">1988</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123014916</subfield>
+         <subfield code="z">1988 Apr.-Aug.</subfield>
+         <subfield code="y">1988</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123014932</subfield>
+         <subfield code="z">1987 Sept.-Dec.</subfield>
+         <subfield code="y">1987</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123014957</subfield>
+         <subfield code="z">1987 Jan.-Apr.</subfield>
+         <subfield code="y">1987</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123014940</subfield>
+         <subfield code="z">1987 May-Aug.</subfield>
+         <subfield code="y">1987</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123014973</subfield>
+         <subfield code="z">1986 May-Aug.</subfield>
+         <subfield code="y">1986</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123014981</subfield>
+         <subfield code="z">1986 Jan.-Apr.</subfield>
+         <subfield code="y">1986</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123014965</subfield>
+         <subfield code="z">1986 Aug.-Dec.</subfield>
+         <subfield code="y">1986</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123014999</subfield>
+         <subfield code="z">1985 Sept.-Dec.</subfield>
+         <subfield code="y">1985</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123014080</subfield>
+         <subfield code="z">1985 May-Aug.</subfield>
+         <subfield code="y">1985</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123014072</subfield>
+         <subfield code="z">1985 Jan.-Apr.</subfield>
+         <subfield code="y">1985</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000123014064</subfield>
+         <subfield code="z">1984 Sept.-Dec.</subfield>
+         <subfield code="y">1984</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000117402564</subfield>
+         <subfield code="z">no.373-378 2007</subfield>
+         <subfield code="y">2007</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000115549911</subfield>
+         <subfield code="z">no.366-372 2006-2007</subfield>
+         <subfield code="y">2007</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000107226197</subfield>
+         <subfield code="z">no.360-365 2006</subfield>
+         <subfield code="y">2006</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000107292322</subfield>
+         <subfield code="z">no.354-359 2006</subfield>
+         <subfield code="y">2006</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000111151399</subfield>
+         <subfield code="z">no.349-353 2005</subfield>
+         <subfield code="y">2005</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000107558813</subfield>
+         <subfield code="z">no.346-348 2005</subfield>
+         <subfield code="y">2005</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000107558805</subfield>
+         <subfield code="z">no.342-345 2005</subfield>
+         <subfield code="y">2005</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000107694386</subfield>
+         <subfield code="z">no.335-341 2004-2005</subfield>
+         <subfield code="y">2005</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000093096729</subfield>
+         <subfield code="z">no.329-334 2004</subfield>
+         <subfield code="y">2004</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000092949621</subfield>
+         <subfield code="z">no.323-328 2003</subfield>
+         <subfield code="y">2003</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000092729486</subfield>
+         <subfield code="z">no.317-322 2003</subfield>
+         <subfield code="y">2003</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000092729478</subfield>
+         <subfield code="z">no.313-314 2002</subfield>
+         <subfield code="y">2002</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000087849554</subfield>
+         <subfield code="z">no.309-312 2002</subfield>
+         <subfield code="y">2002</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000087849547</subfield>
+         <subfield code="z">no.305-308 2002</subfield>
+         <subfield code="y">2002</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000087849539</subfield>
+         <subfield code="z">no.301-304 2001-2002</subfield>
+         <subfield code="y">2002</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000087849521</subfield>
+         <subfield code="z">no.297-300 2001</subfield>
+         <subfield code="y">2001</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230410</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000080821535</subfield>
+         <subfield code="z">no.292-296 2001</subfield>
+         <subfield code="y">2001</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230410</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000080821485</subfield>
+         <subfield code="z">no.287-291 2000</subfield>
+         <subfield code="y">2000</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000080821477</subfield>
+         <subfield code="z">no.283-286 2000</subfield>
+         <subfield code="y">2000</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000080821469</subfield>
+         <subfield code="z">no.279-282 1999-2000</subfield>
+         <subfield code="y">2000</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000071180123</subfield>
+         <subfield code="z">no.276-278 1999</subfield>
+         <subfield code="y">1999</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000071180115</subfield>
+         <subfield code="z">no.273-275 1999</subfield>
+         <subfield code="y">1999</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000088018688</subfield>
+         <subfield code="z">no.270-272 1999</subfield>
+         <subfield code="y">1999</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000071180107</subfield>
+         <subfield code="z">no.265-268 1998-1999</subfield>
+         <subfield code="y">1999</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20230409</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000070305812</subfield>
+         <subfield code="z">no.259-264 1998</subfield>
+         <subfield code="y">1998</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">INU</subfield>
+         <subfield code="c">INU</subfield>
+         <subfield code="d">20220212</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">inu.30000008628277</subfield>
+         <subfield code="z">no.253-258 1997-1998</subfield>
+         <subfield code="y">1998</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">MIU</subfield>
+         <subfield code="c">MIU</subfield>
+         <subfield code="d">20230410</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">mdp.39015064005633</subfield>
+         <subfield code="z">no.1-7 1977</subfield>
+         <subfield code="y">1977</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">MIU</subfield>
+         <subfield code="c">MIU</subfield>
+         <subfield code="d">20230410</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">mdp.39015064005641</subfield>
+         <subfield code="z">no.8-13 1978</subfield>
+         <subfield code="y">1978</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">MIU</subfield>
+         <subfield code="c">MIU</subfield>
+         <subfield code="d">20230410</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">mdp.39015064006052</subfield>
+         <subfield code="z">no.14-19 1978</subfield>
+         <subfield code="y">1978</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">MIU</subfield>
+         <subfield code="c">MIU</subfield>
+         <subfield code="d">20221030</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">mdp.39015064006060</subfield>
+         <subfield code="z">no.20-22 1979</subfield>
+         <subfield code="y">1979</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">MIU</subfield>
+         <subfield code="c">MIU</subfield>
+         <subfield code="d">20230410</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">mdp.39015064006078</subfield>
+         <subfield code="z">no.45-49 1981</subfield>
+         <subfield code="y">1981</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">MIU</subfield>
+         <subfield code="c">MIU</subfield>
+         <subfield code="d">20221031</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">mdp.39015064006086</subfield>
+         <subfield code="z">no.50-54 1981</subfield>
+         <subfield code="y">1981</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">MIU</subfield>
+         <subfield code="c">MIU</subfield>
+         <subfield code="d">20230702</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">mdp.39015064006094</subfield>
+         <subfield code="z">no.55-60 1981-82</subfield>
+         <subfield code="y">1982</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951d007656902</subfield>
+         <subfield code="z">iss.8-12 (1977-78)</subfield>
+         <subfield code="y">1978</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951d00765692y</subfield>
+         <subfield code="z">iss.13-16 (1978)</subfield>
+         <subfield code="y">1978</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951d00765693w</subfield>
+         <subfield code="z">iss.17-20 (1978-79)</subfield>
+         <subfield code="y">1979</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20220407</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951d00765697o</subfield>
+         <subfield code="z">iss.33-36 (1980)</subfield>
+         <subfield code="y">1980</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20220407</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951d00765698m</subfield>
+         <subfield code="z">iss.37-40 (1980)</subfield>
+         <subfield code="y">1980</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951d00765699k</subfield>
+         <subfield code="z">iss.41-44 (1980-81)</subfield>
+         <subfield code="y">1981</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951d00765703j</subfield>
+         <subfield code="z">iss.57-60 (1982)</subfield>
+         <subfield code="y">1982</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951d00765704h</subfield>
+         <subfield code="z">iss.61-64 (1982)</subfield>
+         <subfield code="y">1982</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951d00765705f</subfield>
+         <subfield code="z">iss.65-68 (1982)</subfield>
+         <subfield code="y">1982</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951d007657097</subfield>
+         <subfield code="z">iss.81-84 (1983-84)</subfield>
+         <subfield code="y">1984</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951d00765712i</subfield>
+         <subfield code="z">iss.93-96 (1984-85)</subfield>
+         <subfield code="y">1985</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951d00765715c</subfield>
+         <subfield code="z">iss.105-108 (1985-86)</subfield>
+         <subfield code="y">1986</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20220407</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951d00765716a</subfield>
+         <subfield code="z">iss.109-114 (1986)</subfield>
+         <subfield code="y">1986</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951d007657178</subfield>
+         <subfield code="z">iss.115-120 (1986-87)</subfield>
+         <subfield code="y">1987</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951d007657194</subfield>
+         <subfield code="z">iss.127-132 (1987-88)</subfield>
+         <subfield code="y">1988</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230417</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951d00765720j</subfield>
+         <subfield code="z">iss.133-137 (1988)</subfield>
+         <subfield code="y">1988</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951d00765721h</subfield>
+         <subfield code="z">iss.138-142 (1988)</subfield>
+         <subfield code="y">1988</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230415</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951d00765722f</subfield>
+         <subfield code="z">iss.143-144 (1988-89)</subfield>
+         <subfield code="y">1989</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951d00765723d</subfield>
+         <subfield code="z">iss.145-148 (1989)</subfield>
+         <subfield code="y">1989</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951d00765724b</subfield>
+         <subfield code="z">iss.149-152 (1989)</subfield>
+         <subfield code="y">1989</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951d007657259</subfield>
+         <subfield code="z">iss.153-155 (1989)</subfield>
+         <subfield code="y">1989</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230417</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951d007657267</subfield>
+         <subfield code="z">iss.156-159 (1990)</subfield>
+         <subfield code="y">1990</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951d007657275</subfield>
+         <subfield code="z">iss.160-163 (1990)</subfield>
+         <subfield code="y">1990</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951d007657283</subfield>
+         <subfield code="z">iss.164-167 (1990)</subfield>
+         <subfield code="y">1990</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00090192q</subfield>
+         <subfield code="z">iss.168-171 (1990-91)</subfield>
+         <subfield code="y">1991</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00137061z</subfield>
+         <subfield code="z">iss.172-175 (1991)</subfield>
+         <subfield code="y">1991</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00171093s</subfield>
+         <subfield code="z">iss.176-179 (1991)</subfield>
+         <subfield code="y">1991</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p001743583</subfield>
+         <subfield code="z">iss.184-187 1992</subfield>
+         <subfield code="y">1992</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00175350e</subfield>
+         <subfield code="z">iss.180-183 1991/92-92</subfield>
+         <subfield code="y">1992</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00224619o</subfield>
+         <subfield code="z">iss.192-195 1992-93</subfield>
+         <subfield code="y">1993</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00236502t</subfield>
+         <subfield code="z">iss.188-191 1992</subfield>
+         <subfield code="y">1992</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00287525i</subfield>
+         <subfield code="z">iss.196-199 1993</subfield>
+         <subfield code="y">1993</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00291005w</subfield>
+         <subfield code="z">iss.200-203 1993</subfield>
+         <subfield code="y">1993</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p003044515</subfield>
+         <subfield code="z">iss.208-211 1994</subfield>
+         <subfield code="y">1994</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00324074x</subfield>
+         <subfield code="z">iss.204-207 1993</subfield>
+         <subfield code="y">1993</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00453126k</subfield>
+         <subfield code="z">iss.218-223  1995</subfield>
+         <subfield code="y">1995</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230417</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00453127i</subfield>
+         <subfield code="z">iss.224-229  1995</subfield>
+         <subfield code="y">1995</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00476351m</subfield>
+         <subfield code="z">iss.265-269  1998:Oct./Nov.-1999:Mar.</subfield>
+         <subfield code="y">1999</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00476352k</subfield>
+         <subfield code="z">iss.270-273  1999:Apr.-June/July</subfield>
+         <subfield code="y">1999</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230417</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00496476q</subfield>
+         <subfield code="z">iss.230-234  1995/96-1996</subfield>
+         <subfield code="y">1996</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00496477o</subfield>
+         <subfield code="z">index iss.217/228 1995</subfield>
+         <subfield code="y">1995</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p005188943</subfield>
+         <subfield code="z">iss.235-241  1996</subfield>
+         <subfield code="y">1996</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00519508t</subfield>
+         <subfield code="z">iss.242-246  1996/97-1997</subfield>
+         <subfield code="y">1997</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00519734k</subfield>
+         <subfield code="z">index iss.229/240  1995/96</subfield>
+         <subfield code="y">1996</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00590271v</subfield>
+         <subfield code="z">no.292-297  2001:Jan.-May/June</subfield>
+         <subfield code="y">2001</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00683672x</subfield>
+         <subfield code="z">iss.247-252+index 241/252  1997:May-Oct.</subfield>
+         <subfield code="y">1997</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00683673v</subfield>
+         <subfield code="z">iss.253-258  1997:Nov.-1998:Apr.</subfield>
+         <subfield code="y">1998</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20220405</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00683674t</subfield>
+         <subfield code="z">iss.259-264+index 253/264 1998:May-Oct.</subfield>
+         <subfield code="y">1998</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20220405</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00715846f</subfield>
+         <subfield code="z">no.274-279  1999:Aug.-1999/2000</subfield>
+         <subfield code="y">2000</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20220405</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00721848p</subfield>
+         <subfield code="z">no.280-285  2000:Jan./Feb.-June/July</subfield>
+         <subfield code="y">2000</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230417</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00778358d</subfield>
+         <subfield code="z">no.286-291  2000:July/Aug.-Nov./Dec.</subfield>
+         <subfield code="y">2000</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230417</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p007942424</subfield>
+         <subfield code="z">no.298-304  2001:June/July-2002:Jan.</subfield>
+         <subfield code="y">2002</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00834470k</subfield>
+         <subfield code="z">iss.216 (1994:Nov./Dec.)</subfield>
+         <subfield code="y">1994</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230417</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00834866v</subfield>
+         <subfield code="z">no.305-310 (2002:Jan./Feb.-May/June)</subfield>
+         <subfield code="y">2002</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00841800y</subfield>
+         <subfield code="z">no.311-316 (2002:July/Aug.-Dec.)</subfield>
+         <subfield code="y">2002</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p008448067</subfield>
+         <subfield code="z">iss.212-214 (1994)</subfield>
+         <subfield code="y">1994</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230417</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00883556l</subfield>
+         <subfield code="z">no.317-322 (2003:Jan.-June)</subfield>
+         <subfield code="y">2003</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230417</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00883557j</subfield>
+         <subfield code="z">no.323-328 (2003:July-Nov./Dec.)</subfield>
+         <subfield code="y">2003</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p00883905m</subfield>
+         <subfield code="z">no.329-334 (2004:Jan.-June)</subfield>
+         <subfield code="y">2004</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p01000562t</subfield>
+         <subfield code="z">no.335-340 (2004:July-Nov./Dec.)</subfield>
+         <subfield code="y">2004</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230417</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p01004695q</subfield>
+         <subfield code="z">no.341-346 (2004:Dec./2005:Jan.-2005:May/June)</subfield>
+         <subfield code="y">2005</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p010650018</subfield>
+         <subfield code="z">no.347-350 (2005:June/July-Sept.)</subfield>
+         <subfield code="y">2005</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+      <datafield tag="974" ind1=" " ind2=" ">
+         <subfield code="b">UMN</subfield>
+         <subfield code="c">UMN</subfield>
+         <subfield code="d">20230416</subfield>
+         <subfield code="s">google</subfield>
+         <subfield code="u">umn.31951p010650026</subfield>
+         <subfield code="z">no.351-353 (2005:Oct.-Dec.)</subfield>
+         <subfield code="y">2005</subfield>
+         <subfield code="r">ic</subfield>
+         <subfield code="q">bib</subfield>
+         <subfield code="t">non-US serial item date &gt;= 1928</subfield>
+      </datafield>
+   </record>
+</collection>
