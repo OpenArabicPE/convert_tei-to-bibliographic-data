@@ -186,6 +186,8 @@
                 <!-- notes -->
                 <!-- the infamous field 500: notes -->
                 <xsl:apply-templates select="$v_record//marc:datafield[@tag = '500'][1]/marc:subfield"/>
+                <!-- physical description -->
+                <xsl:apply-templates select="$v_record//marc:datafield[@tag = '300'][1]/marc:subfield"/>
                 <!-- general holding information -->
                 <xsl:if test="$p_debug = true()">
                     <xsl:message>
@@ -719,6 +721,24 @@
                         </xsl:element>
                     </xsl:when>
                 </xsl:choose>
+            </xsl:when>
+            <!-- 300: physical description -->
+            <xsl:when test="$v_tag = '300'">
+                <!--<xsl:message>
+                    <xsl:value-of select="concat('tag: 300, code: ', $v_code)"/>
+                </xsl:message>-->
+                <!-- Hathi uses only code a, b, and c -->
+                <!-- extent -->
+                <xsl:if test="$v_code = 'a'"/>
+                <!-- Other physical detail -->
+                <xsl:if test="$v_code = 'b'"/>
+                <!-- size, dimensions -->
+                <xsl:if test="$v_code = 'c'">
+                    <xsl:element name="note">
+                        <xsl:attribute name="type" select="'dimensions'"/>
+                        <xsl:value-of select="$v_content"/>
+                    </xsl:element>
+                </xsl:if>
             </xsl:when>
             <!-- 362: holding information -->
             <xsl:when test="$v_tag = '362' and $v_code = 'a'">

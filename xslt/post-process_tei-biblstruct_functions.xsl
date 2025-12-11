@@ -519,10 +519,10 @@
         <!-- 3 groups -->
         <xsl:variable name="v_string-regex-unit" select="concat('(', $v_string-regex-volume, '|', $v_string-regex-issue, ')')"/>
         <!-- full regex for range -->
-        <xsl:variable name="v_string-regex-full" select="concat($v_string-regex-unit, '\s*(\d+)(\s*', $v_string-regex-range, '\s*', $v_string-regex-unit, '*\s*(\d+))*')"/>
+        <xsl:variable name="v_string-regex-compiled" select="concat($v_string-regex-unit, '\s*(\d+)(\s*', $v_string-regex-range, '\s*', $v_string-regex-unit, '*\s*(\d+))*')"/>
         <xsl:choose>
-            <xsl:when test="matches($v_input, $v_string-regex-full)">
-                <xsl:analyze-string regex="{$v_string-regex-full}" select="normalize-space($p_input)">
+            <xsl:when test="matches($v_input, $v_string-regex-compiled)">
+                <xsl:analyze-string regex="{$v_string-regex-compiled}" select="normalize-space($p_input)">
                     <xsl:matching-substring>
                         <xsl:choose>
                             <!-- volume -->
@@ -835,8 +835,10 @@
         <!-- reproduce the main bibliographic information -->
         <biblStruct>
             <xsl:apply-templates mode="m_identity-transform" select="$p_input/descendant::tei:biblStruct[1]/@*"/>
-            <!-- add source information if there is only a single record at the Internet Archive -->
+            <!-- add source information if there is only a single record -->
             <xsl:if test="count($p_input/descendant::tei:biblStruct) = 1">
+                <!-- find authority -->
+                <!-- resolve -->
                 <xsl:attribute name="source" select="concat($p_source, ' ', concat($p_url-resolve-ia, $p_input/descendant::tei:biblStruct/descendant::tei:idno[@type = 'classmark'][1]))"/>
             </xsl:if>
             <monogr>
@@ -910,5 +912,69 @@
                 </note>
             </xsl:if>
         </biblStruct>
+    </xsl:template>
+    <!-- dimensions, sizes -->
+    <xsl:template match="tei:note[@type = 'dimensions'][not(tei:list)]" mode="m_post-process">
+        <xsl:variable name="v_string-regex-unit" select="'(\w+\.*)'"/>
+        <xsl:variable name="v_string-regex-compiled" select="concat('(\d+)\s*(', $v_string-regex-unit, '*\s*(-|x)\s*(\d+)\s*)*', $v_string-regex-unit)"/>
+        <xsl:copy>
+            <xsl:apply-templates mode="m_post-process" select="@*"/>
+            <xsl:element name="list">
+                <!-- reproduce original -->
+                <xsl:element name="item">
+                    <xsl:apply-templates mode="m_identity-transform" select="."/>
+                </xsl:element>
+                <!-- construct new items -->
+                <xsl:analyze-string regex="{$v_string-regex-compiled}" select=".">
+                    <xsl:matching-substring>
+                        <xsl:variable name="v_unit-2" select="oape:strings_trim-punctuation-marks(regex-group(6))"/>
+                        <xsl:variable name="v_unit-1" select="
+                                if (regex-group(3)) then
+                                    (oape:strings_trim-punctuation-marks(regex-group(3)))
+                                else
+                                    $v_unit-2"/>
+                        <xsl:variable name="v_quantity-1" select="regex-group(1)"/>
+                        <xsl:variable name="v_quantity-2" select="regex-group(5)"/>
+                        <xsl:element name="item">
+                            <xsl:element name="measure">
+                                <xsl:choose>
+                                    <!-- height and width -->
+                                    <xsl:when test="regex-group(4) = 'x'">
+                                        <xsl:element name="height">
+                                            <xsl:attribute name="unit" select="$v_unit-1"/>
+                                            <xsl:attribute name="quantity" select="$v_quantity-1"/>
+                                        </xsl:element>
+                                        <xsl:element name="width">
+                                            <xsl:attribute name="unit" select="$v_unit-2"/>
+                                            <xsl:attribute name="quantity" select="$v_quantity-2"/>
+                                        </xsl:element>
+                                    </xsl:when>
+                                    <!-- we assume ranges are only for heights -->
+                                    <xsl:when test="regex-group(4) = '-'">
+                                        <xsl:element name="height">
+                                            <xsl:attribute name="type" select="'min'"/>
+                                            <xsl:attribute name="unit" select="$v_unit-1"/>
+                                            <xsl:attribute name="quantity" select="$v_quantity-1"/>
+                                        </xsl:element>
+                                        <xsl:element name="height">
+                                            <xsl:attribute name="type" select="'max'"/>
+                                            <xsl:attribute name="unit" select="$v_unit-2"/>
+                                            <xsl:attribute name="quantity" select="$v_quantity-2"/>
+                                        </xsl:element>
+                                    </xsl:when>
+                                    <!-- no divider, we assume height is more common then width -->
+                                    <xsl:otherwise>
+                                        <xsl:element name="height">
+                                            <xsl:attribute name="unit" select="$v_unit-2"/>
+                                            <xsl:attribute name="quantity" select="$v_quantity-1"/>
+                                        </xsl:element>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:element>
+                        </xsl:element>
+                    </xsl:matching-substring>
+                </xsl:analyze-string>
+            </xsl:element>
+        </xsl:copy>
     </xsl:template>
 </xsl:stylesheet>
