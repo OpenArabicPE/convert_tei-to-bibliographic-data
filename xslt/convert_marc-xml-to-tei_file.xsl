@@ -5,6 +5,7 @@
     <!-- This stylesheet takes MARC21 records in XML serialisation as input and generates TEI XML as output -->
     <!-- documentation of the MARC21 field codes can be found here: https://marc21.ca/M21/MARC-Field-Codes.html -->
     <xsl:import href="convert_marc-xml-to-tei_functions.xsl"/>
+    <xsl:param name="p_ignore-existing-files" select="false()"/>
     <!-- output: everything is wrapped in a listBibl -->
     <xsl:template match="/">
         <xsl:choose>
@@ -74,7 +75,12 @@
                     <xsl:variable name="v_file-path_output" select="concat($p_output-folder, $v_id-record/tei:idno[1], '.TEIP5.xml')"/>
                     <xsl:choose>
                         <!-- somehow this test does not work -->
-                        <xsl:when test="doc-available($v_file-path_output) = true()">
+                        <xsl:when test="$p_ignore-existing-files = true()">
+                            <xsl:result-document href="{$v_file-path_output}" method="xml">
+                                <xsl:apply-templates mode="m_marc-to-tei" select="current-group()[1]"/>
+                            </xsl:result-document>
+                        </xsl:when>
+                        <xsl:when test="(doc-available($v_file-path_output) = true()) and ($p_ignore-existing-files = false())">
                             <xsl:message terminate="no">
                                 <xsl:text>Output file </xsl:text>
                                 <xsl:value-of select="$v_file-path_output"/>
