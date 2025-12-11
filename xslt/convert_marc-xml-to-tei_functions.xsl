@@ -197,35 +197,24 @@
                     </xsl:message>
                 </xsl:if>
                 <xsl:choose>
+                    <!-- external function:
+                        - KOHA / USJ
+                        -ZDB -->
+                    <xsl:when test="$v_catalogue = ('koha', 'zdb')">
+                        <xsl:copy-of select="oape:query-marcx($v_record, 'holdings')"/>
+                    </xsl:when>
                     <xsl:when test="$v_catalogue = 'aub'">
                         <!-- AUB holdings -->
                         <xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '866'][@ind2 = '1']/marc:subfield[@code = 'a']"/>
                     </xsl:when>
-                    <xsl:when test="$v_catalogue = 'koha'">
-                        <!-- KOHA / USJ -->
-                        <xsl:copy-of select="oape:query-marcx($v_record, 'holdings')"/>
-                        <!-- <xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '362']">
-                            <xsl:with-param name="p_record" select="$v_record"/>
-                            <xsl:with-param name="p_catalogue" select="$v_catalogue"/>
-                            <xsl:with-param name="p_url-catalogue" select="$v_url-catalogue"/>
-                        </xsl:apply-templates>-->
-                    </xsl:when>
+
                     <!-- Hathi: holding information -->
                     <!--<xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = 'HOL']">
                 <xsl:with-param name="p_id-record" select="$v_id-record"/>
             </xsl:apply-templates>-->
                     <!-- detailed holding information: one entry per physical or digital item -->
                     <xsl:when test="$v_catalogue = 'zdb'">
-                        <!-- ZDB holding information -->
-                        <!--<xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '924'][1]">
-                            <xsl:with-param name="p_id-record" select="$v_id-record"/>
-                        </xsl:apply-templates>
--->
                         <xsl:copy-of select="oape:query-marcx($v_record, 'holdings')"/>
-                        <!-- holdings in ZDB record served over SRU: has been replaced -->
-                        <!--<xsl:if test="$v_catalogue = 'zdb'">
-                            <xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '362'][@ind1 = '0']/marc:subfield[@code = 'a']"/>
-                        </xsl:if>-->
                     </xsl:when>
                 </xsl:choose>
                 <!-- Hathi: digitised items -->
@@ -1550,7 +1539,7 @@
         <xsl:param as="xs:string" name="p_output-mode"/>
         <xsl:variable name="v_record" select="$p_marcx-record/descendant-or-self::marc:record"/>
         <xsl:choose>
-            <!-- mode 'holdings' is not used and not properly implemented -->
+            <!-- mode 'holdings' is only used for ZDB -->
             <xsl:when test="$p_output-mode = 'holdings'">
                 <!-- it seems that this is never called -->
                 <xsl:if test="$p_debug = true()">
