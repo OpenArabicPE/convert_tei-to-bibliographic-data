@@ -1250,15 +1250,39 @@
         <!--</xsl:element>
         </xsl:element>-->
     </xsl:template>
-    <!-- it is not really clear why this isn't called on its parent datafield -->
+    <!--This template is
+        - called for holdings from Hathi, AUB
+        - NOT called for holdings from NLoI, ZDB
+    -->
     <xsl:template match="marc:subfield" mode="m_notes">
         <xsl:param name="p_id-record">
             <xsl:copy-of select="oape:query-marcx(ancestor::marc:record[1], 'id')"/>
         </xsl:param>
+        <!-- debugging -->
+        <xsl:if test="$p_debug = true()">
+            <xsl:message>
+                <xsl:text>template[@match = 'marc:subfield'][@mode = 'm_notes']</xsl:text>
+            </xsl:message>
+        </xsl:if>
         <xsl:variable name="v_catalogue" select="oape:query-marcx(ancestor::marc:record[1], 'catalogue')"/>
         <xsl:variable name="v_url-catalogue" select="oape:query-marcx(ancestor::marc:record[1], 'url_record-in-catalogue')"/>
         <xsl:choose>
-            <!-- AUB catalogue -->
+            <!--Hathi: this is actually called! -->
+            <xsl:when test="$v_catalogue = 'hathi'">
+                <!-- machine readible holding information -->
+                <xsl:element name="bibl">
+                    <xsl:attribute name="source" select="'oape:org:417'"/>
+                    <!-- latest rights change: "d" -->
+                    <!-- copyright: "p"  -->
+                    <!-- classmark -->
+                    <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'u']"/>
+                    <!-- holding: dates -->
+                    <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'y']"/>
+                    <!-- biblscope -->
+                    <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'z']"/>
+                </xsl:element>
+            </xsl:when>
+            <!-- AUB: this is actually called -->
             <xsl:when test="$v_catalogue = 'aub'">
                 <xsl:element name="note">
                     <xsl:attribute name="type" select="'holdings'"/>
@@ -1362,21 +1386,6 @@
                     </xsl:element>
                     <!-- source information -->
                     <!-- this is already encoded in the @source attribute on the parent node -->
-                </xsl:element>
-            </xsl:when>
-            <!-- I think this is actually called! -->
-            <xsl:when test="$v_catalogue = 'hathi'">
-                <!-- machine readible holding information -->
-                <xsl:element name="bibl">
-                    <xsl:attribute name="source" select="'oape:org:417'"/>
-                    <!-- latest rights change: "d" -->
-                    <!-- copyright: "p"  -->
-                    <!-- classmark -->
-                    <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'u']"/>
-                    <!-- holding: dates -->
-                    <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'y']"/>
-                    <!-- biblscope -->
-                    <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'z']"/>
                 </xsl:element>
             </xsl:when>
             <!-- fallback? -->
@@ -1544,9 +1553,11 @@
             <!-- mode 'holdings' is not used and not properly implemented -->
             <xsl:when test="$p_output-mode = 'holdings'">
                 <!-- it seems that this is never called -->
-                <xsl:message terminate="no">
-                    <xsl:text>called oape:query-marcx for holding information</xsl:text>
-                </xsl:message>
+                <xsl:if test="$p_debug = true()">
+                    <xsl:message terminate="no">
+                        <xsl:text>function: "oape:get-entity-from-authority-file" ($p_output-mode = 'holdings')</xsl:text>
+                    </xsl:message>
+                </xsl:if>
                 <!-- some common variables -->
                 <xsl:variable name="v_id-record">
                     <xsl:copy-of select="oape:query-marcx($v_record, 'id')"/>
@@ -1567,8 +1578,7 @@
                                     <xsl:variable name="v_org">
                                         <xsl:choose>
                                             <xsl:when test="$v_id-isil != ''">
-                                                <xsl:apply-templates mode="m_isil-to-tei"
-                                                    select="doc(concat($v_url-server-zdb-ld, 'organisations/', $v_id-isil, '.rdf'))/descendant::rdf:Description"/>
+                                                <xsl:apply-templates mode="m_isil-to-tei" select="doc(concat($v_url-server-zdb-ld, 'organisations/', $v_id-isil, '.rdf'))/descendant::rdf:Description"/>
                                             </xsl:when>
                                             <xsl:otherwise>
                                                 <xsl:text>NA</xsl:text>
@@ -1646,6 +1656,11 @@
             </xsl:when>
             <!-- output:  <tei:idno> nodes -->
             <xsl:when test="$p_output-mode = ('id_record', 'id')">
+                 <xsl:if test="$p_debug = true()">
+                    <xsl:message terminate="no">
+                        <xsl:text>function: "oape:get-entity-from-authority-file" ($p_output-mode = 'id_record')</xsl:text>
+                    </xsl:message>
+                </xsl:if>
                 <!-- for other catalogues field 776 is seemingly used for related publications
                 check field 775 -->
                 <xsl:apply-templates select="$p_marcx-record/marc:datafield[@tag = ('016')][@ind1 = '7']/marc:subfield[@code = 'a']"/>
@@ -1660,6 +1675,11 @@
             </xsl:when>
             <!-- output: string -->
             <xsl:when test="$p_output-mode = 'catalogue'">
+                 <xsl:if test="$p_debug = true()">
+                    <xsl:message terminate="no">
+                        <xsl:text>function: "oape:get-entity-from-authority-file" ($p_output-mode = 'catalogue')</xsl:text>
+                    </xsl:message>
+                </xsl:if>
                 <xsl:variable name="v_id-record">
                     <xsl:copy-of select="oape:query-marcx($p_marcx-record, 'id')"/>
                 </xsl:variable>
@@ -1692,6 +1712,11 @@
                 </xsl:choose>
             </xsl:when>
             <xsl:when test="$p_output-mode = 'url_record-in-catalogue'">
+                 <xsl:if test="$p_debug = true()">
+                    <xsl:message terminate="no">
+                        <xsl:text>function: "oape:get-entity-from-authority-file" ($p_output-mode = 'url_record-in-catalogue')</xsl:text>
+                    </xsl:message>
+                </xsl:if>
                 <xsl:variable name="v_id-record">
                     <xsl:copy-of select="oape:query-marcx($p_marcx-record, 'id')"/>
                 </xsl:variable>
@@ -1723,7 +1748,7 @@
             <!-- fallback -->
             <xsl:otherwise>
                 <xsl:message>
-                    <xsl:text>Unkown output mode: </xsl:text>
+                    <xsl:text>function: "oape:get-entity-from-authority-file". Unkown output mode: </xsl:text>
                     <xsl:value-of select="$p_output-mode"/>
                 </xsl:message>
             </xsl:otherwise>
