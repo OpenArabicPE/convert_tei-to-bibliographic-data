@@ -33,7 +33,7 @@
                                 <change when="{$p_today-iso}" who="{$p_id-editor}">Created this file through automated conversion from MARCXML</change>
                             </revisionDesc>
                         </teiHeader>
-                        <tei:standOff>
+                        <standOff>
                             <listBibl>
                                 <xsl:apply-templates mode="m_marc-to-tei" select="descendant::marc:record"/>
                             </listBibl>
@@ -59,7 +59,7 @@
                                     <xsl:copy-of select="."/>
                                 </xsl:for-each-group>
                             </listPerson>
-                        </tei:standOff>
+                        </standOff>
                     </TEI>
                 </xsl:result-document>
             </xsl:when>
@@ -76,6 +76,11 @@
                     <xsl:choose>
                         <!-- somehow this test does not work -->
                         <xsl:when test="$p_ignore-existing-files = true()">
+                            <xsl:if test="$p_debug = true()">
+                                <xsl:message><xsl:text>Saving output to </xsl:text>
+                                <xsl:value-of select="$v_file-path_output"/>
+                                </xsl:message>
+                            </xsl:if>
                             <xsl:result-document href="{$v_file-path_output}" method="xml">
                                 <xsl:apply-templates mode="m_marc-to-tei" select="current-group()[1]"/>
                             </xsl:result-document>
