@@ -2002,6 +2002,14 @@
                                         <xsl:value-of select="oape:qs-quoted-string(concat($p_url-resolve-usek, .))"/>
                                     </xsl:for-each>
                                 </xsl:when>
+                                <!-- provide full URIs for USJ -->
+                                <xsl:when test="$v_id-wiki = 'Q15556320'">
+                                    <!-- this only work on single-source bibliographies -->
+                                    <xsl:for-each select="$p_input/ancestor::tei:biblStruct[1]/tei:monogr[1]/tei:idno[@type = 'biblio_id']">
+                                        <xsl:value-of select="concat($v_seperator-qs, 'S854', $v_seperator-qs)"/>
+                                        <xsl:value-of select="oape:qs-quoted-string(concat($p_url-resolve-usj, .))"/>
+                                    </xsl:for-each>
+                                </xsl:when>
                             </xsl:choose>
                         </xsl:when>
                         <xsl:when test="$v_url-source != 'NA'">
