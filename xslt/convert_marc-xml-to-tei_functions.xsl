@@ -338,8 +338,15 @@
                         <xsl:when test="$v_lang-catalogue = 'en'">
                             <xsl:value-of select="'ar-Latn-x-ijmes'"/>
                         </xsl:when>
+                        <xsl:when test="$v_lang-item = $v_lang-catalogue">
+                            <xsl:value-of select="$v_lang-item"/>
+                        </xsl:when>
                         <!-- 'und' is the most precise fallback, but one might want to change it to 'ar' for my use cases -->
                         <xsl:otherwise>
+                            <!--<xsl:message>
+                                <xsl:text>$v_lang-catalogue: </xsl:text>
+                                <xsl:value-of select="$v_lang-catalogue"/>
+                            </xsl:message>-->
                             <xsl:value-of select="'und'"/>
                         </xsl:otherwise>
                     </xsl:choose>
@@ -1531,6 +1538,12 @@
     -->
     <xsl:function name="oape:query-marcx">
         <xsl:param as="node()" name="p_marcx-record"/>
+        <!-- output modes:
+            - catalogue: string
+            - holdings: nodes
+            - id, id_record: string
+            - url_record-in-catalogue: string
+            - -->
         <xsl:param as="xs:string" name="p_output-mode"/>
         <xsl:variable name="v_record" select="$p_marcx-record/descendant-or-self::marc:record"/>
         <xsl:choose>
