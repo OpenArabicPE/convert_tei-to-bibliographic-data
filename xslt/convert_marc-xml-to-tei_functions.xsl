@@ -200,7 +200,12 @@
                 <!-- the infamous field 500: notes -->
                 <xsl:apply-templates select="$v_record//marc:datafield[@tag = '500'][1]/marc:subfield"/>
                 <!-- physical description -->
+                <xsl:element name="note">
+                    <xsl:attribute name="type" select="'media'"/>
+                    <xsl:element name="listBibl">
+                        <xsl:element name="bibl">
                 <xsl:apply-templates select="$v_record//marc:datafield[@tag = '300'][1]/marc:subfield"/>
+            </xsl:element></xsl:element></xsl:element>
                 <!-- general holding information -->
                 <xsl:if test="$p_debug = true()">
                     <xsl:message>
@@ -703,63 +708,84 @@
                 </xsl:choose>
             </xsl:when>
             <!-- 300: physical description -->
+            <!-- 300: format, such as microfilm etc. can be read as biblscope -->
             <xsl:when test="$v_tag = '300'">
-                <!--<xsl:message>
-                    <xsl:value-of select="concat('tag: 300, code: ', $v_code)"/>
-                </xsl:message>-->
+                <xsl:variable name="v_string-regex-unit" select="'(\w+\.*)'"/>
+                <xsl:variable name="v_string-regex-compiled" select="concat('(\d+)\s*(', $v_string-regex-unit, '*\s*(-|x)\s*(\d+)\s*)*', $v_string-regex-unit)"/>
                 <!-- Hathi uses only code a, b, and c -->
                 <!-- extent -->
-                <xsl:if test="$v_code = 'a'"/>
+                <xsl:if test="$v_code = 'a'">
+                    <xsl:choose>
+                        <xsl:when test="matches($v_content, '\d+ مجلدات')">
+                            <xsl:element name="biblScope">
+                                <xsl:attribute name="unit" select="'volume'"/>
+                                <!-- not sure if we can assume that "6 volumes" implies 1-6 -->
+                                <xsl:value-of select="$v_content"/>
+                            </xsl:element>
+                        </xsl:when>
+                    </xsl:choose>
+                </xsl:if>
                 <!-- Other physical detail -->
                 <xsl:if test="$v_code = 'b'"/>
                 <!-- size, dimensions -->
                 <xsl:if test="$v_code = 'c'">
-                    <xsl:element name="note">
-                        <xsl:attribute name="type" select="'dimensions'"/>
-                        <xsl:value-of select="$v_content"/>
-                    </xsl:element>
-                </xsl:if>
-            </xsl:when>
-            <!-- 362: holding information -->
-            <xsl:when test="$v_tag = '362' and $v_code = 'a'">
-                <xsl:element name="biblScope">
-                    <xsl:value-of select="$v_content"/>
-                </xsl:element>
-            </xsl:when>
-            <!-- 363: NORMALIZED DATE AND SEQUENTIAL DESIGNATION  -->
-            <xsl:when test="$v_tag = '363' and $v_code = 'i'">
-                <xsl:element name="date">
-                    <xsl:choose>
-                        <xsl:when test="$v_ind1 = '0'">
-                            <xsl:attribute name="type" select="'onset'"/>
-                        </xsl:when>
-                        <xsl:when test="$v_ind1 = '1'">
-                            <xsl:attribute name="type" select="'terminus'"/>
-                        </xsl:when>
-                    </xsl:choose>
-                    <!-- machine-readible dates -->
-                    <xsl:choose>
-                        <xsl:when test="parent::marc:datafield[marc:subfield/@code = 'j'][marc:subfield/@code = 'k']">
-                            <xsl:attribute name="when" select="concat(., '-', parent::marc:datafield/marc:subfield[@code = 'j'], '-', parent::marc:datafield/marc:subfield[@code = 'k'])"/>
-                        </xsl:when>
-                    </xsl:choose>
-                    <!-- content -->
-                    <xsl:value-of select="$v_content"/>
-                </xsl:element>
-            </xsl:when>
-            <!-- 490: series statement -->
-            <!-- 250: edition statement      -->
-            <!-- 300: format, such as microfilm etc. can be read as biblscope -->
-            <xsl:when test="$v_tag = '300' and $v_code = 'a'">
-                <xsl:choose>
-                    <xsl:when test="matches($v_content, '\d+ مجلدات')">
-                        <xsl:element name="biblScope">
-                            <xsl:attribute name="unit" select="'volume'"/>
-                            <!-- not sure if we can assume that "6 volumes" implies 1-6 -->
-                            <xsl:value-of select="$v_content"/>
+                    <!-- if dimensions  are supplied, we would need some information on carrier media-->
+                    <xsl:apply-templates select="ancestor::marc:record[1]/marc:datafield[@tag = '337']/marc:subfield[@code = 'a']"/>
+                    <!-- construct new items -->
+                    <xsl:if test="matches(., $v_string-regex-compiled)">
+                        <xsl:element name="extent">
+                            <!-- we could add a measure element for naming standard page sizes -->
+                            <xsl:element name="dimensions">
+                                <xsl:analyze-string regex="{$v_string-regex-compiled}" select=".">
+                                    <xsl:matching-substring>
+                                        <xsl:variable name="v_unit-2" select="oape:strings_trim-punctuation-marks(regex-group(6))"/>
+                                        <xsl:variable name="v_unit-1" select="
+                                                if (regex-group(3)) then
+                                                    (oape:strings_trim-punctuation-marks(regex-group(3)))
+                                                else
+                                                    $v_unit-2"/>
+                                        <xsl:variable name="v_quantity-1" select="regex-group(1)"/>
+                                        <xsl:variable name="v_quantity-2" select="regex-group(5)"/>
+                                        <xsl:choose>
+                                            <!-- height and width -->
+                                            <xsl:when test="regex-group(4) = 'x'">
+                                                <xsl:element name="height">
+                                                    <xsl:attribute name="unit" select="$v_unit-1"/>
+                                                    <xsl:attribute name="quantity" select="$v_quantity-1"/>
+                                                </xsl:element>
+                                                <xsl:element name="width">
+                                                    <xsl:attribute name="unit" select="$v_unit-2"/>
+                                                    <xsl:attribute name="quantity" select="$v_quantity-2"/>
+                                                </xsl:element>
+                                            </xsl:when>
+                                            <!-- we assume ranges are only for heights -->
+                                            <xsl:when test="regex-group(4) = '-'">
+                                                <xsl:element name="height">
+                                                    <xsl:attribute name="unit" select="$v_unit-1"/>
+                                                    <xsl:attribute name="min" select="$v_quantity-1"/>
+                                                    <xsl:attribute name="max" select="$v_quantity-2"/>
+                                                    <xsl:value-of select="$v_content"/>
+                                                </xsl:element>
+                                            </xsl:when>
+                                            <!-- no divider, we assume height is more common then width -->
+                                            <xsl:otherwise>
+                                                <xsl:element name="height">
+                                                    <xsl:attribute name="unit" select="$v_unit-2"/>
+                                                    <xsl:attribute name="quantity" select="$v_quantity-1"/>
+                                                    <xsl:value-of select="$v_content"/>
+                                                </xsl:element>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:matching-substring>
+                                    <xsl:non-matching-substring>
+                                        <!-- reproduce original -->
+                                        <xsl:value-of select="$v_content"/>
+                                    </xsl:non-matching-substring>
+                                </xsl:analyze-string>
+                            </xsl:element>
                         </xsl:element>
-                    </xsl:when>
-                </xsl:choose>
+                    </xsl:if>
+                </xsl:if>
             </xsl:when>
             <!-- 310: frequency -->
             <xsl:when test="$v_tag = '310'">
@@ -798,6 +824,40 @@
                     <xsl:attribute name="oape:frequency" select="$v_frequency"/>
                 </xsl:if>
             </xsl:when>
+            <xsl:when test="$v_tag = '337' and $v_code = 'a'">
+                <xsl:element name="edition">
+                    <xsl:value-of select="$v_content"/>
+                </xsl:element>
+            </xsl:when>
+            <!-- 362: holding information -->
+            <xsl:when test="$v_tag = '362' and $v_code = 'a'">
+                <xsl:element name="biblScope">
+                    <xsl:value-of select="$v_content"/>
+                </xsl:element>
+            </xsl:when>
+            <!-- 363: NORMALIZED DATE AND SEQUENTIAL DESIGNATION  -->
+            <xsl:when test="$v_tag = '363' and $v_code = 'i'">
+                <xsl:element name="date">
+                    <xsl:choose>
+                        <xsl:when test="$v_ind1 = '0'">
+                            <xsl:attribute name="type" select="'onset'"/>
+                        </xsl:when>
+                        <xsl:when test="$v_ind1 = '1'">
+                            <xsl:attribute name="type" select="'terminus'"/>
+                        </xsl:when>
+                    </xsl:choose>
+                    <!-- machine-readible dates -->
+                    <xsl:choose>
+                        <xsl:when test="parent::marc:datafield[marc:subfield/@code = 'j'][marc:subfield/@code = 'k']">
+                            <xsl:attribute name="when" select="concat(., '-', parent::marc:datafield/marc:subfield[@code = 'j'], '-', parent::marc:datafield/marc:subfield[@code = 'k'])"/>
+                        </xsl:when>
+                    </xsl:choose>
+                    <!-- content -->
+                    <xsl:value-of select="$v_content"/>
+                </xsl:element>
+            </xsl:when>
+            <!-- 490: series statement -->
+            <!-- 250: edition statement      -->
             <!-- 5xx: notes -->
             <xsl:when test="$v_tag = '500'">
                 <xsl:choose>
