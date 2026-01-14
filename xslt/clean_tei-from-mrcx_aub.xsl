@@ -6,7 +6,7 @@
     <xsl:param name="p_source" select="'oape:org:73'"/>
     <xsl:template match="tei:biblStruct[not(@type)]" mode="m_post-process">
         <xsl:copy>
-            <xsl:apply-templates select="@*"/>
+            <xsl:apply-templates select="@*" mode="m_identity-transform"/>
             <xsl:if test="not(@type)">
                 <xsl:attribute name="type" select="'periodical'"/>
             </xsl:if>
@@ -55,5 +55,17 @@
             <xsl:value-of select="replace(., '^\[(.+)\]$', '$1')"/>
         </xsl:element>
     </xsl:template>
+    <!-- parse holding information from the free-text comment field -->
+    <xsl:template match="tei:bibl[not(@resp = '#xslt')][ancestor::tei:note[@type = 'holdings']]" mode="m_post-process">
+        <xsl:variable name="v_ids" select="tei:idno"/>
+        <xsl:choose>
+            <!-- 1. split along '؛ ' -->
+            <xsl:when test="contains(., '؛ ')">
+                <xsl:message terminate="yes"/>
+            </xsl:when>
+            <!-- parse dates -->
+        </xsl:choose>
+    </xsl:template>
+    
     
 </xsl:stylesheet>
