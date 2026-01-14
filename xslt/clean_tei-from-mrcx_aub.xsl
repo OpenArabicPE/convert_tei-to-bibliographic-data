@@ -2,12 +2,9 @@
 <xsl:stylesheet version="3.0" xmlns="http://www.tei-c.org/ns/1.0" xmlns:oape="https://openarabicpe.github.io/ns" xmlns:tei="http://www.tei-c.org/ns/1.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:output indent="yes" method="xml"/>
-    <xsl:template match="node() | @*">
-        <xsl:copy>
-            <xsl:apply-templates select="@* | node()"/>
-        </xsl:copy>
-    </xsl:template>
-    <xsl:template match="tei:biblStruct">
+    <xsl:import href="post-process_tei-biblstruct_functions.xsl"/>
+    <xsl:param name="p_source" select="'oape:org:73'"/>
+    <xsl:template match="tei:biblStruct[not(@type)]" mode="m_post-process">
         <xsl:copy>
             <xsl:apply-templates select="@*"/>
             <xsl:if test="not(@type)">
@@ -25,10 +22,10 @@
                     </xsl:choose>
                 </xsl:attribute>
             </xsl:if>
-            <xsl:apply-templates/>
+            <xsl:apply-templates mode="m_post-process"/>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="tei:item[not(tei:label)][ancestor::tei:note/@type = 'holdings']">
+    <!--<xsl:template match="tei:item[not(tei:label)][ancestor::tei:note/@type = 'holdings']">
         <xsl:copy>
             <xsl:apply-templates select="@*"/>
             <xsl:element name="label">
@@ -40,70 +37,23 @@
             </xsl:element>
             <xsl:apply-templates/>
         </xsl:copy>
-    </xsl:template>
-    <xsl:template match="@xml:lang[. = 'und']">
+    </xsl:template>-->
+    <xsl:template match="@xml:lang[. = 'und']" mode="m_off">
         <xsl:attribute name="xml:lang" select="'ar'"/>
     </xsl:template>
-    <xsl:template match="tei:monogr/tei:title">
-        <xsl:copy>
-            <xsl:apply-templates select="@*"/>
-            <xsl:if test="not(@level )">
-                <xsl:attribute name="level" select="'j'"/>
-            </xsl:if>
-            <xsl:apply-templates/>
-        </xsl:copy>
-    </xsl:template>
-    <xsl:template match="tei:monogr[preceding-sibling::tei:analytic]">
+    <xsl:template match="tei:monogr[preceding-sibling::tei:analytic]" mode="m_off">
         <xsl:copy>
             <xsl:apply-templates select="@*"/>
             <xsl:apply-templates select="preceding-sibling::tei:analytic/tei:title"/>
             <xsl:apply-templates/>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="tei:analytic"/>
-    <xsl:template match="text()[matches(., '^\[.+\]$')]">
+    <xsl:template match="tei:analytic" mode="m_off"/>
+    <xsl:template match="text()[matches(., '^\[.+\]$')]" mode="m_off">
         <xsl:element name="supplied">
             <xsl:attribute name="resp" select="'#aub'"/>
             <xsl:value-of select="replace(., '^\[(.+)\]$', '$1')"/>
         </xsl:element>
-    </xsl:template>
-    <xsl:template match="tei:date[not(@when)]">
-        <xsl:variable name="v_text">
-            <xsl:value-of select="descendant-or-self::text()"/>
-        </xsl:variable>
-        <xsl:variable name="v_text" select="normalize-space($v_text)"/>
-        <xsl:choose>
-            <xsl:when test="matches($v_text, '^\d{4}-\d{4}$')">
-                <xsl:copy>
-                    <xsl:attribute name="type" select="'onset'"/>
-                    <xsl:attribute name="when" select="replace($v_text, '(\d{4})-(\d{4})', '$1')"/>
-                    <xsl:apply-templates/>
-                </xsl:copy>
-                <xsl:copy>
-                    <xsl:attribute name="type" select="'terminus'"/>
-                    <xsl:attribute name="when" select="replace($v_text, '(\d{4})-(\d{4})', '$2')"/>
-                    <xsl:apply-templates/>
-                </xsl:copy>
-            </xsl:when>
-            <xsl:when test="matches(., '^\d{4}-')">
-                <xsl:copy>
-                    <xsl:attribute name="type" select="'onset'"/>
-                    <xsl:attribute name="when" select="replace($v_text, '^(\d{4})-.*$', '$1')"/>
-                    <xsl:apply-templates/>
-                </xsl:copy>
-            </xsl:when>
-            <xsl:when test="matches($v_text, '^\d{4}$')">
-                <xsl:copy>
-                    <xsl:attribute name="when" select="replace($v_text, '^(\d{4})$', '$1')"/>
-                    <xsl:apply-templates/>
-                </xsl:copy>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:copy>
-                    <xsl:apply-templates select="@* | node()"/>
-                </xsl:copy>
-            </xsl:otherwise>
-        </xsl:choose>
     </xsl:template>
     
 </xsl:stylesheet>
