@@ -30,7 +30,7 @@
     </xsl:template>
     <xsl:template match="@*[. = '']" mode="m_post-process" priority="1"/>
     <!-- remove @source from non-sensicle places -->
-    <xsl:template match="tei:monogr/@source | tei:imprint/@source" mode="m_off" priority="10"/>
+    <xsl:template match="tei:monogr/@source | tei:imprint/@source" mode="m_post-process" priority="10"/>
     <!-- this is expensive: Unicode normalization -->
     <xsl:template match="text()" mode="m_post-process" priority="20">
         <xsl:value-of select="normalize-space(normalize-unicode(., 'NFKC'))"/>
@@ -137,7 +137,7 @@
     <!-- remove all orgs which are already part of the organizationography -->
     <xsl:template match="tei:org[parent::tei:listOrg][tei:orgName[@ref]]" mode="m_off"/>
     <!-- establish language based on script -->
-    <xsl:template match="element()[ancestor::tei:biblStruct][text()][@xml:lang = 'und' or not(@xml:lang)]" mode="m_off" priority="0">
+    <xsl:template match="element()[ancestor::tei:biblStruct][text()][@xml:lang = 'und' or not(@xml:lang)]" mode="m_post-process" priority="0">
         <xsl:variable name="v_self">
             <xsl:apply-templates mode="m_plain-text" select="text()"/>
         </xsl:variable>
@@ -200,7 +200,7 @@
         </xsl:if>
     </xsl:template>
     <!-- adding subtitles -->
-    <xsl:template match="tei:title[contains(., ':')]" mode="m_off">
+    <xsl:template match="tei:title[contains(., ':')]" mode="m_post-process">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:value-of select="replace(., '^(.*?)\s*:.*$', '$1')"/>
@@ -213,7 +213,7 @@
         </xsl:copy>
     </xsl:template>
     <!-- extract IDs from title attributes -->
-    <xsl:template match="tei:title[@ref]" mode="m_off">
+    <xsl:template match="tei:title[@ref]" mode="m_post-process">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@* | node()"/>
         </xsl:copy>
@@ -236,6 +236,21 @@
             <xsl:apply-templates mode="m_post-process"/>
         </xsl:copy>
     </xsl:template>
+     <!-- fix IDs: <idno type="AUBNO">Mic-NA:000285</idno> -->
+    <xsl:template mode="m_post-process" match="tei:idno[@type = 'AUBNO']">
+        <xsl:copy>
+            <xsl:attribute name="source" select="concat($p_acronym-wikidata, ':', 'Q124855340')"/>
+            <xsl:attribute name="type" select="'classmark'"/>
+            <xsl:apply-templates mode="m_post-process"/>
+        </xsl:copy>
+    </xsl:template>
+    <xsl:template mode="m_post-process" match="tei:idno[@type = 'LEAUB']">
+        <xsl:copy>
+            <xsl:attribute name="source" select="concat($p_acronym-wikidata, ':', 'Q124855340')"/>
+            <xsl:attribute name="type" select="'record'"/>
+              <xsl:apply-templates mode="m_post-process"/>
+        </xsl:copy>
+    </xsl:template>
     <!-- imprint -->
     <xsl:template match="tei:publisher[not(tei:orgName)]" mode="m_post-process">
         <xsl:copy>
@@ -251,7 +266,7 @@
             </xsl:element>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="tei:imprint/tei:placeName" mode="m_off">
+    <xsl:template match="tei:imprint/tei:placeName" mode="m_post-process">
         <xsl:element name="pubPlace">
             <xsl:copy>
                 <xsl:apply-templates select="@* | node()"/>
@@ -647,7 +662,7 @@
             </xsl:when>
         </xsl:choose>
     </xsl:template>
-    <xsl:template match="tei:persName[matches(., '[،,]')]" mode="m_off" priority="2">
+    <xsl:template match="tei:persName[matches(., '[،,]')]" mode="m_post-process" priority="2">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:element name="forename">
@@ -743,7 +758,7 @@
                     </xsl:choose>
                 </xsl:attribute>
             </xsl:when>
-            <!-- translate values -->
+            <!-- translate values, fix typos -->
             <xsl:when test="$v_value = ('12 no. a year')">
                 <xsl:attribute name="oape:frequency" select="'monthly'"/>
             </xsl:when>
@@ -759,6 +774,9 @@
             <xsl:when test="$v_value = ('biennial')">
                 <xsl:attribute name="oape:frequency" select="'biennially'"/>
             </xsl:when>
+            <xsl:when test="$v_value = ('anual', 'anually')">
+                <xsl:attribute name="oape:frequency" select="'annually'"/>
+            </xsl:when>
             <xsl:otherwise>
                 <xsl:message terminate="no">
                     <xsl:value-of select="$v_value"/>
@@ -766,6 +784,22 @@
                 </xsl:message>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!-- normalise units -->
+    <xsl:template match="@unit" mode="m_post-process">
+        <xsl:copy>
+            <xsl:choose>
+                <xsl:when test="matches(., 'سم')">
+                    <xsl:text>cm</xsl:text>
+                </xsl:when>
+                <xsl:when test="matches(., 'مم')">
+                    <xsl:text>mm</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="."/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:copy>
     </xsl:template>
     <!-- remove duplicate IDs -->
     <xsl:template match="tei:idno[text() = following-sibling::tei:idno[@type = current()/@type]/text()]" mode="m_post-process"/>

@@ -55,22 +55,5 @@
             <xsl:value-of select="replace(., '^\[(.+)\]$', '$1')"/>
         </xsl:element>
     </xsl:template>
-    <!-- fix IDs: <idno type="AUBNO">Mic-NA:000285</idno> -->
-    <xsl:template mode="m_post-process" match="tei:idno[@type = 'AUBNO']">
-        <xsl:copy>
-            <xsl:attribute name="source" select="concat($p_acronym-wikidata, ':', 'Q124855340')"/>
-            <xsl:attribute name="type" select="'classmark'">
-                <xsl:value-of select="."/>
-            </xsl:attribute>
-        </xsl:copy>
-    </xsl:template>
-    <xsl:template mode="m_post-process" match="tei:idno[@type = 'LEAUB']">
-        <xsl:copy>
-            <xsl:attribute name="source" select="concat($p_acronym-wikidata, ':', 'Q124855340')"/>
-            <xsl:attribute name="type" select="'record'">
-                <xsl:value-of select="."/>
-            </xsl:attribute>
-        </xsl:copy>
-    </xsl:template>
     
 </xsl:stylesheet>

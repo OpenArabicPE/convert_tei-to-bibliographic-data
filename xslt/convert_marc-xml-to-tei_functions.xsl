@@ -204,8 +204,10 @@
                     <xsl:attribute name="type" select="'media'"/>
                     <xsl:element name="listBibl">
                         <xsl:element name="bibl">
-                <xsl:apply-templates select="$v_record//marc:datafield[@tag = '300'][1]/marc:subfield"/>
-            </xsl:element></xsl:element></xsl:element>
+                            <xsl:apply-templates select="$v_record//marc:datafield[@tag = '300'][1]/marc:subfield[@code = ('c')]"/>
+                        </xsl:element>
+                    </xsl:element>
+                </xsl:element>
                 <!-- general holding information -->
                 <xsl:if test="$p_debug = true()">
                     <xsl:message>
@@ -1303,6 +1305,7 @@
                     <!-- IDs: classmark, record -->
                     <xsl:apply-templates select="ancestor::marc:record[1]/marc:datafield[@tag = '084']/marc:subfield[@code = 'a']"/>
                     <xsl:apply-templates select="ancestor::marc:record[1]/marc:controlfield[@tag = '001']"/>
+                    <xsl:copy-of select="oape:query-marcx(ancestor::marc:record[1], 'id_record')"/>
                     <!-- the actual holding information is found in plain text. parsing is left to a latter step  -->
                     <xsl:apply-templates mode="m_plain-text"/>
                 </xsl:element>
@@ -1699,9 +1702,6 @@
                             </xsl:when>
                             <!-- AUB: Sierra library system? Also used by USEK -->
                             <xsl:when test="$v_catalogue = ('aub', 'oape:org:73', concat($p_acronym-wikidata, ':', 'Q124855340'))">
-                                <xsl:message>
-                                    <xsl:text>Found AUB holdings</xsl:text>
-                                </xsl:message>
                                 <xsl:element name="item">
                                     <xsl:attribute name="source" select="$v_url-catalogue"/>
                                     <xsl:element name="label">
