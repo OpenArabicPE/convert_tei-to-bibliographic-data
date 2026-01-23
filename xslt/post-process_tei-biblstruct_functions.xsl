@@ -790,8 +790,8 @@
         </xsl:choose>
     </xsl:template>
     <!-- normalise units -->
-    <xsl:template match="@unit" mode="m_post-process">
-        <xsl:copy>
+    <xsl:template match="@unit" mode="m_post-process" priority="20">
+        <xsl:attribute name="unit">
             <xsl:choose>
                 <xsl:when test="matches(., 'سم')">
                     <xsl:text>cm</xsl:text>
@@ -803,7 +803,7 @@
                     <xsl:value-of select="."/>
                 </xsl:otherwise>
             </xsl:choose>
-        </xsl:copy>
+        </xsl:attribute>
     </xsl:template>
     <!-- remove duplicate IDs -->
     <xsl:template match="tei:idno[text() = following-sibling::tei:idno[@type = current()/@type]/text()]" mode="m_post-process"/>

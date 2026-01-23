@@ -524,6 +524,9 @@
                 <xsl:when test="@unit = ('cm', 'سم')">
                     <xsl:text>U174728</xsl:text>
                 </xsl:when>
+                <xsl:when test="@unit = ('mm', 'مم')">
+                    <xsl:text>U174789</xsl:text>
+                </xsl:when>
                 <xsl:otherwise>
                     <xsl:text>NA</xsl:text>
                 </xsl:otherwise>
@@ -1649,6 +1652,29 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:element>
+    </xsl:template>
+    <xsl:template match="@next | @prev" mode="m_tei2qs">
+        <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
+        <xsl:variable name="v_source" select="oape:qs-get-source(.)"/>
+        <xsl:variable name="v_property">
+            <xsl:choose>
+                <xsl:when test="name(.) = 'prev'">
+                    <xsl:text>P1365</xsl:text>
+                </xsl:when>
+                <xsl:when test="name(.) = 'next'">
+                    <xsl:text>P1366</xsl:text>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:variable>
+        <!-- get target -->
+        <xsl:variable name="v_target-title">
+            <tei:title ref="{.}"/>
+        </xsl:variable>
+        <xsl:variable name="v_target-qid" select="oape:query-bibliography($v_target-title/tei:title, $v_bibliography, $v_gazetteer, $p_local-authority, 'id-wiki', '')"/>
+        <!-- QS -->
+        <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
+        <xsl:value-of select="concat($v_property, $v_seperator-qs, $v_target-qid)"/>
+        <xsl:value-of select="$v_source"/>
     </xsl:template>
     <xsl:template match="@* | node()" mode="m_string">
         <xsl:call-template name="t_string-value">
