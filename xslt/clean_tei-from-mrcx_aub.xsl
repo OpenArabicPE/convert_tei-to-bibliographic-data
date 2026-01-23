@@ -6,7 +6,7 @@
     <xsl:param name="p_source" select="'oape:org:73'"/>
     <xsl:template match="tei:biblStruct[not(@type)]" mode="m_post-process">
         <xsl:copy>
-            <xsl:apply-templates select="@*" mode="m_identity-transform"/>
+            <xsl:apply-templates mode="m_identity-transform" select="@*"/>
             <xsl:if test="not(@type)">
                 <xsl:attribute name="type" select="'periodical'"/>
             </xsl:if>
@@ -56,16 +56,58 @@
         </xsl:element>
     </xsl:template>
     <!-- parse holding information from the free-text comment field -->
+    <xsl:template match="tei:note[@type = 'holdings']/tei:list/tei:item" mode="m_off">
+        <xsl:copy>
+            <xsl:apply-templates mode="m_post-process" select="@*"/>
+            <xsl:apply-templates mode="m_post-process" select="tei:label"/>
+            <xsl:element name="listBibl">
+                <xsl:apply-templates mode="m_post-process" select="descendant::tei:bibl"/>
+            </xsl:element>
+        </xsl:copy>
+    </xsl:template>
     <xsl:template match="tei:bibl[not(@resp = '#xslt')][ancestor::tei:note[@type = 'holdings']]" mode="m_post-process">
         <xsl:variable name="v_ids" select="tei:idno"/>
         <xsl:choose>
             <!-- 1. split along '؛ ' -->
             <xsl:when test="contains(., '؛ ')">
-                <xsl:message terminate="yes"/>
+                <xsl:for-each select="tokenize(text()[contains(.,  '؛')], '؛\s+')">
+                    <xsl:element name="bibl">
+                        <xsl:attribute name="type" select="'copy'"/>
+                        <xsl:copy-of select="$v_ids"/>
+                        <xsl:value-of select="."/>
+                    </xsl:element>
+                </xsl:for-each>
             </xsl:when>
             <!-- parse dates -->
+            <!-- fallback -->
+            <xsl:otherwise>
+                <xsl:copy>
+                    <xsl:apply-templates mode="m_post-process" select="@* | node()"/>
+                </xsl:copy>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
-    
+    <xsl:template match="tei:bibl/text()" mode="m_post-process">
+        <!-- 4-digit dates -->
+        <xsl:analyze-string select="." regex="(^|\D)(\d{{4}})(\D|$)">
+            <xsl:matching-substring>
+                <xsl:value-of select="regex-group(1)"/>
+                <xsl:element name="date">
+                    <xsl:attribute name="when" select="regex-group(2)"/>
+                    <xsl:value-of select="regex-group(2)"/>
+                </xsl:element>
+                <xsl:value-of select="regex-group(3)"/>
+            </xsl:matching-substring>
+            <xsl:non-matching-substring>
+                <xsl:value-of select="."/>
+            </xsl:non-matching-substring>
+        </xsl:analyze-string>
+    </xsl:template>
+    <xsl:template match="tei:biblScope[@unit][not(@to)]" mode="m_post-process" priority="10">
+        <xsl:copy>
+            <xsl:apply-templates mode="m_identity-transform" select="@*"/>
+            <xsl:attribute name="to" select="@from"/>
+            <xsl:apply-templates mode="m_post-process"/>
+        </xsl:copy>
+    </xsl:template>
 </xsl:stylesheet>
