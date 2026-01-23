@@ -236,15 +236,15 @@
             <xsl:apply-templates mode="m_post-process"/>
         </xsl:copy>
     </xsl:template>
-     <!-- fix IDs: <idno type="AUBNO">Mic-NA:000285</idno> -->
-    <xsl:template mode="m_post-process" match="tei:idno[@type = 'AUBNO']">
+    <!-- fix IDs: <idno type="AUBNO">Mic-NA:000285</idno> -->
+    <xsl:template match="tei:idno[@type = 'AUBNO']" mode="m_post-process">
         <xsl:copy>
             <xsl:attribute name="source" select="concat($p_acronym-wikidata, ':', 'Q124855340')"/>
             <xsl:attribute name="type" select="'classmark'"/>
             <xsl:apply-templates mode="m_post-process"/>
         </xsl:copy>
     </xsl:template>
-    <xsl:template mode="m_post-process" match="tei:idno[@type = 'LEAUB']">
+    <xsl:template match="tei:idno[@type = 'LEAUB']" mode="m_post-process">
         <xsl:copy>
             <xsl:attribute name="source" select="concat($p_acronym-wikidata, ':', 'Q124855340')"/>
             <xsl:attribute name="type" select="'record'"/>

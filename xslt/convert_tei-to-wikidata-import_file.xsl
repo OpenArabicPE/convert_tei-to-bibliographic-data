@@ -13,35 +13,43 @@
                         <items>
                             <head>Holdings</head>
                             <xsl:apply-templates mode="m_tei2wikidata_holdings"
-                                select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical' or tei:monogr/tei:title[@level = 'j']][tei:note[@type = 'holdings']][descendant::tei:idno/@type = $p_acronym-wikidata]"/>
+                                select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical' or tei:monogr/tei:title[@level = 'j']][tei:note[@type = 'holdings']][descendant::tei:idno/@type = $p_acronym-wikidata]"
+                            />
                         </items>
                     </collection>
                 </xsl:result-document>
             </xsl:when>
-             <xsl:when test="$p_output-mode = 'qs'">
-                 <xsl:result-document href="{$v_base-directory}{$v_output-directory}QuickStatements/{$v_file-name_input}.qs" method="text">
-                 <!-- periodicals with QID-->
-                 <xsl:apply-templates mode="m_tei2qs"
-                                    select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical' or tei:monogr/tei:title[@level = 'j']][descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))]]"
-                                />
-                     <!-- new items: without an idno pointing to Wikidata and confirmed to be missing from Wikidata by a human -->
-                     <xsl:apply-templates mode="m_tei2qs" select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical 'or tei:monogr/tei:title[@level = 'j']][not(descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))])][tei:monogr/tei:title[@ref = 'NA'][not(@resp = '#xslt')]]"/>
-                 </xsl:result-document>
-             </xsl:when>
+            <xsl:when test="$p_output-mode = 'qs'">
+                <xsl:result-document href="{$v_base-directory}{$v_output-directory}QuickStatements/{$v_file-name_input}.qs" method="text">
+                    <!-- periodicals with QID-->
+                    <xsl:message>
+                        <xsl:text>Converting bibls with QID to QuickStatements</xsl:text>
+                    </xsl:message>
+                    <xsl:apply-templates mode="m_tei2qs"
+                        select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical' or tei:monogr/tei:title[@level = 'j']][descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))]]"/>
+                    <!-- new items: without an idno pointing to Wikidata and confirmed to be missing from Wikidata by a human -->
+                    <xsl:message>
+                        <xsl:text>Converting bibls without QID to QuickStatements</xsl:text>
+                    </xsl:message>
+                    <xsl:apply-templates mode="m_tei2qs"
+                        select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical ' or tei:monogr/tei:title[@level = 'j']][not(descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))])]"
+                    /> <!-- why was "[tei:monogr/tei:title[@ref = 'NA'][not(@resp = '#xslt')]]" added to the XPath? -->
+                </xsl:result-document>
+            </xsl:when>
             <xsl:when test="$p_output-mode = ('qs-holdings', 'holdings-qs')">
                 <xsl:result-document href="{$v_base-directory}{$v_output-directory}QuickStatements/{$v_file-name_input}_holdings.qs" method="text">
-                     <xsl:apply-templates mode="m_tei2qs_holdings"
-                                    select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical' or tei:monogr/tei:title[@level = 'j']][descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))]]"
-                                />
+                    <xsl:apply-templates mode="m_tei2qs_holdings"
+                        select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical' or tei:monogr/tei:title[@level = 'j']][descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))]]"
+                    />
                 </xsl:result-document>
-             </xsl:when>
+            </xsl:when>
             <xsl:when test="$p_output-mode = 'qs-ids'">
                 <xsl:result-document href="{$v_base-directory}{$v_output-directory}QuickStatements/{$v_file-name_input}_ids.qs" method="text">
-                     <xsl:apply-templates mode="m_tei2qs_ids"
-                                    select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical' or tei:monogr/tei:title[@level = 'j']][descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))]]"
-                                />
+                    <xsl:apply-templates mode="m_tei2qs_ids"
+                        select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical' or tei:monogr/tei:title[@level = 'j']][descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))]]"
+                    />
                 </xsl:result-document>
-             </xsl:when>
+            </xsl:when>
             <xsl:otherwise>
                 <xsl:result-document href="{$v_base-directory}{$v_output-directory}OpenRefine/{$v_file-name_input}.Wikidata.xml" method="xml">
                     <collection>
@@ -71,22 +79,25 @@
                         <xsl:if test="descendant::tei:standOff/descendant::tei:person">
                             <items>
                                 <head>already in Wikidata</head>
-                                <xsl:apply-templates select="descendant::tei:standOff/descendant::tei:person[tei:occupation][descendant::tei:idno/@type = $p_acronym-wikidata]" mode="m_tei2wikidata"/>
+                                <xsl:apply-templates mode="m_tei2wikidata" select="descendant::tei:standOff/descendant::tei:person[tei:occupation][descendant::tei:idno/@type = $p_acronym-wikidata]"/>
                             </items>
                             <items>
                                 <head>not in Wikidata</head>
-                                <xsl:apply-templates select="descendant::tei:standOff/descendant::tei:person[tei:occupation][not(descendant::tei:idno/@type = $p_acronym-wikidata)]" mode="m_tei2wikidata"/>
+                                <xsl:apply-templates mode="m_tei2wikidata"
+                                    select="descendant::tei:standOff/descendant::tei:person[tei:occupation][not(descendant::tei:idno/@type = $p_acronym-wikidata)]"/>
                             </items>
                         </xsl:if>
                         <xsl:if test="descendant::tei:standOff/descendant::tei:org">
                             <!-- orgs from the organizationography  -->
                             <items>
                                 <head>already in Wikidata</head>
-                                <xsl:apply-templates select="descendant::tei:standOff/tei:listOrg[@type = 'holdings']/descendant::tei:org[descendant::tei:idno/@type = $p_acronym-wikidata]" mode="m_tei2wikidata"/>
+                                <xsl:apply-templates mode="m_tei2wikidata"
+                                    select="descendant::tei:standOff/tei:listOrg[@type = 'holdings']/descendant::tei:org[descendant::tei:idno/@type = $p_acronym-wikidata]"/>
                             </items>
                             <items>
                                 <head>not in Wikidata</head>
-                                <xsl:apply-templates select="descendant::tei:standOff/tei:listOrg[@type = 'holdings']/descendant::tei:org[not(descendant::tei:idno/@type = $p_acronym-wikidata)]" mode="m_tei2wikidata"/>
+                                <xsl:apply-templates mode="m_tei2wikidata"
+                                    select="descendant::tei:standOff/tei:listOrg[@type = 'holdings']/descendant::tei:org[not(descendant::tei:idno/@type = $p_acronym-wikidata)]"/>
                             </items>
                         </xsl:if>
                     </collection>

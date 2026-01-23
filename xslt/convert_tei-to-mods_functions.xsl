@@ -696,6 +696,13 @@
                 </xsl:when>
             </xsl:choose>
             <!-- sometimes the contents are not wrapped in persName -->
+            <!-- bit of code for upload to Wikidata -->
+           <!-- <namePart>
+                <xsl:variable name="v_plain">
+                    <xsl:apply-templates mode="m_plain-text" select="."/>
+                </xsl:variable>
+                <xsl:value-of select="normalize-space($v_plain)"/>
+            </namePart>-->
             <xsl:choose>
                 <xsl:when test="tei:persName">
                     <xsl:apply-templates mode="m_tei-to-mods" select="tei:persName"/>
@@ -741,7 +748,7 @@
             <xsl:apply-templates mode="m_tei-to-mods" select="tei:resp"/>
             <!-- add an explicit count -->
             <description>
-                <xsl:value-of select="count(preceding-sibling::node()[local-name() = ('author', 'editor')]) +1"/>
+                <xsl:value-of select="count(preceding-sibling::node()[local-name() = ('author', 'editor')]) + 1"/>
             </description>
         </name>
     </xsl:template>

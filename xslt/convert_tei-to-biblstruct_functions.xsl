@@ -246,11 +246,13 @@
                 <xsl:variable name="v_refs">
                     <xsl:for-each select="descendant::tei:title[(@level != 'a') or not(@level)][@ref[not(. = 'NA')]]/@ref">
                         <xsl:for-each select="tokenize(., '\s+')">
-                            <item><xsl:value-of select="."/></item>
+                            <item>
+                                <xsl:value-of select="."/>
+                            </item>
                         </xsl:for-each>
                     </xsl:for-each>
                 </xsl:variable>
-                <xsl:for-each-group select="$v_refs/tei:item" group-by=".">
+                <xsl:for-each-group group-by="." select="$v_refs/tei:item">
                     <xsl:sort select="."/>
                     <xsl:variable name="v_authority">
                         <xsl:choose>
@@ -626,6 +628,15 @@
                         <textLang mainLang="{following-sibling::tei:profileDesc/tei:langUsage/tei:language/@ident}"/>
                         <!-- IDs -->
                         <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="$v_publicationStmt/tei:idno[@type = ('DHQarticle-id')]"/>
+                        <!-- add local file name -->
+                        <xsl:if test="not($v_publicationStmt/descendant::tei:idno[@type = ('url', 'URI')])">
+                            <xsl:message>
+                                <xsl:text>TEI contains no URL, using local path instead</xsl:text>
+                            </xsl:message>
+                            <idno type="url">
+                                <xsl:value-of select="concat($v_file-name_input, '.xml')"/>
+                            </idno>
+                        </xsl:if>
                         <!-- date -->
                         <xsl:apply-templates mode="m_simple" select="$v_editionStmt/tei:edition/tei:date"/>
                         <!-- availability -->
