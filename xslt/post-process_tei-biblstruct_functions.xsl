@@ -522,8 +522,8 @@
         <xsl:param as="node()" name="p_input"/>
         <xsl:variable name="v_input" select="normalize-space($p_input)"/>
         <!-- variables with regex strings: each is a group -->
-        <xsl:variable name="v_string-regex-volume" select="'(al-Sanah|v\.|vol\.*|السنة|المجلد|\Wم)'"/>
-        <xsl:variable name="v_string-regex-issue" select="'(no\.*|العدد|\Wع)'"/>
+        <xsl:variable name="v_string-regex-volume" select="'(al-Sanah|v\.|vol\.*|السنة|\Wس\.|المجلد|\Wمج*\.*)'"/>
+        <xsl:variable name="v_string-regex-issue" select="'(no\.*|العدد|\Wع\.*)'"/>
         <xsl:variable name="v_string-regex-range" select="'(-|حتى|الى)'"/>
         <!-- 3 groups -->
         <xsl:variable name="v_string-regex-unit" select="concat('(', $v_string-regex-volume, '|', $v_string-regex-issue, ')')"/>
@@ -587,7 +587,7 @@
         <!--<xsl:call-template name="t_test-for-dates">
             <xsl:with-param name="p_input" select="$v_content"/>
         </xsl:call-template>-->
-        <!-- unfortunately, one cannot change the value of a variable as the result of an iff condition -->
+        <!-- unfortunately, one cannot change the value of a variable as the result of an if condition -->
         <xsl:call-template name="t_find-biblScope">
             <xsl:with-param name="p_input" select="."/>
         </xsl:call-template>
