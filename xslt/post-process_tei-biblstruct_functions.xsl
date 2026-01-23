@@ -528,8 +528,8 @@
         <xsl:param as="node()" name="p_input"/>
         <xsl:variable name="v_input" select="normalize-space($p_input)"/>
         <!-- variables with regex strings: each is a group -->
-        <xsl:variable name="v_string-regex-volume" select="'(al-Sanah|v\.|vol\.*|السنة|المجلد|\Wم)'"/>
-        <xsl:variable name="v_string-regex-issue" select="'(no\.*|العدد|\Wع)'"/>
+        <xsl:variable name="v_string-regex-volume" select="'(sanah|mujallad|v\.|vol\.*|السنة|المجلد|\Wم)'"/>
+        <xsl:variable name="v_string-regex-issue" select="'(adad|no\.*|العدد|\Wع)'"/>
         <xsl:variable name="v_string-regex-range" select="'(-|حتى|الى)'"/>
         <!-- 3 groups -->
         <xsl:variable name="v_string-regex-unit" select="concat('(', $v_string-regex-volume, '|', $v_string-regex-issue, ')')"/>
@@ -960,7 +960,7 @@
         </biblStruct>
     </xsl:template>
     <!-- dimensions, sizes -->
-    <xsl:template match="tei:note[@type = 'dimensions'][not(tei:list/tei:item)]" mode="m_post-process">
+    <xsl:template match="tei:note[@type = ('dimensions', 'media')][not(tei:list/tei:item)]" mode="m_post-process">
         <xsl:variable name="v_string-regex-unit" select="'(\w+\.*)'"/>
         <xsl:variable name="v_string-regex-compiled" select="concat('(\d+)\s*(', $v_string-regex-unit, '*\s*(-|x)\s*(\d+)\s*)*', $v_string-regex-unit)"/>
         <xsl:variable name="v_content" select="normalize-space(.)"/>
