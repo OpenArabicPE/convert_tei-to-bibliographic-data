@@ -273,12 +273,6 @@
             </xsl:copy>
         </xsl:element>
     </xsl:template>
-    <xsl:template match="tei:imprint/text()" mode="m_off">
-        <xsl:call-template name="t_test-for-dates">
-            <xsl:with-param name="p_input" select="."/>
-        </xsl:call-template>
-        <xsl:value-of select="."/>
-    </xsl:template>
     <!-- dates-->
     <xsl:template match="tei:date[matches(@when, '\d{4}-\d{1}-\d{1}$')]" mode="m_post-process" priority="12">
         <xsl:copy>
@@ -636,6 +630,12 @@
             <xsl:apply-templates select="@* | node()"/>
         </xsl:copy>
     </xsl:template>
+    <xsl:template match="tei:imprint/text()" mode="m_off">
+        <xsl:call-template name="t_test-for-dates">
+            <xsl:with-param name="p_input" select="."/>
+        </xsl:call-template>
+        <xsl:value-of select="."/>
+    </xsl:template>
     <xsl:template name="t_test-for-dates">
         <xsl:param name="p_input"/>
         <xsl:choose>
@@ -660,6 +660,10 @@
                     <xsl:value-of select="replace($p_input, '^\D*(\d{4})\D*$', '$1')"/>
                 </xsl:element>
             </xsl:when>
+            <!-- fallback -->
+            <xsl:otherwise>
+                <xsl:copy-of select="$p_input"/>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     <xsl:template match="tei:persName[matches(., '[،,]')]" mode="m_post-process" priority="2">
@@ -1015,5 +1019,10 @@
                 </xsl:if>
             </xsl:element>
         </xsl:copy>
+    </xsl:template>
+    <xsl:template match="tei:bibl/text()" mode="m_post-process">
+        <xsl:call-template name="t_find-biblScope">
+            <xsl:with-param name="p_input" select="."/>
+        </xsl:call-template>
     </xsl:template>
 </xsl:stylesheet>
