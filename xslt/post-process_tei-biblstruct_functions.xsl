@@ -236,19 +236,19 @@
             <xsl:apply-templates mode="m_post-process"/>
         </xsl:copy>
     </xsl:template>
-     <!-- fix IDs: <idno type="AUBNO">Mic-NA:000285</idno> -->
-    <xsl:template mode="m_post-process" match="tei:idno[@type = 'AUBNO']">
+    <!-- fix IDs: <idno type="AUBNO">Mic-NA:000285</idno> -->
+    <xsl:template match="tei:idno[@type = 'AUBNO']" mode="m_post-process">
         <xsl:copy>
             <xsl:attribute name="source" select="concat($p_acronym-wikidata, ':', 'Q124855340')"/>
             <xsl:attribute name="type" select="'classmark'"/>
             <xsl:apply-templates mode="m_post-process"/>
         </xsl:copy>
     </xsl:template>
-    <xsl:template mode="m_post-process" match="tei:idno[@type = 'LEAUB']">
+    <xsl:template match="tei:idno[@type = 'LEAUB']" mode="m_post-process">
         <xsl:copy>
             <xsl:attribute name="source" select="concat($p_acronym-wikidata, ':', 'Q124855340')"/>
             <xsl:attribute name="type" select="'record'"/>
-              <xsl:apply-templates mode="m_post-process"/>
+            <xsl:apply-templates mode="m_post-process"/>
         </xsl:copy>
     </xsl:template>
     <!-- imprint -->
@@ -588,30 +588,42 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <!-- remove erroneous duplicates -->
+    <xsl:template match="tei:biblScope[not(@unit)][ancestor::tei:note[@type = 'holdings']][preceding-sibling::tei:biblScope[not(@unit)]/normalize-space(string(.)) = current()/normalize-space(string(.))]" mode="m_post-process" priority="20"/>
+        
+    
     <xsl:template match="tei:biblScope[not(@unit)][ancestor::tei:note[@type = 'holdings']]" mode="m_post-process" priority="10">
-        <xsl:variable name="v_content" select="normalize-space(.)"/>
-        <!--<xsl:call-template name="t_test-for-dates">
+        <xsl:variable name="v_content" select="normalize-space(string(.))"/>
+        <xsl:choose>
+            <!-- check for duplicates -->
+            <xsl:when test="preceding-sibling::tei:biblScope[not(@unit)]/normalize-space(string(.)) = $v_content"/>
+            <xsl:otherwise>
+                <!--<xsl:call-template name="t_test-for-dates">
             <xsl:with-param name="p_input" select="$v_content"/>
         </xsl:call-template>-->
-        <!-- unfortunately, one cannot change the value of a variable as the result of an iff condition -->
-        <xsl:call-template name="t_find-biblScope">
-            <xsl:with-param name="p_input" select="."/>
-        </xsl:call-template>
-        <xsl:choose>
+                <!-- unfortunately, one cannot change the value of a variable as the result of an iff condition -->
+                <xsl:call-template name="t_find-biblScope">
+                    <xsl:with-param name="p_input" select="."/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
+        <!-- somehow the following generates duplicate date and biblScope siblings -->
+        <!--<xsl:choose>
             <xsl:when test="matches($v_content, '\(\s*\d{4}\s*\)', 'i')">
                 <xsl:variable name="v_value" select="replace($v_content, '^.*(\(\s*)(\d{4})(\s*\)).*$', '$2', 'i')"/>
                 <xsl:element name="date">
                     <xsl:attribute name="when" select="$v_value"/>
                     <xsl:value-of select="$v_value"/>
                 </xsl:element>
+                <!-\- content without the date -\->
                 <xsl:variable name="v_content" select="replace($v_content, '^(.*)\(\s*\d{4}\s*\)(.*)$', '$1$2', 'i')"/>
                 <xsl:copy>
                     <xsl:apply-templates mode="m_post-process" select="@*"/>
                     <xsl:apply-templates mode="m_post-process" select="$v_content"/>
                 </xsl:copy>
             </xsl:when>
-            <!-- fallback is already in the called template -->
-        </xsl:choose>
+            <!-\- fallback is already in the called template -\->
+        </xsl:choose>-->
     </xsl:template>
     <xsl:template match="tei:biblScope[@unit][not(@from)]" mode="m_post-process" priority="10">
         <xsl:copy>
