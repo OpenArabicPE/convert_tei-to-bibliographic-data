@@ -22,6 +22,84 @@
             <xsl:apply-templates mode="m_post-process" select="@* | node()"/>
         </xsl:copy>
     </xsl:template>
+     <!-- test for duplicates of nodes without children -->
+    <xsl:template match="element()[not(element())]" mode="m_off" priority="200">
+        <xsl:variable name="v_current" select="."/>
+        <!-- tests for duplicates:
+            1. element name: local-name() = $v_current/local-name()
+            2. text: text() = $v_current/text()
+            3. attributes (note that this only compares the attribute names and NOT their values): @* = $v_current/@*
+        -->
+        <xsl:variable name="v_preceding-duplicate"
+            select="preceding-sibling::node()[local-name() = $v_current/local-name()][normalize-space(string(.)) = $v_current/normalize-space(string(.))][@* = $v_current/@*]"/>
+        <xsl:choose>
+            <xsl:when test="$v_preceding-duplicate">
+                <xsl:message>
+                    <xsl:text>Found an exact duplicate sibling for </xsl:text>
+                    <xsl:value-of select="$v_current/local-name()"/>
+                    <xsl:if test="@xml:id">
+                        <xsl:text> (#</xsl:text>
+                        <xsl:value-of select="@xml:id"/>
+                        <xsl:text>)</xsl:text>
+                    </xsl:if>
+                </xsl:message>
+                <xsl:message>
+                    <xsl:text>current: </xsl:text>
+                    <xsl:copy-of select="$v_current"/>
+                </xsl:message>
+                <xsl:message>
+                    <xsl:text>duplicate: </xsl:text>
+                    <xsl:copy-of select="$v_preceding-duplicate"/>
+                </xsl:message>
+                <xsl:copy>
+                    <xsl:apply-templates mode="m_post-process" select="@* | node()"/>
+                </xsl:copy>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:copy>
+                    <xsl:apply-templates mode="m_post-process" select="@* | node()"/>
+                </xsl:copy>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!-- this seems to be the better approach, but it doesn't find any duplicates -->
+    <xsl:template match="tei:bibl[element()[not(element())]][@n = 'test']" mode="m_off" priority="200">
+        <xsl:message>
+            <xsl:text>TEST</xsl:text>
+        </xsl:message>
+        <xsl:copy>
+            <xsl:apply-templates mode="m_identity-transform" select="@*"/>
+            <xsl:for-each-group group-by="local-name() and normalize-space(string(.)) and attribute()/text()" select="node()">
+                <xsl:variable name="v_size" select="count(current-group())"/>
+                <xsl:variable name="v_name" select="current-group()[1]/local-name()"/>
+                <xsl:choose>
+                    <xsl:when test="$v_size > 10">
+                        <xsl:message terminate="no">
+                            <xsl:text>Found a large group of </xsl:text>
+                            <xsl:value-of select="$v_size"/>
+                            <xsl:text> exact duplicates of "</xsl:text>
+                            <xsl:value-of select="$v_name"/>
+                            <xsl:text>", which will be reproduced as they are.</xsl:text>
+                        </xsl:message>
+                        <xsl:apply-templates mode="m_identity-transform" select="current-group()"/>
+                    </xsl:when>
+                    <xsl:when test="$v_size > 1">
+                        <xsl:message terminate="no">
+                            <xsl:text>Found </xsl:text>
+                            <xsl:value-of select="$v_size"/>
+                            <xsl:text> exact duplicates of "</xsl:text>
+                            <xsl:value-of select="$v_name"/>
+                            <xsl:text>", which will be reduced to a single node</xsl:text>
+                        </xsl:message>
+                        <xsl:apply-templates mode="m_identity-transform" select="current-group()[1]"/>
+                    </xsl:when>
+                    <xsl:when test="$v_size = 1">
+                        <xsl:apply-templates mode="m_identity-transform" select="current-group()"/>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:for-each-group>
+        </xsl:copy>
+    </xsl:template>
     <!-- translate Arabic digits in attributes to Latin digits -->
     <xsl:template match="@*" mode="m_post-process" priority="1">
         <xsl:attribute name="{name()}">
