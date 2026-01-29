@@ -811,6 +811,11 @@
                 </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
+        <!-- explicit distinction from items with a similar title -->
+        <xsl:for-each select="ancestor-or-self::tei:standOff/descendant::tei:biblStruct[tei:monogr/tei:title/string() = current()/string()][descendant::tei:idno[@type = 'wiki'][1] != $v_qid]">
+            <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs, 'P1889', $v_seperator-qs)"/>
+            <xsl:value-of select="descendant::tei:idno[@type = 'wiki'][1]"/>
+        </xsl:for-each>
     </xsl:template>
     <xsl:template name="t_string-transcriptions">
         <xsl:param name="p_node-set"/>
