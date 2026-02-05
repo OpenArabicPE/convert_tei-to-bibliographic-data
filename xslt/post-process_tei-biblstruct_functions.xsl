@@ -1042,70 +1042,71 @@
         </biblStruct>
     </xsl:template>
     <!-- dimensions, sizes -->
-    <xsl:template match="tei:note[@type = ('dimensions', 'media')][not(tei:list/tei:item)]" mode="m_post-process">
+    <xsl:template match="tei:note[@type = ('dimensions')][not(tei:listBibl)]" mode="m_post-process">
         <xsl:variable name="v_string-regex-unit" select="'(\w+\.*)'"/>
         <xsl:variable name="v_string-regex-compiled" select="concat('(\d+)\s*(', $v_string-regex-unit, '*\s*(-|x)\s*(\d+)\s*)*', $v_string-regex-unit)"/>
         <xsl:variable name="v_content" select="normalize-space(.)"/>
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
-            <xsl:element name="list">
+            <xsl:attribute name="type" select="'media'"/>
+            <xsl:element name="listBibl">
                 <!-- construct new items -->
                 <xsl:if test="matches(., $v_string-regex-compiled)">
-                    <xsl:element name="item">
-                        <xsl:element name="bibl">
-                            <xsl:element name="extent">
-                                <!-- we could add a measure element for naming standard page sizes -->
-                                <xsl:element name="dimensions">
-                                    <xsl:analyze-string regex="{$v_string-regex-compiled}" select=".">
-                                        <xsl:matching-substring>
-                                            <xsl:variable name="v_unit-2" select="oape:strings_trim-punctuation-marks(regex-group(6))"/>
-                                            <xsl:variable name="v_unit-1" select="
-                                                    if (regex-group(3)) then
-                                                        (oape:strings_trim-punctuation-marks(regex-group(3)))
-                                                    else
-                                                        $v_unit-2"/>
-                                            <xsl:variable name="v_quantity-1" select="regex-group(1)"/>
-                                            <xsl:variable name="v_quantity-2" select="regex-group(5)"/>
-                                            <xsl:choose>
-                                                <!-- height and width -->
-                                                <xsl:when test="regex-group(4) = 'x'">
-                                                    <xsl:element name="height">
-                                                        <xsl:attribute name="unit" select="$v_unit-1"/>
-                                                        <xsl:attribute name="quantity" select="$v_quantity-1"/>
-                                                    </xsl:element>
-                                                    <xsl:element name="width">
-                                                        <xsl:attribute name="unit" select="$v_unit-2"/>
-                                                        <xsl:attribute name="quantity" select="$v_quantity-2"/>
-                                                    </xsl:element>
-                                                </xsl:when>
-                                                <!-- we assume ranges are only for heights -->
-                                                <xsl:when test="regex-group(4) = '-'">
-                                                    <xsl:element name="height">
-                                                        <xsl:attribute name="unit" select="$v_unit-1"/>
-                                                        <xsl:attribute name="min" select="$v_quantity-1"/>
-                                                        <xsl:attribute name="max" select="$v_quantity-2"/>
-                                                        <xsl:value-of select="$v_content"/>
-                                                    </xsl:element>
-                                                </xsl:when>
-                                                <!-- no divider, we assume height is more common then width -->
-                                                <xsl:otherwise>
-                                                    <xsl:element name="height">
-                                                        <xsl:attribute name="unit" select="$v_unit-2"/>
-                                                        <xsl:attribute name="quantity" select="$v_quantity-1"/>
-                                                        <xsl:value-of select="$v_content"/>
-                                                    </xsl:element>
-                                                </xsl:otherwise>
-                                            </xsl:choose>
-                                        </xsl:matching-substring>
-                                        <xsl:non-matching-substring>
-                                            <!-- reproduce original -->
-                                            <xsl:value-of select="$v_content"/>
-                                        </xsl:non-matching-substring>
-                                    </xsl:analyze-string>
-                                </xsl:element>
+                    <!--<xsl:element name="item">-->
+                    <xsl:element name="bibl">
+                        <xsl:element name="extent">
+                            <!-- we could add a measure element for naming standard page sizes -->
+                            <xsl:element name="dimensions">
+                                <xsl:analyze-string regex="{$v_string-regex-compiled}" select=".">
+                                    <xsl:matching-substring>
+                                        <xsl:variable name="v_unit-2" select="oape:strings_trim-punctuation-marks(regex-group(6))"/>
+                                        <xsl:variable name="v_unit-1" select="
+                                                if (regex-group(3)) then
+                                                    (oape:strings_trim-punctuation-marks(regex-group(3)))
+                                                else
+                                                    $v_unit-2"/>
+                                        <xsl:variable name="v_quantity-1" select="regex-group(1)"/>
+                                        <xsl:variable name="v_quantity-2" select="regex-group(5)"/>
+                                        <xsl:choose>
+                                            <!-- height and width -->
+                                            <xsl:when test="regex-group(4) = 'x'">
+                                                <xsl:element name="height">
+                                                    <xsl:attribute name="unit" select="$v_unit-1"/>
+                                                    <xsl:attribute name="quantity" select="$v_quantity-1"/>
+                                                </xsl:element>
+                                                <xsl:element name="width">
+                                                    <xsl:attribute name="unit" select="$v_unit-2"/>
+                                                    <xsl:attribute name="quantity" select="$v_quantity-2"/>
+                                                </xsl:element>
+                                            </xsl:when>
+                                            <!-- we assume ranges are only for heights -->
+                                            <xsl:when test="regex-group(4) = '-'">
+                                                <xsl:element name="height">
+                                                    <xsl:attribute name="unit" select="$v_unit-1"/>
+                                                    <xsl:attribute name="min" select="$v_quantity-1"/>
+                                                    <xsl:attribute name="max" select="$v_quantity-2"/>
+                                                    <xsl:value-of select="$v_content"/>
+                                                </xsl:element>
+                                            </xsl:when>
+                                            <!-- no divider, we assume height is more common then width -->
+                                            <xsl:otherwise>
+                                                <xsl:element name="height">
+                                                    <xsl:attribute name="unit" select="$v_unit-2"/>
+                                                    <xsl:attribute name="quantity" select="$v_quantity-1"/>
+                                                    <xsl:value-of select="$v_content"/>
+                                                </xsl:element>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:matching-substring>
+                                    <xsl:non-matching-substring>
+                                        <!-- reproduce original -->
+                                        <xsl:value-of select="$v_content"/>
+                                    </xsl:non-matching-substring>
+                                </xsl:analyze-string>
                             </xsl:element>
                         </xsl:element>
                     </xsl:element>
+                    <!--</xsl:element>-->
                 </xsl:if>
             </xsl:element>
         </xsl:copy>
