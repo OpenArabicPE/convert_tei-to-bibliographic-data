@@ -323,7 +323,7 @@
         <xsl:variable name="v_lang-catalogue">
             <xsl:choose>
                 <xsl:when test="ancestor::marc:record/marc:datafield[@tag = '040']/marc:subfield[@code = 'b']">
-                    <xsl:value-of select="oape:string-convert-lang-codes(ancestor::marc:record/marc:datafield[@tag = '040']/marc:subfield[@code = 'b'][1], 'iso639-2', 'bcp47')"/>
+                    <xsl:apply-templates select="ancestor::marc:record/marc:datafield[@tag = '040']/marc:subfield[@code = 'b'][1]"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:value-of select="'und'"/>
@@ -514,6 +514,17 @@
                 - $d - Modifying agency (R)
                 - $e - Description conventions (R) 
             -->
+            <xsl:when test="$v_tag = '040'">
+                <xsl:choose>
+                    <!-- return string of cataloguing agency, might be an ISIL code -->
+                    <xsl:when test="$v_code = 'a'">
+                        <xsl:value-of select="$v_content"/>
+                    </xsl:when>
+                    <xsl:when test="$v_code = 'b'">
+                        <xsl:value-of select="oape:string-convert-lang-codes($v_content, 'iso639-2', 'bcp47')"/>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:when>
             <!-- 041: language code -->
             <xsl:when test="$v_tag = '041'">
                 <xsl:choose>
