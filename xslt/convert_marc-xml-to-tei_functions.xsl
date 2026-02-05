@@ -216,45 +216,52 @@
                         <xsl:text> catalogue.</xsl:text>
                     </xsl:message>
                 </xsl:if>
-                <xsl:choose>
-                    <!-- external function:
+                <xsl:copy-of select="oape:query-marcx($v_record, 'holdings')"/>
+                <!--<xsl:choose>
+                    <!-\- external function:
                         - Hathi
                         - KOHA / USJ
-                        - ZDB -->
+                        - ZDB -\->
                     <xsl:when test="$v_catalogue = ('hathi', 'koha', 'zdb')">
                         <xsl:copy-of select="oape:query-marcx($v_record, 'holdings')"/>
                     </xsl:when>
                     <xsl:when test="$v_catalogue = ('https://www.nli.org.il/', 'oape:org:60', 'wiki:Q188915')">
                         <xsl:copy-of select="oape:query-marcx($v_record, 'holdings')"/>
                     </xsl:when>
+                    <!-\- AUB holdings -\->
                     <xsl:when test="$v_catalogue = ('aub', 'oape:org:73', concat($p_acronym-wikidata, ':', 'Q124855340'))">
-                        <!-- AUB holdings -->
                         <xsl:copy-of select="oape:query-marcx($v_record, 'holdings')"/>
-                        <!--<xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '866'][@ind2 = '1']/marc:subfield[@code = 'a']"/>-->
                     </xsl:when>
-                </xsl:choose>
+                    <xsl:otherwise>
+                        <xsl:message terminate="no">
+                            <xsl:text>WARNING: could not establish the catalogue / library system for "</xsl:text>
+                            <xsl:value-of select="$v_catalogue"/>
+                            <xsl:text>"</xsl:text>
+                        </xsl:message>
+                    </xsl:otherwise>
+                </xsl:choose>-->
                 <!-- Hathi: digitised items -->
                 <!-- USJ holding information: KOHA library systems -->
-                <xsl:if test="$v_record//marc:datafield[@tag = ('974', '952')]">
-                    <!--<xsl:element name="note">
+                <!--<xsl:if test="$v_record//marc:datafield[@tag = ('974', '952')]">
+                    <!-\-<xsl:element name="note">
                         <xsl:attribute name="type" select="'holdings'"/>
-                        <xsl:element name="list">-->
+                        <xsl:element name="list">-\->
                     <xsl:choose>
                         <xsl:when test="$v_catalogue = ('hathi', 'koha', 'https://www.nli.org.il/', 'oape:org:60', 'wiki:Q188915')"/>
                         <xsl:when test="$v_catalogue = 'koha'">
                             <xsl:element name="item">
                                 <xsl:attribute name="source" select="$v_url-catalogue"/>
                                 <xsl:element name="label">
-                                    <!-- one can retrieve information on the holding information based on 952$a -->
+                                    <!-\- one can retrieve information on the holding information based on 952$a -\->
                                     <xsl:variable name="v_orgName">
-                                        <!-- we currently only look for the first holding -->
+                                        <!-\- we currently only look for the first holding -\->
                                         <xsl:apply-templates select="$v_record//marc:datafield[@tag = '952'][1]/marc:subfield[@code = 'a']"/>
                                     </xsl:variable>
                                     <xsl:variable name="v_org" select="oape:get-entity-from-authority-file($v_orgName//tei:orgName, $p_local-authority, $v_organizationography)"/>
-                                    <!-- location -->
+                                    <!-\- location -\->
                                     <xsl:copy-of select="oape:query-org($v_org/self::tei:org, 'location-tei', 'en', $p_local-authority)"/>
                                     <xsl:text>, </xsl:text>
-                                    <!-- institution -->
+                                    <!-\- institution -\->
                                     <xsl:element name="orgName">
                                         <xsl:attribute name="ref" select="oape:query-organizationography($v_org//tei:orgName[1], $v_organizationography, $p_local-authority, 'tei-ref', '')"/>
                                         <xsl:value-of select="oape:query-org($v_org/self::tei:org, 'name', 'en', $p_local-authority)"/>
@@ -273,9 +280,9 @@
                             </xsl:message>
                         </xsl:otherwise>
                     </xsl:choose>
-                    <!--</xsl:element>
-                    </xsl:element>-->
-                </xsl:if>
+                    <!-\-</xsl:element>
+                    </xsl:element>-\->
+                </xsl:if>-->
             </xsl:element>
         </xsl:variable>
         <!--<xsl:apply-templates mode="m_postprocess" select="$v_biblStruct/descendant-or-self::tei:biblStruct"/>-->
@@ -990,6 +997,23 @@
                     </xsl:when>
                 </xsl:choose>
             </xsl:when>
+            <!-- holdgins in UChicago -->
+            <xsl:when test="$v_tag = '927'">
+                <xsl:choose>
+                    <xsl:when test="$v_code = 'b'">
+                        <xsl:element name="idno">
+                            <xsl:attribute name="type" select="'record'"/>
+                            <xsl:attribute name="source" select="oape:query-marcx(ancestor::marc:record[1], 'catalogue')"/>
+                            <xsl:value-of select="$v_content"/>
+                        </xsl:element>
+                    </xsl:when>
+                    <xsl:when test="$v_code = 'v'">
+                        <xsl:element name="biblScope">
+                            <xsl:value-of select="$v_content"/>
+                        </xsl:element>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:when>
             <!-- holdings in KOHA system / USJ -->
             <!-- documentation is here: https://wiki.koha-community.org/wiki/Holdings_data_fields_(9xx)#MARC21_Holding_field_.28952.29 -->
             <xsl:when test="$v_tag = '952'">
@@ -1214,6 +1238,16 @@
             <xsl:apply-templates select="marc:subfield[@code = 'z']"/>
         </xsl:element>-->
     </xsl:template>
+    <xsl:template match="marc:datafield[@tag = ('927')]" mode="m_notes">
+        <xsl:element name="bibl">
+            <!-- dates -->
+            <!-- IDs -->
+            <xsl:apply-templates select="marc:subfield[@code = 'b']"/>
+            <!-- extent of holding -->
+            <xsl:apply-templates select="marc:subfield[@code = 'v']"/>
+            <!-- availablity -->
+        </xsl:element>
+    </xsl:template>
     <!-- this has beeen changed to group Hathi holdings by institution -->
     <xsl:template match="marc:datafield[@tag = ('974')]" mode="m_notes" priority="2">
         <xsl:apply-templates mode="m_notes" select="marc:subfield[@code = 'b']"/>
@@ -1306,21 +1340,6 @@
                     <xsl:apply-templates select="parent::marc:datafield/marc:subfield[@code = 'z']"/>
                 </xsl:element>
             </xsl:when>
-            <!-- AUB: this is actually called -->
-            <xsl:when test="$v_catalogue = 'aub'">
-                <!-- this should NOT be converted to listBibl as it does not yield structured information -->
-                <xsl:element name="bibl">
-                    <xsl:attribute name="source" select="'oape:org:73'"/>
-                    <!-- language of AUB catalogue is Arabic -->
-                    <xsl:attribute name="xml:lang" select="'ar'"/>
-                    <!-- IDs: classmark, record -->
-                    <xsl:apply-templates select="ancestor::marc:record[1]/marc:datafield[@tag = '084']/marc:subfield[@code = 'a']"/>
-                    <xsl:apply-templates select="ancestor::marc:record[1]/marc:controlfield[@tag = '001']"/>
-                    <xsl:copy-of select="oape:query-marcx(ancestor::marc:record[1], 'id_record')"/>
-                    <!-- the actual holding information is found in plain text. parsing is left to a latter step  -->
-                    <xsl:apply-templates mode="m_plain-text"/>
-                </xsl:element>
-            </xsl:when>
             <xsl:when test="$v_catalogue = 'zdb'">
                 <!-- we can pull information on holding informations from the ISIL number -->
                 <xsl:variable name="v_id-isil" select="parent::marc:datafield/marc:subfield[@code = 'b']"/>
@@ -1379,6 +1398,21 @@
                     </xsl:element>
                     <!-- source information -->
                     <!-- this is already encoded in the @source attribute on the parent node -->
+                </xsl:element>
+            </xsl:when>
+            <!-- AUB: this is actually called -->
+            <xsl:when test="$v_catalogue = 'aub'">
+                <!-- this should NOT be converted to listBibl as it does not yield structured information -->
+                <xsl:element name="bibl">
+                    <xsl:attribute name="source" select="'oape:org:73'"/>
+                    <!-- language of AUB catalogue is Arabic -->
+                    <xsl:attribute name="xml:lang" select="'ar'"/>
+                    <!-- IDs: classmark, record -->
+                    <xsl:apply-templates select="ancestor::marc:record[1]/marc:datafield[@tag = '084']/marc:subfield[@code = 'a']"/>
+                    <xsl:apply-templates select="ancestor::marc:record[1]/marc:controlfield[@tag = '001']"/>
+                    <xsl:copy-of select="oape:query-marcx(ancestor::marc:record[1], 'id_record')"/>
+                    <!-- the actual holding information is found in plain text. parsing is left to a latter step  -->
+                    <xsl:apply-templates mode="m_plain-text"/>
                 </xsl:element>
             </xsl:when>
             <!-- fallback? -->
@@ -1468,6 +1502,9 @@
                         <xsl:choose>
                             <xsl:when test="following-sibling::marc:controlfield[@tag = '003'] = 'LEAUB'">
                                 <xsl:value-of select="concat($p_acronym-wikidata, ':', 'Q124855340')"/>
+                            </xsl:when>
+                            <xsl:when test="following-sibling::marc:controlfield[@tag = '003'] = 'ICU'">
+                                <xsl:value-of select="concat($p_acronym-wikidata, ':', 'Q7895259')"/>
                             </xsl:when>
                             <!-- fallback -->
                             <xsl:otherwise>
@@ -1730,6 +1767,27 @@
                                     <xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '866'][@ind2 = '1']/marc:subfield[@code = 'a']"/>
                                 </xsl:element>
                             </xsl:when>
+                            <!-- university of Chicago -->
+                            <xsl:when test="$v_catalogue = ('ICU', concat($p_acronym-wikidata, ':', 'Q7895259'))">
+                                <xsl:element name="item">
+                                    <xsl:attribute name="source" select="$v_url-catalogue"/>
+                                    <xsl:element name="label">
+                                        <xsl:attribute name="xml:lang" select="'en'"/>
+                                        <xsl:element name="placeName">
+                                            <xsl:text>Chicago</xsl:text>
+                                        </xsl:element>
+                                        <xsl:text>, </xsl:text>
+                                        <xsl:element name="orgName">
+                                            <xsl:attribute name="ref" select="$v_catalogue"/>
+                                            <xsl:text>University of Chicago Library</xsl:text>
+                                        </xsl:element>
+                                    </xsl:element>
+                                    <!-- holdings information is found in 866 -->
+                                    <xsl:element name="listBibl">
+                                        <xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '927']"/>
+                                    </xsl:element>
+                                </xsl:element>
+                            </xsl:when>
                             <xsl:otherwise>
                                 <xsl:message>
                                     <xsl:text>Could not retrieve holdings: "</xsl:text>
@@ -1818,8 +1876,11 @@
                     <xsl:when test="$v_catalogue = 'koha'">
                         <xsl:value-of select="concat($v_koha-url-record-web, $v_id-record/tei:idno[@type = 'biblio_id'][1])"/>
                     </xsl:when>
-                    <xsl:when test="$v_catalogue = ('https://www.nli.org.il/', 'oape:org:60', 'wiki:Q188915')">
+                    <xsl:when test="$v_catalogue = ('https://www.nli.org.il/', 'oape:org:60', concat($p_acronym-wikidata, ':', 'Q188915'))">
                         <xsl:value-of select="concat($p_url-resolve-nloi_periodicals, $v_id-record/tei:idno[@type = 'record'][1])"/>
+                    </xsl:when>
+                    <xsl:when test="$v_catalogue = ('ICU', concat($p_acronym-wikidata, ':', 'Q7895259'))">
+                        <xsl:value-of select="concat($p_url-resolve-uchicago, $v_id-record/tei:idno[1])"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:text>NA</xsl:text>
