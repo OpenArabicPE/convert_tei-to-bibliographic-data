@@ -661,19 +661,19 @@
         </xsl:choose>
     </xsl:template>
     <!-- remove erroneous duplicates -->
-    <xsl:template match="tei:biblScope[not(@unit)][ancestor::tei:note[@type = 'holdings']][preceding-sibling::tei:biblScope[not(@unit)]/normalize-space(string(.)) = current()/normalize-space(string(.))]" mode="m_post-process" priority="20"/>
-        
-    
+    <xsl:template
+        match="tei:biblScope[not(@unit)][ancestor::tei:note[@type = 'holdings']][preceding-sibling::tei:biblScope[not(@unit)]/normalize-space(string(.)) = current()/normalize-space(string(.))]"
+        mode="m_post-process" priority="20"/>
     <xsl:template match="tei:biblScope[not(@unit)][ancestor::tei:note[@type = 'holdings']]" mode="m_post-process" priority="10">
         <xsl:variable name="v_content" select="normalize-space(string(.))"/>
         <xsl:choose>
             <!-- check for duplicates -->
             <xsl:when test="preceding-sibling::tei:biblScope[not(@unit)]/normalize-space(string(.)) = $v_content"/>
             <xsl:otherwise>
-                <!--<xsl:call-template name="t_test-for-dates">
-            <xsl:with-param name="p_input" select="$v_content"/>
-        </xsl:call-template>-->
-                <!-- unfortunately, one cannot change the value of a variable as the result of an iff condition -->
+                <xsl:call-template name="t_test-for-dates">
+                    <xsl:with-param name="p_input" select="$v_content"/>
+                </xsl:call-template>
+                <!-- unfortunately, one cannot change the value of a variable as the result of an if condition -->
                 <xsl:call-template name="t_find-biblScope">
                     <xsl:with-param name="p_input" select="."/>
                 </xsl:call-template>
