@@ -1597,14 +1597,16 @@
             - -->
         <xsl:param as="xs:string" name="p_output-mode"/>
         <xsl:variable name="v_record" select="$p_marcx-record/descendant-or-self::marc:record"/>
+        <xsl:if test="$p_debug = true()">
+            <xsl:message terminate="no">
+                <xsl:text>function: "oape:query-marcx" ($p_output-mode = '</xsl:text>
+                <xsl:value-of select="$p_output-mode"/>
+                <xsl:text>')</xsl:text>
+            </xsl:message>
+        </xsl:if>
         <xsl:choose>
             <!-- output:  <tei:idno> nodes -->
             <xsl:when test="$p_output-mode = ('id_record', 'id')">
-                <xsl:if test="$p_debug = true()">
-                    <xsl:message terminate="no">
-                        <xsl:text>function: "oape:query-marcx" ($p_output-mode = 'id_record')</xsl:text>
-                    </xsl:message>
-                </xsl:if>
                 <!-- for other catalogues field 776 is seemingly used for related publications check field 775 -->
                 <!-- NOTE: make sure that none of the applied templates call this function with this output. This will cause the function to loop and fail! -->
                 <xsl:variable name="v_output">
@@ -1620,22 +1622,14 @@
                 </xsl:variable>
                 <xsl:if test="$p_debug = true()">
                     <xsl:message>
-                        <xsl:message>
-                            <xsl:text>output: </xsl:text>
-                            <xsl:copy-of select="$v_output"/>
-                        </xsl:message>
+                        <xsl:text>output: </xsl:text>
+                        <xsl:copy-of select="$v_output"/>
                     </xsl:message>
                 </xsl:if>
                 <xsl:copy-of select="$v_output"/>
             </xsl:when>
-            <!-- mode 'holdings' is only used for ZDB -->
+            <!-- holding information  -->
             <xsl:when test="$p_output-mode = 'holdings'">
-                <!-- it seems that this is never called -->
-                <xsl:if test="$p_debug = true()">
-                    <xsl:message terminate="no">
-                        <xsl:text>function: "oape:query-marcx" ($p_output-mode = 'holdings')</xsl:text>
-                    </xsl:message>
-                </xsl:if>
                 <!-- some common variables -->
                 <xsl:variable name="v_id-record">
                     <xsl:copy-of select="oape:query-marcx($v_record, 'id')"/>
@@ -1737,7 +1731,7 @@
                                 </xsl:for-each-group>
                             </xsl:when>
                             <!-- NLoI -->
-                            <xsl:when test="$v_catalogue = ('https://www.nli.org.il/', 'oape:org:60', 'wiki:Q188915')">
+                            <xsl:when test="$v_catalogue = ('https://www.nli.org.il/', 'oape:org:60', concat($p_acronym-wikidata, ':', 'Q188915'))">
                                 <xsl:element name="item">
                                     <xsl:attribute name="source" select="$v_url-catalogue"/>
                                     <xsl:element name="label"> <placeName ref="geon:281184 oape:place:6 wiki:Q1218">Jerusalem</placeName>,
@@ -1805,11 +1799,6 @@
             </xsl:when>
             <!-- output: string -->
             <xsl:when test="$p_output-mode = 'catalogue'">
-                <xsl:if test="$p_debug = true()">
-                    <xsl:message terminate="no">
-                        <xsl:text>function: "oape:query-marcx" ($p_output-mode = 'catalogue')</xsl:text>
-                    </xsl:message>
-                </xsl:if>
                 <xsl:variable name="v_id-record">
                     <xsl:copy-of select="oape:query-marcx($v_record, 'id')"/>
                 </xsl:variable>
