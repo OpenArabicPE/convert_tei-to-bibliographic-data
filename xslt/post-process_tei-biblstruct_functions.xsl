@@ -22,7 +22,7 @@
             <xsl:apply-templates mode="m_post-process" select="@* | node()"/>
         </xsl:copy>
     </xsl:template>
-     <!-- test for duplicates of nodes without children -->
+    <!-- test for duplicates of nodes without children -->
     <xsl:template match="element()[not(element())]" mode="m_off" priority="200">
         <xsl:variable name="v_current" select="."/>
         <!-- tests for duplicates:
@@ -215,7 +215,7 @@
     <!-- remove all orgs which are already part of the organizationography -->
     <xsl:template match="tei:org[parent::tei:listOrg][tei:orgName[@ref]]" mode="m_off"/>
     <!-- establish language based on script -->
-    <xsl:template match="element()[ancestor::tei:biblStruct][text()][@xml:lang = 'und' or not(@xml:lang)]" mode="m_post-process" priority="0">
+    <xsl:template match="element()[ancestor::tei:biblStruct][text()][@xml:lang = 'und' or not(@xml:lang)]" mode="m_post-process" priority="5">
         <xsl:variable name="v_self">
             <xsl:apply-templates mode="m_plain-text" select="text()"/>
         </xsl:variable>
@@ -558,7 +558,7 @@
         </xsl:choose>
     </xsl:template>
     <!-- add onset based on collections -->
-    <xsl:template match="tei:imprint" mode="m_post-process">
+    <xsl:template match="tei:imprint" mode="m_post-process" priority="10">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <!--  -->
@@ -573,9 +573,9 @@
                 <xsl:when test="not(tei:date[@type = 'onset']) and ancestor::tei:biblStruct/tei:note[@type = 'holdings']/descendant::tei:bibl[tei:date[@type = 'onset']]">
                     <xsl:variable name="v_onset" select="oape:dates-get-maxima(ancestor::tei:biblStruct/tei:note[@type = 'holdings']/descendant::tei:bibl/tei:date[@type = 'onset'], 'onset')"/>
                     <xsl:element name="date">
-                        <xsl:attribute name="type" select="'onset'"/>
-                        <xsl:attribute name="resp" select="'#xslt'"/>
                         <xsl:attribute name="cert" select="'low'"/>
+                        <xsl:attribute name="resp" select="'#xslt'"/>
+                        <xsl:attribute name="type" select="'onset'"/>
                         <!-- source: still missing -->
                         <xsl:attribute name="when" select="$v_onset"/>
                     </xsl:element>
@@ -665,14 +665,15 @@
         match="tei:biblScope[not(@unit)][ancestor::tei:note[@type = 'holdings']][preceding-sibling::tei:biblScope[not(@unit)]/normalize-space(string(.)) = current()/normalize-space(string(.))]"
         mode="m_post-process" priority="20"/>
     <xsl:template match="tei:biblScope[not(@unit)][ancestor::tei:note[@type = 'holdings']]" mode="m_post-process" priority="10">
+        <!--<xsl:message terminate="yes"/>-->
         <xsl:variable name="v_content" select="normalize-space(string(.))"/>
         <xsl:choose>
             <!-- check for duplicates -->
-            <xsl:when test="preceding-sibling::tei:biblScope[not(@unit)]/normalize-space(string(.)) = $v_content"/>
+            <xsl:when test="preceding-sibling::element()[not(@unit)]/normalize-space(string(.)) = $v_content"/>
             <xsl:otherwise>
-                <xsl:call-template name="t_test-for-dates">
+                <!--<xsl:call-template name="t_test-for-dates">
                     <xsl:with-param name="p_input" select="$v_content"/>
-                </xsl:call-template>
+                </xsl:call-template>-->
                 <!-- unfortunately, one cannot change the value of a variable as the result of an if condition -->
                 <xsl:call-template name="t_find-biblScope">
                     <xsl:with-param name="p_input" select="."/>
@@ -760,11 +761,11 @@
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:element name="forename">
-                <xsl:value-of select="normalize-space(replace(., '^(.+?)[،,](.+?)$', '$2'))"/>
+                <xsl:value-of select="normalize-space(replace(., '^(.+?)(،|,|:)\s*(.+?)$', '$3'))"/>
             </xsl:element>
             <xsl:text> </xsl:text>
             <xsl:element name="surname">
-                <xsl:value-of select="normalize-space(replace(., '^(.+?)[،,](.+?)$', '$1'))"/>
+                <xsl:value-of select="normalize-space(replace(., '^(.+?)(،|,|:)\s*(.+?)$', '$1'))"/>
             </xsl:element>
         </xsl:copy>
     </xsl:template>
