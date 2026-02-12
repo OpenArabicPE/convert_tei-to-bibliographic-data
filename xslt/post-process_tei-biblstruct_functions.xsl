@@ -757,7 +757,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <xsl:template match="tei:persName[matches(., '[،,]')]" mode="m_post-process" priority="2">
+    <xsl:template match="tei:persName[matches(., '(،|,|:)')]" mode="m_post-process" priority="2">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:element name="forename">
