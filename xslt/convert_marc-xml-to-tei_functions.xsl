@@ -136,6 +136,8 @@
                         <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('247')]/marc:subfield[@code = ('a')]"/>
                     </xsl:if>
                     <!-- IDs -->
+                    <!-- shouldn't we just copy $v_id-record? -->
+                    <xsl:copy-of select="$v_id-record"/>
                     <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('010', '019', '020', '022', '035', '856')]/marc:subfield"/>
                     <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('084')]/marc:subfield[@code = 'a']"/>
                     <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('016')][@ind1 = '7']/marc:subfield[@code = 'a']"/>
