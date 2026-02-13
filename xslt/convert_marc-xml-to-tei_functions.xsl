@@ -4,6 +4,9 @@
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.tei-c.org/ns/1.0">
     <!-- This stylesheet takes MARC21 records in XML serialisation as input and generates TEI XML as output -->
     <!-- documentation of the MARC21 field codes can be found here: https://marc21.ca/M21/MARC-Field-Codes.html -->
+    <!-- notes
+        - most libraries document their holdings in the 900 range of tags, which is reserved for local implementation
+    -->
     <!-- to do:
         - urgent: establish the level of a title in monogr
         - there is a difference between record and item level but they appear to be mixed in the MARC XML
@@ -142,7 +145,7 @@
                     <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('084')]/marc:subfield[@code = 'a']"/>
                     <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('016')][@ind1 = '7']/marc:subfield[@code = 'a']"/>
                     <!-- USJ/ KOHA -->
-                    <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('090')]/marc:subfield[@code = 'b']"/>
+                    <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('090')]/marc:subfield[@code = ('b', 'a')]"/>
                     <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('999')]/marc:subfield[@code = 'c']"/>
                     <!-- Hathi: non-nummeric Marc tags -->
                     <xsl:apply-templates select="$v_record//marc:datafield[@tag = ('CID')]/marc:subfield[@code = 'a']"/>
@@ -455,8 +458,8 @@
                     <xsl:value-of select="$v_content"/>
                 </xsl:element>
             </xsl:when>
-            <!-- IDS in KOHA systems -->
-            <xsl:when test="$v_tag = '090' and $v_code = 'b'">
+            <!-- IDS in KOHA and Sierra systems -->
+            <xsl:when test="$v_tag = '090' and $v_code = ('b', 'a')">
                 <xsl:element name="idno">
                     <xsl:attribute name="source" select="$v_source-koha"/>
                     <xsl:attribute name="type" select="'classmark'"/>
@@ -854,11 +857,14 @@
                     <xsl:attribute name="oape:frequency" select="$v_frequency"/>
                 </xsl:if>
             </xsl:when>
+            <!-- 337: media type -->
             <xsl:when test="$v_tag = '337' and $v_code = 'a'">
                 <xsl:element name="edition">
                     <xsl:value-of select="$v_content"/>
                 </xsl:element>
             </xsl:when>
+            <!-- 361: ownership and custodial history -->
+
             <!-- 362: holding information -->
             <xsl:when test="$v_tag = '362' and $v_code = 'a'">
                 <xsl:element name="biblScope">
@@ -1668,6 +1674,8 @@
                     <xsl:apply-templates select="$v_record/marc:datafield[@tag = 'AVA']/marc:subfield[@code = '0']"/>
                     <!-- fallback: at least used for AUB  -->
                     <xsl:apply-templates select="$v_record/marc:controlfield[@tag = '001']"/>
+                    <!-- fallback: classmark -->
+                    <xsl:apply-templates select="$v_record/marc:datafield[@tag = '090']/marc:subfield[@code = 'a']"/>
                 </xsl:variable>
                 <xsl:if test="$p_debug = true()">
                     <xsl:message>
@@ -1829,7 +1837,9 @@
                                     <xsl:choose>
                                         <xsl:when test="$v_record//marc:datafield[@tag = '362']">
                                             <xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '362']"/>
-                                            <xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '945']"/>
+                                            <xsl:for-each-group select="$v_record//marc:datafield[@tag = '945']" group-by="string()">
+                                                <xsl:apply-templates mode="m_notes" select="current-group()[1]"/>
+                                            </xsl:for-each-group>
                                         </xsl:when>
                                         <xsl:otherwise>
                                             <xsl:apply-templates mode="m_notes" select="$v_record//marc:datafield[@tag = '945']"/>
