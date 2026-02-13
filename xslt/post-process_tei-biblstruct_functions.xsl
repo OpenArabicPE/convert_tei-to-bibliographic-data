@@ -278,16 +278,16 @@
         </xsl:if>
     </xsl:template>
     <!-- adding subtitles -->
-    <xsl:template match="tei:title[contains(., ':')]" mode="m_post-process">
+    <xsl:template match="tei:title[matches(., '^.+(:|=).+$')]" mode="m_post-process">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
-            <xsl:value-of select="replace(., '^(.*?)\s*:.*$', '$1')"/>
+            <xsl:value-of select="replace(., '^(.*?)\s*(:|=).+$', '$1')"/>
         </xsl:copy>
         <!-- add subtitle -->
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:attribute name="type" select="'sub'"/>
-            <xsl:value-of select="replace(., '^(.*?)\s*:\s*(.*)$', '$2')"/>
+            <xsl:value-of select="replace(., '^(.*?)\s*(:|=)\s*(.+)$', '$3')"/>
         </xsl:copy>
     </xsl:template>
     <!-- extract IDs from title attributes -->
@@ -757,7 +757,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <xsl:template match="tei:persName[matches(., '(،|,|:)')]" mode="m_post-process" priority="2">
+    <xsl:template match="tei:persName[matches(., '^.+(،|,|:).+$')]" mode="m_post-process" priority="20">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:element name="forename">
@@ -769,14 +769,14 @@
             </xsl:element>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="tei:placeName[not(contains(., ']'))][matches(., '[،,]')]" mode="m_off" priority="2">
+    <xsl:template match="tei:placeName[not(contains(., ']'))][matches(., '^.+(،|,|:)\s*\w.+$')]" mode="m_post-process" priority="20">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
-            <xsl:value-of select="normalize-space(replace(., '^(.+?)[،,](.+?)$', '$1'))"/>
+            <xsl:value-of select="normalize-space(replace(., '^(.+?)(،|,|:)\s*(.+?)$', '$1'))"/>
         </xsl:copy>
         <xsl:text> </xsl:text>
         <xsl:element name="country">
-            <xsl:value-of select="normalize-space(replace(., '^(.+?)[،,](.+?)$', '$2'))"/>
+            <xsl:value-of select="normalize-space(replace(., '^(.+?)(،|,|:)\s*(.+?)$', '$3'))"/>
         </xsl:element>
     </xsl:template>
     <xsl:function name="oape:transpose-digits">
