@@ -10,16 +10,15 @@ read -p "Please enter path to folder with TEI/XML files: " -r input_dir
 output_dir="$input_dir/_output/"
 # path to XSLT stylesheet
 xslt_dir="$root_dir/xslt"
-xslt_file="$xslt_dir/convert_tei-to-mods_filedesc.xsl"
+xslt_file="$xslt_dir/convert_tei-to-biblstruct_filedesc.xsl"
 
-echo "Generating bibliographic data for all TEI/XML files in $input_dir directory based on the fileDesc and convert it to MODS/XML"
+echo "Generating bibliographic data for all TEI/XML files in $input_dir directory based on the fileDesc and convert it to biblStruct"
 for file in $input_dir/*.xml # iterate over all files in the input directory
 do
     echo "Applying XSLT to $file"
     saxon -s:"$file" -xsl:$xslt_file \
-    p_mods-simple-persnames=true \
     p_github-action=true \
-    p_verbose=true \
-    p_debug=false \
+    p_verbose=true p_debug=false \
+    p_stand-alone=false \
     p_output-folder="$output_dir"
 done
