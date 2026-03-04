@@ -611,8 +611,16 @@
                 <xsl:variable name="v_editionStmt" select="tei:editionStmt"/>
                 <biblStruct>
                     <analytic>
-                        <!-- titles: select the lowest titles in a potential hierarchy -->
-                        <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="$v_titleStmt/descendant::tei:title[not(tei:title)]"/>
+                        <!-- titles -->
+                        <xsl:choose>
+                            <xsl:when test="$v_titleStmt/tei:title">
+                                <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="$v_titleStmt/tei:title"/>
+                            </xsl:when>
+                            <!-- select the lowest titles in a potential hierarchy but no descendants of the DHQ author info -->
+                            <xsl:otherwise>
+                                <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="$v_titleStmt/descendant::tei:title[not(tei:title)][not(ancestor::dhq:authorInfo)]"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
                         <!-- authors -->
                         <xsl:choose>
                             <!-- dealing with DHQ files -->
