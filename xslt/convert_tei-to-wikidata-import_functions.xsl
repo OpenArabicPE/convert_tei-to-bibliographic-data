@@ -1954,6 +1954,8 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
+        <!-- current date for retrieval date -->
+        <xsl:variable name="v_date-retrieved" select="concat($v_seperator-qs, 'S813', $v_seperator-qs, format-date(current-date(), '[Y0001]-[M01]-[D01]'), 'T00:00:00Z/11')"/>
         <xsl:for-each-group group-by="." select="tokenize($v_source, '\s+')">
             <xsl:variable name="v_source" select="current-grouping-key()"/>
             <!-- reference URL: P854 -->
@@ -1985,6 +1987,7 @@
             <xsl:if test="$v_url-source != ''">
                 <xsl:value-of select="concat($v_seperator-qs, 'S854', $v_seperator-qs)"/>
                 <xsl:value-of select="oape:qs-quoted-string($v_url-source)"/>
+                <xsl:value-of select="$v_date-retrieved"/>
             </xsl:if>
             <!-- resolving further sources -->
             <xsl:choose>
@@ -2009,6 +2012,7 @@
                                     <xsl:for-each select="$p_input/ancestor::tei:biblStruct[1]/tei:monogr[1]/tei:idno[@type = 'zdb']">
                                         <xsl:value-of select="concat($v_seperator-qs, 'S854', $v_seperator-qs)"/>
                                         <xsl:value-of select="oape:qs-quoted-string(concat($p_url-resolve-zdb, .))"/>
+                                        <xsl:value-of select="$v_date-retrieved"/>
                                     </xsl:for-each>
                                 </xsl:when>
                                 <!-- provide full URIs for AUB -->
@@ -2016,6 +2020,7 @@
                                     <xsl:for-each select="$p_input/ancestor::tei:biblStruct[1]/tei:monogr[1]/tei:idno[@type = 'LEAUB']">
                                         <xsl:value-of select="concat($v_seperator-qs, 'S854', $v_seperator-qs)"/>
                                         <xsl:value-of select="oape:qs-quoted-string(concat($p_url-resolve-aub, .))"/>
+                                        <xsl:value-of select="$v_date-retrieved"/>
                                     </xsl:for-each>
                                 </xsl:when>
                                 <!-- provide full URIs for Hathi -->
@@ -2023,6 +2028,7 @@
                                     <xsl:for-each select="$p_input/ancestor::tei:biblStruct[1]/tei:monogr[1]/tei:idno[@type = 'ht_bib_key']">
                                         <xsl:value-of select="concat($v_seperator-qs, 'S854', $v_seperator-qs)"/>
                                         <xsl:value-of select="oape:qs-quoted-string(concat($p_url-resolve-hathi, .))"/>
+                                        <xsl:value-of select="$v_date-retrieved"/>
                                     </xsl:for-each>
                                 </xsl:when>
                                 <!-- provide full URIs for USEK -->
@@ -2031,6 +2037,7 @@
                                     <xsl:for-each select="$p_input/ancestor::tei:biblStruct[1]/tei:monogr[1]/tei:idno[@type = 'record']">
                                         <xsl:value-of select="concat($v_seperator-qs, 'S854', $v_seperator-qs)"/>
                                         <xsl:value-of select="oape:qs-quoted-string(concat($p_url-resolve-usek, .))"/>
+                                        <xsl:value-of select="$v_date-retrieved"/>
                                     </xsl:for-each>
                                 </xsl:when>
                                 <!-- provide full URIs for USJ -->
@@ -2039,6 +2046,7 @@
                                     <xsl:for-each select="$p_input/ancestor::tei:biblStruct[1]/tei:monogr[1]/tei:idno[@type = 'biblio_id']">
                                         <xsl:value-of select="concat($v_seperator-qs, 'S854', $v_seperator-qs)"/>
                                         <xsl:value-of select="oape:qs-quoted-string(concat($p_url-resolve-usj, .))"/>
+                                        <xsl:value-of select="$v_date-retrieved"/>
                                     </xsl:for-each>
                                 </xsl:when>
                             </xsl:choose>
@@ -2046,6 +2054,7 @@
                         <xsl:when test="$v_url-source != 'NA'">
                             <xsl:value-of select="concat($v_seperator-qs, 'S854', $v_seperator-qs)"/>
                             <xsl:value-of select="oape:qs-quoted-string($v_url-source)"/>
+                            <xsl:value-of select="$v_date-retrieved"/>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:message>
