@@ -604,45 +604,66 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <xsl:template match="tei:editor[tei:persName]" mode="m_tei2qs">
+    <xsl:template match="tei:editor[tei:persName] | tei:respStmt[tei:persName]" mode="m_tei2qs">
         <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
-        <xsl:variable name="v_source" select="oape:get-source(.)"/>
-        <!-- converting to a reconciled Wikidata item! -->
-        <xsl:variable name="v_value" select="oape:query-personography(tei:persName[1], $v_personography, $p_local-authority, 'id-wiki', '')"/>
         <!-- one to many relationship -->
         <xsl:variable name="v_property">
             <tei:list>
                 <xsl:choose>
-                    <xsl:when test="$v_value != 'NA'">
-                        <xsl:if test="@type = 'owner'">
-                            <!-- P112: founded by -->
-                            <tei:item>P112</tei:item>
-                            <!-- P127: owned by -->
-                            <tei:item>P127</tei:item>
-                        </xsl:if>
+                    <xsl:when test="@type = 'owner'">
+                        <!-- P112: founded by -->
+                        <tei:item>P112</tei:item>
+                        <!-- P127: owned by -->
+                        <tei:item>P127</tei:item>
                         <!-- P98: editor -->
                         <tei:item>P98</tei:item>
                     </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:if test="$p_verbose">
-                            <xsl:message>
-                                <xsl:text>WARNING: the person </xsl:text>
-                                <xsl:value-of select="tei:persName[1]"/>
-                                <xsl:text> has not been reconciled with Wikidata</xsl:text>
-                            </xsl:message>
-                        </xsl:if>
-                    </xsl:otherwise>
+                    <xsl:when test="tei:resp = ('own', 'ow')">
+                        <!-- P127: owned by -->
+                        <tei:item>P127</tei:item>
+                    </xsl:when>
+                    <!-- editor -->
+                    <xsl:when test="@type">
+                        <!-- P98: editor -->
+                        <tei:item>P98</tei:item>
+                    </xsl:when>
+                    <xsl:when test="tei:resp = ('المحرر', 'ed')">
+                        <!-- P98: editor -->
+                        <tei:item>P98</tei:item>
+                    </xsl:when>
+                    <!-- translator -->
+                    <xsl:when test="tei:resp = ('ترجمة', 'ترجمها', 'مترجم')"/>
+                    <!-- compiler -->
+                    <xsl:when test="tei:resp = ('com')"/>
+                    <!-- collector -->
+                    <xsl:when test="tei:resp = ('col')"/>
+                    <!-- contributor -->
+                    <xsl:when test="tei:resp = ('contributor', 'ctb')"/>
                 </xsl:choose>
             </tei:list>
         </xsl:variable>
+        <!-- converting to a reconciled Wikidata item! -->
+        <xsl:variable name="v_value" select="oape:query-personography(tei:persName[1], $v_personography, $p_local-authority, 'id-wiki', '')"/>
         <!-- nested for-each calls -->
-        <xsl:for-each select="$v_property/descendant::tei:item">
-            <xsl:variable name="v_statement" select="oape:qs-create-statement($v_qid, ., $v_value, 'item')"/>
-            <xsl:for-each select="$v_source/descendant::tei:item">
-                <xsl:value-of select="$v_statement"/>
-                <xsl:value-of select="oape:qs-create-reference(.)"/>
+        <xsl:choose>
+            <xsl:when test="$v_value != 'NA'"/>
+            <xsl:for-each select="$v_property/descendant::tei:item">
+                <xsl:variable name="v_statement" select="oape:qs-create-statement($v_qid, ., $v_value, 'item')"/>
+                <xsl:for-each select="oape:get-source(.)/descendant::tei:item">
+                    <xsl:value-of select="$v_statement"/>
+                    <xsl:value-of select="oape:qs-create-reference(.)"/>
+                </xsl:for-each>
             </xsl:for-each>
-        </xsl:for-each>
+            <xsl:otherwise>
+                <xsl:if test="$p_verbose">
+                    <xsl:message>
+                        <xsl:text>WARNING: the person </xsl:text>
+                        <xsl:value-of select="tei:persName[1]"/>
+                        <xsl:text> has not been reconciled with Wikidata</xsl:text>
+                    </xsl:message>
+                </xsl:if>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template name="t_editors">
         <xsl:param name="p_persName"/>
@@ -1105,14 +1126,16 @@
     <xsl:template match="@*" mode="m_tei2qs"/>
     <xsl:template match="@oape:frequency" mode="m_tei2qs">
         <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
-        <xsl:variable name="v_source" select="oape:qs-create-reference(.)"/>
         <xsl:variable name="v_frequency-wiki">
             <xsl:apply-templates mode="m_tei2wikidata" select="."/>
         </xsl:variable>
         <xsl:if test="$v_frequency-wiki/wd:P2896/wd:amount">
-            <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
-            <xsl:value-of select="concat('P2896', $v_seperator-qs, $v_frequency-wiki/wd:P2896/wd:amount, 'U', replace($v_frequency-wiki/wd:P2896/wd:unit, '^Q(\d+)$', '$1'))"/>
-            <xsl:value-of select="$v_source"/>
+            <xsl:variable name="v_value" select="concat($v_frequency-wiki/wd:P2896/wd:amount, 'U', replace($v_frequency-wiki/wd:P2896/wd:unit, '^Q(\d+)$', '$1'))"/>
+            <xsl:variable name="v_statement" select="oape:qs-create-statement($v_qid, 'P2896', $v_value, 'measure')"/>
+            <xsl:for-each select="oape:get-source(.)/descendant::tei:item">
+                <xsl:value-of select="$v_statement"/>
+                <xsl:value-of select="oape:qs-create-reference(.)"/>
+            </xsl:for-each>
         </xsl:if>
     </xsl:template>
     <xsl:template match="@oape:frequency" mode="m_tei2wikidata">
@@ -1835,6 +1858,10 @@
                 </xsl:when>
                 <!-- Identifiers that should be skipped -->
                 <xsl:when test="@type = ('jaraid', 'oape', 'AUBNO', 'aub', 'classmark', 'eap', 'epub', 'fid', 'LEAUB')">
+                    <xsl:text>NA</xsl:text>
+                </xsl:when>
+                <!-- supress output of QIDs from Wikidata as they would be selfreferential -->
+                <xsl:when test="@type = $p_acronym-wikidata">
                     <xsl:text>NA</xsl:text>
                 </xsl:when>
                 <!-- fallback: NA -->
