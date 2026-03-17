@@ -7,6 +7,9 @@
     <xsl:import href="functions.xsl"/>
     <!-- This stylesheets transform bibliographic data from TEI/XML to a custom Wikidata XML format, which utilises Property IDs as element names for easy import and reconciliation with OpenRefine -->
     <!-- to do
+        - [ ] references:
+            - each source needs its own reference, but references can group multiple statements. This means that 
+            - [ ] statements need to be repeated for each source
         - [x] Wikidata does not know about transliterations. Therefore, we have to translate BCP47 language-script codes to simpler ISO 629-2 codes
         - [x] resolve orgs in @ref
         - [ ] date[@type = 'documented']
@@ -14,7 +17,7 @@
         - idno/@type: not yet converted
             - [ ] url
             - [x] urn
-            - [ ] DOI
+            - [ ] DOI: not really relevant for my data set
     -->
     <!-- identity transform -->
     <xsl:template match="node() | @*">
