@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet exclude-result-prefixes="#all" version="3.0" xmlns="http://www.wikidata.org/" xmlns:oape="https://openarabicpe.github.io/ns" xmlns:tei="http://www.tei-c.org/ns/1.0"
-    xmlns:wd="http://www.wikidata.org/" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.wikidata.org/">
+    xmlns:wd="http://www.wikidata.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.wikidata.org/">
     <xsl:output encoding="UTF-8" indent="yes" method="xml" name="xml" omit-xml-declaration="no" version="1.0"/>
     <xsl:output encoding="UTF-8" indent="yes" method="text" name="text" omit-xml-declaration="yes"/>
     <xsl:import href="../../authority-files/xslt/functions.xsl"/>
@@ -317,14 +317,15 @@
     </xsl:template>
     <xsl:template match="tei:biblStruct/@subtype | tei:biblStruct/@type" mode="m_tei2qs">
         <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
-        <xsl:variable name="v_source" select="oape:qs-get-source(.)"/>
         <xsl:variable name="v_instance-wiki">
             <xsl:apply-templates mode="m_tei2wikidata" select="."/>
         </xsl:variable>
         <xsl:if test="$v_instance-wiki/wd:P31/wd:QItem">
-            <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
-            <xsl:value-of select="concat('P31', $v_seperator-qs, $v_instance-wiki/wd:P31/wd:QItem)"/>
-            <xsl:value-of select="$v_source"/>
+            <xsl:variable name="v_statement" select="oape:qs-create-statement($v_qid, 'P31', $v_instance-wiki/wd:P31/wd:QItem, 'item')"/>
+            <xsl:for-each select="oape:get-source(.)/descendant::tei:item">
+                <xsl:value-of select="$v_statement"/>
+                <xsl:value-of select="oape:qs-create-reference(.)"/>
+            </xsl:for-each>
         </xsl:if>
     </xsl:template>
     <xsl:template match="tei:biblStruct/@subtype | tei:biblStruct/@type" mode="m_tei2wikidata">
@@ -367,36 +368,47 @@
     </xsl:template>
     <xsl:template match="tei:imprint/tei:date" mode="m_tei2qs">
         <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
-        <xsl:variable name="v_source" select="oape:qs-get-source(.)"/>
-        <xsl:choose>
-            <xsl:when test="@type = ('onset', 'official')">
-                <!-- inception -->
-                <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
-                <xsl:value-of select="concat('P571', $v_seperator-qs)"/>
-                <xsl:apply-templates mode="m_date-qs" select="."/>
-                <xsl:value-of select="$v_source"/>
-                <!-- start time -->
-                <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
-                <xsl:value-of select="concat('P580', $v_seperator-qs)"/>
-                <xsl:apply-templates mode="m_date-qs" select="."/>
-                <xsl:value-of select="$v_source"/>
-            </xsl:when>
-            <!-- end time -->
-            <xsl:when test="@type = 'terminus'">
-                <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
-                <xsl:value-of select="concat('P582', $v_seperator-qs)"/>
-                <xsl:apply-templates mode="m_date-qs" select="."/>
-                <xsl:value-of select="$v_source"/>
-            </xsl:when>
-            <!-- not implemented -->
-            <xsl:otherwise>
-                <xsl:if test="$p_verbose">
-                    <xsl:message>
-                        <xsl:text>WARNING: the date node carries no @type or the value of @type is not supported</xsl:text>
-                    </xsl:message>
-                </xsl:if>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:variable name="v_source" select="oape:get-source(.)"/>
+        <xsl:variable name="v_property">
+            <tei:list>
+                <xsl:choose>
+                    <xsl:when test="@type = ('onset', 'official')">
+                        <!-- inception-->
+                        <tei:item>
+                            <xsl:value-of select="'P571'"/>
+                        </tei:item>
+                        <!-- start time -->
+                        <tei:item>
+                            <xsl:value-of select="'P580'"/>
+                        </tei:item>
+                    </xsl:when>
+                    <!-- end time: P582 requires P580 -->
+                    <xsl:when test="@type = 'terminus'">
+                        <tei:item>
+                            <xsl:value-of select="'P582'"/>
+                        </tei:item>
+                    </xsl:when>
+                    <!-- not implemented -->
+                    <xsl:otherwise>
+                        <xsl:if test="$p_verbose">
+                            <xsl:message>
+                                <xsl:text>WARNING: the date node carries no @type or the value of @type is not supported</xsl:text>
+                            </xsl:message>
+                        </xsl:if>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </tei:list>
+        </xsl:variable>
+        <xsl:variable name="v_value">
+            <xsl:apply-templates mode="m_date-qs" select="."/>
+        </xsl:variable>
+        <xsl:for-each select="$v_property/descendant::tei:item">
+            <xsl:variable name="v_statement" select="oape:qs-create-statement($v_qid, ., $v_value, 'date')"/>
+            <xsl:for-each select="$v_source/descendant::tei:item">
+                <xsl:value-of select="$v_statement"/>
+                <xsl:value-of select="oape:qs-create-reference(.)"/>
+            </xsl:for-each>
+        </xsl:for-each>
     </xsl:template>
     <!-- aggregate data on the entire collection: note that there is a "single best value" constraint on this -->
     <xsl:template match="tei:date" mode="m_tei2wikidata_holdings">
@@ -459,15 +471,7 @@
                 </xsl:when>
             </xsl:choose>
         </xsl:variable>
-        <xsl:choose>
-            <!-- iso dates -->
-            <xsl:when test="matches($v_date, '\d{4}-\d{2}-\d{2}')">
-                <xsl:value-of select="concat('+', $v_date, 'T00:00:00Z/11')"/>
-            </xsl:when>
-            <xsl:when test="matches($v_date, '^\d{4}$')">
-                <xsl:value-of select="concat('+', $v_date, '-00-00T00:00:00Z/9')"/>
-            </xsl:when>
-        </xsl:choose>
+        <xsl:value-of select="$v_date"/>
     </xsl:template>
     <xsl:template match="tei:date[ancestor::tei:biblStruct][1]/tei:monogr/tei:title[@level = 'm']" mode="m_tei2wikidata">
         <P577>
@@ -511,7 +515,7 @@
     </xsl:template>
     <xsl:template match="tei:height | tei:width" mode="m_tei2qs">
         <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
-        <xsl:variable name="v_source" select="oape:qs-get-source(.)"/>
+        <xsl:variable name="v_source" select="oape:qs-create-reference(.)"/>
         <xsl:variable name="v_property">
             <xsl:choose>
                 <xsl:when test="local-name() = 'height'">
@@ -537,17 +541,19 @@
         </xsl:variable>
         <!-- new property statement: ranges are currently not supported -->
         <xsl:if test="@quantity">
-            <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs, $v_property, $v_seperator-qs)"/>
-            <xsl:choose>
+            <!-- <xsl:choose>
                 <xsl:when test="@quantity">
                     <xsl:value-of select="@quantity"/>
                 </xsl:when>
                 <xsl:when test="@min and @max">
                     <xsl:value-of select="concat(@min, '-', @max)"/>
                 </xsl:when>
-            </xsl:choose>
-            <xsl:value-of select="$v_unit"/>
-            <xsl:value-of select="$v_source"/>
+            </xsl:choose>-->
+            <xsl:variable name="v_statement" select="oape:qs-create-statement($v_qid, $v_property, concat(@quantity, $v_unit), 'measure')"/>
+            <xsl:for-each select="oape:get-source(.)/descendant::tei:item">
+                <xsl:value-of select="$v_statement"/>
+                <xsl:value-of select="oape:qs-create-reference(.)"/>
+            </xsl:for-each>
         </xsl:if>
     </xsl:template>
     <!-- editors -->
@@ -600,36 +606,43 @@
     </xsl:template>
     <xsl:template match="tei:editor[tei:persName]" mode="m_tei2qs">
         <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
-        <xsl:variable name="v_source" select="oape:qs-get-source(.)"/>
+        <xsl:variable name="v_source" select="oape:get-source(.)"/>
         <!-- converting to a reconciled Wikidata item! -->
-        <xsl:variable name="v_id-wiki" select="oape:query-personography(tei:persName[1], $v_personography, $p_local-authority, 'id-wiki', '')"/>
-        <xsl:choose>
-            <xsl:when test="$v_id-wiki != 'NA'">
-                <xsl:if test="@type = 'owner'">
-                    <!-- P112: founded by -->
-                    <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
-                    <xsl:value-of select="concat('P112', $v_seperator-qs, $v_id-wiki)"/>
-                    <xsl:value-of select="$v_source"/>
-                    <!-- P127: owned by -->
-                    <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
-                    <xsl:value-of select="concat('P127', $v_seperator-qs, $v_id-wiki)"/>
-                    <xsl:value-of select="$v_source"/>
-                </xsl:if>
-                <!-- P98: editor -->
-                <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
-                <xsl:value-of select="concat('P98', $v_seperator-qs, $v_id-wiki)"/>
-                <xsl:value-of select="$v_source"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:if test="$p_verbose">
-                    <xsl:message>
-                        <xsl:text>WARNING: the person </xsl:text>
-                        <xsl:value-of select="tei:persName[1]"/>
-                        <xsl:text> has not been reconciled with Wikidata</xsl:text>
-                    </xsl:message>
-                </xsl:if>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:variable name="v_value" select="oape:query-personography(tei:persName[1], $v_personography, $p_local-authority, 'id-wiki', '')"/>
+        <!-- one to many relationship -->
+        <xsl:variable name="v_property">
+            <tei:list>
+                <xsl:choose>
+                    <xsl:when test="$v_value != 'NA'">
+                        <xsl:if test="@type = 'owner'">
+                            <!-- P112: founded by -->
+                            <tei:item>P112</tei:item>
+                            <!-- P127: owned by -->
+                            <tei:item>P127</tei:item>
+                        </xsl:if>
+                        <!-- P98: editor -->
+                        <tei:item>P98</tei:item>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:if test="$p_verbose">
+                            <xsl:message>
+                                <xsl:text>WARNING: the person </xsl:text>
+                                <xsl:value-of select="tei:persName[1]"/>
+                                <xsl:text> has not been reconciled with Wikidata</xsl:text>
+                            </xsl:message>
+                        </xsl:if>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </tei:list>
+        </xsl:variable>
+        <!-- nested for-each calls -->
+        <xsl:for-each select="$v_property/descendant::tei:item">
+            <xsl:variable name="v_statement" select="oape:qs-create-statement($v_qid, ., $v_value, 'item')"/>
+            <xsl:for-each select="$v_source/descendant::tei:item">
+                <xsl:value-of select="$v_statement"/>
+                <xsl:value-of select="oape:qs-create-reference(.)"/>
+            </xsl:for-each>
+        </xsl:for-each>
     </xsl:template>
     <xsl:template name="t_editors">
         <xsl:param name="p_persName"/>
@@ -794,26 +807,25 @@
     <!-- simple title conversion for QuickStatements first -->
     <xsl:template match="tei:title" mode="m_tei2qs">
         <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
-        <xsl:variable name="v_source" select="oape:qs-get-source(.)"/>
-        <xsl:choose>
-            <xsl:when test="@type = 'sub'">
-                <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
-                <xsl:value-of select="concat('P1680', $v_seperator-qs)"/>
-                <xsl:value-of select="oape:qs-quoted-string(.)"/>
-                <xsl:value-of select="$v_source"/>
-            </xsl:when>
-            <xsl:when test="not(@type)">
-                <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
-                <xsl:value-of select="concat('P1476', $v_seperator-qs)"/>
-                <xsl:value-of select="oape:qs-quoted-string(.)"/>
-                <xsl:value-of select="$v_source"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:if test="$p_verbose = true()">
-                    <xsl:message>WARNING: conversion has not been implemented for this type of title</xsl:message>
-                </xsl:if>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:variable name="v_statement">
+            <xsl:choose>
+                <xsl:when test="@type = 'sub'">
+                    <xsl:value-of select="oape:qs-create-statement($v_qid, 'P1680', ., 'string')"/>
+                </xsl:when>
+                <xsl:when test="not(@type)">
+                    <xsl:value-of select="oape:qs-create-statement($v_qid, 'P1476', ., 'string')"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:if test="$p_verbose = true()">
+                        <xsl:message>WARNING: conversion has not been implemented for this type of title</xsl:message>
+                    </xsl:if>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:for-each select="oape:get-source(.)/descendant::tei:item">
+            <xsl:value-of select="$v_statement"/>
+            <xsl:value-of select="oape:qs-create-reference(.)"/>
+        </xsl:for-each>
         <!-- explicit distinction from items with a similar title -->
         <xsl:for-each select="ancestor-or-self::tei:standOff/descendant::tei:biblStruct[tei:monogr/tei:title/string() = current()/string()][descendant::tei:idno[@type = 'wiki'][1] != $v_qid]">
             <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs, 'P1889', $v_seperator-qs)"/>
@@ -954,14 +966,16 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template match="tei:pubPlace" mode="m_tei2qs">
+        <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
+        <xsl:variable name="v_property" select="'P291'"/>
         <xsl:choose>
-            <xsl:when test="tei:placeName[matches(@ref, 'wiki:Q\d+')]">
-                <xsl:variable name="v_placeName" select="oape:query-gazetteer(tei:placeName[@ref][1], $v_gazetteer, $p_local-authority, 'tei-ref', '')"/>
-                <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
-                <xsl:variable name="v_source" select="oape:qs-get-source(.)"/>
-                <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
-                <xsl:value-of select="concat('P291', $v_seperator-qs, replace($v_placeName, '^.*wiki:(Q\d+).*$', '$1'))"/>
-                <xsl:value-of select="$v_source"/>
+            <xsl:when test="tei:placeName[@ref] and oape:query-gazetteer(tei:placeName[@ref][1], $v_gazetteer, $p_local-authority, 'id-wiki', '') != 'NA'">
+                <xsl:variable name="v_statement"
+                    select="oape:qs-create-statement($v_qid, $v_property, oape:query-gazetteer(tei:placeName[@ref][1], $v_gazetteer, $p_local-authority, 'id-wiki', ''), 'item')"/>
+                <xsl:for-each select="oape:get-source(.)/descendant::tei:item">
+                    <xsl:value-of select="$v_statement"/>
+                    <xsl:value-of select="oape:qs-create-reference(.)"/>
+                </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:if test="$p_verbose = true()">
@@ -997,25 +1011,29 @@
     </xsl:template>
     <xsl:template match="tei:textLang" mode="m_tei2qs">
         <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
-        <xsl:variable name="v_source" select="oape:qs-get-source(.)"/>
+        <xsl:variable name="v_source" select="oape:get-source(.)"/>
         <xsl:for-each select="tokenize(@mainLang, '\s')">
             <xsl:variable name="v_qid-lang" select="oape:string-convert-lang-codes(., 'bcp47', 'wikidata')"/>
-            <xsl:choose>
-                <xsl:when test="$v_qid-lang != 'NA'">
-                    <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
-                    <xsl:value-of select="concat('P407', $v_seperator-qs, $v_qid-lang)"/>
-                    <xsl:value-of select="$v_source"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:if test="$p_verbose">
-                        <xsl:message>
-                            <xsl:text>WARNING: the language code "</xsl:text>
-                            <xsl:value-of select="."/>
-                            <xsl:text>" has not been reconciliated with Wikidata</xsl:text>
-                        </xsl:message>
-                    </xsl:if>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:variable name="v_statement">
+                <xsl:choose>
+                    <xsl:when test="$v_qid-lang != 'NA'">
+                        <xsl:value-of select="oape:qs-create-statement($v_qid, 'P407', $v_qid-lang, 'item')"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:if test="$p_verbose">
+                            <xsl:message>
+                                <xsl:text>WARNING: the language code "</xsl:text>
+                                <xsl:value-of select="."/>
+                                <xsl:text>" has not been reconciliated with Wikidata</xsl:text>
+                            </xsl:message>
+                        </xsl:if>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:for-each select="$v_source/descendant::tei:item">
+                <xsl:value-of select="$v_statement"/>
+                <xsl:value-of select="oape:qs-create-reference(.)"/>
+            </xsl:for-each>
         </xsl:for-each>
     </xsl:template>
     <!-- this template is currently unused and not necessary -->
@@ -1087,7 +1105,7 @@
     <xsl:template match="@*" mode="m_tei2qs"/>
     <xsl:template match="@oape:frequency" mode="m_tei2qs">
         <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
-        <xsl:variable name="v_source" select="oape:qs-get-source(.)"/>
+        <xsl:variable name="v_source" select="oape:qs-create-reference(.)"/>
         <xsl:variable name="v_frequency-wiki">
             <xsl:apply-templates mode="m_tei2wikidata" select="."/>
         </xsl:variable>
@@ -1663,7 +1681,6 @@
     </xsl:template>
     <xsl:template match="@next | @prev" mode="m_tei2qs">
         <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
-        <xsl:variable name="v_source" select="oape:qs-get-source(.)"/>
         <xsl:variable name="v_property">
             <xsl:choose>
                 <xsl:when test="name(.) = 'prev'">
@@ -1680,9 +1697,11 @@
         </xsl:variable>
         <xsl:variable name="v_target-qid" select="oape:query-bibliography($v_target-title/tei:title, $v_bibliography, $v_gazetteer, $p_local-authority, 'id-wiki', '')"/>
         <!-- QS -->
-        <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs)"/>
-        <xsl:value-of select="concat($v_property, $v_seperator-qs, $v_target-qid)"/>
-        <xsl:value-of select="$v_source"/>
+        <xsl:variable name="v_statement" select="oape:qs-create-statement($v_qid, $v_property, $v_target-qid, 'item')"/>
+        <xsl:for-each select="oape:get-source(.)/descendant::tei:item">
+            <xsl:value-of select="$v_statement"/>
+            <xsl:value-of select="oape:qs-create-reference(.)"/>
+        </xsl:for-each>
     </xsl:template>
     <xsl:template match="@* | node()" mode="m_string">
         <xsl:call-template name="t_string-value">
@@ -1717,15 +1736,13 @@
     <!-- generate quick statements -->
     <xsl:template match="node() | @*" mode="m_tei2qs_holdings m_tei2qs_ids"/>
     <xsl:template match="element()" mode="m_tei2qs">
-        <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
-        <xsl:value-of select="concat($v_new-line, $v_qid)"/>
-        <xsl:if test="$p_verbose">
-            <xsl:message>
-                <xsl:text>WARNING: conversion of element "</xsl:text>
-                <xsl:value-of select="local-name(.)"/>
-                <xsl:text>" is not yet implemented</xsl:text>
-            </xsl:message>
-        </xsl:if>
+        <!--        <xsl:if test="$p_verbose">-->
+        <xsl:message>
+            <xsl:text>WARNING: conversion of element "</xsl:text>
+            <xsl:value-of select="local-name(.)"/>
+            <xsl:text>" is not yet implemented</xsl:text>
+        </xsl:message>
+        <!--</xsl:if>-->
     </xsl:template>
     <xsl:template match="tei:biblStruct" mode="m_tei2qs">
         <xsl:variable name="v_qid" select="oape:query-biblstruct(., 'id-wiki', '', '', '')"/>
@@ -1743,9 +1760,10 @@
         <xsl:apply-templates mode="m_tei2qs" select="@*"/>
         <xsl:apply-templates mode="m_tei2qs" select="tei:monogr/tei:title"/>
         <xsl:apply-templates mode="m_tei2qs" select="tei:monogr/tei:editor"/>
+        <xsl:apply-templates mode="m_tei2qs" select="tei:monogr/tei:respStmt"/>
         <xsl:apply-templates mode="m_tei2qs" select="tei:monogr/tei:textLang"/>
         <!-- imprint -->
-        <xsl:apply-templates mode="m_tei2qs" select="tei:monogr/tei:imprint/node()"/>
+        <xsl:apply-templates mode="m_tei2qs" select="tei:monogr/tei:imprint/element()"/>
         <!-- IDs -->
         <xsl:apply-templates mode="m_tei2qs" select="tei:monogr/tei:idno"/>
         <!-- holdings -->
@@ -1766,7 +1784,6 @@
     </xsl:template>
     <xsl:template match="tei:idno" mode="m_tei2qs">
         <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
-        <xsl:variable name="v_source" select="oape:qs-get-source(.)"/>
         <xsl:variable name="v_property">
             <xsl:choose>
                 <xsl:when test="@type = 'isil'">
@@ -1831,24 +1848,28 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
+        <xsl:variable name="v_value">
+            <xsl:choose>
+                <!-- LCCN -->
+                <xsl:when test="$v_property = 'P1144'">
+                    <xsl:choose>
+                        <xsl:when test="matches(., '^([a-z]{1,2})*\s*\d+.*$')">
+                            <xsl:value-of select="replace(., '^([a-z]{1,2})\s*(\d+).*$', '$1$2')"/>
+                        </xsl:when>
+                    </xsl:choose>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="."/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
         <xsl:choose>
             <xsl:when test="$v_property != 'NA'">
-                <xsl:value-of select="concat($v_new-line, $v_qid, $v_seperator-qs, $v_property, $v_seperator-qs)"/>
-                <!-- some necessary preprocessing -->
-                <xsl:choose>
-                    <!-- LCCN -->
-                    <xsl:when test="$v_property = 'P1144'">
-                        <xsl:choose>
-                            <xsl:when test="matches(., '^([a-z]{1,2})*\s*\d+.*$')">
-                                <xsl:value-of select="oape:qs-quoted-string(replace(., '^([a-z]{1,2})\s*(\d+).*$', '$1$2'))"/>
-                            </xsl:when>
-                        </xsl:choose>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="oape:qs-quoted-string(.)"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-                <xsl:value-of select="$v_source"/>
+                <xsl:variable name="v_statement" select="oape:qs-create-statement($v_qid, $v_property, $v_value, 'string')"/>
+                <xsl:for-each select="oape:get-source(.)/descendant::tei:item">
+                    <xsl:value-of select="$v_statement"/>
+                    <xsl:value-of select="oape:qs-create-reference(.)"/>
+                </xsl:for-each>
             </xsl:when>
         </xsl:choose>
     </xsl:template>
@@ -1863,6 +1884,7 @@
         <!-- holdings -->
         <xsl:apply-templates mode="m_tei2qs" select="tei:note[@type = 'holdings']/tei:list/tei:item"/>
     </xsl:template>
+    <!-- holdings: not yet adopted the new modular system -->
     <xsl:template match="tei:item[parent::tei:list/parent::tei:note[@type = 'holdings']][tei:label/tei:orgName]" mode="m_tei2qs">
         <xsl:variable name="v_id-wikidata" select="oape:query-biblstruct(ancestor::tei:biblStruct[1], 'id-wiki', '', '', $p_local-authority)"/>
         <!-- collections must have a QID -->
@@ -1895,7 +1917,7 @@
             </xsl:when>
         </xsl:choose>
         <!-- add source -->
-        <xsl:value-of select="oape:qs-get-source(.)"/>
+        <xsl:value-of select="oape:qs-create-reference(.)"/>
     </xsl:template>
     <xsl:function name="oape:normalize-xml-lang">
         <xsl:param name="p_input"/>
@@ -1935,7 +1957,49 @@
             </xsl:when>
         </xsl:choose>
     </xsl:function>
-    <xsl:function name="oape:qs-get-source">
+    <!-- generic function to create QuickStatements -->
+    <xsl:function name="oape:qs-create-statement">
+        <xsl:param as="xs:string" name="p_entity"/>
+        <xsl:param as="xs:string" name="p_property"/>
+        <xsl:param name="p_value"/>
+        <xsl:param as="xs:string" name="p_data-type"/>
+        <!-- output -->
+        <xsl:value-of select="concat($v_new-line, $p_entity, $v_seperator-qs)"/>
+        <xsl:value-of select="concat($p_property, $v_seperator-qs)"/>
+        <!-- formatting of the value depends on the data type -->
+        <xsl:choose>
+            <xsl:when test="$p_data-type = 'string'">
+                <xsl:value-of select="oape:qs-quoted-string($p_value)"/>
+            </xsl:when>
+            <xsl:when test="$p_data-type = 'item'">
+                <xsl:value-of select="$p_value"/>
+            </xsl:when>
+            <xsl:when test="$p_data-type = 'measure'">
+                <!-- one could check that this is indeed a measure -->
+                <xsl:value-of select="$p_value"/>
+            </xsl:when>
+            <xsl:when test="$p_data-type = 'date'">
+                <xsl:choose>
+                    <!-- iso dates -->
+                    <xsl:when test="matches($p_value, '\d{4}-\d{2}-\d{2}')">
+                        <xsl:value-of select="concat('+', $p_value, 'T00:00:00Z/11')"/>
+                    </xsl:when>
+                    <xsl:when test="matches($p_value, '^\d{4}$')">
+                        <xsl:value-of select="concat('+', $p_value, '-00-00T00:00:00Z/9')"/>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:message terminate="yes">
+                    <xsl:text>The data type '</xsl:text>
+                    <xsl:value-of select="$p_data-type"/>
+                    <xsl:text>' is not supported</xsl:text>
+                </xsl:message>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+    <!-- small function to get the source of a bit of information  -->
+    <xsl:function name="oape:get-source">
         <xsl:param as="node()" name="p_input"/>
         <!-- get source for a claim -->
         <xsl:variable name="v_source">
@@ -1957,148 +2021,157 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-        <!-- current date for retrieval date -->
-        <xsl:variable name="v_date-retrieved" select="concat($v_seperator-qs, 'S813', $v_seperator-qs, format-date(current-date(), '[Y0001]-[M01]-[D01]'), 'T00:00:00Z/11')"/>
-        <xsl:for-each-group group-by="." select="tokenize($v_source, '\s+')">
-            <xsl:variable name="v_source" select="current-grouping-key()"/>
-            <!-- reference URL: P854 -->
-            <xsl:variable name="v_url-source">
-                <xsl:choose>
-                    <xsl:when test="starts-with($v_source, 'http')">
-                        <xsl:value-of select="$v_source"/>
-                    </xsl:when>
-                    <!-- local URLs need to be resolved or omitted -->
-                    <xsl:when test="starts-with($v_source, '../')">
-                        <xsl:choose>
-                            <xsl:when test="matches($v_source, 'oclc_618896732/|oclc_165855925/')">
-                                <xsl:value-of select="replace($v_source, '^(\.\./)+TEI/', 'https://tillgrallert.github.io/')"/>
-                            </xsl:when>
-                            <xsl:when test="matches($v_source, '/OpenArabicPE/')">
-                                <xsl:value-of select="replace($v_source, '^^(\.\./)+OpenArabicPE/', 'https://openarabicpe.github.io/')"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:message>
-                                    <xsl:text>WARNING: </xsl:text>
-                                    <xsl:value-of select="$v_source"/>
-                                    <xsl:text> could not be resolved</xsl:text>
-                                </xsl:message>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:when>
-                </xsl:choose>
-            </xsl:variable>
-            <xsl:if test="$v_url-source != ''">
-                <xsl:value-of select="concat($v_seperator-qs, 'S854', $v_seperator-qs)"/>
-                <xsl:value-of select="oape:qs-quoted-string($v_url-source)"/>
-                <xsl:value-of select="$v_date-retrieved"/>
-            </xsl:if>
-            <!-- resolving further sources -->
+        <!-- return a list of items -->
+        <tei:list>
+            <xsl:for-each-group group-by="." select="tokenize($v_source, '\s+')">
+                <tei:item>
+                    <xsl:value-of select="."/>
+                </tei:item>
+            </xsl:for-each-group>
+        </tei:list>
+    </xsl:function>
+    <xsl:function name="oape:qs-create-reference-url">
+        <xsl:param name="p_url"/>
+        <xsl:param name="p_date-retrieved"/>
+        <xsl:variable name="v_date-retrieved">
             <xsl:choose>
-                <xsl:when test="starts-with($v_source, concat($p_local-authority, ':org:'))">
-                    <xsl:variable name="v_orgName">
-                        <tei:orgName ref="{$v_source}"/>
-                    </xsl:variable>
-                    <!-- query the organisationography -->
-                    <xsl:variable name="v_id-wiki" select="oape:query-organizationography($v_orgName/descendant-or-self::tei:orgName, $v_organizationography, $p_local-authority, 'id-wiki', '')"/>
-                    <xsl:variable name="v_url-source" select="oape:query-organizationography($v_orgName/descendant-or-self::tei:orgName, $v_organizationography, $p_local-authority, 'url', '')"/>
-                    <!--<xsl:message>
-                        <xsl:value-of select="$v_id-wiki"/>
-                    </xsl:message>-->
+                <xsl:when test="matches($p_date-retrieved, '^\d{4}-\d{2}-\d{2}')">
+                    <xsl:value-of select="$p_date-retrieved"/>
+                </xsl:when>
+                <!-- use date of the conversion as fallback -->
+                <xsl:otherwise>
+                    <xsl:value-of select="format-date(current-date(), '[Y0001]-[M01]-[D01]')"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <!-- build the URL reference -->
+        <xsl:value-of select="concat($v_seperator-qs, 'S854', $v_seperator-qs)"/>
+        <xsl:value-of select="oape:qs-quoted-string($p_url)"/>
+        <xsl:value-of select="concat($v_seperator-qs, 'S813', $v_seperator-qs, $v_date-retrieved, 'T00:00:00Z/11')"/>
+    </xsl:function>
+    <xsl:function name="oape:qs-create-reference">
+        <xsl:param name="p_input"/>
+        <xsl:variable name="v_source" select="$p_input"/>
+        <xsl:choose>
+            <!-- reference URL: P854 -->
+            <xsl:when test="starts-with($v_source, 'http')">
+                <!-- potentially add item for Project Jarāʾid -->
+                <xsl:value-of select="oape:qs-create-reference-url($v_source, '')"/>
+            </xsl:when>
+            <!-- local URLs need to be resolved or omitted -->
+            <xsl:when test="starts-with($v_source, '../')">
+                <xsl:variable name="v_url">
                     <xsl:choose>
-                        <xsl:when test="$v_id-wiki != 'NA'">
-                            <!-- QID -->
-                            <xsl:value-of select="concat($v_seperator-qs, 'S248', $v_seperator-qs, $v_id-wiki)"/>
-                            <!-- additional URLs -->
-                            <xsl:choose>
-                                <!-- provide full URIs for ZDB -->
-                                <xsl:when test="$v_id-wiki = 'Q186844'">
-                                    <xsl:for-each select="$p_input/ancestor::tei:biblStruct[1]/tei:monogr[1]/tei:idno[@type = 'zdb']">
-                                        <xsl:value-of select="concat($v_seperator-qs, 'S854', $v_seperator-qs)"/>
-                                        <xsl:value-of select="oape:qs-quoted-string(concat($p_url-resolve-zdb, .))"/>
-                                        <xsl:value-of select="$v_date-retrieved"/>
-                                    </xsl:for-each>
-                                </xsl:when>
-                                <!-- provide full URIs for AUB -->
-                                <xsl:when test="$v_id-wiki = 'Q124855340'">
-                                    <xsl:for-each select="$p_input/ancestor::tei:biblStruct[1]/tei:monogr[1]/tei:idno[@type = 'LEAUB']">
-                                        <xsl:value-of select="concat($v_seperator-qs, 'S854', $v_seperator-qs)"/>
-                                        <xsl:value-of select="oape:qs-quoted-string(concat($p_url-resolve-aub, .))"/>
-                                        <xsl:value-of select="$v_date-retrieved"/>
-                                    </xsl:for-each>
-                                </xsl:when>
-                                <!-- provide full URIs for Hathi -->
-                                <xsl:when test="$v_id-wiki = 'Q3128305'">
-                                    <xsl:for-each select="$p_input/ancestor::tei:biblStruct[1]/tei:monogr[1]/tei:idno[@type = 'ht_bib_key']">
-                                        <xsl:value-of select="concat($v_seperator-qs, 'S854', $v_seperator-qs)"/>
-                                        <xsl:value-of select="oape:qs-quoted-string(concat($p_url-resolve-hathi, .))"/>
-                                        <xsl:value-of select="$v_date-retrieved"/>
-                                    </xsl:for-each>
-                                </xsl:when>
-                                <!-- provide full URIs for USEK -->
-                                <xsl:when test="$v_id-wiki = 'Q1310333'">
-                                    <!-- this only work on single-source bibliographies -->
-                                    <xsl:for-each select="$p_input/ancestor::tei:biblStruct[1]/tei:monogr[1]/tei:idno[@type = 'record']">
-                                        <xsl:value-of select="concat($v_seperator-qs, 'S854', $v_seperator-qs)"/>
-                                        <xsl:value-of select="oape:qs-quoted-string(concat($p_url-resolve-usek, .))"/>
-                                        <xsl:value-of select="$v_date-retrieved"/>
-                                    </xsl:for-each>
-                                </xsl:when>
-                                <!-- provide full URIs for USJ -->
-                                <xsl:when test="$v_id-wiki = 'Q15556320'">
-                                    <!-- this only work on single-source bibliographies -->
-                                    <xsl:for-each select="$p_input/ancestor::tei:biblStruct[1]/tei:monogr[1]/tei:idno[@type = 'biblio_id']">
-                                        <xsl:value-of select="concat($v_seperator-qs, 'S854', $v_seperator-qs)"/>
-                                        <xsl:value-of select="oape:qs-quoted-string(concat($p_url-resolve-usj, .))"/>
-                                        <xsl:value-of select="$v_date-retrieved"/>
-                                    </xsl:for-each>
-                                </xsl:when>
-                            </xsl:choose>
+                        <xsl:when test="matches($v_source, 'oclc_618896732/|oclc_165855925/')">
+                            <xsl:value-of select="replace($v_source, '^(\.\./)+TEI/', 'https://tillgrallert.github.io/')"/>
                         </xsl:when>
-                        <xsl:when test="$v_url-source != 'NA'">
-                            <xsl:value-of select="concat($v_seperator-qs, 'S854', $v_seperator-qs)"/>
-                            <xsl:value-of select="oape:qs-quoted-string($v_url-source)"/>
-                            <xsl:value-of select="$v_date-retrieved"/>
+                        <xsl:when test="matches($v_source, '/OpenArabicPE/')">
+                            <xsl:value-of select="replace($v_source, '^^(\.\./)+OpenArabicPE/', 'https://openarabicpe.github.io/')"/>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:message>
-                                <xsl:text>WARNING: no URL for </xsl:text>
+                                <xsl:text>WARNING: </xsl:text>
                                 <xsl:value-of select="$v_source"/>
+                                <xsl:text> could not be resolved</xsl:text>
                             </xsl:message>
                         </xsl:otherwise>
                     </xsl:choose>
-                </xsl:when>
-                <!-- local bibliographies -->
-                <xsl:when test="matches($v_source, concat($p_local-authority, ':bibl:'))">
-                    <xsl:variable name="v_title">
-                        <tei:title ref="{$v_source}"/>
-                    </xsl:variable>
-                    <xsl:variable name="v_id-wiki" select="oape:query-bibliography($v_title/tei:title, $v_bibliography, '', $p_local-authority, 'id-wiki', '')"/>
-                    <xsl:choose>
-                        <xsl:when test="$v_id-wiki != 'NA'">
-                            <xsl:value-of select="concat($v_seperator-qs, 'S248', $v_seperator-qs, $v_id-wiki)"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:text>WARNING: could not find a QID for "</xsl:text>
+                </xsl:variable>
+                <xsl:value-of select="oape:qs-create-reference-url($v_url, '')"/>
+            </xsl:when>
+            <!-- resolving further sources -->
+            <xsl:when test="starts-with($v_source, concat($p_local-authority, ':org:'))">
+                <xsl:variable name="v_orgName">
+                    <tei:orgName ref="{$v_source}"/>
+                </xsl:variable>
+                <!-- query the organisationography -->
+                <xsl:variable name="v_id-wiki" select="oape:query-organizationography($v_orgName/descendant-or-self::tei:orgName, $v_organizationography, $p_local-authority, 'id-wiki', '')"/>
+                <xsl:variable name="v_url-source" select="oape:query-organizationography($v_orgName/descendant-or-self::tei:orgName, $v_organizationography, $p_local-authority, 'url', '')"/>
+                <!--<xsl:message>
+                        <xsl:value-of select="$v_id-wiki"/>
+                    </xsl:message>-->
+                <xsl:choose>
+                    <xsl:when test="$v_id-wiki != 'NA'">
+                        <!-- QID -->
+                        <xsl:value-of select="concat($v_seperator-qs, 'S248', $v_seperator-qs, $v_id-wiki)"/>
+                        <!-- additional URLs -->
+                        <xsl:choose>
+                            <!-- provide full URIs for ZDB -->
+                            <xsl:when test="$v_id-wiki = 'Q186844'">
+                                <xsl:for-each select="$p_input/ancestor::tei:biblStruct[1]/tei:monogr[1]/tei:idno[@type = 'zdb']">
+                                    <xsl:value-of select="oape:qs-create-reference-url(concat($p_url-resolve-zdb, .), '')"/>
+                                </xsl:for-each>
+                            </xsl:when>
+                            <!-- provide full URIs for AUB -->
+                            <xsl:when test="$v_id-wiki = 'Q124855340'">
+                                <xsl:for-each select="$p_input/ancestor::tei:biblStruct[1]/tei:monogr[1]/tei:idno[@type = 'LEAUB']">
+                                    <xsl:value-of select="oape:qs-create-reference-url(concat($p_url-resolve-aub, .), '')"/>
+                                </xsl:for-each>
+                            </xsl:when>
+                            <!-- provide full URIs for Hathi -->
+                            <xsl:when test="$v_id-wiki = 'Q3128305'">
+                                <xsl:for-each select="$p_input/ancestor::tei:biblStruct[1]/tei:monogr[1]/tei:idno[@type = 'ht_bib_key']">
+                                    <xsl:value-of select="oape:qs-create-reference-url(concat($p_url-resolve-hathi, .), '')"/>
+                                </xsl:for-each>
+                            </xsl:when>
+                            <!-- provide full URIs for USEK -->
+                            <xsl:when test="$v_id-wiki = 'Q1310333'">
+                                <!-- this only work on single-source bibliographies -->
+                                <xsl:for-each select="$p_input/ancestor::tei:biblStruct[1]/tei:monogr[1]/tei:idno[@type = 'record']">
+                                    <xsl:value-of select="oape:qs-create-reference-url(concat($p_url-resolve-usek, .), '')"/>
+                                </xsl:for-each>
+                            </xsl:when>
+                            <!-- provide full URIs for USJ -->
+                            <xsl:when test="$v_id-wiki = 'Q15556320'">
+                                <!-- this only work on single-source bibliographies -->
+                                <xsl:for-each select="$p_input/ancestor::tei:biblStruct[1]/tei:monogr[1]/tei:idno[@type = 'biblio_id']">
+                                    <xsl:value-of select="oape:qs-create-reference-url(concat($p_url-resolve-usj, .), '')"/>
+                                </xsl:for-each>
+                            </xsl:when>
+                        </xsl:choose>
+                    </xsl:when>
+                    <xsl:when test="$v_url-source != 'NA'">
+                        <xsl:value-of select="oape:qs-create-reference-url($v_url-source, '')"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:message>
+                            <xsl:text>WARNING: no URL for </xsl:text>
                             <xsl:value-of select="$v_source"/>
-                            <xsl:text>" in our bibliography</xsl:text>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:when>
-                <!-- stated in: P248, requires a QItem -->
-                <xsl:when test="matches($v_source, 'Q\d+')">
-                    <xsl:value-of select="concat($v_seperator-qs, 'S248', $v_seperator-qs, replace($v_source, '^.*(Q\d+).*$', '$1'))"/>
-                </xsl:when>
-                <!-- remove pandoc references -->
-                <xsl:when test="starts-with($v_source, '@')"/>
-                <xsl:otherwise>
-                    <xsl:message>
-                        <xsl:text>WARNING: the source "</xsl:text>
+                        </xsl:message>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <!-- local bibliographies -->
+            <xsl:when test="matches($v_source, concat($p_local-authority, ':bibl:'))">
+                <xsl:variable name="v_title">
+                    <tei:title ref="{$v_source}"/>
+                </xsl:variable>
+                <xsl:variable name="v_id-wiki" select="oape:query-bibliography($v_title/tei:title, $v_bibliography, '', $p_local-authority, 'id-wiki', '')"/>
+                <xsl:choose>
+                    <xsl:when test="$v_id-wiki != 'NA'">
+                        <xsl:value-of select="concat($v_seperator-qs, 'S248', $v_seperator-qs, $v_id-wiki)"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>WARNING: could not find a QID for "</xsl:text>
                         <xsl:value-of select="$v_source"/>
-                        <xsl:text>" is not yet supported</xsl:text>
-                    </xsl:message>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:for-each-group>
+                        <xsl:text>" in our bibliography</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <!-- stated in: P248, requires a QItem -->
+            <xsl:when test="matches($v_source, 'Q\d+')">
+                <xsl:value-of select="concat($v_seperator-qs, 'S248', $v_seperator-qs, replace($v_source, '^.*(Q\d+).*$', '$1'))"/>
+            </xsl:when>
+            <!-- remove pandoc references -->
+            <xsl:when test="starts-with($v_source, '@')"/>
+            <xsl:otherwise>
+                <xsl:message>
+                    <xsl:text>WARNING: the source "</xsl:text>
+                    <xsl:value-of select="$v_source"/>
+                    <xsl:text>" is not yet supported</xsl:text>
+                </xsl:message>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:function>
     <xsl:template match="tei:idno" mode="m_tei2qs_qualifier">
         <xsl:variable name="v_property">
