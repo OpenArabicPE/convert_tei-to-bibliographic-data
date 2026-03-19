@@ -21,19 +21,29 @@
             </xsl:when>
             <xsl:when test="$p_output-mode = 'qs'">
                 <xsl:result-document href="{$v_base-directory}{$v_output-directory}QuickStatements/{$v_file-name_input}.qs" method="text">
-                    <!-- periodicals with QID-->
-                    <xsl:message>
-                        <xsl:text>Converting bibls with QID to QuickStatements</xsl:text>
-                    </xsl:message>
-                    <xsl:apply-templates mode="m_tei2qs"
-                        select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical' or tei:monogr/tei:title[@level = 'j']][descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))]]"/>
-                    <!-- new items: without an idno pointing to Wikidata and confirmed to be missing from Wikidata by a human -->
-                    <xsl:message>
-                        <xsl:text>Converting bibls without QID to QuickStatements</xsl:text>
-                    </xsl:message>
-                    <xsl:apply-templates mode="m_tei2qs"
-                        select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical ' or tei:monogr/tei:title[@level = 'j']][not(descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))])]"
-                    /> <!-- why was "[tei:monogr/tei:title[@ref = 'NA'][not(@resp = '#xslt')]]" added to the XPath? -->
+                    <!-- bibliographic data -->
+                    <xsl:if test="descendant::tei:standOff/descendant::tei:biblStruct">
+                        <!-- periodicals with QID-->
+                        <xsl:message>
+                            <xsl:text>Converting bibls with QID to QuickStatements</xsl:text>
+                        </xsl:message>
+                        <xsl:apply-templates mode="m_tei2qs"
+                            select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical' or tei:monogr/tei:title[@level = 'j']][descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))]]"/>
+                        <!-- new items: without an idno pointing to Wikidata and confirmed to be missing from Wikidata by a human -->
+                        <xsl:message>
+                            <xsl:text>Converting bibls without QID to QuickStatements</xsl:text>
+                        </xsl:message>
+                        <xsl:apply-templates mode="m_tei2qs"
+                            select="descendant::tei:standOff/descendant::tei:biblStruct[@type = 'periodical ' or tei:monogr/tei:title[@level = 'j']][not(descendant::tei:idno/@type = $p_acronym-wikidata or descendant::tei:title[matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))])]"/>
+                        <!-- why was "[tei:monogr/tei:title[@ref = 'NA'][not(@resp = '#xslt')]]" added to the XPath? -->
+                    </xsl:if>
+                    <!-- prosopographic data -->
+                     <xsl:if test="descendant::tei:standOff/descendant::tei:person">
+                         <xsl:message>
+                            <xsl:text>Converting persons with QID to QuickStatements</xsl:text>
+                        </xsl:message>
+                         <xsl:apply-templates mode="m_tei2qs" select="descendant::tei:standOff/descendant::tei:person[tei:idno[@type = $p_acronym-wikidata]]"/>
+                     </xsl:if>
                 </xsl:result-document>
             </xsl:when>
             <xsl:when test="$p_output-mode = ('qs-holdings', 'holdings-qs')">
