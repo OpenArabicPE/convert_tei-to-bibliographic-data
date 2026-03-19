@@ -366,12 +366,22 @@
             <xsl:apply-templates mode="m_date-when" select="."/>
         </P582>
     </xsl:template>
-    <xsl:template match="tei:imprint/tei:date" mode="m_tei2qs">
+    <xsl:template match="tei:date[parent::tei:imprint] | tei:birth[not(tei:date)] | tei:death[not(tei:date)]" mode="m_tei2qs">
         <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
         <xsl:variable name="v_source" select="oape:get-source(.)"/>
         <xsl:variable name="v_property">
             <tei:list>
                 <xsl:choose>
+                    <xsl:when test="local-name() = 'birth'">
+                        <tei:item>
+                            <xsl:value-of select="'P569'"/>
+                        </tei:item>
+                    </xsl:when>
+                    <xsl:when test="local-name() = 'death'">
+                        <tei:item>
+                            <xsl:value-of select="'P570'"/>
+                        </tei:item>
+                    </xsl:when>
                     <xsl:when test="@type = ('onset', 'official')">
                         <!-- inception-->
                         <tei:item>
@@ -451,7 +461,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <xsl:template match="tei:date" mode="m_date-qs">
+    <xsl:template match="tei:date | tei:birth | tei:death" mode="m_date-qs">
         <xsl:variable name="v_date">
             <xsl:choose>
                 <xsl:when test="@when">
@@ -2138,6 +2148,7 @@
     <xsl:function name="oape:qs-create-reference-url">
         <xsl:param name="p_url"/>
         <xsl:param name="p_date-retrieved"/>
+        <!-- unfortunately we do not get context information -->
         <xsl:variable name="v_date-retrieved">
             <xsl:choose>
                 <xsl:when test="matches($p_date-retrieved, '^\d{4}-\d{2}-\d{2}')">
