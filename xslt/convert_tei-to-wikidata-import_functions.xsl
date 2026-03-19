@@ -2154,13 +2154,14 @@
         <xsl:value-of select="oape:qs-quoted-string($p_url)"/>
         <xsl:value-of select="concat($v_seperator-qs, 'S813', $v_seperator-qs, '+', $v_date-retrieved, 'T00:00:00Z/11')"/>
     </xsl:function>
+    <!-- the input are most likely strings with no context information -->
     <xsl:function name="oape:qs-create-reference">
         <xsl:param name="p_input"/>
         <xsl:variable name="v_source" select="$p_input"/>
         <xsl:choose>
             <!-- reference URL: P854 -->
             <xsl:when test="starts-with($v_source, 'http')">
-                <xsl:value-of select="oape:qs-create-reference-url($v_source, '')"/>
+                <xsl:value-of select="oape:qs-create-reference-url($v_source, '2020-12-29')"/>
                 <!--  add item for Project Jarāʾid -->
                 <xsl:if test="matches($v_source, 'projectjaraid')">
                     <xsl:value-of select="concat($v_seperator-qs, 'S248', $v_seperator-qs, 'Q108747045')"/>
