@@ -2152,7 +2152,7 @@
         <!-- build the URL reference -->
         <xsl:value-of select="concat($v_seperator-qs, 'S854', $v_seperator-qs)"/>
         <xsl:value-of select="oape:qs-quoted-string($p_url)"/>
-        <xsl:value-of select="concat($v_seperator-qs, 'S813', $v_seperator-qs, $v_date-retrieved, 'T00:00:00Z/11')"/>
+        <xsl:value-of select="concat($v_seperator-qs, 'S813', $v_seperator-qs, '+', $v_date-retrieved, 'T00:00:00Z/11')"/>
     </xsl:function>
     <xsl:function name="oape:qs-create-reference">
         <xsl:param name="p_input"/>
