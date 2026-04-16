@@ -374,28 +374,28 @@
                 <xsl:choose>
                     <xsl:when test="local-name() = 'birth'">
                         <tei:item>
-                            <xsl:value-of select="'P569'"/>
+                            <xsl:text>P569</xsl:text>
                         </tei:item>
                     </xsl:when>
                     <xsl:when test="local-name() = 'death'">
                         <tei:item>
-                            <xsl:value-of select="'P570'"/>
+                            <xsl:text>P570</xsl:text>
                         </tei:item>
                     </xsl:when>
                     <xsl:when test="@type = ('onset', 'official')">
                         <!-- inception-->
                         <tei:item>
-                            <xsl:value-of select="'P571'"/>
+                            <xsl:text>P571</xsl:text>
                         </tei:item>
                         <!-- start time -->
                         <tei:item>
-                            <xsl:value-of select="'P580'"/>
+                            <xsl:text>P580</xsl:text>
                         </tei:item>
                     </xsl:when>
                     <!-- end time: P582 requires P580 -->
                     <xsl:when test="@type = 'terminus'">
                         <tei:item>
-                            <xsl:value-of select="'P582'"/>
+                            <xsl:text>P582</xsl:text>
                         </tei:item>
                     </xsl:when>
                     <!-- not implemented -->
@@ -442,23 +442,33 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <xsl:template match="tei:date" mode="m_tei2qs_holdings">
+    <xsl:template match="tei:date" mode="m_tei2qs_qualifier">
+        <xsl:variable name="v_property">
+            <xsl:choose>
+                <xsl:when test="@type = ('onset')">
+                    <!-- start time -->
+                    <xsl:text>P580</xsl:text>
+                </xsl:when>
+                <xsl:when test="@type = ('terminus')">
+                    <!-- end time -->
+                    <xsl:text>P582</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>NA</xsl:text>
+                    <xsl:message>
+                        <xsl:text>date: @type not present or not supported</xsl:text>
+                    </xsl:message>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="v_value">
+            <xsl:apply-templates mode="m_date-qs" select="."/>
+        </xsl:variable>
         <xsl:choose>
-            <xsl:when test="@type = ('onset')">
-                <!-- start time -->
-                <xsl:value-of select="concat($v_seperator-qs, 'P580', $v_seperator-qs)"/>
-                <xsl:apply-templates mode="m_date-qs" select="."/>
+            <xsl:when test="$v_property != 'NA'">
+                <xsl:value-of select="concat($v_seperator-qs, $v_property, $v_seperator-qs)"/>
+                <xsl:value-of select="$v_value"/>
             </xsl:when>
-            <xsl:when test="@type = ('terminus')">
-                <!-- start time -->
-                <xsl:value-of select="concat($v_seperator-qs, 'P582', $v_seperator-qs)"/>
-                <xsl:apply-templates mode="m_date-qs" select="."/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:message>
-                    <xsl:text>date: @type not present or not supported</xsl:text>
-                </xsl:message>
-            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     <xsl:template match="tei:date | tei:birth | tei:death" mode="m_date-qs">
@@ -481,7 +491,23 @@
                 </xsl:when>
             </xsl:choose>
         </xsl:variable>
-        <xsl:value-of select="$v_date"/>
+        <xsl:choose>
+            <!-- iso dates -->
+            <xsl:when test="matches($v_date, '\d{4}-\d{2}-\d{2}')">
+                <xsl:value-of select="concat('+', $v_date, 'T00:00:00Z/11')"/>
+            </xsl:when>
+            <xsl:when test="matches($v_date, '^\d{4}$')">
+                <xsl:value-of select="concat('+', $v_date, '-00-00T00:00:00Z/9')"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- raise alarm -->
+                <xsl:message terminate="yes">
+                    <xsl:text>The string "</xsl:text>
+                    <xsl:value-of select="$v_date"/>
+                    <xsl:text>" is not a date</xsl:text>
+                </xsl:message>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="tei:date[ancestor::tei:biblStruct][1]/tei:monogr/tei:title[@level = 'm']" mode="m_tei2wikidata">
         <P577>
@@ -1985,38 +2011,38 @@
     </xsl:template>
     <!-- holdings: not yet adopted the new modular system -->
     <xsl:template match="tei:item[parent::tei:list/parent::tei:note[@type = 'holdings']][tei:label/tei:orgName]" mode="m_tei2qs">
-        <xsl:variable name="v_id-wikidata" select="oape:query-biblstruct(ancestor::tei:biblStruct[1], 'id-wiki', '', '', $p_local-authority)"/>
+        <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
         <!-- collections must have a QID -->
-        <xsl:variable name="v_collection">
-            <xsl:value-of
-                select="concat($v_id-wikidata, $v_seperator-qs, 'P195', $v_seperator-qs, oape:query-organizationography(tei:label/tei:orgName, $v_organizationography, $p_local-authority, 'id-wiki', ''))"
-            />
-        </xsl:variable>
-        <!-- start line with QID -->
-        <xsl:value-of select="$v_new-line"/>
-        <!-- add collection -->
-        <xsl:value-of select="$v_collection"/>
-        <!-- add qualifiers -->
-        <!-- aggregate data on the entire collection: note that there is a "single best value" constraint on this 
+        <xsl:variable name="v_property" select="'P195'"/>
+        <xsl:variable name="v_value" select="oape:query-organizationography(tei:label/tei:orgName, $v_organizationography, $p_local-authority, 'id-wiki', '')"/>
+        <xsl:variable name="v_statement" select="oape:qs-create-statement($v_qid, $v_property, $v_value, 'item')"/>
+        <xsl:variable name="v_qualifiers">
+            <!-- add qualifiers -->
+            <!-- aggregate data on the entire collection: note that there is a "single best value" constraint on this 
             - P580: start time 
             - P582: end time -->
-        <xsl:choose>
-            <!-- test if holdings have already be collated in a bibl[@type='holdings'] -->
-            <xsl:when test="descendant::tei:bibl[@type = 'holdings']">
-                <!--<xsl:text>PRECOMPILED</xsl:text>-->
-                <xsl:apply-templates mode="m_tei2qs_holdings" select="descendant::tei:bibl[@type = 'holdings']/tei:date[@type = 'onset']"/>
-                <xsl:apply-templates mode="m_tei2qs_holdings" select="descendant::tei:bibl[@type = 'holdings']/tei:date[@type = 'terminus']"/>
-                <xsl:apply-templates mode="m_tei2qs_holdings" select="descendant::tei:bibl[@type = 'holdings']/tei:biblScope[@unit = 'volume']"/>
-                <!-- P217: inventory number -->
-                <xsl:apply-templates mode="m_tei2qs_qualifier" select="descendant::tei:bibl[@type = 'holdings']/tei:idno[@type = ('classmark', 'record')]"/>
-                <!-- potentially look classmarks up on the ancestor::biblStruct -->
-                <!-- full work available at URL -->
-                <xsl:apply-templates mode="m_tei2qs_qualifier" select="descendant::tei:bibl[@type = 'holdings']/tei:idno[@type = ('URI', 'url')][@subtype = 'self']"/>
-                <xsl:apply-templates mode="m_tei2qs_qualifier" select="descendant::tei:bibl[@type = 'holdings']/tei:idno[@type = ('ARK', 'HDL', 'hdl', 'URN')]"/>
-            </xsl:when>
-        </xsl:choose>
-        <!-- add source -->
-        <xsl:value-of select="oape:qs-create-reference(.)"/>
+            <xsl:choose>
+                <!-- test if holdings have already be collated in a bibl[@type='holdings'] -->
+                <xsl:when test="descendant::tei:bibl[@type = 'holdings']">
+                    <!--<xsl:text>PRECOMPILED</xsl:text>-->
+                    <xsl:apply-templates mode="m_tei2qs_qualifier" select="descendant::tei:bibl[@type = 'holdings']/tei:date[@type = 'onset']"/>
+                    <xsl:apply-templates mode="m_tei2qs_qualifier" select="descendant::tei:bibl[@type = 'holdings']/tei:date[@type = 'terminus']"/>
+                    <xsl:apply-templates mode="m_tei2qs_holdings" select="descendant::tei:bibl[@type = 'holdings']/tei:biblScope[@unit = 'volume']"/>
+                    <!-- P217: inventory number -->
+                    <xsl:apply-templates mode="m_tei2qs_qualifier" select="descendant::tei:bibl[@type = 'holdings']/tei:idno[@type = ('classmark', 'record')]"/>
+                    <!-- potentially look classmarks up on the ancestor::biblStruct -->
+                    <!-- full work available at URL -->
+                    <xsl:apply-templates mode="m_tei2qs_qualifier" select="descendant::tei:bibl[@type = 'holdings']/tei:idno[@type = ('URI', 'url')][@subtype = 'self']"/>
+                    <xsl:apply-templates mode="m_tei2qs_qualifier" select="descendant::tei:bibl[@type = 'holdings']/tei:idno[@type = ('ARK', 'HDL', 'hdl', 'URN')]"/>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:for-each select="oape:get-source(.)/descendant::tei:item">
+            <xsl:value-of select="$v_statement"/>
+            <xsl:value-of select="$v_qualifiers"/>
+            <!-- add source -->
+            <xsl:value-of select="oape:qs-create-reference(.)"/>
+        </xsl:for-each>
     </xsl:template>
     <xsl:function name="oape:normalize-xml-lang">
         <xsl:param name="p_input"/>
@@ -2095,6 +2121,10 @@
             </xsl:when>
             <xsl:when test="$p_data-type = 'date'">
                 <xsl:choose>
+                    <!-- timestamps -->
+                    <xsl:when test="matches($p_value, '\d{4}-\d{2}-\d{2}T00:00:00Z/\d+$')">
+                        <xsl:value-of select="$p_value"/>
+                    </xsl:when>
                     <!-- iso dates -->
                     <xsl:when test="matches($p_value, '\d{4}-\d{2}-\d{2}')">
                         <xsl:value-of select="concat('+', $p_value, 'T00:00:00Z/11')"/>
