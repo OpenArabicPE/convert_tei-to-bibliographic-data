@@ -5,7 +5,7 @@
     <!-- This stylesheet takes MARC21 records in XML serialisation as input and generates TEI XML as output -->
     <!-- documentation of the MARC21 field codes can be found here: https://marc21.ca/M21/MARC-Field-Codes.html -->
     <xsl:import href="convert_marc-xml-to-tei_functions.xsl"/>
-    <xsl:param name="p_ignore-existing-files" select="false()"/>
+    <xsl:param name="p_ignore-existing-files" select="true()"/>
     <!-- output: everything is wrapped in a listBibl -->
     <xsl:template match="/">
         <xsl:choose>

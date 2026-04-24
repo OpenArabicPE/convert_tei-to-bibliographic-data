@@ -22,6 +22,122 @@
             <xsl:apply-templates mode="m_post-process" select="@* | node()"/>
         </xsl:copy>
     </xsl:template>
+    <!-- enforce the data model -->
+    <xsl:template match="tei:biblStruct" mode="m_post-process">
+        <xsl:copy>
+            <xsl:apply-templates mode="m_post-process" select="@*"/>
+            <xsl:apply-templates mode="m_post-process" select="tei:analytic"/>
+            <xsl:apply-templates mode="m_post-process" select="tei:monogr"/>
+            <xsl:apply-templates mode="m_post-process" select="tei:series"/>
+            <xsl:apply-templates mode="m_post-process" select="tei:note"/>
+            <!-- is there anything missing? -->
+        </xsl:copy>
+    </xsl:template>
+    <xsl:template match="tei:monogr" mode="m_post-process" priority="20">
+        <xsl:copy>
+            <xsl:apply-templates mode="m_post-process" select="@*"/>
+            <!-- add order of children -->
+            <xsl:apply-templates mode="m_post-process" select="tei:title[not(@type)]"/>
+            <xsl:apply-templates mode="m_post-process" select="tei:title[@type]"/>
+            <!-- establish list of IDs that should also be retrieved from holdings -->
+            <xsl:apply-templates mode="m_post-process" select="tei:idno[not(@type = 'OCLC')]">
+                <xsl:sort select="@type"/>
+                <xsl:sort select="."/>
+            </xsl:apply-templates>
+            <!-- get major IDs from holdings -->
+            <xsl:for-each-group group-by="text()" select="descendant::tei:idno[@type = 'OCLC']">
+                <xsl:sort select="number(current-grouping-key())"/>
+                <xsl:element name="idno">
+                    <xsl:attribute name="type" select="current-group()[1]/@type"/>
+                    <xsl:value-of select="current-grouping-key()"/>
+                </xsl:element>
+            </xsl:for-each-group>
+            <xsl:apply-templates mode="m_post-process" select="tei:textLang"/>
+            <xsl:apply-templates mode="m_post-process" select="tei:editor | tei:author"/>
+            <xsl:apply-templates mode="m_post-process" select="tei:respStmt"/>
+            <xsl:apply-templates mode="m_post-process" select="tei:imprint"/>
+            <xsl:apply-templates mode="m_post-process" select="tei:biblScope"/>
+            <!-- are there any missing nodes? -->
+        </xsl:copy>
+    </xsl:template>
+    <!-- test for duplicates of nodes without children -->
+    <xsl:template match="element()[not(element())]" mode="m_off" priority="200">
+        <xsl:variable name="v_current" select="."/>
+        <!-- tests for duplicates:
+            1. element name: local-name() = $v_current/local-name()
+            2. text: text() = $v_current/text()
+            3. attributes (note that this only compares the attribute names and NOT their values): @* = $v_current/@*
+        -->
+        <xsl:variable name="v_preceding-duplicate"
+            select="preceding-sibling::node()[local-name() = $v_current/local-name()][normalize-space(string(.)) = $v_current/normalize-space(string(.))][@* = $v_current/@*]"/>
+        <xsl:choose>
+            <xsl:when test="$v_preceding-duplicate">
+                <xsl:message>
+                    <xsl:text>Found an exact duplicate sibling for </xsl:text>
+                    <xsl:value-of select="$v_current/local-name()"/>
+                    <xsl:if test="@xml:id">
+                        <xsl:text> (#</xsl:text>
+                        <xsl:value-of select="@xml:id"/>
+                        <xsl:text>)</xsl:text>
+                    </xsl:if>
+                </xsl:message>
+                <xsl:message>
+                    <xsl:text>current: </xsl:text>
+                    <xsl:copy-of select="$v_current"/>
+                </xsl:message>
+                <xsl:message>
+                    <xsl:text>duplicate: </xsl:text>
+                    <xsl:copy-of select="$v_preceding-duplicate"/>
+                </xsl:message>
+                <xsl:copy>
+                    <xsl:apply-templates mode="m_post-process" select="@* | node()"/>
+                </xsl:copy>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:copy>
+                    <xsl:apply-templates mode="m_post-process" select="@* | node()"/>
+                </xsl:copy>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!-- this seems to be the better approach, but it doesn't find any duplicates -->
+    <xsl:template match="tei:bibl[element()[not(element())]][@n = 'test']" mode="m_off" priority="200">
+        <xsl:message>
+            <xsl:text>TEST</xsl:text>
+        </xsl:message>
+        <xsl:copy>
+            <xsl:apply-templates mode="m_identity-transform" select="@*"/>
+            <xsl:for-each-group group-by="local-name() and normalize-space(string(.)) and attribute()/text()" select="node()">
+                <xsl:variable name="v_size" select="count(current-group())"/>
+                <xsl:variable name="v_name" select="current-group()[1]/local-name()"/>
+                <xsl:choose>
+                    <xsl:when test="$v_size > 10">
+                        <xsl:message terminate="no">
+                            <xsl:text>Found a large group of </xsl:text>
+                            <xsl:value-of select="$v_size"/>
+                            <xsl:text> exact duplicates of "</xsl:text>
+                            <xsl:value-of select="$v_name"/>
+                            <xsl:text>", which will be reproduced as they are.</xsl:text>
+                        </xsl:message>
+                        <xsl:apply-templates mode="m_identity-transform" select="current-group()"/>
+                    </xsl:when>
+                    <xsl:when test="$v_size > 1">
+                        <xsl:message terminate="no">
+                            <xsl:text>Found </xsl:text>
+                            <xsl:value-of select="$v_size"/>
+                            <xsl:text> exact duplicates of "</xsl:text>
+                            <xsl:value-of select="$v_name"/>
+                            <xsl:text>", which will be reduced to a single node</xsl:text>
+                        </xsl:message>
+                        <xsl:apply-templates mode="m_identity-transform" select="current-group()[1]"/>
+                    </xsl:when>
+                    <xsl:when test="$v_size = 1">
+                        <xsl:apply-templates mode="m_identity-transform" select="current-group()"/>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:for-each-group>
+        </xsl:copy>
+    </xsl:template>
     <!-- translate Arabic digits in attributes to Latin digits -->
     <xsl:template match="@*" mode="m_post-process" priority="1">
         <xsl:attribute name="{name()}">
@@ -137,7 +253,7 @@
     <!-- remove all orgs which are already part of the organizationography -->
     <xsl:template match="tei:org[parent::tei:listOrg][tei:orgName[@ref]]" mode="m_off"/>
     <!-- establish language based on script -->
-    <xsl:template match="element()[ancestor::tei:biblStruct][text()][@xml:lang = 'und' or not(@xml:lang)]" mode="m_post-process" priority="0">
+    <xsl:template match="element()[ancestor::tei:biblStruct][text()][@xml:lang = 'und' or not(@xml:lang)]" mode="m_post-process" priority="5">
         <xsl:variable name="v_self">
             <xsl:apply-templates mode="m_plain-text" select="text()"/>
         </xsl:variable>
@@ -200,16 +316,16 @@
         </xsl:if>
     </xsl:template>
     <!-- adding subtitles -->
-    <xsl:template match="tei:title[contains(., ':')]" mode="m_post-process">
+    <xsl:template match="tei:title[matches(., '^.+(:|=).+$')]" mode="m_post-process">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
-            <xsl:value-of select="replace(., '^(.*?)\s*:.*$', '$1')"/>
+            <xsl:value-of select="replace(., '^(.*?)\s*(:|=).+$', '$1')"/>
         </xsl:copy>
         <!-- add subtitle -->
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:attribute name="type" select="'sub'"/>
-            <xsl:value-of select="replace(., '^(.*?)\s*:\s*(.*)$', '$2')"/>
+            <xsl:value-of select="replace(., '^(.*?)\s*(:|=)\s*(.+)$', '$3')"/>
         </xsl:copy>
     </xsl:template>
     <!-- extract IDs from title attributes -->
@@ -229,27 +345,39 @@
         </xsl:if>
     </xsl:template>
     <!-- identifiers -->
-    <xsl:template match="tei:idno[@type = 'classmark'][starts-with(., 'b')]" mode="m_off">
-        <xsl:copy>
-            <xsl:attribute name="type" select="'record'"/>
-            <xsl:attribute name="source" select="$p_source"/>
-            <xsl:apply-templates mode="m_post-process"/>
-        </xsl:copy>
-    </xsl:template>
-     <!-- fix IDs: <idno type="AUBNO">Mic-NA:000285</idno> -->
-    <xsl:template mode="m_post-process" match="tei:idno[@type = 'AUBNO']">
-        <xsl:copy>
-            <xsl:attribute name="source" select="concat($p_acronym-wikidata, ':', 'Q124855340')"/>
-            <xsl:attribute name="type" select="'classmark'"/>
-            <xsl:apply-templates mode="m_post-process"/>
-        </xsl:copy>
-    </xsl:template>
-    <xsl:template mode="m_post-process" match="tei:idno[@type = 'LEAUB']">
-        <xsl:copy>
-            <xsl:attribute name="source" select="concat($p_acronym-wikidata, ':', 'Q124855340')"/>
-            <xsl:attribute name="type" select="'record'"/>
-              <xsl:apply-templates mode="m_post-process"/>
-        </xsl:copy>
+    <xsl:template match="tei:idno" mode="m_post-process" priority="20">
+        <xsl:choose>
+            <!-- remove duplicate IDs -->
+            <xsl:when test="text() = following-sibling::tei:idno[@type = current()/@type]/text()"/>
+            <!-- fix various catalogue artefacts -->
+            <xsl:when test="@type = 'classmark' and starts-with(., 'b')">
+                <xsl:copy>
+                    <xsl:attribute name="type" select="'record'"/>
+                    <xsl:attribute name="source" select="$p_source"/>
+                    <xsl:apply-templates mode="m_post-process"/>
+                </xsl:copy>
+            </xsl:when>
+            <!-- fix IDs: <idno type="AUBNO">Mic-NA:000285</idno> -->
+            <xsl:when test="@type = 'AUBNO'">
+                <xsl:copy>
+                    <xsl:attribute name="source" select="concat($p_acronym-wikidata, ':', 'Q124855340')"/>
+                    <xsl:attribute name="type" select="'classmark'"/>
+                    <xsl:apply-templates mode="m_post-process"/>
+                </xsl:copy>
+            </xsl:when>
+            <xsl:when test="@type = 'LEAUB'">
+                <xsl:copy>
+                    <xsl:attribute name="source" select="concat($p_acronym-wikidata, ':', 'Q124855340')"/>
+                    <xsl:attribute name="type" select="'record'"/>
+                    <xsl:apply-templates mode="m_post-process"/>
+                </xsl:copy>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:copy>
+                    <xsl:apply-templates mode="m_post-process" select="@* | node()"/>
+                </xsl:copy>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- imprint -->
     <xsl:template match="tei:publisher[not(tei:orgName)]" mode="m_post-process">
@@ -272,12 +400,6 @@
                 <xsl:apply-templates select="@* | node()"/>
             </xsl:copy>
         </xsl:element>
-    </xsl:template>
-    <xsl:template match="tei:imprint/text()" mode="m_off">
-        <xsl:call-template name="t_test-for-dates">
-            <xsl:with-param name="p_input" select="."/>
-        </xsl:call-template>
-        <xsl:value-of select="."/>
     </xsl:template>
     <!-- dates-->
     <xsl:template match="tei:date[matches(@when, '\d{4}-\d{1}-\d{1}$')]" mode="m_post-process" priority="12">
@@ -486,7 +608,7 @@
         </xsl:choose>
     </xsl:template>
     <!-- add onset based on collections -->
-    <xsl:template match="tei:imprint" mode="m_post-process">
+    <xsl:template match="tei:imprint" mode="m_post-process" priority="10">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <!--  -->
@@ -501,9 +623,9 @@
                 <xsl:when test="not(tei:date[@type = 'onset']) and ancestor::tei:biblStruct/tei:note[@type = 'holdings']/descendant::tei:bibl[tei:date[@type = 'onset']]">
                     <xsl:variable name="v_onset" select="oape:dates-get-maxima(ancestor::tei:biblStruct/tei:note[@type = 'holdings']/descendant::tei:bibl/tei:date[@type = 'onset'], 'onset')"/>
                     <xsl:element name="date">
-                        <xsl:attribute name="type" select="'onset'"/>
-                        <xsl:attribute name="resp" select="'#xslt'"/>
                         <xsl:attribute name="cert" select="'low'"/>
+                        <xsl:attribute name="resp" select="'#xslt'"/>
+                        <xsl:attribute name="type" select="'onset'"/>
                         <!-- source: still missing -->
                         <xsl:attribute name="when" select="$v_onset"/>
                     </xsl:element>
@@ -528,8 +650,8 @@
         <xsl:param as="node()" name="p_input"/>
         <xsl:variable name="v_input" select="normalize-space($p_input)"/>
         <!-- variables with regex strings: each is a group -->
-        <xsl:variable name="v_string-regex-volume" select="'(al-Sanah|v\.|vol\.*|السنة|المجلد|\Wم)'"/>
-        <xsl:variable name="v_string-regex-issue" select="'(no\.*|العدد|\Wع)'"/>
+        <xsl:variable name="v_string-regex-volume" select="'(sanah|mujallad|v\.|vol\.*|السنة|المجلد|\Wم)'"/>
+        <xsl:variable name="v_string-regex-issue" select="'(adad|no\.*|العدد|\Wع)'"/>
         <xsl:variable name="v_string-regex-range" select="'(-|حتى|الى)'"/>
         <!-- 3 groups -->
         <xsl:variable name="v_string-regex-unit" select="concat('(', $v_string-regex-volume, '|', $v_string-regex-issue, ')')"/>
@@ -588,30 +710,43 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <!-- remove erroneous duplicates -->
+    <xsl:template
+        match="tei:biblScope[not(@unit)][ancestor::tei:note[@type = 'holdings']][preceding-sibling::tei:biblScope[not(@unit)]/normalize-space(string(.)) = current()/normalize-space(string(.))]"
+        mode="m_post-process" priority="20"/>
     <xsl:template match="tei:biblScope[not(@unit)][ancestor::tei:note[@type = 'holdings']]" mode="m_post-process" priority="10">
-        <xsl:variable name="v_content" select="normalize-space(.)"/>
-        <!--<xsl:call-template name="t_test-for-dates">
-            <xsl:with-param name="p_input" select="$v_content"/>
-        </xsl:call-template>-->
-        <!-- unfortunately, one cannot change the value of a variable as the result of an iff condition -->
-        <xsl:call-template name="t_find-biblScope">
-            <xsl:with-param name="p_input" select="."/>
-        </xsl:call-template>
+        <!--<xsl:message terminate="yes"/>-->
+        <xsl:variable name="v_content" select="normalize-space(string(.))"/>
         <xsl:choose>
+            <!-- check for duplicates -->
+            <xsl:when test="preceding-sibling::element()[not(@unit)]/normalize-space(string(.)) = $v_content"/>
+            <xsl:otherwise>
+                <!--<xsl:call-template name="t_test-for-dates">
+                    <xsl:with-param name="p_input" select="$v_content"/>
+                </xsl:call-template>-->
+                <!-- unfortunately, one cannot change the value of a variable as the result of an if condition -->
+                <xsl:call-template name="t_find-biblScope">
+                    <xsl:with-param name="p_input" select="."/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
+        <!-- somehow the following generates duplicate date and biblScope siblings -->
+        <!--<xsl:choose>
             <xsl:when test="matches($v_content, '\(\s*\d{4}\s*\)', 'i')">
                 <xsl:variable name="v_value" select="replace($v_content, '^.*(\(\s*)(\d{4})(\s*\)).*$', '$2', 'i')"/>
                 <xsl:element name="date">
                     <xsl:attribute name="when" select="$v_value"/>
                     <xsl:value-of select="$v_value"/>
                 </xsl:element>
+                <!-\- content without the date -\->
                 <xsl:variable name="v_content" select="replace($v_content, '^(.*)\(\s*\d{4}\s*\)(.*)$', '$1$2', 'i')"/>
                 <xsl:copy>
                     <xsl:apply-templates mode="m_post-process" select="@*"/>
                     <xsl:apply-templates mode="m_post-process" select="$v_content"/>
                 </xsl:copy>
             </xsl:when>
-            <!-- fallback is already in the called template -->
-        </xsl:choose>
+            <!-\- fallback is already in the called template -\->
+        </xsl:choose>-->
     </xsl:template>
     <xsl:template match="tei:biblScope[@unit][not(@from)]" mode="m_post-process" priority="10">
         <xsl:copy>
@@ -635,6 +770,12 @@
             <xsl:attribute name="source" select="$p_source"/>
             <xsl:apply-templates select="@* | node()"/>
         </xsl:copy>
+    </xsl:template>
+    <xsl:template match="tei:imprint/text()" mode="m_off">
+        <xsl:call-template name="t_test-for-dates">
+            <xsl:with-param name="p_input" select="."/>
+        </xsl:call-template>
+        <xsl:value-of select="."/>
     </xsl:template>
     <xsl:template name="t_test-for-dates">
         <xsl:param name="p_input"/>
@@ -660,28 +801,32 @@
                     <xsl:value-of select="replace($p_input, '^\D*(\d{4})\D*$', '$1')"/>
                 </xsl:element>
             </xsl:when>
+            <!-- fallback -->
+            <xsl:otherwise>
+                <xsl:copy-of select="$p_input"/>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <xsl:template match="tei:persName[matches(., '[،,]')]" mode="m_post-process" priority="2">
+    <xsl:template match="tei:persName[matches(., '^.+(،|,|:).+$')]" mode="m_post-process" priority="20">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
             <xsl:element name="forename">
-                <xsl:value-of select="normalize-space(replace(., '^(.+?)[،,](.+?)$', '$2'))"/>
+                <xsl:value-of select="normalize-space(replace(., '^(.+?)(،|,|:)\s*(.+?)$', '$3'))"/>
             </xsl:element>
             <xsl:text> </xsl:text>
             <xsl:element name="surname">
-                <xsl:value-of select="normalize-space(replace(., '^(.+?)[،,](.+?)$', '$1'))"/>
+                <xsl:value-of select="normalize-space(replace(., '^(.+?)(،|,|:)\s*(.+?)$', '$1'))"/>
             </xsl:element>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="tei:placeName[not(contains(., ']'))][matches(., '[،,]')]" mode="m_off" priority="2">
+    <xsl:template match="tei:placeName[not(contains(., ']'))][matches(., '^.+(،|,|:)\s*\w.+$')]" mode="m_post-process" priority="20">
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
-            <xsl:value-of select="normalize-space(replace(., '^(.+?)[،,](.+?)$', '$1'))"/>
+            <xsl:value-of select="normalize-space(replace(., '^(.+?)(،|,|:)\s*(.+?)$', '$1'))"/>
         </xsl:copy>
         <xsl:text> </xsl:text>
         <xsl:element name="country">
-            <xsl:value-of select="normalize-space(replace(., '^(.+?)[،,](.+?)$', '$2'))"/>
+            <xsl:value-of select="normalize-space(replace(., '^(.+?)(،|,|:)\s*(.+?)$', '$3'))"/>
         </xsl:element>
     </xsl:template>
     <xsl:function name="oape:transpose-digits">
@@ -786,8 +931,8 @@
         </xsl:choose>
     </xsl:template>
     <!-- normalise units -->
-    <xsl:template match="@unit" mode="m_post-process">
-        <xsl:copy>
+    <xsl:template match="@unit" mode="m_post-process" priority="20">
+        <xsl:attribute name="unit">
             <xsl:choose>
                 <xsl:when test="matches(., 'سم')">
                     <xsl:text>cm</xsl:text>
@@ -799,10 +944,8 @@
                     <xsl:value-of select="."/>
                 </xsl:otherwise>
             </xsl:choose>
-        </xsl:copy>
+        </xsl:attribute>
     </xsl:template>
-    <!-- remove duplicate IDs -->
-    <xsl:template match="tei:idno[text() = following-sibling::tei:idno[@type = current()/@type]/text()]" mode="m_post-process"/>
     <!-- group periodicals by Wikidata ID -->
     <xsl:template match="tei:standOff/tei:listBibl" mode="m_post-process">
         <xsl:copy>
@@ -948,72 +1091,78 @@
         </biblStruct>
     </xsl:template>
     <!-- dimensions, sizes -->
-    <xsl:template match="tei:note[@type = 'dimensions'][not(tei:list/tei:item)]" mode="m_post-process">
+    <xsl:template match="tei:note[@type = ('dimensions')][not(tei:listBibl)]" mode="m_post-process">
         <xsl:variable name="v_string-regex-unit" select="'(\w+\.*)'"/>
         <xsl:variable name="v_string-regex-compiled" select="concat('(\d+)\s*(', $v_string-regex-unit, '*\s*(-|x)\s*(\d+)\s*)*', $v_string-regex-unit)"/>
         <xsl:variable name="v_content" select="normalize-space(.)"/>
         <xsl:copy>
             <xsl:apply-templates mode="m_post-process" select="@*"/>
-            <xsl:element name="list">
+            <xsl:attribute name="type" select="'media'"/>
+            <xsl:element name="listBibl">
                 <!-- construct new items -->
                 <xsl:if test="matches(., $v_string-regex-compiled)">
-                    <xsl:element name="item">
-                        <xsl:element name="bibl">
-                            <xsl:element name="extent">
-                                <!-- we could add a measure element for naming standard page sizes -->
-                                <xsl:element name="dimensions">
-                                    <xsl:analyze-string regex="{$v_string-regex-compiled}" select=".">
-                                        <xsl:matching-substring>
-                                            <xsl:variable name="v_unit-2" select="oape:strings_trim-punctuation-marks(regex-group(6))"/>
-                                            <xsl:variable name="v_unit-1" select="
-                                                    if (regex-group(3)) then
-                                                        (oape:strings_trim-punctuation-marks(regex-group(3)))
-                                                    else
-                                                        $v_unit-2"/>
-                                            <xsl:variable name="v_quantity-1" select="regex-group(1)"/>
-                                            <xsl:variable name="v_quantity-2" select="regex-group(5)"/>
-                                            <xsl:choose>
-                                                <!-- height and width -->
-                                                <xsl:when test="regex-group(4) = 'x'">
-                                                    <xsl:element name="height">
-                                                        <xsl:attribute name="unit" select="$v_unit-1"/>
-                                                        <xsl:attribute name="quantity" select="$v_quantity-1"/>
-                                                    </xsl:element>
-                                                    <xsl:element name="width">
-                                                        <xsl:attribute name="unit" select="$v_unit-2"/>
-                                                        <xsl:attribute name="quantity" select="$v_quantity-2"/>
-                                                    </xsl:element>
-                                                </xsl:when>
-                                                <!-- we assume ranges are only for heights -->
-                                                <xsl:when test="regex-group(4) = '-'">
-                                                    <xsl:element name="height">
-                                                        <xsl:attribute name="unit" select="$v_unit-1"/>
-                                                        <xsl:attribute name="min" select="$v_quantity-1"/>
-                                                        <xsl:attribute name="max" select="$v_quantity-2"/>
-                                                        <xsl:value-of select="$v_content"/>
-                                                    </xsl:element>
-                                                </xsl:when>
-                                                <!-- no divider, we assume height is more common then width -->
-                                                <xsl:otherwise>
-                                                    <xsl:element name="height">
-                                                        <xsl:attribute name="unit" select="$v_unit-2"/>
-                                                        <xsl:attribute name="quantity" select="$v_quantity-1"/>
-                                                        <xsl:value-of select="$v_content"/>
-                                                    </xsl:element>
-                                                </xsl:otherwise>
-                                            </xsl:choose>
-                                        </xsl:matching-substring>
-                                        <xsl:non-matching-substring>
-                                            <!-- reproduce original -->
-                                            <xsl:value-of select="$v_content"/>
-                                        </xsl:non-matching-substring>
-                                    </xsl:analyze-string>
-                                </xsl:element>
+                    <!--<xsl:element name="item">-->
+                    <xsl:element name="bibl">
+                        <xsl:element name="extent">
+                            <!-- we could add a measure element for naming standard page sizes -->
+                            <xsl:element name="dimensions">
+                                <xsl:analyze-string regex="{$v_string-regex-compiled}" select=".">
+                                    <xsl:matching-substring>
+                                        <xsl:variable name="v_unit-2" select="oape:strings_trim-punctuation-marks(regex-group(6))"/>
+                                        <xsl:variable name="v_unit-1" select="
+                                                if (regex-group(3)) then
+                                                    (oape:strings_trim-punctuation-marks(regex-group(3)))
+                                                else
+                                                    $v_unit-2"/>
+                                        <xsl:variable name="v_quantity-1" select="regex-group(1)"/>
+                                        <xsl:variable name="v_quantity-2" select="regex-group(5)"/>
+                                        <xsl:choose>
+                                            <!-- height and width -->
+                                            <xsl:when test="regex-group(4) = 'x'">
+                                                <xsl:element name="height">
+                                                    <xsl:attribute name="unit" select="$v_unit-1"/>
+                                                    <xsl:attribute name="quantity" select="$v_quantity-1"/>
+                                                </xsl:element>
+                                                <xsl:element name="width">
+                                                    <xsl:attribute name="unit" select="$v_unit-2"/>
+                                                    <xsl:attribute name="quantity" select="$v_quantity-2"/>
+                                                </xsl:element>
+                                            </xsl:when>
+                                            <!-- we assume ranges are only for heights -->
+                                            <xsl:when test="regex-group(4) = '-'">
+                                                <xsl:element name="height">
+                                                    <xsl:attribute name="unit" select="$v_unit-1"/>
+                                                    <xsl:attribute name="min" select="$v_quantity-1"/>
+                                                    <xsl:attribute name="max" select="$v_quantity-2"/>
+                                                    <xsl:value-of select="$v_content"/>
+                                                </xsl:element>
+                                            </xsl:when>
+                                            <!-- no divider, we assume height is more common then width -->
+                                            <xsl:otherwise>
+                                                <xsl:element name="height">
+                                                    <xsl:attribute name="unit" select="$v_unit-2"/>
+                                                    <xsl:attribute name="quantity" select="$v_quantity-1"/>
+                                                    <xsl:value-of select="$v_content"/>
+                                                </xsl:element>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:matching-substring>
+                                    <xsl:non-matching-substring>
+                                        <!-- reproduce original -->
+                                        <xsl:value-of select="$v_content"/>
+                                    </xsl:non-matching-substring>
+                                </xsl:analyze-string>
                             </xsl:element>
                         </xsl:element>
                     </xsl:element>
+                    <!--</xsl:element>-->
                 </xsl:if>
             </xsl:element>
         </xsl:copy>
+    </xsl:template>
+    <xsl:template match="tei:bibl/text()" mode="m_post-process">
+        <xsl:call-template name="t_find-biblScope">
+            <xsl:with-param name="p_input" select="."/>
+        </xsl:call-template>
     </xsl:template>
 </xsl:stylesheet>
