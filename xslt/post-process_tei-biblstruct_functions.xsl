@@ -22,6 +22,44 @@
             <xsl:apply-templates mode="m_post-process" select="@* | node()"/>
         </xsl:copy>
     </xsl:template>
+    <!-- enforce the data model -->
+    <xsl:template match="tei:biblStruct" mode="m_post-process">
+        <xsl:copy>
+            <xsl:apply-templates mode="m_post-process" select="@*"/>
+            <xsl:apply-templates mode="m_post-process" select="tei:analytic"/>
+            <xsl:apply-templates mode="m_post-process" select="tei:monogr"/>
+            <xsl:apply-templates mode="m_post-process" select="tei:series"/>
+            <xsl:apply-templates mode="m_post-process" select="tei:note"/>
+            <!-- is there anything missing? -->
+        </xsl:copy>
+    </xsl:template>
+    <xsl:template match="tei:monogr" mode="m_post-process" priority="20">
+        <xsl:copy>
+            <xsl:apply-templates mode="m_post-process" select="@*"/>
+            <!-- add order of children -->
+            <xsl:apply-templates mode="m_post-process" select="tei:title[not(@type)]"/>
+            <xsl:apply-templates mode="m_post-process" select="tei:title[@type]"/>
+            <!-- establish list of IDs that should also be retrieved from holdings -->
+            <xsl:apply-templates mode="m_post-process" select="tei:idno[not(@type = 'OCLC')]">
+                <xsl:sort select="@type"/>
+                <xsl:sort select="."/>
+            </xsl:apply-templates>
+            <!-- get major IDs from holdings -->
+            <xsl:for-each-group group-by="text()" select="descendant::tei:idno[@type = 'OCLC']">
+                <xsl:sort select="number(current-grouping-key())"/>
+                <xsl:element name="idno">
+                    <xsl:attribute name="type" select="current-group()[1]/@type"/>
+                    <xsl:value-of select="current-grouping-key()"/>
+                </xsl:element>
+            </xsl:for-each-group>
+            <xsl:apply-templates mode="m_post-process" select="tei:textLang"/>
+            <xsl:apply-templates mode="m_post-process" select="tei:editor | tei:author"/>
+            <xsl:apply-templates mode="m_post-process" select="tei:respStmt"/>
+            <xsl:apply-templates mode="m_post-process" select="tei:imprint"/>
+            <xsl:apply-templates mode="m_post-process" select="tei:biblScope"/>
+            <!-- are there any missing nodes? -->
+        </xsl:copy>
+    </xsl:template>
     <!-- test for duplicates of nodes without children -->
     <xsl:template match="element()[not(element())]" mode="m_off" priority="200">
         <xsl:variable name="v_current" select="."/>
@@ -307,27 +345,39 @@
         </xsl:if>
     </xsl:template>
     <!-- identifiers -->
-    <xsl:template match="tei:idno[@type = 'classmark'][starts-with(., 'b')]" mode="m_off">
-        <xsl:copy>
-            <xsl:attribute name="type" select="'record'"/>
-            <xsl:attribute name="source" select="$p_source"/>
-            <xsl:apply-templates mode="m_post-process"/>
-        </xsl:copy>
-    </xsl:template>
-    <!-- fix IDs: <idno type="AUBNO">Mic-NA:000285</idno> -->
-    <xsl:template match="tei:idno[@type = 'AUBNO']" mode="m_post-process">
-        <xsl:copy>
-            <xsl:attribute name="source" select="concat($p_acronym-wikidata, ':', 'Q124855340')"/>
-            <xsl:attribute name="type" select="'classmark'"/>
-            <xsl:apply-templates mode="m_post-process"/>
-        </xsl:copy>
-    </xsl:template>
-    <xsl:template match="tei:idno[@type = 'LEAUB']" mode="m_post-process">
-        <xsl:copy>
-            <xsl:attribute name="source" select="concat($p_acronym-wikidata, ':', 'Q124855340')"/>
-            <xsl:attribute name="type" select="'record'"/>
-            <xsl:apply-templates mode="m_post-process"/>
-        </xsl:copy>
+    <xsl:template match="tei:idno" mode="m_post-process" priority="20">
+        <xsl:choose>
+            <!-- remove duplicate IDs -->
+            <xsl:when test="text() = following-sibling::tei:idno[@type = current()/@type]/text()"/>
+            <!-- fix various catalogue artefacts -->
+            <xsl:when test="@type = 'classmark' and starts-with(., 'b')">
+                <xsl:copy>
+                    <xsl:attribute name="type" select="'record'"/>
+                    <xsl:attribute name="source" select="$p_source"/>
+                    <xsl:apply-templates mode="m_post-process"/>
+                </xsl:copy>
+            </xsl:when>
+            <!-- fix IDs: <idno type="AUBNO">Mic-NA:000285</idno> -->
+            <xsl:when test="@type = 'AUBNO'">
+                <xsl:copy>
+                    <xsl:attribute name="source" select="concat($p_acronym-wikidata, ':', 'Q124855340')"/>
+                    <xsl:attribute name="type" select="'classmark'"/>
+                    <xsl:apply-templates mode="m_post-process"/>
+                </xsl:copy>
+            </xsl:when>
+            <xsl:when test="@type = 'LEAUB'">
+                <xsl:copy>
+                    <xsl:attribute name="source" select="concat($p_acronym-wikidata, ':', 'Q124855340')"/>
+                    <xsl:attribute name="type" select="'record'"/>
+                    <xsl:apply-templates mode="m_post-process"/>
+                </xsl:copy>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:copy>
+                    <xsl:apply-templates mode="m_post-process" select="@* | node()"/>
+                </xsl:copy>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- imprint -->
     <xsl:template match="tei:publisher[not(tei:orgName)]" mode="m_post-process">
@@ -896,8 +946,6 @@
             </xsl:choose>
         </xsl:attribute>
     </xsl:template>
-    <!-- remove duplicate IDs -->
-    <xsl:template match="tei:idno[text() = following-sibling::tei:idno[@type = current()/@type]/text()]" mode="m_post-process"/>
     <!-- group periodicals by Wikidata ID -->
     <xsl:template match="tei:standOff/tei:listBibl" mode="m_post-process">
         <xsl:copy>
