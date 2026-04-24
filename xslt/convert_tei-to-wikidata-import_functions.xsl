@@ -502,9 +502,9 @@
             <xsl:otherwise>
                 <!-- raise alarm -->
                 <xsl:message terminate="yes">
-                    <xsl:text>The string "</xsl:text>
-                    <xsl:value-of select="$v_date"/>
-                    <xsl:text>" is not a date</xsl:text>
+                    <xsl:text>The date "</xsl:text>
+                    <xsl:copy-of select="."/>
+                    <xsl:text>" is not machine actionable</xsl:text>
                 </xsl:message>
             </xsl:otherwise>
         </xsl:choose>
