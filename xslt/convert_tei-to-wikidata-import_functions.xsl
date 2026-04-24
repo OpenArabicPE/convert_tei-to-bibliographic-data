@@ -369,56 +369,67 @@
     <xsl:template match="tei:date[parent::tei:imprint] | tei:birth[not(tei:date)] | tei:death[not(tei:date)]" mode="m_tei2qs">
         <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
         <xsl:variable name="v_source" select="oape:get-source(.)"/>
-        <xsl:variable name="v_property">
-            <tei:list>
-                <xsl:choose>
-                    <xsl:when test="local-name() = 'birth'">
-                        <tei:item>
-                            <xsl:text>P569</xsl:text>
-                        </tei:item>
-                    </xsl:when>
-                    <xsl:when test="local-name() = 'death'">
-                        <tei:item>
-                            <xsl:text>P570</xsl:text>
-                        </tei:item>
-                    </xsl:when>
-                    <xsl:when test="@type = ('onset', 'official')">
-                        <!-- inception-->
-                        <tei:item>
-                            <xsl:text>P571</xsl:text>
-                        </tei:item>
-                        <!-- start time -->
-                        <tei:item>
-                            <xsl:text>P580</xsl:text>
-                        </tei:item>
-                    </xsl:when>
-                    <!-- end time: P582 requires P580 -->
-                    <xsl:when test="@type = 'terminus'">
-                        <tei:item>
-                            <xsl:text>P582</xsl:text>
-                        </tei:item>
-                    </xsl:when>
-                    <!-- not implemented -->
-                    <xsl:otherwise>
-                        <xsl:if test="$p_verbose">
-                            <xsl:message>
-                                <xsl:text>WARNING: the date node carries no @type or the value of @type is not supported</xsl:text>
-                            </xsl:message>
-                        </xsl:if>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </tei:list>
-        </xsl:variable>
-        <xsl:variable name="v_value">
-            <xsl:apply-templates mode="m_date-qs" select="."/>
-        </xsl:variable>
-        <xsl:for-each select="$v_property/descendant::tei:item">
-            <xsl:variable name="v_statement" select="oape:qs-create-statement($v_qid, ., $v_value, 'date')"/>
-            <xsl:for-each select="$v_source/descendant::tei:item">
-                <xsl:value-of select="$v_statement"/>
-                <xsl:value-of select="oape:qs-create-reference(.)"/>
-            </xsl:for-each>
-        </xsl:for-each>
+        <xsl:choose>
+            <xsl:when test="@when | @from | @to |@notBefore |@notAfter">
+                <xsl:variable name="v_property">
+                    <tei:list>
+                        <xsl:choose>
+                            <xsl:when test="local-name() = 'birth'">
+                                <tei:item>
+                                    <xsl:text>P569</xsl:text>
+                                </tei:item>
+                            </xsl:when>
+                            <xsl:when test="local-name() = 'death'">
+                                <tei:item>
+                                    <xsl:text>P570</xsl:text>
+                                </tei:item>
+                            </xsl:when>
+                            <xsl:when test="@type = ('onset', 'official')">
+                                <!-- inception-->
+                                <tei:item>
+                                    <xsl:text>P571</xsl:text>
+                                </tei:item>
+                                <!-- start time -->
+                                <tei:item>
+                                    <xsl:text>P580</xsl:text>
+                                </tei:item>
+                            </xsl:when>
+                            <!-- end time: P582 requires P580 -->
+                            <xsl:when test="@type = 'terminus'">
+                                <tei:item>
+                                    <xsl:text>P582</xsl:text>
+                                </tei:item>
+                            </xsl:when>
+                            <!-- not implemented -->
+                            <xsl:otherwise>
+                                <xsl:if test="$p_verbose">
+                                    <xsl:message>
+                                        <xsl:text>WARNING: the date node carries no @type or the value of @type is not supported</xsl:text>
+                                    </xsl:message>
+                                </xsl:if>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </tei:list>
+                </xsl:variable>
+                <xsl:variable name="v_value">
+                    <xsl:apply-templates mode="m_date-qs" select="."/>
+                </xsl:variable>
+                <xsl:for-each select="$v_property/descendant::tei:item">
+                    <xsl:variable name="v_statement" select="oape:qs-create-statement($v_qid, ., $v_value, 'date')"/>
+                    <xsl:for-each select="$v_source/descendant::tei:item">
+                        <xsl:value-of select="$v_statement"/>
+                        <xsl:value-of select="oape:qs-create-reference(.)"/>
+                    </xsl:for-each>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:message>
+                    <xsl:text>WARNING: The date </xsl:text>
+                    <xsl:copy-of select="."/>
+                    <xsl:text> has no machine-readible dating attributes</xsl:text>
+                </xsl:message>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- aggregate data on the entire collection: note that there is a "single best value" constraint on this -->
     <xsl:template match="tei:date" mode="m_tei2wikidata_holdings">
@@ -488,6 +499,10 @@
                 </xsl:when>
                 <xsl:when test="(@type = 'terminus') and @notAfter">
                     <xsl:value-of select="@notAfter"/>
+                </xsl:when>
+                <!-- what to do with @from, @to without @type -->
+                <xsl:when test="@to">
+                    <xsl:value-of select="@to"/>
                 </xsl:when>
             </xsl:choose>
         </xsl:variable>
