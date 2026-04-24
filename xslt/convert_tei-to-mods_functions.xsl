@@ -333,6 +333,18 @@
             <!-- URLs -->
             <!-- MODS allows for more than one URL! -->
             <xsl:apply-templates mode="m_tei-to-mods" select="$v_biblStruct/descendant::tei:idno[@type = ('url', 'URI')][not(ancestor::tei:note)]"/>
+            <!-- if no URL provided, use the local URL of the input file -->
+            <xsl:if test="not($v_biblStruct/descendant::tei:idno[@type = ('url', 'URI')][not(ancestor::tei:note)])">
+                <xsl:message>
+                    <xsl:text>TEI contains no URL, using local path instead</xsl:text>
+                </xsl:message>
+                <location>
+                    <url>
+                        <xsl:attribute name="dateLastAccessed" select="$p_today-iso"/>
+                        <xsl:value-of select="concat($v_file-name_input, '.xml')"/>
+                    </url>
+                </location>
+            </xsl:if>
             <!--<url dateLastAccessed="{$p_date-accessed}" usage="primary display">-->
             <!-- language information -->
             <xsl:choose>
@@ -684,6 +696,13 @@
                 </xsl:when>
             </xsl:choose>
             <!-- sometimes the contents are not wrapped in persName -->
+            <!-- bit of code for upload to Wikidata -->
+           <!-- <namePart>
+                <xsl:variable name="v_plain">
+                    <xsl:apply-templates mode="m_plain-text" select="."/>
+                </xsl:variable>
+                <xsl:value-of select="normalize-space($v_plain)"/>
+            </namePart>-->
             <xsl:choose>
                 <xsl:when test="tei:persName">
                     <xsl:apply-templates mode="m_tei-to-mods" select="tei:persName"/>
@@ -727,6 +746,10 @@
                 </roleTerm>
             </role>
             <xsl:apply-templates mode="m_tei-to-mods" select="tei:resp"/>
+            <!-- add an explicit count -->
+            <description>
+                <xsl:value-of select="count(preceding-sibling::node()[local-name() = ('author', 'editor')]) + 1"/>
+            </description>
         </name>
     </xsl:template>
     <xsl:template match="tei:resp" mode="m_tei-to-mods">

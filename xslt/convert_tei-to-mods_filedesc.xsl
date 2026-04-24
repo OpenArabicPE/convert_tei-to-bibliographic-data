@@ -14,7 +14,7 @@
             <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="tei:TEI/tei:teiHeader/tei:fileDesc"/>
         </xsl:variable>
         <!-- convert biblStruct to MODS -->
-        <xsl:result-document href="{$v_base-directory}metadata/file/{$v_file-name_input}.MODS.xml" method="xml">
+        <xsl:result-document href="{$p_output-folder}/file/{$v_file-name_input}.MODS.xml" method="xml">
             <xsl:value-of disable-output-escaping="yes" select="concat('&lt;?xml-model href=&quot;', $v_schema, '&quot;?&gt;')"/>
             <modsCollection xmlns="http://www.loc.gov/mods/v3" xsi:schemaLocation="{$v_schema}">
                 <xsl:copy-of select="oape:bibliography-tei-to-mods($v_biblStruct/child::tei:biblStruct, $p_target-language)"/>

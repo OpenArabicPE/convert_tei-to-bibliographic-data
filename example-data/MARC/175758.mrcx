@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record xmlns="http://www.loc.gov/MARC21/slim" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.loc.gov/MARC21/slim http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">
+    <leader>     nas a22        4500</leader>
+    <controlfield tag="003">LB-BrUSJ</controlfield>
+    <controlfield tag="008">160907s1931    |||                 ara d</controlfield>
+    <datafield ind1=" " ind2=" " tag="040">
+      <subfield code="a">LB-BrUSJ</subfield>
+    </datafield>
+    <datafield ind1="0" ind2=" " tag="041">
+      <subfield code="a">ara</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="090">
+      <subfield code="b">185D3</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="100">
+      <subfield code="a">&#x623;&#x628;&#x648; &#x641;&#x627;&#x636;&#x644;&#x60C; &#x641;&#x631;&#x64A;&#x62F;&#x60C; </subfield>
+      <subfield code="d">1908-1961</subfield>
+      <subfield code="9">403102</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="0" tag="245">
+      <subfield code="a">&#x627;&#x644;&#x631;&#x64A;&#x627;&#x636;</subfield>
+      <subfield code="b">&#x645;&#x62C;&#x644;&#x629; &#x623;&#x62F;&#x628;&#x64A;&#x629; &#x631;&#x648;&#x627;&#x626;&#x64A;&#x629; &#x62C;&#x627;&#x645;&#x639;&#x629;</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="260">
+      <subfield code="a">&#x623;&#x646;&#x637;&#x644;&#x64A;&#x627;&#x633;</subfield>
+      <subfield code="b">&#x641;&#x631;&#x64A;&#x62F; &#x634;&#x627;&#x647;&#x64A;&#x646; &#x627;&#x628;&#x648; &#x641;&#x627;&#x636;&#x644;</subfield>
+      <subfield code="c">1931-1934</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="300">
+      <subfield code="c">23&#x633;&#x645;</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="310">
+      <subfield code="a">&#x634;&#x647;&#x631;&#x64A;&#x629;.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="362">
+      <subfield code="a"
+        >&#x627;&#x644;&#x633;&#x646;&#x629; &#x627;&#x644;&#x623;&#x648;&#x644;&#x649;&#x60C; &#x627;&#x644;&#x639;&#x62F;&#x62F; &#x627;&#x644;&#x623;&#x648;&#x644;(&#x646;&#x64A;&#x633;&#x627;&#x646; 1931)-&#x627;&#x644;&#x633;&#x646;&#x629; 4&#x60C; &#x627;&#x644;&#x639;&#x62F;&#x62F; 4(&#x62A;&#x645;&#x648;&#x632; 1934)</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a"
+        >&#x635;&#x627;&#x62D;&#x628;&#x647;&#x627; &#x648;&#x631;&#x626;&#x64A;&#x633; &#x62A;&#x62D;&#x631;&#x64A;&#x631;&#x647;&#x627; &#x641;&#x631;&#x64A;&#x62F; &#x634;&#x627;&#x647;&#x64A;&#x646; &#x627;&#x628;&#x648; &#x641;&#x627;&#x636;&#x644;.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="515">
+      <subfield code="a"
+        >&#x641;&#x64A; &#x627;&#x644;&#x645;&#x643;&#x62A;&#x628;&#x629; : &#x627;&#x644;&#x639;&#x62F;&#x62F; 5(1931)&#x60C; &#x627;&#x644;&#x639;&#x62F;&#x62F; 1-2&#x60C; 4 (1932)&#x60C; &#x627;&#x644;&#x639;&#x62F;&#x62F; 10-11 (1934)</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="515">
+      <subfield code="a">&#x62A;&#x648;&#x642;&#x641;&#x62A; &#x639;&#x646; &#x627;&#x644;&#x635;&#x62F;&#x648;&#x631;  &#x633;&#x646;&#x629; 1934</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="515">
+      <subfield code="a">&#x62A;&#x648;&#x642;&#x641;&#x62A; &#x639;&#x646; &#x627;&#x644;&#x635;&#x62F;&#x648;&#x631;  &#x633;&#x646;&#x629; 1934</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="4" tag="650">
+      <subfield code="a">Litt&#xE9;rature arabe</subfield>
+      <subfield code="x">P&#xE9;riodiques</subfield>
+      <subfield code="9">176412</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="942">
+      <subfield code="c">CR</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="952">
+      <subfield code="2">local</subfield>
+      <subfield code="7">1</subfield>
+      <subfield code="a">BO</subfield>
+      <subfield code="b">BO</subfield>
+      <subfield code="c">loc16</subfield>
+      <subfield code="d">2016-09-07</subfield>
+      <subfield code="o">185D3</subfield>
+      <subfield code="r">2018-09-22 00:00:00</subfield>
+      <subfield code="y">CR</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="999">
+      <subfield code="c">175758</subfield>
+      <subfield code="d">175758</subfield>
+    </datafield>
+  </record>

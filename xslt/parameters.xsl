@@ -7,6 +7,7 @@
     <xsl:param name="p_debug" select="false()"/>
     <xsl:param name="p_mods-simple-persnames" select="false()"/>
     <xsl:param name="p_add-license" select="false()"/>
+    <xsl:param name="p_stand-alone" select="false()"/>
     <xsl:variable name="v_license" select="'http://creativecommons.org/licenses/by-sa/4.0/'"/>
     <xsl:variable name="v_license-url" select="'http://creativecommons.org/licenses/by-sa/4.0/'"/>
     <xsl:param name="p_detect-language-from-title" select="false()"/>
@@ -17,6 +18,12 @@
     <xsl:param name="p_acronym-wikimapia" select="'lwm'"/>
     <!-- identify the author of the change by means of a @xml:id -->
     <xsl:param name="p_id-editor" select="'pers_TG'"/>
+    <xsl:param name="p_editor">
+        <tei:respStmt xml:lang="en">
+            <tei:resp>TEI edition</tei:resp>
+            <tei:persName xml:id="pers_TG"><tei:forename>Till</tei:forename> <tei:surname>Grallert</tei:surname></tei:persName>
+        </tei:respStmt>
+    </xsl:param>
     <xsl:param name="p_id-change" select="generate-id(//tei:revisionDesc[1]/tei:change[last()])"/>
     <xsl:variable name="v_base-directory">
         <xsl:choose>
@@ -30,7 +37,7 @@
     <xsl:variable name="vgFileId" select="substring-before(tokenize(base-uri(), '/')[last()], '.TEIP5')"/>
     <xsl:variable name="v_file-name_input">
         <xsl:variable name="v_temp" select="tokenize(base-uri(), '/')[last()]"/>
-        <xsl:value-of select="replace($v_temp, '^(.+?)(\.(MODS|TEIP5))*?(\.(xml|mrx))$', '$1')"/>
+        <xsl:value-of select="replace($v_temp, '^(.+?)(\.(MODS|TEIP5))*?(\.(xml|mrx|mrcx))$', '$1')"/>
     </xsl:variable>
     <!-- file IDs -->
     <xsl:variable name="v_id-file" select="
@@ -51,8 +58,15 @@
          </xsl:choose>
     </xsl:variable>
     <xsl:variable name="v_url-base" select="replace($v_url-file, '^(.+)/([^/]+?)$', '$1')"/>
-    <xsl:param name="p_output-folder" select="'metadata/'"/>
+    <xsl:param name="p_output-folder" select="concat($v_base-directory,'metadata/')"/>
     <!-- URLs -->
-    <xsl:variable name="v_url-server-zdb-ld" select="'http://ld.zdb-services.de/data/'"/>
+    <xsl:variable name="v_url-server-zdb-ld" select="'https://ld.zdb-services.de/data/'"/>
     <xsl:variable name="v_url-gnd-resolve" select="'https://d-nb.info/gnd/'"/>
+    <!-- strings -->
+    <xsl:variable name="v_new-line" select="'&#x0A;'"/>
+    <xsl:variable name="v_quot" select="'&quot;'"/>
+    <xsl:variable name="v_comma" select="','"/>
+    <xsl:variable name="v_tab" select="'&#0009;'"/>
+    <xsl:variable name="v_space" select="' '"/>
+    <xsl:variable name="v_seperator-qs" select="'|'"/>
 </xsl:stylesheet>

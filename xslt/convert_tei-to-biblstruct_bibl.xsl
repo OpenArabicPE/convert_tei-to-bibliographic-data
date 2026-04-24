@@ -5,9 +5,8 @@
     <!-- this stylesheet generates a TEI/XML bibliography from all <bibl> elements found in the text of a TEI/XML document -->
     <xsl:import href="../../../OpenArabicPE/authority-files/xslt/functions.xsl"/>
     <xsl:import href="convert_tei-to-biblstruct_functions.xsl"/>
-    <!-- all parameters and variables are set in convert_tei-to-mods_functions.xsl -->
     <xsl:template match="/">
-        <xsl:result-document href="{$v_base-directory}{$p_output-folder}{$v_file-name_input}-bibl_biblStruct.TEIP5.xml">
+        <xsl:result-document href="{$p_output-folder}{$v_file-name_input}-bibl_biblStruct.TEIP5.xml">
             <xsl:copy>
                 <xsl:apply-templates mode="m_bibl-to-biblStruct"/>
             </xsl:copy>
@@ -33,6 +32,7 @@
                 <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:text/tei:body/descendant::tei:listBibl[not(ancestor::tei:biblStruct)]"/>
                 <!-- biblStruct from standOff -->
                 <xsl:apply-templates mode="m_bibl-to-biblStruct" select="tei:standOff/descendant::tei:biblStruct"/>
+                 <xsl:apply-templates mode="m_bibl-to-biblStruct" select="tei:standOff/descendant::tei:bibl"/>
             </xsl:variable>
             <xsl:element name="standOff">
                 <!-- already in authority file-->
@@ -50,7 +50,7 @@
                     <xsl:element name="head">
                         <xsl:text>new or unlinked</xsl:text>
                     </xsl:element>
-                    <xsl:for-each-group select="$v_bibls/descendant-or-self::tei:biblStruct[not(tei:monogr/tei:idno)]" group-by=".">
+                    <xsl:for-each-group select="$v_bibls/descendant-or-self::tei:biblStruct[not(tei:monogr/tei:idno[@type = ($p_local-authority, $p_acronym-wikidata)])]" group-by=".">
                         <xsl:sort select="tei:monogr/tei:title[1]"/>
                         <xsl:apply-templates select="." mode="m_replicate"/>
                     </xsl:for-each-group>

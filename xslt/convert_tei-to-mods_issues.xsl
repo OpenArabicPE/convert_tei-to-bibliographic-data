@@ -12,7 +12,7 @@
     <xsl:import href="convert_tei-to-mods_functions.xsl"/>
     
     <xsl:template match="/">
-        <xsl:result-document href="{$v_base-directory}{$p_output-folder}{$v_file-name_input}.MODS.xml">
+        <xsl:result-document href="{$p_output-folder}{$v_file-name_input}.MODS.xml">
             <modsCollection xsi:schemaLocation="http://www.loc.gov/mods/v3 {$v_schema}">
                 <!-- construct MODS -->
                 <xsl:apply-templates select="descendant::tei:text/tei:body/descendant::tei:div"/>

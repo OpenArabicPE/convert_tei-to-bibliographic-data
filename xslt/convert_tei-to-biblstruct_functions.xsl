@@ -205,7 +205,7 @@
     <xsl:template match="@xml:id | @change" mode="m_replicate"/>
     <!-- in some cases the content has been wrapped in <del>. Such content should be o -->
     <xsl:template match="tei:del" mode="m_bibl-to-biblStruct"/>
-    <xsl:template match="tei:bibl" mode="m_bibl-to-biblStruct" priority="10">
+    <xsl:template match="tei:bibl" mode="m_bibl-to-biblStruct" priority="100">
         <xsl:variable name="v_source">
             <xsl:choose>
                 <xsl:when test="@source">
@@ -239,10 +239,21 @@
                 </analytic>
             </xsl:if>
             <monogr>
-                <xsl:apply-templates mode="m_bibl-to-biblStruct" select="tei:title[@level != 'a']"/>
-                <xsl:apply-templates mode="m_replicate" select="tei:title[not(@level)]"/>
+                <xsl:for-each-group group-by="." select="descendant::tei:title[(@level != 'a') or not(@level)]">
+                    <xsl:apply-templates mode="m_bibl-to-biblStruct" select="."/>
+                </xsl:for-each-group>
                 <xsl:apply-templates mode="m_replicate" select="tei:idno"/>
-                <xsl:for-each select="tokenize(tei:title[(@level != 'a') or not(@level)][@ref][1]/@ref, '\s+')">
+                <xsl:variable name="v_refs">
+                    <xsl:for-each select="descendant::tei:title[(@level != 'a') or not(@level)][@ref[not(. = 'NA')]]/@ref">
+                        <xsl:for-each select="tokenize(., '\s+')">
+                            <item>
+                                <xsl:value-of select="."/>
+                            </item>
+                        </xsl:for-each>
+                    </xsl:for-each>
+                </xsl:variable>
+                <xsl:for-each-group group-by="." select="$v_refs/tei:item">
+                    <xsl:sort select="."/>
                     <xsl:variable name="v_authority">
                         <xsl:choose>
                             <xsl:when test="contains(., concat($p_acronym-wikidata, ':'))">
@@ -277,10 +288,10 @@
                             <xsl:value-of select="$v_idno"/>
                         </idno>
                     </xsl:if>
-                </xsl:for-each>
+                </xsl:for-each-group>
                 <xsl:choose>
                     <xsl:when test="tei:textLang">
-                        <xsl:apply-templates mode="m_replicate" select="tei:textLang"/>
+                        <xsl:apply-templates mode="m_replicate" select="descendant::tei:textLang"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:if test="$p_verbose = true()">
@@ -291,13 +302,13 @@
                         <xsl:variable name="v_lang">
                             <xsl:choose>
                                 <!-- chose the language of the title -->
-                                <xsl:when test="$p_detect-language-from-title = true() and tei:title[@level = ('j', 'm')]/@xml:lang">
+                                <xsl:when test="$p_detect-language-from-title = true() and descendant::tei:title[@level = ('j', 'm')]/@xml:lang">
                                     <xsl:if test="$p_verbose = true()">
                                         <xsl:message>
                                             <xsl:text>taking implicit language information from title</xsl:text>
                                         </xsl:message>
                                     </xsl:if>
-                                    <xsl:value-of select="tei:title[@level = ('j', 'm')][@xml:lang][1]/@xml:lang"/>
+                                    <xsl:value-of select="descendant::tei:title[@level = ('j', 'm')][@xml:lang][1]/@xml:lang"/>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:value-of select="'NA'"/>
@@ -315,31 +326,39 @@
                 <!-- author: depending on which level we are on -->
                 <xsl:choose>
                     <!-- if this is for a book section, article etc., the author has been part of <analytic> -->
-                    <xsl:when test="tei:title[@level = 'a']"/>
+                    <xsl:when test="descendant::tei:title[@level = 'a']"/>
                     <xsl:otherwise>
-                        <xsl:apply-templates mode="m_bibl-to-biblStruct" select="tei:author"/>
+                        <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:author"/>
                     </xsl:otherwise>
                 </xsl:choose>
-                <xsl:apply-templates mode="m_bibl-to-biblStruct" select="tei:editor"/>
-                <xsl:apply-templates mode="m_bibl-to-biblStruct" select="tei:respStmt"/>
+                <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:editor"/>
+                <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:respStmt"/>
                 <imprint>
-                    <xsl:apply-templates mode="m_bibl-to-biblStruct" select="descendant::tei:date"/>
+                    <xsl:for-each-group group-by="." select="descendant::tei:date">
+                        <xsl:apply-templates mode="m_bibl-to-biblStruct" select="."/>
+                    </xsl:for-each-group>
                     <!-- add a date at which this bibl was documented in the source file -->
                     <xsl:if test="$v_source-date != ''">
                         <date source="{$v_source}" type="documented" when="{$v_source-date}"/>
                     </xsl:if>
-                    <xsl:apply-templates mode="m_bibl-to-biblStruct" select="tei:pubPlace"/>
-                    <xsl:apply-templates mode="m_bibl-to-biblStruct" select="tei:publisher"/>
+                    <xsl:for-each-group group-by="." select="descendant::tei:pubPlace">
+                        <xsl:apply-templates mode="m_bibl-to-biblStruct" select="."/>
+                    </xsl:for-each-group>
+                    <xsl:for-each-group group-by="." select="descendant::tei:publisher">
+                        <xsl:apply-templates mode="m_bibl-to-biblStruct" select="."/>
+                    </xsl:for-each-group>
                 </imprint>
-                <xsl:apply-templates mode="m_replicate" select="tei:biblScope"/>
+                <xsl:for-each-group group-by="." select="descendant::tei:biblScope">
+                    <xsl:apply-templates mode="m_bibl-to-biblStruct" select="."/>
+                </xsl:for-each-group>
             </monogr>
             <!-- retain all potential notes  -->
-            <xsl:apply-templates mode="m_replicate" select="tei:note"/>
+            <xsl:apply-templates mode="m_replicate" select="descendant::tei:note"/>
         </biblStruct>
     </xsl:template>
     <xsl:template match="node() | @*" mode="m_bibl-to-biblStruct">
         <xsl:copy>
-            <xsl:apply-templates select="@* | node()" mode="m_bibl-to-biblStruct"/>
+            <xsl:apply-templates mode="m_bibl-to-biblStruct" select="@* | node()"/>
         </xsl:copy>
     </xsl:template>
     <!-- remove attributes -->
@@ -420,6 +439,7 @@
             <xsl:apply-templates mode="m_simple" select="@*"/>
             <!-- reproduce all known titles -->
             <xsl:apply-templates mode="m_simple" select="tei:title"/>
+            <xsl:apply-templates mode="m_extract-idno" select="tei:title[@ref]"/>
             <xsl:apply-templates mode="m_simple" select="tei:idno">
                 <xsl:sort select="@type"/>
                 <xsl:sort data-type="number" select="replace(., '[^\d]', '')"/>
@@ -429,6 +449,19 @@
             <xsl:apply-templates mode="m_simple" select="tei:imprint"/>
             <xsl:apply-templates mode="m_simple" select="descendant::tei:biblScope"/>
         </xsl:copy>
+    </xsl:template>
+    <!-- extract IDs from title attributes -->
+    <xsl:template match="tei:title[@ref]" mode="m_extract-idno">
+        <xsl:if test="matches(@ref, concat($p_acronym-wikidata, ':Q\d+'))">
+            <idno type="{$p_acronym-wikidata}">
+                <xsl:value-of select="replace(@ref, concat('^.*', $p_acronym-wikidata, ':(Q\d+).*$'), '$1')"/>
+            </idno>
+        </xsl:if>
+        <xsl:if test="matches(@ref, 'oape:bibl:\d+')">
+            <idno type="oape">
+                <xsl:value-of select="replace(@ref, '^.*oape:bibl:(\d+).*$', '$1')"/>
+            </idno>
+        </xsl:if>
     </xsl:template>
     <xsl:template match="tei:imprint" mode="m_simple">
         <xsl:copy>
@@ -578,7 +611,17 @@
                 <xsl:variable name="v_editionStmt" select="tei:editionStmt"/>
                 <biblStruct>
                     <analytic>
-                        <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="$v_titleStmt/tei:title"/>
+                        <!-- titles -->
+                        <xsl:choose>
+                            <xsl:when test="$v_titleStmt/tei:title">
+                                <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="$v_titleStmt/tei:title"/>
+                            </xsl:when>
+                            <!-- select the lowest titles in a potential hierarchy but no descendants of the DHQ author info -->
+                            <xsl:otherwise>
+                                <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="$v_titleStmt/descendant::tei:title[not(tei:title)][not(ancestor::dhq:authorInfo)]"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <!-- authors -->
                         <xsl:choose>
                             <!-- dealing with DHQ files -->
                             <xsl:when test="$v_titleStmt/descendant::dhq:authorInfo">
@@ -593,6 +636,15 @@
                         <textLang mainLang="{following-sibling::tei:profileDesc/tei:langUsage/tei:language/@ident}"/>
                         <!-- IDs -->
                         <xsl:apply-templates mode="m_fileDesc-to-biblStruct" select="$v_publicationStmt/tei:idno[@type = ('DHQarticle-id')]"/>
+                        <!-- add local file name -->
+                        <xsl:if test="not($v_publicationStmt/descendant::tei:idno[@type = ('url', 'URI')])">
+                            <xsl:message>
+                                <xsl:text>TEI contains no URL, using local path instead</xsl:text>
+                            </xsl:message>
+                            <idno type="url">
+                                <xsl:value-of select="concat($v_file-name_input, '.xml')"/>
+                            </idno>
+                        </xsl:if>
                         <!-- date -->
                         <xsl:apply-templates mode="m_simple" select="$v_editionStmt/tei:edition/tei:date"/>
                         <!-- availability -->
@@ -733,7 +785,7 @@
             <xsl:apply-templates mode="m_simple"/>
         </xsl:copy>
     </xsl:template>
-    <xsl:template match="tei:title[parent::tei:titleStmt]" mode="m_fileDesc-to-biblStruct">
+    <xsl:template match="tei:title[ancestor::tei:titleStmt]" mode="m_fileDesc-to-biblStruct">
         <!--        <xsl:choose>-->
         <!-- some titles nest. for instance, in the case of reviews -->
         <!--<xsl:when test="tei:title">

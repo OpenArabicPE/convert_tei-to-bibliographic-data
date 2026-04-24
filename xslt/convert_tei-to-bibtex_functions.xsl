@@ -6,6 +6,8 @@
     <xsl:import href="convert_tei-to-biblstruct_functions.xsl"/>
     <!-- this stylesheet translates <tei:biblStruct>s to  BibTeX -->
     <xsl:variable name="v_new-line" select="'&#x0A;'"/>
+    <!-- output format: bibtex or biblatex -->
+        <xsl:param name="p_output-format" select="'bibtex'"/>
     <xsl:function name="oape:bibliography-tei-to-bibtex">
         <!-- input is a bibl or biblStruct -->
         <xsl:param name="p_input"/>
@@ -44,7 +46,7 @@
                 <!-- fallback: construct from first author surname plus date -->
                 <xsl:when test="$v_biblStruct/descendant::tei:author">
                     <xsl:value-of select="$v_biblStruct/descendant::tei:author[1]/tei:persName[1]/tei:surname"/>
-                    <xsl:value-of select="$v_biblStruct/descendant::tei:date[@when][1]/substring(@when,1,4)"/>
+                    <xsl:value-of select="$v_biblStruct/descendant::tei:date[@when][1]/substring(@when, 1, 4)"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:value-of select="generate-id($v_biblStruct)"/>
@@ -79,22 +81,68 @@
                 </xsl:when>
             </xsl:choose>
         </xsl:variable>
-        <xsl:variable name="v_title-journal">
+        <xsl:variable name="v_title-container">
             <xsl:choose>
-                <xsl:when test="$v_imprint/tei:title[@level = 'j'][@xml:lang = $p_lang][not(@type = 'sub')]">
-                    <xsl:apply-templates mode="m_tei-to-bibtex" select="$v_imprint/tei:title[@level = 'j'][@xml:lang = $p_lang][not(@type = 'sub')][1]"/>
+                <xsl:when test="$v_monogr/tei:title[@level = 'j']">
+                    <xsl:variable name="v_titles" select="$v_monogr/tei:title[@level = 'j']"/>
+                    <xsl:choose>
+                        <xsl:when test="$v_titles/self::tei:title[@xml:lang = $p_lang][not(@type = 'sub')]">
+                            <xsl:apply-templates mode="m_tei-to-bibtex" select="$v_titles/self::tei:title[@xml:lang = $p_lang][not(@type = 'sub')][1]"/>
+                        </xsl:when>
+                        <xsl:when test="$v_titles/self::tei:title[not(@type = 'sub')]">
+                            <xsl:apply-templates mode="m_tei-to-bibtex" select="$v_titles/self::tei:title[not(@type = 'sub')][1]"/>
+                        </xsl:when>
+                    </xsl:choose>
+                    <xsl:if test="$v_titles/self::tei:title[@xml:lang = $p_lang][@type = 'sub']">
+                        <xsl:text>: </xsl:text>
+                        <xsl:value-of select="$v_titles/self::tei:title[@xml:lang = $p_lang][@type = 'sub']"/>
+                    </xsl:if>
                 </xsl:when>
-                <xsl:when test="$v_imprint/tei:title[@level = 'j'][not(@type = 'sub')]">
-                    <xsl:apply-templates mode="m_tei-to-bibtex" select="$v_imprint/tei:title[@level = 'j'][not(@type = 'sub')][1]"/>
+                <xsl:when test="$v_monogr/tei:title[@level = 'm']">
+                    <xsl:variable name="v_titles" select="$v_monogr/tei:title[@level = 'm']"/>
+                    <xsl:choose>
+                        <xsl:when test="$v_titles/self::tei:title[@xml:lang = $p_lang][not(@type = 'sub')]">
+                            <xsl:apply-templates mode="m_tei-to-bibtex" select="$v_titles/self::tei:title[@xml:lang = $p_lang][not(@type = 'sub')][1]"/>
+                        </xsl:when>
+                        <xsl:when test="$v_titles/self::tei:title[not(@type = 'sub')]">
+                            <xsl:apply-templates mode="m_tei-to-bibtex" select="$v_titles/self::tei:title[not(@type = 'sub')][1]"/>
+                        </xsl:when>
+                    </xsl:choose>
+                    <xsl:if test="$v_titles/self::tei:title[@xml:lang = $p_lang][@type = 'sub']">
+                        <xsl:text>: </xsl:text>
+                        <xsl:value-of select="$v_titles/self::tei:title[@xml:lang = $p_lang][@type = 'sub']"/>
+                    </xsl:if>
                 </xsl:when>
             </xsl:choose>
-            <xsl:if test="$v_imprint/tei:title[@level = 'j'][@xml:lang = $p_lang][@type = 'sub']">
-                <xsl:text>: </xsl:text>
-                <xsl:value-of select="$v_imprint/tei:title[@level = 'j'][@xml:lang = $p_lang][@type = 'sub']"/>
-            </xsl:if>
+        </xsl:variable>
+        <xsl:variable name="v_container-type">
+            <xsl:choose>
+                <xsl:when test="$v_monogr/tei:title[@level = 'j']">
+                    <xsl:text>journal</xsl:text>
+                </xsl:when>
+                <xsl:when test="$v_monogr/tei:title[@level = 'm']">
+                    <xsl:text>book</xsl:text>
+                </xsl:when>
+                <xsl:when test="$v_monogr/tei:title">
+                    <xsl:text>container</xsl:text>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="v_item-type">
+            <xsl:choose>
+                <xsl:when test="$v_container-type = 'journal'">
+                    <xsl:text>article</xsl:text>
+                </xsl:when>
+                <xsl:when test="$v_container-type = 'book'">
+                    <xsl:text>incollection</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>misc</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:variable>
         <!-- construct BibText -->
-        <xsl:text>@ARTICLE{</xsl:text>
+        <xsl:value-of select="concat('@', $v_item-type, '{')"/>
         <!-- BibTextKey -->
         <xsl:value-of select="$v_bibtex-key"/>
         <xsl:text>, </xsl:text>
@@ -142,8 +190,15 @@
         <xsl:value-of select="$v_title-article"/>
         <xsl:text>}, </xsl:text>
         <xsl:value-of select="$v_new-line"/>
-        <xsl:text>journal = {</xsl:text>
-        <xsl:value-of select="$v_title-journal"/>
+        <xsl:choose>
+            <xsl:when test="$p_output-format = 'bibtex'">
+                <xsl:value-of select="$v_container-type"/>
+            </xsl:when>
+            <xsl:when test="$p_output-format = 'biblatex'">
+                <xsl:value-of select="concat($v_container-type, 'title')"/>
+            </xsl:when>
+        </xsl:choose><xsl:text> = {</xsl:text>
+        <xsl:value-of select="$v_title-container"/>
         <xsl:text>}, </xsl:text>
         <xsl:value-of select="$v_new-line"/>
         <!-- imprint -->
@@ -153,12 +208,33 @@
         <xsl:apply-templates mode="m_tei-to-bibtex" select="$p_input/descendant::tei:pubPlace/tei:placeName[@xml:lang = $p_lang]"/>
         <xsl:text>}, </xsl:text>
         <xsl:value-of select="$v_new-line"/>
-        <xsl:apply-templates mode="m_tei-to-bibtex" select="$p_input/descendant::tei:textLang"/>
+        <xsl:choose>
+            <xsl:when test="$p_output-format = 'bibtex'">
+                <xsl:apply-templates mode="m_tei-to-bibtex" select="$p_input/descendant::tei:textLang"/>
+            </xsl:when>
+            <xsl:when test="$p_output-format = 'biblatex'">
+                <xsl:apply-templates mode="m_tei-to-biblatex" select="$p_input/descendant::tei:textLang"/>
+            </xsl:when>
+        </xsl:choose>
         <!-- publication dates -->
-        <xsl:apply-templates mode="m_tei-to-bibtex" select="$v_publication-date/tei:date"/>
+        <xsl:choose>
+            <xsl:when test="$p_output-format = 'bibtex'">
+                <xsl:apply-templates mode="m_tei-to-bibtex" select="$v_publication-date/tei:date"/>
+            </xsl:when>
+            <xsl:when test="$p_output-format = 'biblatex'">
+                <xsl:apply-templates mode="m_tei-to-biblatex" select="$v_publication-date/tei:date"/>
+            </xsl:when>
+        </xsl:choose>
         <!-- URL -->
         <xsl:text>url = {</xsl:text>
-        <xsl:value-of select="$p_input/descendant::tei:idno[@type = 'url'][1]"/>
+        <xsl:choose>
+            <xsl:when test="$v_biblStruct/descendant::tei:idno[@type = 'url']">
+                <xsl:value-of select="$v_biblStruct/descendant::tei:idno[@type = 'url'][1]"/>
+            </xsl:when>
+            <xsl:when test="$v_biblStruct/descendant::tei:idno[@type = 'URI']">
+                <xsl:value-of select="$v_biblStruct/descendant::tei:idno[@type = 'URI'][1]"/>
+            </xsl:when>
+        </xsl:choose>
         <xsl:text>}, </xsl:text>
         <xsl:value-of select="$v_new-line"/>
         <!-- add information on digital edition as a note -->
