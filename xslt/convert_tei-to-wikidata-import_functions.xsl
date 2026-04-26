@@ -19,6 +19,8 @@
             - [x] urn
             - [ ] DOI: not really relevant for my data set
     -->
+    <!-- date visited for URLs in sources if not provided through some other means -->
+    <xsl:param name="p_date-visited" select="'2020-12-29'"/>
     <!-- identity transform -->
     <xsl:template match="node() | @*">
         <xsl:copy>
@@ -370,7 +372,7 @@
         <xsl:variable name="v_qid" select="oape:qs-get-qid(.)"/>
         <xsl:variable name="v_source" select="oape:get-source(.)"/>
         <xsl:choose>
-            <xsl:when test="@when | @from | @to |@notBefore |@notAfter">
+            <xsl:when test="@when | @from | @to | @notBefore | @notAfter">
                 <xsl:variable name="v_property">
                     <tei:list>
                         <xsl:choose>
@@ -488,22 +490,53 @@
                 <xsl:when test="@when">
                     <xsl:value-of select="@when"/>
                 </xsl:when>
-                <xsl:when test="(@type = 'onset') and @from">
-                    <xsl:value-of select="@from"/>
+                <xsl:when test="(@type = 'onset')">
+                    <xsl:choose>
+                        <xsl:when test="@from">
+                            <xsl:value-of select="@from"/>
+                        </xsl:when>
+                        <xsl:when test="@notBefore">
+                            <xsl:value-of select="@notBefore"/>
+                        </xsl:when>
+                        <xsl:when test="@notAfter">
+                            <xsl:value-of select="@notAfter"/>
+                        </xsl:when>
+                        <xsl:when test="@to">
+                            <xsl:value-of select="@to"/>
+                        </xsl:when>
+                    </xsl:choose>
                 </xsl:when>
-                <xsl:when test="(@type = 'onset') and @notBefore">
-                    <xsl:value-of select="@notBefore"/>
-                </xsl:when>
-                <xsl:when test="(@type = 'terminus') and @to">
-                    <xsl:value-of select="@to"/>
-                </xsl:when>
-                <xsl:when test="(@type = 'terminus') and @notAfter">
-                    <xsl:value-of select="@notAfter"/>
+                <xsl:when test="(@type = 'terminus')">
+                    <xsl:choose>
+                        <xsl:when test="@to">
+                            <xsl:value-of select="@to"/>
+                        </xsl:when>
+                        <xsl:when test="@notAfter">
+                            <xsl:value-of select="@notAfter"/>
+                        </xsl:when>
+                        <xsl:when test="@notBefore">
+                            <xsl:value-of select="@notBefore"/>
+                        </xsl:when>
+                        <xsl:when test="@from">
+                            <xsl:value-of select="@from"/>
+                        </xsl:when>
+                    </xsl:choose>
                 </xsl:when>
                 <!-- what to do with @from, @to without @type -->
+                <xsl:when test="@from">
+                    <xsl:value-of select="@from"/>
+                </xsl:when>
                 <xsl:when test="@to">
                     <xsl:value-of select="@to"/>
                 </xsl:when>
+                <xsl:when test="@notBefore">
+                    <xsl:value-of select="@notBefore"/>
+                </xsl:when>
+                <xsl:when test="@notAfter">
+                    <xsl:value-of select="@notAfter"/>
+                </xsl:when>
+                <!-- fallback: non-Gregorian calendars -->
+                <!-- fallback no machine-actionable data at all -->
             </xsl:choose>
         </xsl:variable>
         <xsl:choose>
@@ -2217,7 +2250,7 @@
         <xsl:choose>
             <!-- reference URL: P854 -->
             <xsl:when test="starts-with($v_source, 'http')">
-                <xsl:value-of select="oape:qs-create-reference-url($v_source, '2020-12-29')"/>
+                <xsl:value-of select="oape:qs-create-reference-url($v_source, $p_date-visited)"/>
                 <!--  add item for Project Jarāʾid -->
                 <xsl:if test="matches($v_source, 'projectjaraid')">
                     <xsl:value-of select="concat($v_seperator-qs, 'S248', $v_seperator-qs, 'Q108747045')"/>
