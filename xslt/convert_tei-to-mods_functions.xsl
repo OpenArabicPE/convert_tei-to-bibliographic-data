@@ -4,9 +4,6 @@
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xpath-default-namespace="http://www.loc.gov/mods/v3">
     <xsl:output encoding="UTF-8" indent="yes" method="xml" omit-xml-declaration="no" version="1.0"/>
     <!-- this stylesheet translates <tei:biblStruct>s to  <mods:mods> -->
-    <!-- date conversion functions -->
-    <xsl:import href="https://tillgrallert.github.io/xslt-calendar-conversion/functions/date-functions.xsl"/>
-    <!--     <xsl:include href="../../../xslt-calendar-conversion/date-functions.xsl"/> -->
     <xsl:import href="convert_tei-to-biblstruct_functions.xsl"/>
     <!-- this needs to be adopted to work with any periodical and not just al-Muqtabas -->
     <xsl:variable name="v_schema" select="'http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/mods-3-8.xsd'"/>
