@@ -278,7 +278,7 @@
                 <xsl:text>volume = {</xsl:text>
             </xsl:when>
             <xsl:when test="@unit = 'issue'">
-                <xsl:text>number = {</xsl:text>
+                <xsl:text>issue = {</xsl:text>
             </xsl:when>
             <xsl:when test="@unit = 'page'">
                 <xsl:text>pages = {</xsl:text>

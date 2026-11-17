@@ -12,6 +12,7 @@
     <xsl:template match="/">
         <!-- convert biblStruct to BibTeX -->
         <xsl:result-document href="{$p_output-folder}{$v_file-name_input}-bibl.bib" method="text">
+            <xsl:call-template name="t_file-head"/>
             <xsl:apply-templates select="descendant::tei:standOff//tei:biblStruct"/>
             <!--<xsl:apply-templates select=".//tei:body//tei:bibl[contains(ancestor::tei:div/tei:head/text(),$pg_head-section)]"/>-->
             <xsl:apply-templates select="descendant::tei:text//tei:bibl[descendant::tei:title] | .//tei:body//tei:biblStruct"/>
